@@ -1,0 +1,64 @@
+<template>
+  <div class="increase-main">
+    <el-container>
+      <el-aside><v-menu @routerPush="toPages"></v-menu></el-aside>
+      <el-container>
+        <el-header style="height: auto; padding: 20px">
+          <el-breadcrumb separator="/">
+            <el-breadcrumb-item :to="{ path: item.path }" v-for="(item, index) in routeList" :key="index">{{ item.name }}</el-breadcrumb-item>
+          </el-breadcrumb>
+        </el-header>
+        <img v-if="routeList.length === 1" :style="{'height': windowHeight}" src="../../assets/index-backgroud.jpg"/>
+        <el-main  v-if="routeList.length > 1" :style="{height: windowHeight}">
+          <router-view></router-view>
+        </el-main>
+        <el-footer>©2013－2014 浙ICP备15001306号-1, All Rights Reserved.</el-footer>
+      </el-container>
+    </el-container>
+  </div>
+</template>
+
+<script>
+import menu from '@/components/menu/menu.vue'
+export default {
+  name: 'App',
+  components: {
+    'v-menu': menu
+  },
+  data () {
+    return {
+      windowHeight: window.innerHeight - 114 + 'px',
+      routeList: []
+    }
+  },
+  mounted () {
+    this.routeList = this.$route.meta.routeList
+  },
+  methods: {
+    toPages (path) {
+      this.$router.push({
+        path: path
+      })
+    }
+  },
+  watch: {
+    '$route' () {
+      this.routeList = this.$route.meta.routeList
+    }
+  }
+}
+</script>
+
+<style>
+  .el-footer {
+    background-color: #F2F6FC;
+    text-align: center;
+    line-height: 60px;
+  }
+  .increase-menu, .el-menu {
+    height: 100%;
+  }
+  .el-main {
+    padding: 0 20px;
+  }
+</style>
