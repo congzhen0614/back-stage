@@ -24,7 +24,7 @@
             <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value"></el-option>
           </el-select>
         </el-col>
-        <el-col :span="3">
+        <el-col :span="4">
           <el-select v-model="search.copy" placeholder="批量复制给经销商">
             <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value"></el-option>
           </el-select>

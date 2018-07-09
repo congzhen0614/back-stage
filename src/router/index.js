@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 
 import main from '@/pages/main/main.vue' // 首页
+import login from '@/pages/login/login.vue' // 登录
 import journalManage from '@/pages/journalManage/index.vue' // 杂志列表页
 import addNewJournal from '@/pages/journalManage/addNew/addNew.vue' // 杂志添加页
 import updataJournal from '@/pages/journalManage/updata/updata.vue' // 杂志修改页
@@ -11,6 +12,10 @@ Vue.use(Router)
 
 export default new Router({
   routes: [{
+    path: '/login',
+    name: 'login',
+    component: login
+  }, {
     path: '/',
     name: '首页',
     component: main,

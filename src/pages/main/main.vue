@@ -4,6 +4,12 @@
       <el-aside><v-menu @routerPush="toPages"></v-menu></el-aside>
       <el-container>
         <el-header style="height: auto; padding: 20px">
+          <div class="head-button">
+            <el-row>
+              <span class="head-username">用户名</span>
+              <el-button type="primary" size="mini" @click="clickLogout">退出</el-button>
+            </el-row>
+          </div>
           <el-breadcrumb separator="/">
             <el-breadcrumb-item :to="{ path: item.path }" v-for="(item, index) in routeList" :key="index">{{ item.name }}</el-breadcrumb-item>
           </el-breadcrumb>
@@ -31,6 +37,13 @@ export default {
       routeList: []
     }
   },
+  created () {
+    if (!localStorage.getItem('user')) {
+      this.$router.push({
+        path: '/login'
+      })
+    }
+  },
   mounted () {
     this.routeList = this.$route.meta.routeList
   },
@@ -38,6 +51,16 @@ export default {
     toPages (path) {
       this.$router.push({
         path: path
+      })
+    },
+    clickLogout () {
+      this.$axios.logout().then(res => {
+        localStorage.clear()
+        this.$router.push({
+          path: '/login'
+        })
+      }, err => {
+        this.$message.error(err)
       })
     }
   },
@@ -60,5 +83,11 @@ export default {
   }
   .el-main {
     padding: 0 20px;
+  }
+  .head-button {
+    float: right;
+  }
+  .head-username {
+    margin-right: 20px;
   }
 </style>
