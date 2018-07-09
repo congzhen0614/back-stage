@@ -1,6 +1,6 @@
 <template>
   <div class="increase-menu">
-    <el-menu default-active="0" class="el-menu-vertical-demo" @select="selectMenu">
+    <el-menu :default-active="nowRouter" class="el-menu-vertical-demo" @select="selectMenu">
       <el-menu-item index="/">首页</el-menu-item>
       <el-submenu index="1">
         <template slot="title">
@@ -38,12 +38,20 @@ export default {
   name: '',
   components: {},
   data () {
-    return {}
+    return {
+      nowRouter: ''
+    }
   },
   mounted () {
+    this.getRouter()
   },
   computed: {},
   methods: {
+    getRouter () {
+      let href = window.location.href
+      let index = href.lastIndexOf('/')
+      this.nowRouter = href.substring(index, href.length)
+    },
     selectMenu (val) {
       this.$emit('routerPush', val)
     }

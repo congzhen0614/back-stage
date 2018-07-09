@@ -1,31 +1,31 @@
 <template>
   <div class="journal-Manage">
     <el-header class="journal-Manage-header" style="height: auto">
-      <el-row :gutter="20">
-        <el-col :span="4"><el-input v-model="input" placeholder="请输入名称筛选"></el-input></el-col>
-        <el-col :span="4"><el-input v-model="input" placeholder="请输入编号筛选"></el-input></el-col>
+      <el-row :gutter="40">
+        <el-col :span="4"><el-input v-model="search.name" placeholder="请输入名称筛选"></el-input></el-col>
+        <el-col :span="4"><el-input v-model="search.number" placeholder="请输入编号筛选"></el-input></el-col>
         <el-col :span="3">
-          <el-select v-model="value" placeholder="请选择类别">
+          <el-select v-model="search.type" placeholder="请选择类别">
             <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value"></el-option>
           </el-select>
         </el-col>
         <el-col :span="3">
-          <el-select v-model="value" placeholder="请选择年级">
+          <el-select v-model="search.grade" placeholder="请选择年级">
             <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value"></el-option>
           </el-select>
         </el-col>
         <el-col :span="3">
-          <el-select v-model="value" placeholder="是否上架">
+          <el-select v-model="search.put" placeholder="是否上架">
             <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value"></el-option>
           </el-select>
         </el-col>
         <el-col :span="3">
-          <el-select v-model="value" placeholder="是否宝贝积分商品">
+          <el-select v-model="search.integral" placeholder="是否宝贝积分商品">
             <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value"></el-option>
           </el-select>
         </el-col>
-        <el-col :span="4">
-          <el-select v-model="value" placeholder="请选择批量复制给经销商">
+        <el-col :span="3">
+          <el-select v-model="search.copy" placeholder="批量复制给经销商">
             <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value"></el-option>
           </el-select>
         </el-col>
@@ -160,7 +160,7 @@ export default {
       }],
       tableData3: [],
       input: '',
-      selectVal: '',
+      search: {},
       value: '',
       currentPage4: 100
     }
@@ -207,10 +207,6 @@ export default {
       this.$router.push({
         path: '/upLoadJournal'
       })
-    },
-    // 点击查询
-    onSubmit () {
-      console.log('点击查询')
     }
   },
   watch: {}
