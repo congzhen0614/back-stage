@@ -27,7 +27,7 @@ export default {
   },
   data () {
     return {
-      windowHeight: window.innerHeight - 114 + 'px',
+      windowHeight: window.innerHeight - 115 + 'px',
       routeList: []
     }
   },

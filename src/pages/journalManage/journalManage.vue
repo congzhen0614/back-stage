@@ -50,6 +50,8 @@
         <el-table-column prop="date" label="日期" width="120" sortable></el-table-column>
         <el-table-column prop="name" label="姓名" width="120"></el-table-column>
         <el-table-column prop="address" label="地址" show-overflow-tooltip></el-table-column>
+        <el-table-column prop="allQuantity" label="总数" show-overflow-tooltip></el-table-column>
+        <el-table-column prop="quantity" label="数量" show-overflow-tooltip></el-table-column>
         <el-table-column fixed="right" label="操作" width="100">
           <template slot-scope="scope">
             <el-button @click="handleClick(scope.row)" type="text" size="small">查看</el-button>
@@ -72,6 +74,67 @@
 </template>
 
 <script>
+let table = [{
+  date: '2016-05-03',
+  name: '王小虎',
+  address: '上海市普陀区金沙江路 1510 弄',
+  quantity: 10,
+  allQuantity: 20
+}, {
+  date: '2016-05-02',
+  name: '王小虎',
+  address: '上海市普陀区金沙江路 1511 弄',
+  quantity: 10,
+  allQuantity: 20
+}, {
+  date: '2016-05-04',
+  name: '王小虎',
+  address: '上海市普陀区金沙江路 1512 弄',
+  quantity: 20,
+  allQuantity: 20
+}, {
+  date: '2016-05-01',
+  name: '王小虎',
+  address: '上海市普陀区金沙江路 1513 弄',
+  quantity: 10,
+  allQuantity: 20
+}, {
+  date: '2016-05-08',
+  name: '王小虎',
+  address: '上海市普陀区金沙江路 1514 弄',
+  quantity: 20,
+  allQuantity: 20
+}, {
+  date: '2016-05-06',
+  name: '王小虎',
+  address: '上海市普陀区金沙江路 1515 弄',
+  quantity: 10,
+  allQuantity: 20
+}, {
+  date: '2016-05-07',
+  name: '王小虎',
+  address: '上海市普陀区金沙江路 1516 弄',
+  quantity: 10,
+  allQuantity: 20
+}, {
+  date: '2016-05-07',
+  name: '王小虎',
+  address: '上海市普陀区金沙江路 1517 弄',
+  quantity: 20,
+  allQuantity: 20
+}, {
+  date: '2016-05-07',
+  name: '王小虎',
+  address: '上海市普陀区金沙江路 1518 弄',
+  quantity: 10,
+  allQuantity: 20
+}, {
+  date: '2016-05-07',
+  name: '王小虎',
+  address: '上海市普陀区金沙江路 1519 弄',
+  quantity: 10,
+  allQuantity: 20
+}]
 export default {
   name: 'journal-Manage',
   components: {},
@@ -95,47 +158,7 @@ export default {
         value: '选项5',
         label: '北京烤鸭'
       }],
-      tableData3: [{
-        date: '2016-05-03',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1510 弄'
-      }, {
-        date: '2016-05-02',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1511 弄'
-      }, {
-        date: '2016-05-04',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1512 弄'
-      }, {
-        date: '2016-05-01',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1513 弄'
-      }, {
-        date: '2016-05-08',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1514 弄'
-      }, {
-        date: '2016-05-06',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1515 弄'
-      }, {
-        date: '2016-05-07',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1516 弄'
-      }, {
-        date: '2016-05-07',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1517 弄'
-      }, {
-        date: '2016-05-07',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1518 弄'
-      }, {
-        date: '2016-05-07',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1519 弄'
-      }],
+      tableData3: [],
       input: '',
       selectVal: '',
       value: '',
@@ -143,9 +166,18 @@ export default {
     }
   },
   mounted () {
+    this.getTable()
   },
   computed: {},
   methods: {
+    getTable () {
+      this.tableData3 = []
+      table.forEach(item => {
+        if (item.quantity < item.allQuantity) {
+          this.tableData3.push(item)
+        }
+      })
+    },
     // 选择第几十页
     handleSizeChange (val) {
       console.log(val)
