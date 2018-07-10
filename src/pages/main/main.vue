@@ -7,7 +7,8 @@
           <div class="head-button">
             <el-row>
               <span class="head-username">用户名</span>
-              <el-button type="primary" size="mini" @click="clickLogout">退出</el-button>
+              <span class="head-username">修改密码</span>
+              <span @click="clickLogout">退出</span>
             </el-row>
           </div>
           <el-breadcrumb separator="/">
@@ -33,7 +34,7 @@ export default {
   },
   data () {
     return {
-      windowHeight: window.innerHeight - 115 + 'px',
+      windowHeight: window.innerHeight - 120 + 'px',
       routeList: []
     }
   },
@@ -45,9 +46,13 @@ export default {
     }
   },
   mounted () {
+    this.getAccountList()
     this.routeList = this.$route.meta.routeList
   },
   methods: {
+    getAccountList () {
+      this.$axios.accountList().then(res => {}, err => {})
+    },
     toPages (path) {
       this.$router.push({
         path: path
@@ -55,6 +60,7 @@ export default {
     },
     clickLogout () {
       this.$axios.logout().then(res => {
+        console.log(res)
         localStorage.clear()
         this.$router.push({
           path: '/login'

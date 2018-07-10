@@ -60,16 +60,14 @@
         </el-table-column>
       </el-table>
     </el-main>
-    <el-footer>
-      <el-pagination
-        @size-change="handleSizeChange"
-        @current-change="handleCurrentChange"
-        :page-size="1"
-        :page-sizes="[10, 20, 50, 100]"
-        layout="total, sizes, prev, pager, next, jumper"
-        :total="500">
-      </el-pagination>
-    </el-footer>
+    <el-pagination
+      @size-change="handleSizeChange"
+      @current-change="handleCurrentChange"
+      :page-size="1"
+      :page-sizes="[10, 20, 50, 100]"
+      layout="total, sizes, prev, pager, next, jumper"
+      :total="500">
+    </el-pagination>
   </div>
 </template>
 
@@ -140,7 +138,7 @@ export default {
   components: {},
   data () {
     return {
-      windowHeight: window.innerHeight - 320 + 'px',
+      windowHeight: window.innerHeight - 325 + 'px',
       formInline: {},
       options: [{
         value: '选项1',
@@ -217,9 +215,6 @@ export default {
   .journal-Manage .el-main {
     padding: 0;
   }
-  .journal-Manage .el-pagination {
-    text-align: center;
-  }
   .journal-Manage .el-select {
     width: 100%;
   }
@@ -233,9 +228,5 @@ export default {
   .journal-Manage .header-button-right {
     margin-top: 20px;
     float: right;
-  }
-  .journal-Manage .el-footer {
-    background-color: #fff;
-    height: 30px;
   }
 </style>
