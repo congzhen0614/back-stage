@@ -3,7 +3,9 @@
  * by congzhen
  */
 import axios from 'axios'
-
+import qs from 'qs'
+import Vue from 'vue'
+let obj = new Vue()
 axios.defaults.baseURL = location.protocol + '//192.168.0.230:8081/qrzd'
 
 // 设置headers
@@ -23,6 +25,8 @@ axios.interceptors.response.use(response => {
     this.$router.push({
       path: '/login'
     })
+  } else if (response.data.code < '0') {
+    obj.$message.error(response.data.msg)
   }
   return response
 }, err => {
@@ -31,13 +35,30 @@ axios.interceptors.response.use(response => {
 
 // 接口列表
 export default {
-  login (param) { // 登录
-    return axios.post('/agent/login', param)
+  login (params) { // 登录
+    return axios.post('/agent/login', params)
   },
-  logout (param) { // 退出登录
-    return axios.get('/agent/logout', param)
+  logout (params) { // 退出登录
+    return axios.post('/agent/logout', params)
   },
-  accountList () {
-    return axios.get('/agent/account/list')
+  province () { // 省
+    return axios.get('/sys/area/list/province')
+  },
+  cities (params) { // 市
+    return axios.post('/sys/area/list/citybyid', params)
+  },
+  regions (params) { // 区
+    return axios.post('/sys/area/list/regionbyid', params)
+  },
+  accountList (params) { // 用户列表
+    let param = qs.stringify(params)
+    return axios.get(`/agent/account/list?${param}`)
+  },
+  admingroupList (params) {
+    let param = qs.stringify(params)
+    return axios.get(`/sys/admingroup/list?${param}`)
+  },
+  admingroupDelete (params) {
+    return axios.post('/sys/admingroup/delete', params)
   }
 }

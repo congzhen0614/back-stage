@@ -25,6 +25,9 @@
           <i class="el-icon-setting"></i>
           <span slot="title">系统设置</span>
         </template>
+        <el-menu-item index="/organiza">
+          <span slot="title">商家组织</span>
+        </el-menu-item>
         <el-menu-item index="/account">
           <span slot="title">账号设置</span>
         </el-menu-item>

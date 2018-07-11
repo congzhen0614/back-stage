@@ -10,6 +10,8 @@ import upLoadJournal from '@/pages/journalManage/upLoad/upLoad.vue' // 杂志传
 import account from '@/pages/system/account/account.vue' // 账号列表页
 import addAccount from '@/pages/system/account/addAccount/addAccount.vue' // 添加账号页面
 import updateAccount from '@/pages/system/account/updateAccount/updateAccount.vue' // 修改账号页面
+import organiza from '@/pages/system/organiza/organiza.vue' // 商家组织列表
+import addOrganiza from '@/pages/system/organiza/addOrganiza/addOrganiza.vue' // 添加商家组织
 
 Vue.use(Router)
 
@@ -53,6 +55,14 @@ export default new Router({
       path: '/updateAccount',
       name: '修改账号',
       component: updateAccount
+    }, {
+      path: '/organiza',
+      name: '商家组织',
+      component: organiza
+    }, {
+      path: '/addOrganiza',
+      name: '添加商家组织',
+      component: addOrganiza
     }]
   }]
 })

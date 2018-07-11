@@ -32,11 +32,11 @@
     <el-pagination
       @size-change="handleSizeChange"
       @current-change="handleCurrentChange"
-      :current-page="page.pageNum"
-      :page-size="page.pageSize"
+      :current-page="pages.currentPage"
+      :page-size="pages.pageSize"
       :page-sizes="[10, 20, 50, 100]"
       layout="total, sizes, prev, pager, next, jumper"
-      :total="page.total">
+      :total="pages.total">
     </el-pagination>
   </div>
 </template>
@@ -51,9 +51,10 @@ export default {
       search: {},
       options: [],
       tableList: [],
-      page: {
-        pageNum: 1,
-        pageSize: 10
+      pages: {
+        total: 0,
+        pageSize: 10,
+        currentPage: 1
       }
     }
   },
@@ -62,15 +63,21 @@ export default {
   mounted () {
     this.loadData()
   },
-  computed: {},
+  computed: {
+    params () {
+      let data = {
+        pageNum: this.pages.currentPage,
+        pageSize: this.pages.pageSize
+      }
+      return data
+    }
+  },
   methods: {
     loadData () {
-      this.$axios.accountList().then(res => {
-        console.log(res.data.data)
+      this.$axios.accountList(this.params).then(res => {
         this.tableList = res.data.data.list
-        this.page.total = res.data.data.total
-        this.page.pages = res.data.data.pages
-        this.page.pageNum = res.data.data.pageNum
+        this.pages.total = res.data.data.total
+        this.pages.currentPage = res.data.data.pageNum
       }, err => {
         this.$message.error(err)
       }).catch(err => {
@@ -78,11 +85,13 @@ export default {
       })
     },
     handleSelectionChange () {},
-    handleCurrentChange () {
-      console.log()
+    handleCurrentChange (size) {
+      this.pages.total = size
+      this.loadData()
     },
-    handleSizeChange () {
-      console.log(this.page)
+    handleSizeChange (size) {
+      this.pages.pageSize = size
+      this.loadData()
     },
     clickAddnew () {
       this.$router.push({
@@ -97,11 +106,7 @@ export default {
       })
     }
   },
-  watch: {
-    'page.pageSize' (val) {
-      console.log(val)
-    }
-  }
+  watch: {}
 }
 </script>
 
