@@ -5,7 +5,29 @@
 import axios from 'axios'
 
 axios.defaults.baseURL = location.protocol + '//192.168.0.230:8081/qrzd'
-axios.defaults.headers.Authorization = JSON.parse(localStorage.getItem('user')).authorization
+
+// 设置headers
+axios.interceptors.request.use(config => {
+  if (JSON.parse(localStorage.getItem('user'))) {
+    config.headers.Authorization = JSON.parse(localStorage.getItem('user')).authorization
+  }
+  return config
+}, err => {
+  return Promise.reject(err)
+})
+
+// 设置重定向
+axios.interceptors.response.use(response => {
+  if (response.data.code === '-6') {
+    localStorage.clear()
+    this.$router.push({
+      path: '/login'
+    })
+  }
+  return response
+}, err => {
+  return Promise.reject(err)
+})
 
 // 接口列表
 export default {

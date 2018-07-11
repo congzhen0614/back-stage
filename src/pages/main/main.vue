@@ -46,13 +46,9 @@ export default {
     }
   },
   mounted () {
-    this.getAccountList()
     this.routeList = this.$route.meta.routeList
   },
   methods: {
-    getAccountList () {
-      this.$axios.accountList().then(res => {}, err => {})
-    },
     toPages (path) {
       this.$router.push({
         path: path

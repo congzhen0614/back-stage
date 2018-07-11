@@ -16,11 +16,11 @@
       </el-row>
     </header>
     <el-main>
-      <el-table ref="multipleTable" :data="tableData3" tooltip-effect="dark" style="width: 100%" :height="windowHeight" border @selection-change="handleSelectionChange">
+      <el-table ref="multipleTable" :data="tableList" tooltip-effect="dark" style="width: 100%" :height="windowHeight" border @selection-change="handleSelectionChange">
         <el-table-column type="selection" width="55"></el-table-column>
-        <el-table-column prop="id" label="排序" width="120" sortable></el-table-column>
-        <el-table-column prop="name" label="姓名" width="120"></el-table-column>
-        <el-table-column prop="type" label="类型" show-overflow-tooltip></el-table-column>
+        <el-table-column type="index" width="120" label="排序"></el-table-column>
+        <el-table-column prop="groupName" label="姓名" width="120"></el-table-column>
+        <el-table-column prop="roleName" label="类型" show-overflow-tooltip></el-table-column>
         <el-table-column fixed="right" label="操作" width="100">
           <template slot-scope="scope">
             <el-button type="text" size="small" @click="clickUpdate(scope.row)">修改</el-button>
@@ -32,10 +32,11 @@
     <el-pagination
       @size-change="handleSizeChange"
       @current-change="handleCurrentChange"
-      :page-size="1"
+      :current-page="page.pageNum"
+      :page-size="page.pageSize"
       :page-sizes="[10, 20, 50, 100]"
       layout="total, sizes, prev, pager, next, jumper"
-      :total="500">
+      :total="page.total">
     </el-pagination>
   </div>
 </template>
@@ -49,22 +50,40 @@ export default {
       windowHeight: window.innerHeight - 265 + 'px',
       search: {},
       options: [],
-      tableData3: [{
-        id: 1,
-        name: '王小虎',
-        type: '刊物'
-      }]
+      tableList: [],
+      page: {
+        pageNum: 1,
+        pageSize: 10
+      }
     }
   },
   created () {
   },
   mounted () {
+    this.loadData()
   },
   computed: {},
   methods: {
+    loadData () {
+      this.$axios.accountList().then(res => {
+        console.log(res.data.data)
+        this.tableList = res.data.data.list
+        this.page.total = res.data.data.total
+        this.page.pages = res.data.data.pages
+        this.page.pageNum = res.data.data.pageNum
+      }, err => {
+        this.$message.error(err)
+      }).catch(err => {
+        this.$message.error(err)
+      })
+    },
     handleSelectionChange () {},
-    handleCurrentChange () {},
-    handleSizeChange () {},
+    handleCurrentChange () {
+      console.log()
+    },
+    handleSizeChange () {
+      console.log(this.page)
+    },
     clickAddnew () {
       this.$router.push({
         path: '/addAccount'
@@ -72,10 +91,17 @@ export default {
     },
     clickDelete () {},
     clickUpdate (item) {
-      console.log(item)
+      this.$router.push({
+        path: '/updateAccount',
+        query: item
+      })
     }
   },
-  watch: {}
+  watch: {
+    'page.pageSize' (val) {
+      console.log(val)
+    }
+  }
 }
 </script>
 

@@ -7,9 +7,9 @@ import journalManage from '@/pages/journalManage/journalManage.vue' // 杂志列
 import addNewJournal from '@/pages/journalManage/addNew/addNew.vue' // 杂志添加页
 import updataJournal from '@/pages/journalManage/updata/updata.vue' // 杂志修改页
 import upLoadJournal from '@/pages/journalManage/upLoad/upLoad.vue' // 杂志传图片
-import account from '@/pages/system/account.vue' // 账号列表页
-import addAccount from '@/pages/system/addAccount/addAccount.vue' // 添加账号页面
-import updateAccount from '@/pages/system/updateAccount/updateAccount.vue' // 修改账号页面
+import account from '@/pages/system/account/account.vue' // 账号列表页
+import addAccount from '@/pages/system/account/addAccount/addAccount.vue' // 添加账号页面
+import updateAccount from '@/pages/system/account/updateAccount/updateAccount.vue' // 修改账号页面
 
 Vue.use(Router)
 
