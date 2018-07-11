@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import area from '../../../../static/js/area.json'
+import area from '../../../../../static/js/area.json'
 export default {
   name: 'journal-manage-upLoad',
   components: {},

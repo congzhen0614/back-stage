@@ -10,14 +10,8 @@
         <el-menu-item index="/journalManage">
           <span slot="title">杂志管理</span>
         </el-menu-item>
-        <el-menu-item index="/bookJournal">
+        <el-menu-item index="/catalogue">
           <span slot="title">杂志目录管理</span>
-        </el-menu-item>
-        <el-menu-item index="1-3">
-          <span slot="title">杂志目录查看</span>
-        </el-menu-item>
-        <el-menu-item index="1-4">
-          <span slot="title">年龄段设置</span>
         </el-menu-item>
       </el-submenu>
       <el-submenu index="2">
@@ -30,6 +24,12 @@
         </el-menu-item>
         <el-menu-item index="/account">
           <span slot="title">账号设置</span>
+        </el-menu-item>
+        <el-menu-item index="2-3">
+          <span slot="title">年龄设置</span>
+        </el-menu-item>
+        <el-menu-item index="2-4">
+          <span slot="title">分类设置</span>
         </el-menu-item>
       </el-submenu>
     </el-menu>

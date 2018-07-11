@@ -99,7 +99,9 @@ export default {
       this.loadData()
     },
     clickAddnew () {
-      console.log('添加')
+      this.$router.push({
+        path: '/addOrganiza'
+      })
     },
     clickDelete () {
       this.$confirm('此操作将删除该文件, 是否继续?', {
@@ -128,7 +130,10 @@ export default {
       console.log('查看')
     },
     clickUpdate (item) {
-      console.log('修改')
+      this.$router.push({
+        path: '/updateOrganiza',
+        query: item
+      })
     },
     clickAllowu (item) {
       console.log('启用')
