@@ -18,6 +18,12 @@ import updateAccount from '@/pages/system/account/updateAccount/updateAccount.vu
 import organiza from '@/pages/system/organiza/organiza.vue' // 商家组织列表
 import addOrganiza from '@/pages/system/organiza/addOrganiza/addOrganiza.vue' // 添加商家组织
 import updateOrganiza from '@/pages/system/organiza/updateOrganiza/updateOrganiza.vue' // 修改商家组织
+import setAge from '@/pages/system/setAge/setAge.vue' // 设置年龄段
+import addAge from '@/pages/system/setAge/addAge/addAge.vue' // 添加年龄
+import upDateAge from '@/pages/system/setAge/upDateAge/upDateAge.vue' // 添加年龄
+import classify from '@/pages/system/classify/classify.vue' // 分类设置
+import addClassify from '@/pages/system/classify/addClassify/addClassify.vue' // 添加分类
+import updateClassify from '@/pages/system/classify/updateClassify/updateClassify.vue' // 添加分类
 
 Vue.use(Router)
 
@@ -90,6 +96,30 @@ export default new Router({
       path: '/updateOrganiza',
       name: '修改商家组织',
       component: updateOrganiza
+    }, {
+      path: '/setAge',
+      name: '年龄设置',
+      component: setAge
+    },{
+      path: '/addAge',
+      name: '添加年龄',
+      component: addAge
+    }, {
+      path: '/upDateAge',
+      name: '修改年龄',
+      component: upDateAge
+    }, {
+      path: '/classify',
+      name: '分类设置',
+      component: classify
+    }, {
+      path: '/addClassify',
+      name: '添加分类',
+      component: addClassify
+    }, {
+      path: '/updateClassify',
+      name: '修改分类',
+      component: updateClassify
     }]
   }]
 })

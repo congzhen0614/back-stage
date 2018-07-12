@@ -13,6 +13,9 @@
         <el-menu-item index="/catalogue">
           <span slot="title">杂志目录管理</span>
         </el-menu-item>
+        <el-menu-item index="/QRlist">
+          <span slot="title">二维码列表</span>
+        </el-menu-item>
       </el-submenu>
       <el-submenu index="2">
         <template slot="title">
@@ -25,10 +28,10 @@
         <el-menu-item index="/account">
           <span slot="title">账号设置</span>
         </el-menu-item>
-        <el-menu-item index="2-3">
+        <el-menu-item index="/setAge">
           <span slot="title">年龄设置</span>
         </el-menu-item>
-        <el-menu-item index="2-4">
+        <el-menu-item index="/classify">
           <span slot="title">分类设置</span>
         </el-menu-item>
       </el-submenu>

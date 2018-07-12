@@ -26,23 +26,21 @@
         <el-button type="primary">复制</el-button>
         <el-button type="primary">提交审核</el-button>
         <el-button type="primary">批量绑定</el-button>
-        <el-button type="primary">批量生成二维码</el-button>
+        <el-button type="primary" @click="clickGenerateQR">批量生成二维码</el-button>
       </el-row>
     </header>
-    <el-main>
-      <el-table ref="multipleTable" :data="tableList" tooltip-effect="dark" style="width: 100%" :height="windowHeight" border @selection-change="handleSelectionChange">
-        <el-table-column type="selection" width="55"></el-table-column>
-        <el-table-column type="index" width="120" label="排序"></el-table-column>
-        <el-table-column prop="groupName" label="姓名" width="120"></el-table-column>
-        <el-table-column prop="roleName" label="类型" show-overflow-tooltip></el-table-column>
-        <el-table-column fixed="right" label="操作" width="100">
-          <template slot-scope="scope">
-            <el-button type="text" size="small" @click="clickUpdate(scope.row)">修改</el-button>
-            <el-button type="text" size="small" @click="clickDelete(scope.row)">删除</el-button>
-          </template>
-        </el-table-column>
-      </el-table>
-    </el-main>
+    <el-table ref="multipleTable" :data="tableList" tooltip-effect="dark" style="width: 100%" :height="windowHeight" border @selection-change="handleSelectionChange">
+      <el-table-column type="selection" width="55"></el-table-column>
+      <el-table-column type="index" width="120" label="排序"></el-table-column>
+      <el-table-column prop="groupName" label="姓名" width="120"></el-table-column>
+      <el-table-column prop="roleName" label="类型" show-overflow-tooltip></el-table-column>
+      <el-table-column fixed="right" label="操作" width="100">
+        <template slot-scope="scope">
+          <el-button type="text" size="small" @click="clickUpdate(scope.row)">修改</el-button>
+          <el-button type="text" size="small" @click="clickDelete(scope.row)">删除</el-button>
+        </template>
+      </el-table-column>
+    </el-table>
     <el-pagination
       @size-change="handleSizeChange"
       @current-change="handleCurrentChange"
@@ -61,7 +59,7 @@ export default {
   components: {},
   data () {
     return {
-      windowHeight: window.innerHeight - 295 + 'px',
+      windowHeight: window.innerHeight - 320 + 'px',
       search: {},
       options: [],
       tableList: [],
@@ -86,13 +84,34 @@ export default {
         path: '/addCatalogue'
       })
     },
-    clickDelete () {},
+    clickDelete () {
+      this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        this.$message({
+          type: 'success',
+          message: '删除成功!'
+        })
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '已取消删除'
+        })
+      })
+    },
     clickUpdate () {
       this.$router.push(
         this.$router.push({
           path: '/updateCatalogue'
         })
       )
+    },
+    clickGenerateQR () {
+      this.$router.push({
+        path: '/QRenerat'
+      })
     }
   },
   watch: {}
@@ -103,8 +122,5 @@ export default {
   .journal-Manage-catalogue header {
     padding: 20px;
     background-color: #F2F6FC;
-  }
-  .journal-Manage-catalogue .el-main {
-    padding: 0;
   }
 </style>
