@@ -56,7 +56,6 @@ export default {
     },
     clickLogout () {
       this.$axios.logout().then(res => {
-        console.log(res)
         localStorage.clear()
         this.$router.push({
           path: '/login'

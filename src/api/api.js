@@ -22,9 +22,7 @@ axios.interceptors.request.use(config => {
 axios.interceptors.response.use(response => {
   if (response.data.code === '-6') {
     localStorage.clear()
-    this.$router.push({
-      path: '/login'
-    })
+    window.location.reload()
   } else if (response.data.code < '0') {
     obj.$message.error(response.data.msg)
   }
