@@ -100,7 +100,7 @@ export default new Router({
       path: '/setAge',
       name: '年龄设置',
       component: setAge
-    },{
+    }, {
       path: '/addAge',
       name: '添加年龄',
       component: addAge

@@ -15,20 +15,18 @@
         </el-col>
       </el-row>
     </header>
-    <el-main>
-      <el-table ref="multipleTable" :data="tableList" tooltip-effect="dark" style="width: 100%" :height="windowHeight" border @selection-change="handleSelectionChange">
-        <el-table-column type="selection" width="55"></el-table-column>
-        <el-table-column type="index" width="120" label="排序"></el-table-column>
-        <el-table-column prop="groupName" label="姓名" width="120"></el-table-column>
-        <el-table-column prop="roleName" label="类型" show-overflow-tooltip></el-table-column>
-        <el-table-column fixed="right" label="操作" width="100">
-          <template slot-scope="scope">
-            <el-button type="text" size="small" @click="clickUpdate(scope.row)">修改</el-button>
-            <el-button type="text" size="small" @click="clickDelete(scope.row)">删除</el-button>
-          </template>
-        </el-table-column>
-      </el-table>
-    </el-main>
+    <el-table ref="multipleTable" :data="tableList" tooltip-effect="dark" style="width: 100%" :height="windowHeight" border @selection-change="handleSelectionChange">
+      <el-table-column type="selection" width="55"></el-table-column>
+      <el-table-column type="index" width="120" label="排序"></el-table-column>
+      <el-table-column prop="groupName" label="姓名" width="120"></el-table-column>
+      <el-table-column prop="roleName" label="类型" show-overflow-tooltip></el-table-column>
+      <el-table-column fixed="right" label="操作" width="100">
+        <template slot-scope="scope">
+          <el-button type="text" size="small" @click="clickUpdate(scope.row)">修改</el-button>
+          <el-button type="text" size="small" @click="clickDelete(scope.row)">删除</el-button>
+        </template>
+      </el-table-column>
+    </el-table>
     <el-pagination
       @size-change="handleSizeChange"
       @current-change="handleCurrentChange"
@@ -114,9 +112,6 @@ export default {
   .system-account .header {
     background-color: #F2F6FC;
     padding: 20px;
-  }
-  .system-account .el-main {
-    padding: 0;
   }
   .system-account .el-select {
     width: 100%;
