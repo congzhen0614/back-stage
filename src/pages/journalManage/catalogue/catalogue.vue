@@ -15,8 +15,8 @@
         </el-col>
         <el-col :span="8">
           <el-button type="primary" plain>检索</el-button>
-          <el-button type="primary" plain>批量开启征订</el-button>
-          <el-button type="primary" plain>批量停止征订</el-button>
+          <el-button type="primary">批量开启征订</el-button>
+          <el-button type="primary">批量停止征订</el-button>
         </el-col>
       </el-row>
       <el-row style="margin-top: 20px">
