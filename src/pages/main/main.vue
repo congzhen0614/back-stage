@@ -6,7 +6,7 @@
         <el-header style="height: auto; padding: 20px">
           <div class="head-button">
             <el-row>
-              <span class="head-username">用户名</span>
+              <span class="head-username">{{ username }}</span>
               <span class="head-username">修改密码</span>
               <span @click="clickLogout">退出</span>
             </el-row>
@@ -35,7 +35,8 @@ export default {
   data () {
     return {
       windowHeight: window.innerHeight - 120 + 'px',
-      routeList: []
+      routeList: [],
+      username: JSON.parse(localStorage.getItem('user')).realname
     }
   },
   created () {

@@ -52,11 +52,26 @@ export default {
     let param = qs.stringify(params)
     return axios.get(`/agent/account/list?${param}`)
   },
+  accountSave (params) {
+    return axios.post('/agent/account/save', 'params')
+  },
+  accountUpdateastatus (params) {
+    return axios.post('/agent/account/updateastatus', params)
+  },
+  accountUpdatepsw (params) {
+    return axios.post('/agent/account/updatepsw', params)
+  },
   admingroupList (params) {
     let param = qs.stringify(params)
     return axios.get(`/sys/admingroup/list?${param}`)
   },
   admingroupDelete (params) {
     return axios.post('/sys/admingroup/delete', params)
+  },
+  admingroupSave (params) {
+    return axios.post('/sys/admingroup/save', params)
+  },
+  admingroupUpdate (params) {
+    return axios.post('/sys/admingroup/update', params)
   }
 }

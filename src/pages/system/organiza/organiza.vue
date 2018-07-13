@@ -11,9 +11,13 @@
         <el-table-column type="selection" width="50"></el-table-column>
         <el-table-column type="index" label="序号" width="50"></el-table-column>
         <el-table-column prop="name" label="组织名称"></el-table-column>
-        <el-table-column prop="roleName" label="联系人"></el-table-column>
-        <el-table-column prop="roleName" label="联系电话"></el-table-column>
-        <el-table-column prop="roleName" label="创建时间"></el-table-column>
+        <el-table-column prop="linkman" label="联系人"></el-table-column>
+        <el-table-column prop="phone" label="联系电话"></el-table-column>
+        <el-table-column label="创建时间">
+          <template slot-scope="scope">
+            <span>{{ scope.row.contractTime | dateFormat }}</span>
+          </template>
+        </el-table-column>
         <el-table-column fixed="right" label="操作" width="200">
           <template slot-scope="scope">
             <el-button type="text" size="small" @click="clickChecke(scope.row)">查看</el-button>

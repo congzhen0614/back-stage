@@ -1,6 +1,6 @@
 <template>
   <div class="system-account-add">
-    <el-form ref="form" :model="form" label-width="80px" :rules="rules">
+    <el-form ref="form" :model="form" label-width="80px" :rules="rules" style="width: 500px">
       <el-form-item label="用户名:">
         <el-input v-model="form.username" prop="name"></el-input>
       </el-form-item>
@@ -13,8 +13,13 @@
       <el-form-item label="联系电话:">
         <el-input v-model="form.phone"></el-input>
       </el-form-item>
-      <el-form-item label="所属组织:">
+      <el-form-item label="业务范围:">
         <el-cascader :options="options" v-model="form.regionIds" placeholder="请选择活动区域"></el-cascader>
+      </el-form-item>
+      <el-form-item label="所属组织:">
+        <el-select v-model="form.groupId" placeholder="请选择组织">
+          <el-option v-for="item in groups" :key="item.value" :label="item.label" :value="item.value"></el-option>
+        </el-select>
       </el-form-item>
       <el-form-item label="角色:">
         <el-radio-group v-model="form.roleId">
@@ -39,16 +44,17 @@ export default {
     return {
       rules: rules,
       options: [],
+      groups: [],
       form: {
-        cityIds: [],
-        groupId: 0,
+        cityIds: '',
+        groupId: '',
         password: '',
         phone: '',
-        provinceIds: [],
+        provinceIds: '',
         realname: '',
         regionIds: [],
         roleId: '普通用户',
-        roleLevel: 0,
+        roleLevel: '',
         username: ''
       },
       roles: ['高级管理员', '管理员', '高级用户', '普通用户']
@@ -57,13 +63,29 @@ export default {
   created () {
   },
   mounted () {
+    this.getGroup()
     this.getArea()
-    this.getProvince()
-    this.getCities()
-    this.getRegions()
   },
   computed: {},
   methods: {
+    getGroup () {
+      this.$axios.admingroupList().then(res => {
+        if (res.data.code === '0') {
+          res.data.data.list.forEach(item => {
+            this.groups.push({
+              label: item.name,
+              value: item.id
+            })
+          })
+        } else {
+          this.$message.error(res.data.data.msg)
+        }
+      }, err => {
+        this.$message.error(err)
+      }).catch(err => {
+        this.$message.error(err)
+      })
+    },
     getArea () {
       area.result.forEach(province => {
         let city = []
@@ -88,35 +110,18 @@ export default {
         })
       })
     },
-    getProvince () {
-      this.$axios.province().then(res => {
-        console.log(res)
-      }, err => {
-        this.$message.error(err)
-      }).catch(err => {
-        this.$message.error(err)
-      })
-    },
-    getCities () {
-      this.$axios.cities().then(res => {
-        console.log(res)
-      }, err => {
-        this.$message.error(err)
-      }).catch(err => {
-        this.$message.error(err)
-      })
-    },
-    getRegions () {
-      this.$axios.regions().then(res => {
-        console.log(res)
-      }, err => {
-        this.$message.error(err)
-      }).catch(err => {
-        this.$message.error(err)
-      })
-    },
     onSubmit () {
-      console.log(this.form)
+      this.$axios.accountSave(this.form).then(res => {
+        if (res.data.code === '0') {
+          this.$message.success('创建成功!')
+        } else {
+          this.$message.error(res.data.data.msg)
+        }
+      }, err => {
+        this.$message.error(err)
+      }).catch(err => {
+        this.$message.error(err)
+      })
     },
     goBack () {
       this.$router.go(-1)
@@ -127,10 +132,4 @@ export default {
 </script>
 
 <style>
-  .system-account-add .el-select {
-    width: 100%;
-  }
-  .system-account-add .el-form {
-    width: 500px;
-  }
 </style>
