@@ -3,8 +3,6 @@
     <header class="header" style="height: auto">
       <el-button type="primary" @click="clickAddnew">添加</el-button>
       <el-button type="primary" @click="clickDelete">删除</el-button>
-      <el-button type="primary" @click="clickAllowu">启用</el-button>
-      <el-button type="primary" @click="clickForbid">禁用</el-button>
   </header>
     <el-main>
       <el-table ref="multipleTable" :data="tableList" tooltip-effect="dark" style="width: 100%" :height="windowHeight" border @selection-change="handleSelectionChange">

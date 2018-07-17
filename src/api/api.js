@@ -53,7 +53,7 @@ export default {
     return axios.get(`/agent/account/list?${param}`)
   },
   accountSave (params) {
-    return axios.post('/agent/account/save', 'params')
+    return axios.post('/agent/account/save', params)
   },
   accountUpdateastatus (params) {
     return axios.post('/agent/account/updateastatus', params)
@@ -73,5 +73,9 @@ export default {
   },
   admingroupUpdate (params) {
     return axios.post('/sys/admingroup/update', params)
+  },
+  roleList (params) {
+    let param = qs.stringify(params)
+    return axios.get(`/sys/role/list?${param}`)
   }
 }
