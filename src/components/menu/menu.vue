@@ -40,6 +40,9 @@
         <el-menu-item index="/account">
           <span slot="title">账号设置</span>
         </el-menu-item>
+        <el-menu-item index="/permission">
+          <span slot="title">角色权限</span>
+        </el-menu-item>
       </el-submenu>
     </el-menu>
   </div>

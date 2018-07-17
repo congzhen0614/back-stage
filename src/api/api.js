@@ -52,10 +52,10 @@ export default {
     let param = qs.stringify(params)
     return axios.get(`/agent/account/list?${param}`)
   },
-  accountSave (params) {
+  accountSave (params) { // 新建用户
     return axios.post('/agent/account/save', params)
   },
-  accountUpdateastatus (params) {
+  accountUpdateastatus (params) { // 修改用户
     return axios.post('/agent/account/updateastatus', params)
   },
   accountUpdatepsw (params) {
@@ -77,5 +77,20 @@ export default {
   roleList (params) {
     let param = qs.stringify(params)
     return axios.get(`/sys/role/list?${param}`)
+  },
+  testClear () { // 清除权限信息
+    return axios.get('/sys/test/clear')
+  },
+  rolepermissionList (params) { // 当前角色拥有的权限
+    return axios.post('/sys/rolepermission/list', params)
+  },
+  permissionList () { // 权限列表
+    return axios.get('/sys/permission/list')
+  },
+  roleCandidate () { // 所有权限列表
+    return axios.get('/sys/role/candidate')
+  },
+  rolepermissionSave (params) {
+    return axios.post('/sys/rolepermission/save', params)
   }
 }

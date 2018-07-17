@@ -70,6 +70,8 @@ export default {
   },
   mounted () {
     this.getProvince()
+    this.getCity()
+    this.getRegion()
     this.getGroup()
     this.getArea()
     this.loadRoleList()
@@ -80,6 +82,32 @@ export default {
     getProvince () {
       this.$axios.province().then(res => {
         console.log(res)
+      })
+    },
+    getCity () {
+      this.$axios.cities().then(res => {
+        if (res.data.code === '0') {
+          console.log(res)
+        } else {
+          this.$message.error(res.data.data.msg)
+        }
+      }, err => {
+        this.$message.error(err)
+      }).catch(err => {
+        this.$message.error(err)
+      })
+    },
+    getRegion () {
+      this.$axios.regions().then(res => {
+        if (res.data.code === '0') {
+          console.log(res)
+        } else {
+          this.$message.error(res.data.data.msg)
+        }
+      }, err => {
+        this.$message.error(err)
+      }).catch(err => {
+        this.$message.error(err)
       })
     },
     getGroup () {
