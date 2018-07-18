@@ -29,6 +29,16 @@ router.beforeEach((to, from, next) => {
   next()
 })
 
+Vue.prototype.havePermission = function (value) {
+  let per = false
+  JSON.parse(localStorage.getItem('permission')).forEach(item => {
+    if (item.permissionId === value) {
+      per = true
+    }
+  })
+  return per
+}
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

@@ -6,9 +6,9 @@
         <el-header style="height: auto; padding: 20px">
           <div class="head-button">
             <el-row>
-              <span class="head-username">{{ username }}</span>
+              <span class="head-username" v-if="havePermission(6)">{{ username }}</span>
               <span class="head-username">修改密码</span>
-              <span @click="clickLogout">退出</span>
+              <span style="cursor: pointer" @click="clickLogout">退出</span>
             </el-row>
           </div>
           <el-breadcrumb separator="/">

@@ -41,14 +41,28 @@ export default {
             message: '登录成功',
             type: 'success'
           })
+          this.loadPermission(res.data.data.roleId)
           localStorage.setItem('user', JSON.stringify(res.data.data))
-          this.$router.push({
-            path: '/'
-          })
         } else {
           this.$message.error('账号或密码错误')
         }
       }, err => {
+        this.$message.error(err)
+      })
+    },
+    loadPermission (roleId) {
+      this.$axios.rolepermissionList({roleId: roleId}).then(res => {
+        if (res.data.code === '0') {
+          localStorage.setItem('permission', JSON.stringify(res.data.data))
+          this.$router.push({
+            path: '/'
+          })
+        } else {
+          this.$message.error(res.data.data.res)
+        }
+      }, err => {
+        this.$message.error(err)
+      }).catch(err => {
         this.$message.error(err)
       })
     }
