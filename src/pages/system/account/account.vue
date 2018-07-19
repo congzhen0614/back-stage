@@ -97,7 +97,6 @@ export default {
   },
   methods: {
     loadData () {
-      console.log(this.params)
       this.$axios.accountList(this.params).then(res => {
         this.tableList = res.data.data.list
         this.pages.total = res.data.data.total
