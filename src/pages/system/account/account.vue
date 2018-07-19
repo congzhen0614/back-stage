@@ -10,8 +10,7 @@
         </el-col>
         <el-col :span="8">
           <el-button type="primary">检索</el-button>
-          <el-button type="primary" @click="clickAddnew">添加</el-button>
-          <el-button type="primary" @click="clickDelete">删除</el-button>
+          <el-button type="primary" @click="clickAddnew" v-if="havePermission(6)">添加</el-button>
         </el-col>
       </el-row>
     </header>
@@ -30,10 +29,10 @@
       </el-table-column>
       <el-table-column fixed="right" label="操作" width="250">
         <template slot-scope="scope">
-          <el-button type="text" size="small" @click="clickUpdate(scope.row)">查看绑定学校</el-button>
-          <el-button type="text" size="small" @click="clickUpdate(scope.row)">修改</el-button>
+          <!--<el-button type="text" size="small" @click="clickUpdate(scope.row)">查看绑定学校</el-button>-->
+          <el-button type="text" size="small" @click="clickUpdate(scope.row)" v-if="havePermission(7)">修改</el-button>
           <el-button type="text" size="small" @click="clickReset(scope.row)">重置密码</el-button>
-          <el-button type="text" size="small" @click="clickAstatus(scope.row)">{{ scope.row.adminAccountStatus | accountStatus }}</el-button>
+          <el-button type="text" size="small" @click="clickAstatus(scope.row)">{{ scope.row.adminAccountStatusDesc | accountStatus }}</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -121,11 +120,12 @@ export default {
         path: '/addAccount'
       })
     },
-    clickDelete () {},
     clickUpdate (item) {
       this.$router.push({
         path: '/updateAccount',
-        query: item
+        query: {
+          param: JSON.stringify(item)
+        }
       })
     },
     clickReset (item) {
@@ -161,7 +161,7 @@ export default {
     clickAstatus (item) {
       let param = {
         id: item.id,
-        adminAccountStatus: item.adminAccountStatus === '正常' ? 2 : 1
+        adminAccountStatus: item.adminAccountStatusDesc === '正常' ? 2 : 1
       }
       this.$axios.accountUpdateastatus(param).then(res => {
         if (res.data.code === '0') {

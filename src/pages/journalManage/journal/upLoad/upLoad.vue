@@ -1,7 +1,15 @@
 <template>
   <div class="journal-manage-upLoad">
-    <el-cascader :options="options" v-model="selectedOptions" @change="handleChange"></el-cascader>
-    <el-tree :data="data" show-checkbox @check-change="getSelectedNodes"></el-tree>
+    <!--<el-cascader :options="options" v-model="selectedOptions" @change="handleChange"></el-cascader>-->
+    <el-tree
+      ref="tree"
+      show-checkbox
+      node-key="id"
+      :data="data"
+      :default-checked-keys="[5]"
+      :default-expanded-keys="[2, 3]"
+      @check-change="getSelectedNodes">
+    </el-tree>
   </div>
 </template>
 
@@ -17,38 +25,38 @@ export default {
       // ['省', '市', '区']
       selectedOptions: [],
       data: [{
+        id: 1,
         label: '一级 1',
         children: [{
+          id: 4,
           label: '二级 1-1',
           children: [{
+            id: 9,
             label: '三级 1-1-1'
+          }, {
+            id: 10,
+            label: '三级 1-1-2'
           }]
         }]
       }, {
+        id: 2,
         label: '一级 2',
         children: [{
-          label: '二级 2-1',
-          children: [{
-            label: '三级 2-1-1'
-          }]
+          id: 5,
+          label: '二级 2-1'
         }, {
-          label: '二级 2-2',
-          children: [{
-            label: '三级 2-2-1'
-          }]
+          id: 6,
+          label: '二级 2-2'
         }]
       }, {
+        id: 3,
         label: '一级 3',
         children: [{
-          label: '二级 3-1',
-          children: [{
-            label: '三级 3-1-1'
-          }]
+          id: 7,
+          label: '二级 3-1'
         }, {
-          label: '二级 3-2',
-          children: [{
-            label: '三级 3-2-1'
-          }]
+          id: 8,
+          label: '二级 3-2'
         }]
       }],
       defaultProps: {
@@ -59,6 +67,7 @@ export default {
   },
   mounted () {
     this.getArea()
+    console.log(this.$refs.tree.getCheckedNodes())
   },
   computed: {},
   methods: {
@@ -86,11 +95,10 @@ export default {
         })
       })
     },
-    getSelectedNodes (val) {
-      console.log(val)
-    },
-    handleChange (val) {
-      console.log(val)
+    getSelectedNodes (val1, val2, val3) {
+      console.log(val1)
+      console.log(val2)
+      console.log(val3)
     }
   },
   watch: {}

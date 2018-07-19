@@ -11,7 +11,7 @@
         <el-input v-model="form.phone"></el-input>
       </el-form-item>
       <el-form-item label="业务范围:">
-        <el-tag v-for="tag in tags" :key="tag.label" type="success" closable @close="clickClose(tag)">{{tag.label}}</el-tag>
+        <el-tag v-for="tag in tags" :key="tag.label" type="success">{{tag.label}}</el-tag>
         <el-button size="small" @click="clickScope()">修改</el-button>
       </el-form-item>
       <el-form-item label="所属组织:">
@@ -25,13 +25,14 @@
         </el-radio-group>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" @click="onSubmit">立即创建</el-button>
+        <el-button type="primary" @click="onSubmit">立即修改</el-button>
         <el-button @click="goBack">取消</el-button>
       </el-form-item>
     </el-form>
     <el-dialog width="30%" custom-class="elDialog" :close-on-press-escape="true" :visible.sync="dialogVisible">
       <el-input placeholder="输入关键字进行过滤" v-model="filterText"></el-input>
-      <el-tree :data="options" show-checkbox :check-strictly="true" @check-change="getSelectedNodes" :filter-node-method="filterNode" ref="tree"></el-tree>
+      <el-tree ref="tree" show-checkbox node-key="value" :data="options" :filter-node-method="filterNode" :default-checked-keys="select" @check-change="getSelectedNodes">
+      </el-tree>
     </el-dialog>
   </div>
 </template>
@@ -47,68 +48,66 @@ export default {
       dialogVisible: false,
       rules: rules,
       options: [],
+      select: [],
       groups: [],
       tags: [],
       form: {
-        cityIds: [],
-        groupId: this.$route.query.groupId,
-        password: this.$route.query.password,
-        phone: this.$route.query.phone,
-        provinceIds: [],
-        realname: this.$route.query.realname,
-        regionIds: [],
         roleId: 0,
-        rolename: this.$route.query.rolename,
-        roleLevel: this.$route.query.roleLevel,
-        username: this.$route.query.username
+        id: JSON.parse(this.$route.query.param).id,
+        adminAccountStatus: JSON.parse(this.$route.query.param).adminAccountStatus,
+        provinceIds: JSON.parse(this.$route.query.param).provinces,
+        cityIds: JSON.parse(this.$route.query.param).citys,
+        regionIds: JSON.parse(this.$route.query.param).regions,
+        groupId: JSON.parse(this.$route.query.param).groupId,
+        phone: JSON.parse(this.$route.query.param).phone,
+        realname: JSON.parse(this.$route.query.param).realname,
+        rolename: JSON.parse(this.$route.query.param).rolename,
+        roleLevel: JSON.parse(this.$route.query.param).roleLevel,
+        username: JSON.parse(this.$route.query.param).username
       },
       roles: [],
       filterText: ''
     }
   },
-  created () {
-  },
+  created () {},
   mounted () {
-    this.getProvince()
-    this.getCity()
-    this.getRegion()
+    this.setSelect()
     this.getGroup()
     this.getArea()
     this.loadRoleList()
   },
-  computed: {
-  },
   methods: {
-    getProvince () {
-      this.$axios.province().then(res => {
-        console.log(res)
-      })
-    },
-    getCity () {
-      this.$axios.cities().then(res => {
-        if (res.data.code === '0') {
-          console.log(res)
-        } else {
-          this.$message.error(res.data.data.msg)
-        }
-      }, err => {
-        this.$message.error(err)
-      }).catch(err => {
-        this.$message.error(err)
-      })
-    },
-    getRegion () {
-      this.$axios.regions().then(res => {
-        if (res.data.code === '0') {
-          console.log(res)
-        } else {
-          this.$message.error(res.data.data.msg)
-        }
-      }, err => {
-        this.$message.error(err)
-      }).catch(err => {
-        this.$message.error(err)
-      })
+    setSelect () {
+      if (this.form.provinceIds) {
+        this.form.provinceIds.forEach(item => {
+          this.select.push(item.id)
+          this.tags.push({
+            value: item.id,
+            label: item.name,
+            grade: 1
+          })
+        })
+      }
+      if (this.form.cityIds) {
+        this.form.cityIds.forEach(item => {
+          this.select.push(item.id)
+          this.tags.push({
+            value: item.id,
+            label: item.name,
+            grade: 2
+          })
+        })
+      }
+      if (this.form.regionIds) {
+        this.form.regionIds.forEach(item => {
+          this.select.push(item.id)
+          this.tags.push({
+            value: item.id,
+            label: item.name,
+            grade: 3
+          })
+        })
+      }
     },
     getGroup () {
       this.$axios.admingroupList().then(res => {
@@ -175,9 +174,12 @@ export default {
       })
     },
     onSubmit () {
-      this.$axios.accountSave(this.form).then(res => {
+      this.$axios.accountUpdateastatus(this.form).then(res => {
         if (res.data.code === '0') {
-          this.$message.success('创建成功!')
+          this.$message.success('操作成功!')
+          this.$router.push({
+            path: '/account'
+          })
         } else {
           this.$message.error(res.data.data.msg)
         }
@@ -191,27 +193,19 @@ export default {
       if (!value) return true
       return data.label.indexOf(value) !== -1
     },
-    getSelectedNodes (val) {
-      let exist = false
+    getSelectedNodes (val1, val2, val3) {
       this.tags.forEach((item, index) => {
-        if (item.value === val.value) {
+        if (item.value === val1.value) {
           this.tags.splice(index, 1)
-          exist = true
         }
       })
-      if (!exist) {
-        this.tags.push(val)
+      if (val2) {
+        this.tags.push(val1)
       }
     },
     clickScope () {
       this.dialogVisible = true
-    },
-    clickClose (val) {
-      this.tags.forEach((item, index) => {
-        if (item.value === val.value) {
-          this.tags.splice(index, 1)
-        }
-      })
+      console.log(this.$refs.tree)
     },
     goBack () {
       this.$router.go(-1)
@@ -221,7 +215,7 @@ export default {
     filterText (val) {
       this.$refs.tree.filter(val)
     },
-    'tags.length' (val) {
+    tags (val) {
       this.form.provinceIds = []
       this.form.regionIds = []
       this.form.cityIds = []

@@ -82,7 +82,7 @@ export default {
     return axios.get('/sys/test/clear')
   },
   rolepermissionList (params) { // 当前角色拥有的权限
-    return axios.post('/sys/rolepermission/list', params)
+    return axios.post('/sys/rolepermission/list/open', params)
   },
   permissionList () { // 权限列表
     return axios.get('/sys/permission/list')

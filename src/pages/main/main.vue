@@ -6,7 +6,7 @@
         <el-header style="height: auto; padding: 20px">
           <div class="head-button">
             <el-row>
-              <span class="head-username" v-if="havePermission(6)">{{ username }}</span>
+              <span class="head-username">{{ username }}</span>
               <span class="head-username">修改密码</span>
               <span style="cursor: pointer" @click="clickLogout">退出</span>
             </el-row>
@@ -36,7 +36,7 @@ export default {
     return {
       windowHeight: window.innerHeight - 120 + 'px',
       routeList: [],
-      username: JSON.parse(localStorage.getItem('user')).realname
+      username: JSON.parse(localStorage.getItem('user')).realname ? JSON.parse(localStorage.getItem('user')).realname : ''
     }
   },
   created () {

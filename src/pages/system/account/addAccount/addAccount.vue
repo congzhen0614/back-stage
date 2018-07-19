@@ -14,7 +14,7 @@
         <el-input v-model="form.phone"></el-input>
       </el-form-item>
       <el-form-item label="业务范围:">
-        <el-tag v-for="tag in tags" :key="tag.label" type="success" closable @close="clickClose(tag)">{{tag.label}}</el-tag>
+        <el-tag v-for="tag in tags" :key="tag.label" type="success">{{tag.label}}</el-tag>
         <el-button size="small" @click="clickScope()">添加</el-button>
       </el-form-item>
       <el-form-item label="所属组织:">
@@ -24,7 +24,7 @@
       </el-form-item>
       <el-form-item label="角色:">
         <el-radio-group v-model="form.rolename">
-          <el-radio-button v-for="role in roles" :label="role.rolename" :key="role"></el-radio-button>
+          <el-radio-button v-for="role in roles" :label="role.rolename" :key="role.roleId"></el-radio-button>
         </el-radio-group>
       </el-form-item>
       <el-form-item>
@@ -177,13 +177,6 @@ export default {
     },
     clickScope () {
       this.dialogVisible = true
-    },
-    clickClose (val) {
-      this.tags.forEach((item, index) => {
-        if (item.value === val.value) {
-          this.tags.splice(index, 1)
-        }
-      })
     },
     goBack () {
       this.$router.go(-1)
