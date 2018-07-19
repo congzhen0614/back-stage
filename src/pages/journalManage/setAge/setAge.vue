@@ -11,7 +11,7 @@
           <!--</el-select>-->
         <!--</el-col>-->
         <el-col :span="8">
-          <el-button type="primary" plain>检索</el-button>
+          <el-button type="primary" plain @click="loadDate">检索</el-button>
           <el-button type="primary" @click="clickAdd" v-if="havePermission(23)">添加</el-button>
         </el-col>
       </el-row>
