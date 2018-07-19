@@ -58,23 +58,26 @@ export default {
   accountUpdateastatus (params) { // 修改用户
     return axios.post('/agent/account/updateastatus', params)
   },
-  accountUpdatepsw (params) {
+  accountUpdatepsw (params) { // 修改账号
     return axios.post('/agent/account/updatepsw', params)
   },
-  admingroupList (params) {
+  admingroupList (params) { // 获取商家组织列表
     let param = qs.stringify(params)
     return axios.get(`/sys/admingroup/list?${param}`)
   },
-  admingroupDelete (params) {
+  admingroupDelete (params) { // 删除商家组织
     return axios.post('/sys/admingroup/delete', params)
   },
-  admingroupSave (params) {
+  admingroupSave (params) { // 新建商家组织
     return axios.post('/sys/admingroup/save', params)
   },
-  admingroupUpdate (params) {
+  admingroupUpdate (params) { // 修改商家组织
     return axios.post('/sys/admingroup/update', params)
   },
-  roleList (params) {
+  admingroupUpdateastatus (params) { // 启用或禁用商家组织
+    return axios.post('/sys/admingroup/updateastatus', params)
+  },
+  roleList (params) { // 获取角色列表
     let param = qs.stringify(params)
     return axios.get(`/sys/role/list?${param}`)
   },
@@ -92,5 +95,28 @@ export default {
   },
   rolepermissionSave (params) {
     return axios.post('/sys/rolepermission/save', params)
+  },
+  itemageList (params) { // 年龄设置列表
+    let param = qs.stringify(params)
+    return axios.get(`/sys/itemage/list?${param}`)
+  },
+  itemageUpdate (params) { // 年龄设置修改
+    return axios.post('/sys/itemage/update', params)
+  },
+  itemageDel (params) { // 年龄设置删除
+    return axios.post('/sys/itemage/del', params)
+  },
+  itemtypeList (params) { // 分类设置列表
+    let param = qs.stringify(params)
+    return axios.get(`/sys/itemtype/list?${param}`)
+  },
+  itemtypeSave (params) { // 分类设置新增加
+    return axios.post('/sys/itemtype/save', params)
+  },
+  itemtypeUpdate (params) { // 分类设置删除
+    return axios.post('/sys/itemtype/update', params)
+  },
+  itemtypeDel (params) { // 分类设置删除
+    return axios.post('/sys/itemtype/delete', params)
   }
 }

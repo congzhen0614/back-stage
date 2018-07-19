@@ -1,7 +1,7 @@
 <template>
   <div class="system-organiza">
     <header class="header" style="height: auto">
-      <el-button type="primary" @click="clickAddnew">添加</el-button>
+      <el-button type="primary" @click="clickAddnew" v-if="havePermission(15)">添加</el-button>
       <el-button type="primary" @click="clickDelete">删除</el-button>
   </header>
     <el-main>
@@ -19,9 +19,8 @@
         <el-table-column fixed="right" label="操作" width="200">
           <template slot-scope="scope">
             <el-button type="text" size="small" @click="clickChecke(scope.row)">查看</el-button>
-            <el-button type="text" size="small" @click="clickUpdate(scope.row)">修改</el-button>
-            <el-button type="text" size="small" @click="clickAllowu(scope.row)">启用</el-button>
-            <el-button type="text" size="small" @click="clickForbid(scope.row)">禁用</el-button>
+            <el-button type="text" size="small" @click="clickUpdate(scope.row)" v-if="havePermission(16)">修改</el-button>
+            <el-button type="text" size="small" @click="clickAstatus(scope.row)">{{ scope.row.adminAccountStatus | accountStatus }}</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -129,19 +128,36 @@ export default {
       })
     },
     clickChecke (item) {
-      console.log('查看')
-    },
-    clickUpdate (item) {
+      item.update = false
       this.$router.push({
         path: '/updateOrganiza',
         query: item
       })
     },
-    clickAllowu (item) {
-      console.log('启用')
+    clickUpdate (item) {
+      item.update = true
+      this.$router.push({
+        path: '/updateOrganiza',
+        query: item
+      })
     },
-    clickForbid (item) {
-      console.log('禁用')
+    clickAstatus (item) {
+      let param = {
+        id: item.id,
+        adminAccountStatus: item.adminAccountStatus === '正常' ? 2 : 1
+      }
+      this.$axios.admingroupUpdateastatus(param).then(res => {
+        if (res.data.code === '0') {
+          this.$message.success('操作成功!')
+          this.loadData()
+        } else {
+          this.$message.error(res.data.data.msg)
+        }
+      }, err => {
+        this.$message.error(err)
+      }).catch(err => {
+        this.$message.error(err)
+      })
     }
   },
   watch: {}

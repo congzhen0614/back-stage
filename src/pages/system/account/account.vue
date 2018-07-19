@@ -3,13 +3,13 @@
     <header class="header" style="height: auto">
       <el-row :gutter="40">
         <el-col :span="4"><el-input v-model="search.name" placeholder="请输入名称筛选"></el-input></el-col>
-        <el-col :span="4">
-          <el-select v-model="search.type" placeholder="请选择类别">
-            <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value"></el-option>
-          </el-select>
-        </el-col>
+        <!--<el-col :span="4">-->
+          <!--<el-select v-model="search.type" placeholder="请选择类别">-->
+            <!--<el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value"></el-option>-->
+          <!--</el-select>-->
+        <!--</el-col>-->
         <el-col :span="8">
-          <el-button type="primary">检索</el-button>
+          <el-button type="primary" @click="loadData">检索</el-button>
           <el-button type="primary" @click="clickAddnew" v-if="havePermission(6)">添加</el-button>
         </el-col>
       </el-row>
@@ -89,13 +89,15 @@ export default {
     params () {
       let data = {
         pageNum: this.pages.currentPage,
-        pageSize: this.pages.pageSize
+        pageSize: this.pages.pageSize,
+        key: this.search.name
       }
       return data
     }
   },
   methods: {
     loadData () {
+      console.log(this.params)
       this.$axios.accountList(this.params).then(res => {
         this.tableList = res.data.data.list
         this.pages.total = res.data.data.total

@@ -24,8 +24,9 @@
           <el-input v-model="form.phone"></el-input>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="onSubmit">修改</el-button>
-          <el-button @click="goBack">取消</el-button>
+          <el-button type="primary" @click="onSubmit" v-if="update">修改</el-button>
+          <el-button @click="goBack" v-if="update">取消</el-button>
+          <el-button @click="goBack" v-if="!update">返回</el-button>
         </el-form-item>
       </el-form>
     </div>
@@ -38,12 +39,14 @@ export default {
   components: {},
   data () {
     return {
+      update: this.$route.query.update,
       form: this.$route.query
     }
   },
   created () {
   },
   mounted () {
+    console.log(this.$route.query)
   },
   computed: {},
   methods: {

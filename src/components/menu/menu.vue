@@ -10,7 +10,7 @@
         <el-menu-item index="/journalManage">
           <span slot="title">杂志管理</span>
         </el-menu-item>
-        <el-menu-item index="/setAge">
+        <el-menu-item index="/setAge" v-if="havePermission(25)">
           <span slot="title">年龄设置</span>
         </el-menu-item>
         <el-menu-item index="/classify">
@@ -34,13 +34,13 @@
           <i class="el-icon-setting"></i>
           <span slot="title">系统设置</span>
         </template>
-        <el-menu-item index="/organiza">
+        <el-menu-item index="/organiza" v-if="havePermission(18)">
           <span slot="title">商家组织</span>
         </el-menu-item>
         <el-menu-item index="/account">
           <span slot="title">账号设置</span>
         </el-menu-item>
-        <el-menu-item index="/permission">
+        <el-menu-item index="/permission" v-if="havePermission(28)">
           <span slot="title">角色权限</span>
         </el-menu-item>
       </el-submenu>

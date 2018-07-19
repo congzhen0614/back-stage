@@ -2,13 +2,13 @@
   <div class="system-serAge-update">
     <el-form ref="form" :model="form" label-width="80px" :rules="rules">
       <el-form-item label="姓名:">
-        <el-input v-model="form.username" prop="name"></el-input>
+        <el-input v-model="form.name" prop="name"></el-input>
       </el-form-item>
-      <el-form-item label="类型:">
-        <el-input v-model="form.password" prop="type"></el-input>
+      <el-form-item label="排序:">
+        <el-input v-model="form.ord" prop="type"></el-input>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" @click="onSubmit">立即创建</el-button>
+        <el-button type="primary" @click="onSubmit">修改</el-button>
         <el-button @click="goBack">取消</el-button>
       </el-form-item>
     </el-form>
@@ -18,11 +18,11 @@
 <script>
 import rules from '@/libs/rules.js'
 export default {
-  name: 'system-serAge-add',
+  name: 'system-serAge-update',
   components: {},
   data () {
     return {
-      form: {},
+      form: this.$route.query,
       rules: rules
     }
   },
@@ -30,7 +30,22 @@ export default {
   mounted () {},
   computed: {},
   methods: {
-    onSubmit () {},
+    onSubmit () {
+      this.$axios.itemageUpdate(this.form).then(res => {
+        if (res.data.code === '0') {
+          this.$message.success('操作成功!')
+          this.$router.push({
+            path: '/setAge'
+          })
+        } else {
+          this.$message.error(res.data.data.msg)
+        }
+      }, err => {
+        this.$message.error(err)
+      }).catch(err => {
+        this.$message.error(err)
+      })
+    },
     goBack () {
       this.$router.go(-1)
     }
