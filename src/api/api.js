@@ -118,5 +118,27 @@ export default {
   },
   itemtypeDel (params) { // 分类设置删除
     return axios.post('/sys/itemtype/delete', params)
+  },
+  magazineList (params) { // 杂志列表
+    let param = qs.stringify(params)
+    return axios.get(`/magazine/qrzditem/list?${param}`)
+  },
+  magazineSave (params) { // 新建杂志
+    return axios.post('/magazine/qrzditem/save', params)
+  },
+  magazineDel (params) { // 删除杂志
+    return axios.post('/magazine/qrzditem/del', params)
+  },
+  magazineUpdate (params) { // 修改杂志
+    return axios.post('/magazine/qrzditem/update', params)
+  },
+  magazineCopy (params) { // 批量复制给渠道商
+    return axios.post('/magazine/qrzditem/copy', params)
+  },
+  magazinePublish (params) { // 批量上架或者批量下架
+    return axios.post('/magazine/qrzditem/publish', params)
+  },
+  magazineBatch () { // 导入杂志地址
+    return location.protocol + '//192.168.0.230:8081/qrzd/magazine/qrzditem/batch/open'
   }
 }

@@ -1,61 +1,84 @@
 <template>
   <div class="journal-Manage">
     <el-header class="journal-Manage-header" style="height: auto">
-      <el-row :gutter="40">
-        <el-col :span="4"><el-input v-model="search.name" placeholder="请输入名称筛选"></el-input></el-col>
-        <el-col :span="4"><el-input v-model="search.number" placeholder="请输入编号筛选"></el-input></el-col>
-        <el-col :span="3">
-          <el-select v-model="search.type" placeholder="请选择类别">
-            <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value"></el-option>
-          </el-select>
-        </el-col>
-        <el-col :span="3">
-          <el-select v-model="search.grade" placeholder="请选择年级">
-            <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value"></el-option>
-          </el-select>
-        </el-col>
-        <el-col :span="3">
-          <el-select v-model="search.put" placeholder="是否上架">
-            <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value"></el-option>
-          </el-select>
-        </el-col>
-        <el-col :span="3">
-          <el-select v-model="search.integral" placeholder="是否宝贝积分商品">
-            <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value"></el-option>
-          </el-select>
-        </el-col>
-        <el-col :span="4">
-          <el-select v-model="search.copy" placeholder="批量复制给经销商">
-            <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value"></el-option>
-          </el-select>
-        </el-col>
-      </el-row>
-      <div class="header-button-right">
-        <el-row>
-          <el-button type="primary" plain>检索</el-button>
-          <el-button type="primary" plain>批量复制</el-button>
-          <el-button type="primary" plain>批量上架</el-button>
-          <el-button type="primary" plain>批量下架</el-button>
+      <el-form ref="form" :model="search" label-width="90px">
+        <el-row :gutter="20">
+          <el-col :span="4">
+            <el-form-item label="名称：">
+              <el-input v-model="search.name" placeholder="请输入名称筛选"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="4">
+            <el-form-item label="刊号:">
+              <el-input v-model="search.issn" placeholder="请输入编号筛选"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="8">
+            <el-form-item label="类别:">
+              <el-select v-model="search.typeId" style="width: 50%; float: left; padding-right: 5px">
+                <el-option :label="item.name" :value="item.id" v-for="item in typeList" :key="item.id"></el-option>
+              </el-select>
+              <el-select v-model="search.ageId" style="width: 50%; float: left; padding-left: 5px">
+                <el-option :label="item.name" :value="item.id" v-for="item in ageList" :key="item.id"></el-option>
+              </el-select>
+            </el-form-item>
+          </el-col>
+          <el-col :span="4">
+            <el-form-item label="是否上架:">
+              <el-select v-model="search.isSale">
+                <el-option label="是" value="1"></el-option>
+                <el-option label="否" value="0"></el-option>
+              </el-select>
+            </el-form-item>
+          </el-col>
+          <el-col :span="4">
+            <el-form-item label="复制给商家:">
+              <el-select v-model="search.merchants">
+                <el-option :label="item.name" :value="item.id" v-for="item in groupList" :key="item.id"></el-option>
+              </el-select>
+            </el-form-item>
+          </el-col>
         </el-row>
-      </div>
-      <div class="header-button">
-        <el-button type="primary" icon="el-icon-plus" @click="clickAddNew">添加</el-button>
-        <el-button type="primary" icon="el-icon-edit" @click="clickUpdata">修改</el-button>
-        <el-button type="primary" @click="clickUpLoad">上传图片<i class="el-icon-upload el-icon--right"></i></el-button>
-      </div>
+        <div class="header-button-right">
+          <el-row>
+            <el-button type="primary" plain @click="loadDate">检索</el-button>
+            <el-button type="primary" plain @click="copyToMagazine">批量复制</el-button>
+            <el-button type="primary" plain @click="setMagazinePublish(1)">批量上架</el-button>
+            <el-button type="primary" plain @click="setMagazinePublish(0)">批量下架</el-button>
+          </el-row>
+        </div>
+        <div class="header-button">
+          <el-button type="primary" icon="el-icon-plus" @click="clickAddNew">添加</el-button>
+          <el-button type="primary" icon="el-icon-upload2" @click="dialogVisible = true">导入杂志</el-button>
+          <el-button type="primary" @click="onUpload">上传封面图<i class="el-icon-upload el-icon--right"></i></el-button>
+        </div>
+      </el-form>
     </el-header>
     <el-main>
-      <el-table ref="multipleTable" :data="tableData3" tooltip-effect="dark" style="width: 100%" :height="windowHeight" border @selection-change="handleSelectionChange">
+      <el-table ref="multipleTable" :data="tableData" tooltip-effect="dark" style="width: 100%" :height="windowHeight" border @selection-change="handleSelectionChange">
         <el-table-column type="selection" width="55"></el-table-column>
-        <el-table-column prop="date" label="日期" width="120" sortable></el-table-column>
-        <el-table-column prop="name" label="姓名" width="120"></el-table-column>
-        <el-table-column prop="address" label="地址" show-overflow-tooltip></el-table-column>
-        <el-table-column prop="allQuantity" label="总数" show-overflow-tooltip></el-table-column>
-        <el-table-column prop="quantity" label="数量" show-overflow-tooltip></el-table-column>
-        <el-table-column fixed="right" label="操作" width="100">
+        <el-table-column prop="name" label="名称" sortable></el-table-column>
+        <el-table-column label="封面图" width="100" show-overflow-tooltip>
           <template slot-scope="scope">
-            <el-button @click="handleClick(scope.row)" type="text" size="small">查看</el-button>
-            <el-button type="text" size="small">编辑</el-button>
+            <img :src="scope.row.logo" width="100%">
+          </template>
+        </el-table-column>
+        <el-table-column prop="typeName" label="类别"></el-table-column>
+        <el-table-column prop="ageName" label="年级"></el-table-column>
+        <el-table-column prop="fee" label="价格" sortable></el-table-column>
+        <el-table-column prop="feeUnitName" label="单位"></el-table-column>
+        <el-table-column prop="giftName" label="礼品"></el-table-column>
+        <el-table-column prop="isSale" label="是否上架"></el-table-column>
+        <el-table-column prop="createdAt" label="创建日期" sortable>
+          <template slot-scope="scope">
+            <span>{{ scope.row.createdAt | dateFormat }}</span>
+          </template>
+        </el-table-column>
+        <el-table-column fixed="right" label="操作" width="200">
+          <template slot-scope="scope">
+            <el-button @click="onDelete(scope.row)" type="text" size="small">删除</el-button>
+            <el-button @click="onUpdate(scope.row)" type="text" size="small">修改</el-button>
+            <el-button @click="onUpload(scope.row)" type="text" size="small">上传图片</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -63,130 +86,174 @@
     <el-pagination
       @size-change="handleSizeChange"
       @current-change="handleCurrentChange"
-      :page-size="1"
+      :current-page="pages.currentPage"
+      :page-size="pages.pageSize"
       :page-sizes="[10, 20, 50, 100]"
       layout="total, sizes, prev, pager, next, jumper"
-      :total="500">
+      :total="pages.total">
     </el-pagination>
+    <el-dialog :visible.sync="dialogVisible" width="25%">
+      <el-upload class="upload-demo" drag multiple :show-file-list="false" :action="upLoadUrl" :on-success="upLoadSuccess" :on-error="upLoadError">
+        <i class="el-icon-upload"></i>
+        <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
+        <div class="el-upload__tip" slot="tip">只能上传xlsx文件</div>
+      </el-upload>
+    </el-dialog>
   </div>
 </template>
 
 <script>
-let table = [{
-  date: '2016-05-03',
-  name: '王小虎',
-  address: '上海市普陀区金沙江路 1510 弄',
-  quantity: 10,
-  allQuantity: 20
-}, {
-  date: '2016-05-02',
-  name: '王小虎',
-  address: '上海市普陀区金沙江路 1511 弄',
-  quantity: 10,
-  allQuantity: 20
-}, {
-  date: '2016-05-04',
-  name: '王小虎',
-  address: '上海市普陀区金沙江路 1512 弄',
-  quantity: 20,
-  allQuantity: 20
-}, {
-  date: '2016-05-01',
-  name: '王小虎',
-  address: '上海市普陀区金沙江路 1513 弄',
-  quantity: 10,
-  allQuantity: 20
-}, {
-  date: '2016-05-08',
-  name: '王小虎',
-  address: '上海市普陀区金沙江路 1514 弄',
-  quantity: 20,
-  allQuantity: 20
-}, {
-  date: '2016-05-06',
-  name: '王小虎',
-  address: '上海市普陀区金沙江路 1515 弄',
-  quantity: 10,
-  allQuantity: 20
-}, {
-  date: '2016-05-07',
-  name: '王小虎',
-  address: '上海市普陀区金沙江路 1516 弄',
-  quantity: 10,
-  allQuantity: 20
-}, {
-  date: '2016-05-07',
-  name: '王小虎',
-  address: '上海市普陀区金沙江路 1517 弄',
-  quantity: 20,
-  allQuantity: 20
-}, {
-  date: '2016-05-07',
-  name: '王小虎',
-  address: '上海市普陀区金沙江路 1518 弄',
-  quantity: 10,
-  allQuantity: 20
-}, {
-  date: '2016-05-07',
-  name: '王小虎',
-  address: '上海市普陀区金沙江路 1519 弄',
-  quantity: 10,
-  allQuantity: 20
-}]
 export default {
   name: 'journal-Manage',
   components: {},
   data () {
     return {
       windowHeight: window.innerHeight - 325 + 'px',
-      formInline: {},
-      options: [{
-        value: '选项1',
-        label: '黄金糕'
-      }, {
-        value: '选项2',
-        label: '双皮奶'
-      }, {
-        value: '选项3',
-        label: '蚵仔煎'
-      }, {
-        value: '选项4',
-        label: '龙须面'
-      }, {
-        value: '选项5',
-        label: '北京烤鸭'
-      }],
-      tableData3: [],
-      input: '',
+      dialogVisible: false,
+      ageList: [],
+      typeList: [],
+      groupList: [],
       search: {},
-      value: '',
-      currentPage4: 100
+      tableData: [],
+      selectIds: [],
+      upLoadUrl: this.$axios.magazineBatch(),
+      pages: {
+        total: 0,
+        pageNum: 1,
+        pageSize: 10
+      }
     }
   },
   mounted () {
-    this.getTable()
+    this.loadDate()
+    this.loadItemageList()
+    this.loadItemtypeList()
+    this.loadAdmingroupList()
   },
-  computed: {},
+  computed: {
+    params () {
+      let param = {
+        pageNum: this.pages.pageNum,
+        pageSize: this.pages.pageSize,
+        issn: this.search.issn,
+        name: this.search.name,
+        typeId: this.search.typeId,
+        ageId: this.search.ageId,
+        isSale: this.search.isSale
+      }
+      return param
+    },
+    copyParams () {
+      let param = {
+        ids: this.selectIds,
+        adminId: this.search.merchants
+      }
+      return param
+    }
+  },
   methods: {
-    getTable () {
-      this.tableData3 = []
-      table.forEach(item => {
-        if (item.quantity < item.allQuantity) {
-          this.tableData3.push(item)
+    loadItemageList () {
+      this.$axios.itemageList().then(res => {
+        if (res.data.code === '0') {
+          this.ageList = res.data.data.list
+        } else {
+          this.$message.error(res.data.data.msg)
         }
+      }, err => {
+        this.$message.error(err)
+      }).catch(err => {
+        this.$message.error(err)
       })
     },
-    // 选择第几十页
-    handleSizeChange (val) {
-      console.log(val)
+    loadItemtypeList () {
+      this.$axios.itemtypeList().then(res => {
+        if (res.data.code === '0') {
+          this.typeList = res.data.data.list
+        } else {
+          this.$message.error(res.data.data.msg)
+        }
+      }, err => {
+        this.$message.error(err)
+      }).catch(err => {
+        this.$message.error(err)
+      })
     },
-    // 点击第几页
+    loadAdmingroupList () {
+      this.$axios.admingroupList().then(res => {
+        if (res.data.code === '0') {
+          this.groupList = res.data.data.list
+        } else {
+          this.$message.error(res.data.data.msg)
+        }
+      }, err => {
+        this.$message.error(err)
+      }).catch(err => {
+        this.$message.error(err)
+      })
+    },
+    loadDate () {
+      this.$axios.magazineList(this.params).then(res => {
+        if (res.data.code === '0') {
+          this.tableData = res.data.data.list
+          this.pages.total = res.data.data.total
+        } else {
+          this.$message.error(res.data.data.msg)
+        }
+      }, err => {
+        this.$message.error(err)
+      }).catch(err => {
+        this.$message.error(err)
+      })
+    },
+    // 选择每页条数
+    handleSizeChange (val) {
+      this.pages.pageSize = val
+      this.loadDate()
+    },
+    // 选择第几页
     handleCurrentChange (val) {
-      console.log(val)
+      this.pages.pageNum = val
+      this.loadDate()
     },
     // 选择的项目
-    handleSelectionChange (val) {
-      console.log(val)
+    handleSelectionChange (item) {
+      this.selectIds = []
+      item.forEach(item => {
+        this.selectIds.push(item.id)
+      })
+    },
+    // 复制给渠道商
+    copyToMagazine () {
+      this.$axios.magazineCopy(this.copyParams).then(res => {
+        if (res.data.code === '0') {
+          this.$message.success('操作成功!')
+          this.loadDate()
+        } else {
+          this.$message.error(res.data.data.msg)
+        }
+      }, err => {
+        this.$message.error(err)
+      }).catch(err => {
+        this.$message.error(err)
+      })
+    },
+    setMagazinePublish (isSale) {
+      let param = {
+        ids: this.selectIds,
+        isSale: isSale
+      }
+      this.$axios.magazinePublish(param).then(res => {
+        if (res.data.code === '0') {
+          this.$message.success('操作成功!')
+          this.loadDate()
+        } else {
+          this.$message.error(res.data.data.msg)
+        }
+      }, err => {
+        this.$message.error(err)
+      }).catch(err => {
+        this.$message.error(err)
+      })
     },
     // 添加
     clickAddNew () {
@@ -194,17 +261,56 @@ export default {
         path: '/addNewJournal'
       })
     },
+    // 删除
+    onDelete (item) {
+      this.$confirm('此操作将永久删除该选项, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        this.$axios.magazineDel({id: item.id}).then(res => {
+          if (res.data.code === '0') {
+            this.$message.success('删除成功!')
+            this.loadDate()
+          } else {
+            this.$message.error(res.data.data.msg)
+          }
+        }, err => {
+          this.$message.error(err)
+        }).catch(err => {
+          this.$message.error(err)
+        })
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '已取消删除'
+        })
+      })
+    },
     // 修改
-    clickUpdata () {
+    onUpdate (item) {
       this.$router.push({
-        path: '/updataJournal'
+        path: '/updataJournal',
+        query: item
       })
     },
     // 上传图片
-    clickUpLoad () {
+    onUpload () {
       this.$router.push({
         path: '/upLoadJournal'
       })
+    },
+    upLoadSuccess (res) {
+      if (res.code === '0') {
+        this.$message.success('导入成功!')
+        this.dialogVisible = false
+        this.loadDate()
+      } else {
+        this.$message.error(res.msg)
+      }
+    },
+    upLoadError (res) {
+      this.$message.error(res.msg)
     }
   },
   watch: {}
@@ -222,11 +328,14 @@ export default {
     background-color: #F2F6FC;
     padding: 20px;
   }
-  .journal-Manage .header-button {
-    margin-top: 20px;
-  }
   .journal-Manage .header-button-right {
-    margin-top: 20px;
     float: right;
+  }
+  .journal-Manage .el-table .cell {
+    text-align: justify;
+  }
+  .journal-Manage .el-upload,
+  .journal-Manage .el-upload .el-upload-dragger {
+    width: 100%;
   }
 </style>
