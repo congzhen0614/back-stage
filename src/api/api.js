@@ -144,5 +144,23 @@ export default {
   magazineItemImgst (params) {
     let param = qs.stringify(params)
     return axios.get(`/magazine/itemImg/list?${param}`)
+  },
+  magazineCover (params) {
+    return axios.post('/magazine/qrzditem/cover', params)
+  },
+  magazineGiftlogo (params) {
+    return axios.post('/magazine/qrzditem/giftlogo', params)
+  },
+  magazineDoverDel (params) {
+    return axios.post('/magazine/qrzditem/cover/del', params)
+  },
+  magazineItemImgSave (params) {
+    return axios.post('/magazine/itemImg/save', params)
+  },
+  magazineItemImgUpdate (params) {
+    return axios.post('/magazine/itemImg/update', params)
+  },
+  magazineItemImgDel (params) {
+    return axios.post('/magazine/itemImg/del', params)
   }
 }

@@ -3,9 +3,9 @@
     <el-header class="journal-Manage-header" style="height: auto">
       <p style="font-size: 16px; margin-bottom: 20px">杂志名称: {{ info.name }}</p>
       <div class="header-button">
-        <el-button size="small" type="primary" @click="addImages(1)">添加封面图</el-button>
-        <el-button size="small" type="primary" @click="addImages(1)">添加礼品图</el-button>
-        <el-button size="small" type="primary" @click="addImages(1)">添加内页图</el-button>
+        <el-button size="small" type="primary" @click="addImages('1')">添加封面图</el-button>
+        <el-button size="small" type="primary" @click="addImages('2')">添加礼品图</el-button>
+        <el-button size="small" type="primary" @click="addImages('3')">添加内页图</el-button>
       </div>
     </el-header>
     <el-main>
@@ -70,7 +70,8 @@ export default {
               updatedAt: item.updatedAt,
               url: item.url,
               itemId: item.itemId,
-              type: '内页图'
+              type: '内页图',
+              id: item.id
             })
           })
         } else {
@@ -82,16 +83,83 @@ export default {
         this.$message.error(err)
       })
     },
+    reload () {
+      this.tableData = []
+      this.loadDate()
+    },
     handleSelectionChange (item) {
       console.log(item)
     },
-    addImages (type) {
+    addImages (type, id) {
+      console.log(id)
       this.$router.push({
         path: '/upLoadJournal',
         query: {
-          type: type
+          itemId: this.$route.query.id,
+          type: type,
+          id: id
         }
       })
+    },
+    onDelete (item) {
+      this.$confirm('此操作将删除该选项, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        if (item.type === '内页图') {
+          this.isContent(item)
+        } else {
+          this.notContent(item)
+        }
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '已取消删除'
+        })
+      })
+    },
+    notContent (item) {
+      let param = {
+        coverOrGiftLogo: item.type === '封面图',
+        id: item.itemId
+      }
+      this.$axios.magazineDoverDel(param).then(res => {
+        if (res.data.code === '0') {
+          this.$message.success('删除成功!')
+          this.reload()
+        } else {
+          this.$message.error(res.data.data.msg)
+        }
+      }, err => {
+        this.$message.error(err)
+      }).catch(err => {
+        this.$message.error(err)
+      })
+    },
+    isContent (item) {
+      this.$axios.magazineItemImgDel({id: item.id}).then(res => {
+        if (res.data.code === '0') {
+          this.$message.success('删除成功!')
+          this.reload()
+        } else {
+          this.$message.error(res.data.data.msg)
+        }
+      }, err => {
+        this.$message.error(err)
+      }).catch(err => {
+        this.$message.error(err)
+      })
+    },
+    onUpdate (item) {
+      console.log(item)
+      if (item.type === '封面图') {
+        this.addImages('1')
+      } else if (item.type === '礼品图') {
+        this.addImages('2')
+      } else {
+        this.addImages('4', item.id)
+      }
     }
   },
   watch: {}
