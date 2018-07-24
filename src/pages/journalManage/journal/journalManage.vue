@@ -297,7 +297,7 @@ export default {
     // 上传图片
     onUpload () {
       this.$router.push({
-        path: '/upLoadJournal'
+        path: '/imagesList'
       })
     },
     upLoadSuccess (res) {

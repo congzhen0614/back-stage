@@ -7,6 +7,7 @@ import journalManage from '@/pages/journalManage/journal/journalManage.vue' // �
 import addNewJournal from '@/pages/journalManage/journal/addNew/addNew.vue' // 杂志添加页
 import updataJournal from '@/pages/journalManage/journal/updata/updata.vue' // 杂志修改页
 import upLoadJournal from '@/pages/journalManage/journal/upLoad/upLoad.vue' // 杂志传图片
+import imagesList from '@/pages/journalManage/journal/upLoad/imagesList.vue' // 杂志图片列表
 import catalogue from '@/pages/journalManage/catalogue/catalogue.vue' // 杂志目录
 import updateCatalogue from '@/pages/journalManage/catalogue/updateCatalogue/updateCatalogue.vue' // 修改杂志目录
 import addCatalogue from '@/pages/journalManage/catalogue/addCatalogue/addCatalogue.vue' // 新增杂志目录
@@ -53,6 +54,10 @@ export default new Router({
       path: '/upLoadJournal',
       name: '上传图片',
       component: upLoadJournal
+    }, {
+      path: '/imagesList',
+      name: '图片列表',
+      component: imagesList
     }, {
       path: '/catalogue',
       name: '杂志目录管理',
