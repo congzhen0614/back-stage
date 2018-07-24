@@ -140,5 +140,9 @@ export default {
   },
   magazineBatch () { // 导入杂志地址
     return location.protocol + '//192.168.0.230:8081/qrzd/magazine/qrzditem/batch/open'
+  },
+  magazineItemImgst (params) {
+    let param = qs.stringify(params)
+    return axios.get(`/magazine/itemImg/list?${param}`)
   }
 }

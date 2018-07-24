@@ -50,7 +50,7 @@
         <div class="header-button">
           <el-button type="primary" icon="el-icon-plus" @click="clickAddNew">添加</el-button>
           <el-button type="primary" icon="el-icon-upload2" @click="dialogVisible = true">导入杂志</el-button>
-          <el-button type="primary" @click="onUpload">上传封面图<i class="el-icon-upload el-icon--right"></i></el-button>
+          <el-button type="primary">上传封面图<i class="el-icon-upload el-icon--right"></i></el-button>
         </div>
       </el-form>
     </el-header>
@@ -93,7 +93,14 @@
       :total="pages.total">
     </el-pagination>
     <el-dialog :visible.sync="dialogVisible" width="25%">
-      <el-upload class="upload-demo" drag multiple :show-file-list="false" :action="upLoadUrl" :on-success="upLoadSuccess" :on-error="upLoadError">
+      <el-upload
+        class="upload-demo"
+        drag
+        multiple
+        :action="upLoadUrl"
+        :on-success="upLoadSuccess"
+        :on-error="upLoadError"
+        :before-upload="beforeAvatarUpload">
         <i class="el-icon-upload"></i>
         <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
         <div class="el-upload__tip" slot="tip">只能上传xlsx文件</div>
@@ -295,10 +302,18 @@ export default {
       })
     },
     // 上传图片
-    onUpload () {
+    onUpload (item) {
       this.$router.push({
-        path: '/imagesList'
+        path: '/imagesList',
+        query: item
       })
+    },
+    beforeAvatarUpload (file) {
+      const isXlsx = file.type === 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+      if (!isXlsx) {
+        this.$message.error('只能上传Excel!')
+      }
+      return isXlsx
     },
     upLoadSuccess (res) {
       if (res.code === '0') {
