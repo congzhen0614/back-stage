@@ -20,10 +20,19 @@ Vue.prototype.$axios = api
 Vue.config.productionTip = false
 
 // 获取router-list
+var routeList = [{name: '首页', path: '/'}]
 router.beforeEach((to, from, next) => {
-  let routeList = [{name: '首页', path: '/'}]
-  if (to.name !== '首页') {
-    routeList.push({name: to.name, path: to.path})
+  var index = -1
+  for (var i = 0; i < routeList.length; i++) {
+    if (routeList[i].name === to.name) {
+      index = i
+      break
+    }
+  }
+  if (index !== -1) {
+    routeList.splice(index + 1, routeList.length - index - 1)
+  } else if (to.name !== '登录') {
+    routeList.push({name: to.name, path: to.fullPath})
   }
   to.meta.routeList = routeList
   next()

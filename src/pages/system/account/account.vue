@@ -16,7 +16,7 @@
     </header>
     <el-table ref="multipleTable" :data="tableList" tooltip-effect="dark" style="width: 100%" :height="windowHeight" border @selection-change="handleSelectionChange">
       <el-table-column type="selection" width="55"></el-table-column>
-      <el-table-column type="index" width="120" label="排序"></el-table-column>
+      <el-table-column type="index" width="120" label="序号"></el-table-column>
       <el-table-column prop="groupName" label="所属组织"></el-table-column>
       <el-table-column prop="username" label="用户名" show-overflow-tooltip></el-table-column>
       <el-table-column prop="realname" label="真实姓名" show-overflow-tooltip></el-table-column>
@@ -29,7 +29,7 @@
       </el-table-column>
       <el-table-column fixed="right" label="操作" width="250">
         <template slot-scope="scope">
-          <!--<el-button type="text" size="small" @click="clickUpdate(scope.row)">查看绑定学校</el-button>-->
+          <el-button type="text" size="small" @click="clickUpdate(scope.row)">绑定学校</el-button>
           <el-button type="text" size="small" @click="clickUpdate(scope.row)" v-if="havePermission(7)">修改</el-button>
           <el-button type="text" size="small" @click="clickReset(scope.row)">重置密码</el-button>
           <el-button type="text" size="small" @click="clickAstatus(scope.row)">{{ scope.row.adminAccountStatusDesc | accountStatus }}</el-button>

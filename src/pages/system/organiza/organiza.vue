@@ -2,16 +2,15 @@
   <div class="system-organiza">
     <header class="header" style="height: auto">
       <el-button type="primary" @click="clickAddnew" v-if="havePermission(15)">添加</el-button>
-      <el-button type="primary" @click="clickDelete">删除</el-button>
   </header>
     <el-main>
       <el-table ref="multipleTable" :data="tableList" tooltip-effect="dark" style="width: 100%" :height="windowHeight" border @selection-change="handleSelectionChange">
         <el-table-column type="selection" width="50"></el-table-column>
         <el-table-column type="index" label="序号" width="50"></el-table-column>
-        <el-table-column prop="name" label="组织名称"></el-table-column>
+        <el-table-column prop="name" label="组织名称" sortable></el-table-column>
         <el-table-column prop="linkman" label="联系人"></el-table-column>
         <el-table-column prop="phone" label="联系电话"></el-table-column>
-        <el-table-column label="创建时间">
+        <el-table-column prop="contractTime" label="创建时间" sortable>
           <template slot-scope="scope">
             <span>{{ scope.row.contractTime | dateFormat }}</span>
           </template>
@@ -20,7 +19,7 @@
           <template slot-scope="scope">
             <el-button type="text" size="small" @click="clickChecke(scope.row)">查看</el-button>
             <el-button type="text" size="small" @click="clickUpdate(scope.row)" v-if="havePermission(16)">修改</el-button>
-            <el-button type="text" size="small" @click="clickAstatus(scope.row)">{{ scope.row.adminAccountStatus | accountStatus }}</el-button>
+            <!--<el-button type="text" size="small" @click="clickAstatus(scope.row)">{{ scope.row.adminAccountStatus | accountStatus }}</el-button>-->
           </template>
         </el-table-column>
       </el-table>
@@ -102,29 +101,6 @@ export default {
     clickAddnew () {
       this.$router.push({
         path: '/addOrganiza'
-      })
-    },
-    clickDelete () {
-      this.$confirm('此操作将删除该文件, 是否继续?', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning'
-      }).then(() => {
-        this.$axios.admingroupDelete(this.deleParams).then(res => {
-          if (res.data.data.code === '0') {
-            this.$message({
-              type: 'success',
-              message: '删除成功!'
-            })
-          }
-        }).catch(err => {
-          this.$message.error(err)
-        })
-      }).catch(() => {
-        this.$message({
-          type: 'info',
-          message: '已取消删除'
-        })
       })
     },
     clickChecke (item) {

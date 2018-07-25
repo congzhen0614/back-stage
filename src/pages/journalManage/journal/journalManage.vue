@@ -50,7 +50,7 @@
         <div class="header-button">
           <el-button type="primary" icon="el-icon-plus" @click="clickAddNew">添加</el-button>
           <el-button type="primary" icon="el-icon-upload2" @click="dialogVisible = true">导入杂志</el-button>
-          <el-button type="primary" @click="onUploadImages">上传封面图<i class="el-icon-upload el-icon--right"></i></el-button>
+          <el-button type="primary" icon="el-icon-upload" @click="onUploadImages">上传封面图</el-button>
         </div>
       </el-form>
     </el-header>
@@ -330,7 +330,7 @@ export default {
     },
     onUploadImages () {
       if (this.selectIds.length === 0) {
-        this.$message.warning('请选择一种杂志!')
+        this.$message.warning('请选择至少一种杂志!')
         return false
       }
       this.$router.push({
@@ -358,9 +358,6 @@ export default {
   }
   .journal-Manage .header-button-right {
     float: right;
-  }
-  .journal-Manage .el-table .cell {
-    text-align: justify;
   }
   .journal-Manage .el-upload,
   .journal-Manage .el-upload .el-upload-dragger {
