@@ -329,6 +329,10 @@ export default {
       this.$message.error(res.msg)
     },
     onUploadImages () {
+      if (this.selectIds.length === 0) {
+        this.$message.warning('请选择一种杂志!')
+        return false
+      }
       this.$router.push({
         path: '/upLoadImages',
         query: {
