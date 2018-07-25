@@ -50,7 +50,7 @@
         <div class="header-button">
           <el-button type="primary" icon="el-icon-plus" @click="clickAddNew">添加</el-button>
           <el-button type="primary" icon="el-icon-upload2" @click="dialogVisible = true">导入杂志</el-button>
-          <el-button type="primary">上传封面图<i class="el-icon-upload el-icon--right"></i></el-button>
+          <el-button type="primary" @click="onUploadImages">上传封面图<i class="el-icon-upload el-icon--right"></i></el-button>
         </div>
       </el-form>
     </el-header>
@@ -228,6 +228,7 @@ export default {
       item.forEach(item => {
         this.selectIds.push(item.id)
       })
+      console.log(this.selectIds)
     },
     // 复制给渠道商
     copyToMagazine () {
@@ -326,6 +327,14 @@ export default {
     },
     upLoadError (res) {
       this.$message.error(res.msg)
+    },
+    onUploadImages () {
+      this.$router.push({
+        path: '/upLoadImages',
+        query: {
+          ids: JSON.stringify(this.selectIds)
+        }
+      })
     }
   },
   watch: {}
