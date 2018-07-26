@@ -65,7 +65,7 @@ export default new Router({
       component: imagesList
     }, {
       path: '/catalogue',
-      name: '杂志目录管理',
+      name: '目录表单',
       component: catalogue
     }, {
       path: '/updateCatalogue',
@@ -81,7 +81,7 @@ export default new Router({
       component: QRenerat
     }, {
       path: '/QRlist',
-      name: '二维码列表',
+      name: '条码管理',
       component: QRlist
     }, {
       path: '/account',

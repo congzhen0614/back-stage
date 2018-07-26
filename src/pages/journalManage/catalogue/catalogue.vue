@@ -1,41 +1,54 @@
 <template>
   <div class="journal-Manage-catalogue">
-    <header class="header" style="height: auto">
-      <el-row :gutter="40">
-        <el-col :span="4"><el-input v-model="search.name" placeholder="请输入名称"></el-input></el-col>
-        <el-col :span="4">
-          <el-select v-model="search.type" placeholder="请选择订单状态">
-            <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value"></el-option>
-          </el-select>
-        </el-col>
-        <el-col :span="4">
-          <el-select v-model="search.type" placeholder="请选择征订状态">
-            <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value"></el-option>
-          </el-select>
-        </el-col>
-        <el-col :span="8">
-          <el-button type="primary" plain>检索</el-button>
-          <el-button type="primary">批量开启征订</el-button>
-          <el-button type="primary">批量停止征订</el-button>
-        </el-col>
-      </el-row>
-      <el-row style="margin-top: 20px">
-        <el-button type="primary" @click="clickAddnew">添加</el-button>
-        <el-button type="primary" @click="clickUpdate">修改</el-button>
-        <el-button type="primary" @click="clickDelete">删除</el-button>
-        <el-button type="primary">复制</el-button>
-        <el-button type="primary">提交审核</el-button>
-        <el-button type="primary">批量绑定</el-button>
-        <el-button type="primary" @click="clickGenerateQR">批量生成二维码</el-button>
-      </el-row>
-    </header>
+    <el-header class="journal-Manage-header" style="height: auto">
+      <el-form ref="form" :model="search" label-width="90px">
+        <el-row :gutter="10">
+          <el-col :span="4">
+            <el-form-item label="名称:">
+              <el-input v-model="search.name" placeholder="请输入名称"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="4">
+            <el-form-item label="征订状态:">
+              <el-select v-model="search.isSale" placeholder="请选择订单状态">
+                <el-option label="是" value="1"></el-option>
+                <el-option label="否" value="0"></el-option>
+              </el-select>
+            </el-form-item>
+          </el-col>
+          <el-col :span="4">
+            <el-form-item label="创建人:">
+              <el-input v-model="search.name" placeholder="请选择征订状态"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="6">
+            <el-button type="primary" plain @click="loadDate">检索</el-button>
+          </el-col>
+        </el-row>
+        <div class="header-button">
+          <el-button type="primary" @click="clickAddnew">添加</el-button>
+          <el-button type="primary" @click="clickDelete">复制</el-button>
+          <el-button type="primary" @click="clickDelete">提交审核</el-button>
+          <el-button type="primary" @click="clickDelete">批量绑定</el-button>
+          <el-button type="primary" @click="clickGenerateQR">批量生成二维码</el-button>
+          <el-button type="primary" @click="clickGenerateQR">批量开启征订</el-button>
+          <el-button type="primary" @click="clickGenerateQR">批量停止征订</el-button>
+        </div>
+      </el-form>
+    </el-header>
     <el-table ref="multipleTable" :data="tableList" tooltip-effect="dark" style="width: 100%" :height="windowHeight" border @selection-change="handleSelectionChange">
       <el-table-column type="selection" width="55"></el-table-column>
-      <el-table-column type="index" width="120" label="排序"></el-table-column>
-      <el-table-column prop="groupName" label="姓名" width="120"></el-table-column>
-      <el-table-column prop="roleName" label="类型" show-overflow-tooltip></el-table-column>
-      <el-table-column fixed="right" label="操作" width="100">
+      <el-table-column prop="" label="姓名"></el-table-column>
+      <el-table-column prop="" label="商品数"></el-table-column>
+      <el-table-column prop="" label="创建时间"></el-table-column>
+      <el-table-column prop="" label="修改时间"></el-table-column>
+      <el-table-column prop="" label="创建人"></el-table-column>
+      <el-table-column prop="" label="是否生成条码"></el-table-column>
+      <el-table-column prop="" label="审核状态"></el-table-column>
+      <el-table-column prop="" label="征订状态"></el-table-column>
+      <el-table-column fixed="right" label="操作" width="200">
         <template slot-scope="scope">
+          <el-button type="text" size="small" @click="clickUpdate(scope.row)">查看</el-button>
           <el-button type="text" size="small" @click="clickUpdate(scope.row)">修改</el-button>
           <el-button type="text" size="small" @click="clickDelete(scope.row)">删除</el-button>
         </template>
