@@ -141,26 +141,54 @@ export default {
   magazineBatch () { // 导入杂志地址
     return location.protocol + '//192.168.0.230:8081/qrzd/magazine/qrzditem/batch/open'
   },
-  magazineItemImgst (params) {
+  magazineItemImgst (params) { // 杂志列表
     let param = qs.stringify(params)
     return axios.get(`/magazine/itemImg/list?${param}`)
   },
-  magazineCover (params) {
+  magazineCover (params) { // 修改封面图
     return axios.post('/magazine/qrzditem/cover', params)
   },
-  magazineGiftlogo (params) {
+  magazineGiftlogo (params) { // 修改礼品图
     return axios.post('/magazine/qrzditem/giftlogo', params)
   },
-  magazineDoverDel (params) {
+  magazineDoverDel (params) { // 删除封面图或者礼品图
     return axios.post('/magazine/qrzditem/cover/del', params)
   },
-  magazineItemImgSave (params) {
+  magazineItemImgSave (params) { // 内页图列表
     return axios.post('/magazine/itemImg/save', params)
   },
-  magazineItemImgUpdate (params) {
+  magazineItemImgUpdate (params) { // 修改内页图
     return axios.post('/magazine/itemImg/update', params)
   },
-  magazineItemImgDel (params) {
+  magazineItemImgDel (params) { // 删除内页图
     return axios.post('/magazine/itemImg/del', params)
+  },
+  itempackList (params) { // 目录管理列表
+    let param = qs.stringify(params)
+    return axios.get(`/itempack/list?${param}`)
+  },
+  itempackSave (params) { // 新增目录
+    return axios.post('/itempack/save', params)
+  },
+  itempackUpdate (params) { // 修改目录
+    return axios.post('/itempack/update', params)
+  },
+  itempackDel (params) { // 删除目录
+    return axios.post('/itempack/del', params)
+  },
+  itempackSubmit (params) { // 提交审核
+    return axios.post('/itempack/submit', params)
+  },
+  itempackCheck (params) { // 审核
+    return axios.post('/itempack/check', params)
+  },
+  itempackUpdateLogo (params) { // 上传二维码logo
+    return axios.post('/itempack/update/qrcode/logo', params)
+  },
+  itempackUpdateQrcode (params) { // 批量生成二维码
+    return axios.post('/itempack/update/qrcode/open', params)
+  },
+  itempackUpdatesub (params) { // 修改征订状态
+    return axios.post('/itempack/updatesub', params)
   }
 }
