@@ -5,12 +5,20 @@
         <el-row :gutter="10">
           <el-col :span="4">
             <el-form-item label="名称:">
-              <el-input v-model="search.name" placeholder="请输入名称"></el-input>
+              <el-input v-model="search.title"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="4">
             <el-form-item label="征订状态:">
-              <el-select v-model="search.isSale" placeholder="请选择订单状态">
+              <el-select v-model="search.sub">
+                <el-option label="是" value="1"></el-option>
+                <el-option label="否" value="0"></el-option>
+              </el-select>
+            </el-form-item>
+          </el-col>
+          <el-col :span="4">
+            <el-form-item label="生成条码:">
+              <el-select v-model="search.has">
                 <el-option label="是" value="1"></el-option>
                 <el-option label="否" value="0"></el-option>
               </el-select>
@@ -18,7 +26,7 @@
           </el-col>
           <el-col :span="4">
             <el-form-item label="创建人:">
-              <el-input v-model="search.name" placeholder="请选择征订状态"></el-input>
+              <el-input v-model="search.creator"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="6">
@@ -156,9 +164,10 @@ export default {
       })
     },
     onSubmit () {
-      this.$axios.itempackSubmit({id: this.seleteIds}).then(res => {
+      this.$axios.itempackSubmit({ids: this.seleteIds}).then(res => {
         if (res.data.code === '0') {
           this.$message.success('操作成功!')
+          this.loadDate()
         } else {
           this.$message.error(res.data.data.msg)
         }
@@ -216,8 +225,11 @@ export default {
         this.$message.error(err)
       })
     },
-    onChecke () {
-      console.log('onChecke')
+    onChecke (item) {
+      this.$router.push({
+        path: '/updateCatalogue',
+        query: item
+      })
     },
     onUpdate () {
       console.log('onUpdate')
@@ -228,7 +240,7 @@ export default {
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
-        this.$axios.itempackDel({id: item.id}).then(res => {
+        this.$axios.itempackDel({ids: [item.id]}).then(res => {
           if (res.data.code === '0') {
             this.$message.success('删除成功!')
             this.loadDate()
