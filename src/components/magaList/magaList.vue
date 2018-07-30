@@ -87,12 +87,19 @@ export default {
       selectIds: []
     }
   },
+  props: ['sendType', 'postage', 'postageSum'],
   mounted () {
+    this.loadItem()
     this.loadDate()
     // this.loadItemageList()
     this.loadItemtypeList()
   },
   methods: {
+    loadItem () {
+      this.form.sendType = this.sendType
+      this.form.postage = this.postage
+      this.form.postageSum = this.postageSum
+    },
     handleSelectionChange (val) {
       let ids = []
       val.forEach(item => {

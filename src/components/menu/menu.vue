@@ -34,13 +34,13 @@
           <i class="el-icon-document"></i>
           <span slot="title">订单管理</span>
         </template>
-        <el-menu-item index="3-1">
+        <el-menu-item @click="noRouter">
           <span slot="title">杂志订单</span>
         </el-menu-item>
-        <el-menu-item index="3-2">
+        <el-menu-item @click="noRouter">
           <span slot="title">图书订单</span>
         </el-menu-item>
-        <el-menu-item index="3-3">
+        <el-menu-item @click="noRouter">
           <span slot="title">电子包订单</span>
         </el-menu-item>
       </el-submenu>
@@ -49,16 +49,16 @@
           <i class="el-icon-document"></i>
           <span slot="title">报表管理</span>
         </template>
-        <el-menu-item index="4-1">
+        <el-menu-item @click="noRouter">
           <span slot="title">线上刊物征订汇总</span>
         </el-menu-item>
-        <el-menu-item index="4-2">
+        <el-menu-item @click="noRouter">
           <span slot="title">线下刊物征订汇总</span>
         </el-menu-item>
-        <el-menu-item index="4-3">
+        <el-menu-item @click="noRouter">
           <span slot="title">按学校汇总杂志订单</span>
         </el-menu-item>
-        <el-menu-item index="4-4">
+        <el-menu-item @click="noRouter">
           <span slot="title">杂志销售统计</span>
         </el-menu-item>
       </el-submenu>
@@ -76,13 +76,13 @@
         <el-menu-item index="/permission" v-if="havePermission(28)">
           <span slot="title">角色权限</span>
         </el-menu-item>
-        <el-menu-item index="5-4">
+        <el-menu-item @click="noRouter">
           <span slot="title">用户管理</span>
         </el-menu-item>
-        <el-menu-item index="5-5">
+        <el-menu-item @click="noRouter">
           <span slot="title">用户孩子管理</span>
         </el-menu-item>
-        <el-menu-item index="5-6">
+        <el-menu-item @click="noRouter">
           <span slot="title">学校管理</span>
         </el-menu-item>
       </el-submenu>
@@ -91,10 +91,10 @@
           <i class="el-icon-setting"></i>
           <span slot="title">库存及物流</span>
         </template>
-        <el-menu-item index="6-1" v-if="havePermission(18)">
+        <el-menu-item @click="noRouter" v-if="havePermission(18)">
           <span slot="title">库存管理</span>
         </el-menu-item>
-        <el-menu-item index="6-2">
+        <el-menu-item @click="noRouter">
           <span slot="title">物流管理</span>
         </el-menu-item>
       </el-submenu>
@@ -103,16 +103,16 @@
           <i class="el-icon-setting"></i>
           <span slot="title">财务管理</span>
         </template>
-        <el-menu-item index="7-1">
+        <el-menu-item @click="noRouter">
           <span slot="title">线上征订结算</span>
         </el-menu-item>
-        <el-menu-item index="7-2">
+        <el-menu-item @click="noRouter">
           <span slot="title">订单退款统计</span>
         </el-menu-item>
-        <el-menu-item index="7-3">
+        <el-menu-item @click="noRouter">
           <span slot="title">发票申领统计</span>
         </el-menu-item>
-        <el-menu-item index="7-4">
+        <el-menu-item @click="noRouter">
           <span slot="title">第三方支付对账</span>
         </el-menu-item>
       </el-submenu>
@@ -121,10 +121,10 @@
           <i class="el-icon-setting"></i>
           <span slot="title">微校学院</span>
         </template>
-        <el-menu-item index="8-1" v-if="havePermission(18)">
+        <el-menu-item @click="noRouter">
           <span slot="title">帮助中心</span>
         </el-menu-item>
-        <el-menu-item index="8-2">
+        <el-menu-item @click="noRouter">
           <span slot="title">操作问答</span>
         </el-menu-item>
       </el-submenu>
@@ -153,6 +153,9 @@ export default {
     },
     selectMenu (val) {
       this.$emit('routerPush', val)
+    },
+    noRouter () {
+      this.$message.error('功能待开发!')
     }
   },
   watch: {}
