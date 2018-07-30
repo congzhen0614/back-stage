@@ -2,205 +2,143 @@
   <div class="journal-Manage-catalogue-add">
     <header class="header">
       <el-form ref="form" :model="form" label-width="100px">
-        <el-form-item label="订单名称:">
-          <el-input v-model="form.name"></el-input>
-        </el-form-item>
-        <el-tabs v-model="activeName" type="border-card" @tab-click="handleClick">
-          <el-tab-pane label="杂志" name="first">
-            <el-row :gutter="20">
-              <el-col :span="5">
-                <el-form-item label="杂志名称:">
-                  <el-input v-model="form.name"></el-input>
-                </el-form-item>
-              </el-col>
-              <el-col :span="5">
-                <el-form-item label="是否上架:">
-                  <el-select v-model="form.region" placeholder="请选择活动区域">
-                    <el-option label="是" value="1"></el-option>
-                    <el-option label="否" value="2"></el-option>
-                  </el-select>
-                </el-form-item>
-              </el-col>
-              <el-col :span="5">
-                <el-form-item label="类别:">
-                  <el-select v-model="form.region" placeholder="请选择活动区域">
-                    <el-option label="类别一" value="shanghai"></el-option>
-                    <el-option label="类别二" value="beijing"></el-option>
-                  </el-select>
-                </el-form-item>
-              </el-col>
-              <el-col :span="5">
-                <el-form-item label="试读年龄:">
-                  <el-select v-model="form.region" placeholder="请选择活动区域">
-                    <el-option label="年龄一" value="shanghai"></el-option>
-                    <el-option label="年龄二" value="beijing"></el-option>
-                  </el-select>
-                </el-form-item>
-              </el-col>
-              <el-col :span="4">
-                <el-button type="primary" plain>检索</el-button>
-              </el-col>
-            </el-row>
-            <el-row :gutter="20">
-              <el-col :span="5">
-                <el-form-item label="商品配送方式:">
-                  <el-select v-model="form.region" placeholder="请选择活动区域">
-                    <el-option label="送到学校" value="shanghai"></el-option>
-                    <el-option label="送到家里" value="beijing"></el-option>
-                  </el-select>
-                </el-form-item>
-              </el-col>
-              <el-col :span="5">
-                <el-input placeholder="请输入内容" v-model="form.input">
-                  <template slot="prepend">订单金额未满</template>
-                  <template slot="append">元</template>
-                </el-input>
-              </el-col>
-              <el-col :span="5">
-                <el-input placeholder="请输入内容" v-model="form.input">
-                  <template slot="prepend">将收取运费</template>
-                  <template slot="append">元</template>
-                </el-input>
-              </el-col>
-            </el-row>
-            <el-table ref="multipleTable" :data="tableList" tooltip-effect="dark" style="width: 100%" :height="windowHeight" border @selection-change="handleSelectionChange">
-              <el-table-column type="selection" width="55"></el-table-column>
-              <el-table-column type="index" width="120" label="排序"></el-table-column>
-              <el-table-column prop="groupName" label="姓名"></el-table-column>
-              <el-table-column prop="roleName" label="类型"></el-table-column>
-              <el-table-column prop="roleName" label="适度年龄"></el-table-column>
-              <el-table-column prop="roleName" label="价格"></el-table-column>
-              <el-table-column prop="roleName" label="订阅周期"></el-table-column>
-              <el-table-column prop="roleName" label="礼品"></el-table-column>
-            </el-table>
-          </el-tab-pane>
-          <el-tab-pane label="图书" name="second">
-            <el-row :gutter="20">
-              <el-col :span="5">
-                <el-form-item label="杂志名称:">
-                  <el-input v-model="form.name"></el-input>
-                </el-form-item>
-              </el-col>
-              <el-col :span="5">
-                <el-form-item label="是否上架:">
-                  <el-select v-model="form.region" placeholder="请选择活动区域">
-                    <el-option label="是" value="1"></el-option>
-                    <el-option label="否" value="2"></el-option>
-                  </el-select>
-                </el-form-item>
-              </el-col>
-              <el-col :span="5">
-                <el-form-item label="类别:">
-                  <el-select v-model="form.region" placeholder="请选择活动区域">
-                    <el-option label="类别一" value="shanghai"></el-option>
-                    <el-option label="类别二" value="beijing"></el-option>
-                  </el-select>
-                </el-form-item>
-              </el-col>
-              <el-col :span="5">
-                <el-form-item label="试读年龄:">
-                  <el-select v-model="form.region" placeholder="请选择活动区域">
-                    <el-option label="年龄一" value="shanghai"></el-option>
-                    <el-option label="年龄二" value="beijing"></el-option>
-                  </el-select>
-                </el-form-item>
-              </el-col>
-              <el-col :span="4">
-                <el-button type="primary" plain>检索</el-button>
-              </el-col>
-            </el-row>
-            <el-row  :gutter="20" style="margin-bottom: 22px">
-              <el-col :span="5">
-                <el-input placeholder="金额" v-model="form.input">
-                  <template slot="prepend">图书运费</template>
-                  <template slot="append">元</template>
-                </el-input>
-              </el-col>
-              <el-col :span="5">
-                <el-input placeholder="金额" v-model="form.input">
-                  <template slot="prepend">图书金额满</template>
-                  <template slot="append">免运费</template>
-                </el-input>
-              </el-col>
-            </el-row>
-            <el-table ref="multipleTable" :data="tableList" tooltip-effect="dark" style="width: 100%" :height="windowHeight" border @selection-change="handleSelectionChange">
-              <el-table-column type="selection" width="55"></el-table-column>
-              <el-table-column type="index" width="120" label="排序"></el-table-column>
-              <el-table-column prop="groupName" label="姓名"></el-table-column>
-              <el-table-column prop="roleName" label="类型"></el-table-column>
-              <el-table-column prop="roleName" label="适度年龄"></el-table-column>
-              <el-table-column prop="roleName" label="价格"></el-table-column>
-              <el-table-column prop="roleName" label="订阅周期"></el-table-column>
-              <el-table-column prop="roleName" label="礼品"></el-table-column>
-            </el-table>
-          </el-tab-pane>
-          <el-tab-pane label="试听" name="third">
-            <el-row  :gutter="20">
-              <el-col :span="5">
-                <el-form-item label="包名称:">
-                  <el-input v-model="form.name"></el-input>
-                </el-form-item>
-              </el-col>
-              <el-col :span="4">
-                <el-button type="primary" plain>检索</el-button>
-              </el-col>
-            </el-row>
-            <el-table ref="multipleTable" :data="tableList" tooltip-effect="dark" style="width: 100%" :height="windowHeight" border @selection-change="handleSelectionChange">
-              <el-table-column type="selection" width="55"></el-table-column>
-              <el-table-column type="index" width="120" label="排序"></el-table-column>
-              <el-table-column prop="groupName" label="姓名"></el-table-column>
-              <el-table-column prop="roleName" label="类型"></el-table-column>
-              <el-table-column prop="roleName" label="适度年龄"></el-table-column>
-              <el-table-column prop="roleName" label="价格"></el-table-column>
-              <el-table-column prop="roleName" label="订阅周期"></el-table-column>
-              <el-table-column prop="roleName" label="礼品"></el-table-column>
-            </el-table>
-          </el-tab-pane>
-        </el-tabs>
+        <el-row>
+          <el-col :span="8">
+            <el-form-item label="目录名称:">
+              <el-input v-model="form.title"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="8">
+            <el-form-item label="联系人:">
+              <el-input v-model="form.linkman"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="8">
+            <el-form-item label="联系电话:">
+              <el-input v-model="form.linkmobile"></el-input>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="8">
+            <el-form-item label="提示语:">
+              <el-input v-model="form.tip"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="8">
+            <el-form-item label="备注:">
+              <el-input v-model="form.remark"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="8">
+            <el-form-item label="适合年龄:">
+              <el-select v-model="form.schoolLevel">
+                <el-option label="幼儿园" value="2"></el-option>
+                <el-option label="小学" value="0"></el-option>
+                <el-option label="初中" value="1"></el-option>
+              </el-select>
+            </el-form-item>
+          </el-col>
+        </el-row>
       </el-form>
+      <el-tabs type="border-card">
+        <el-tab-pane label="杂志"><el-magaList @mageDate="mageDate"></el-magaList></el-tab-pane>
+        <el-tab-pane label="图书"><el-bookList @bookDate="bookDate"></el-bookList></el-tab-pane>
+        <el-tab-pane label="视听"><el-audioList @ypspDate="ypspDate"></el-audioList></el-tab-pane>
+      </el-tabs>
     </header>
     <el-row style="margin-top: 20px">
-      <el-button type="primary">保存书单</el-button>
+      <el-button type="primary" @click="onSave">保存书单</el-button>
       <el-button @click="goBack">取消</el-button>
     </el-row>
   </div>
 </template>
 
 <script>
+import magaList from '@/components/magaList/magaList.vue'
+import bookList from '@/components/bookList/bookList.vue'
+import audioList from '@/components/audioList/audioList.vue'
 export default {
   name: 'journal-Manage-catalogue-add',
-  components: {},
+  components: {
+    'el-magaList': magaList,
+    'el-bookList': bookList,
+    'el-audioList': audioList
+  },
   data () {
     return {
       windowHeight: window.innerHeight - 500 + 'px',
       options: [],
       search: [],
-      form: {},
+      form: {
+        items: [],
+        tip: '',
+        title: '',
+        remark: '',
+        linkman: '',
+        linkmobile: '',
+        postage: '',
+        postageSum: '',
+        schoolLevel: '',
+        sendType: ''
+      },
       tableList: [],
-      activeName: 'first'
+      mageList: [],
+      bookList: [],
+      ypspList: []
     }
-  },
-  created () {
   },
   mounted () {
   },
-  computed: {},
   methods: {
-    handleSelectionChange () {},
-    handleClick (item) {
-      if (item.name === 'first') {
-        this.windowHeight = window.innerHeight - 500 + 'px'
-      } else if (item.name === 'second') {
-        this.windowHeight = window.innerHeight - 498 + 'px'
-      } else if (item.name === 'third') {
-        this.windowHeight = window.innerHeight - 436 + 'px'
-      }
+    handleSelectionChange (val) {
+      console.log(val)
+    },
+    mageDate (val) {
+      this.form.postage = val.postage === undefined ? '' : val.postage
+      this.form.postageSum = val.postageSum === undefined ? '' : val.postageSum
+      this.form.sendType = val.sendType === undefined ? '' : val.sendType
+      this.mageList = val.items.length > 0 ? val.items : []
+    },
+    bookDate (val) {
+      this.form.postageBook = val.postageBook === undefined ? '' : val.postageBook
+      this.form.postageSumBook = val.postageSumBook === undefined ? '' : val.postageSumBook
+      this.bookList = val.items.length > 0 ? val.items : []
+    },
+    ypspDate (val) {
+      this.ypspList = val.items.length > 0 ? val.items : []
+    },
+    onSave () {
+      this.$axios.itempackSave(this.form).then(res => {
+        if (res.data.code === '0') {
+          this.$message.success('添加成功!')
+          this.$router.push({
+            path: '/catalogue'
+          })
+        } else {
+          this.$message.error(res.data.data.msg)
+        }
+      }, err => {
+        this.$message.error(err)
+      }).catch(err => {
+        this.$message.error(err)
+      })
     },
     goBack () {
       this.$router.go(-1)
     }
   },
-  watch: {}
+  watch: {
+    mageList () {
+      this.form.items = this.mageList.concat(this.bookList).concat(this.ypspList)
+    },
+    bookList () {
+      this.form.items = this.mageList.concat(this.bookList).concat(this.ypspList)
+    },
+    ypspList () {
+      this.form.items = this.mageList.concat(this.bookList).concat(this.ypspList)
+    }
+  }
 }
 </script>
 

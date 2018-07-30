@@ -190,5 +190,13 @@ export default {
   },
   itempackUpdatesub (params) { // 修改征订状态
     return axios.post('/itempack/updatesub', params)
+  },
+  bookList (params) {
+    let param = qs.stringify(params)
+    return axios.get(`/book/list?${param}`)
+  },
+  spyppacketList (params) {
+    let param = qs.stringify(params)
+    return axios.get(`/spyp/spyppacket/list?${param}`)
   }
 }
