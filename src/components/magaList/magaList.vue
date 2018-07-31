@@ -87,11 +87,10 @@ export default {
       selectIds: []
     }
   },
-  props: ['sendType', 'postage', 'postageSum'],
+  props: ['sendType', 'postage', 'postageSum', 'magazineIds'],
   mounted () {
     this.loadItem()
     this.loadDate()
-    // this.loadItemageList()
     this.loadItemtypeList()
   },
   methods: {
@@ -99,6 +98,8 @@ export default {
       this.form.sendType = this.sendType
       this.form.postage = this.postage
       this.form.postageSum = this.postageSum
+      this.form.magazineIds = this.magazineIds
+      this.$refs.multipleTable.toggleRowSelection(this.magazineIds, true)
     },
     handleSelectionChange (val) {
       let ids = []
