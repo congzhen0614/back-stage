@@ -5,6 +5,7 @@
 import axios from 'axios'
 import qs from 'qs'
 import Vue from 'vue'
+import downloadHandler from '@/common/upload.js'
 let obj = new Vue()
 axios.defaults.baseURL = location.protocol + '//192.168.0.230:8081/qrzd'
 
@@ -20,7 +21,9 @@ axios.interceptors.request.use(config => {
 
 // 设置重定向
 axios.interceptors.response.use(response => {
-  if (response.data.code === '-6') {
+  if (typeof response.data === 'string') {
+    downloadHandler(response.data, 'zip')
+  } else if (response.data.code === '-6') {
     localStorage.clear()
     window.location.reload()
   } else if (response.data.code < '0') {
@@ -191,12 +194,16 @@ export default {
   itempackUpdatesub (params) { // 修改征订状态
     return axios.post('/itempack/updatesub', params)
   },
-  bookList (params) {
+  bookList (params) { // 图书列表
     let param = qs.stringify(params)
     return axios.get(`/book/list?${param}`)
   },
-  spyppacketList (params) {
+  spyppacketList (params) { // 视听列表
     let param = qs.stringify(params)
     return axios.get(`/spyp/spyppacket/list?${param}`)
+  },
+  itempackDownload (params) {
+    let param = qs.stringify(params)
+    return axios.get(`/itempack/qrcode/download/zip?${param}`)
   }
 }

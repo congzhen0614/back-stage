@@ -10,7 +10,7 @@
         </template>
       </el-table-column>
     </el-table>
-    <el-button type="primary" @click="onSubmit">立即创建</el-button>
+    <el-button type="primary" @click="onSubmit">上传logo</el-button>
     <el-button>取消</el-button>
   </div>
 </template>
@@ -25,18 +25,6 @@ export default {
       tableData: JSON.parse(this.$route.query.items),
       fileList: [],
       uploadId: 0
-    }
-  },
-  computed: {
-    submitParams () {
-      let ids = []
-      this.tableData.forEach(item => {
-        ids.push(item.id)
-      })
-      let params = {
-        ids: ids
-      }
-      return params
     }
   },
   mounted () {
@@ -62,7 +50,11 @@ export default {
       })
     },
     onSubmit () {
-      this.$axios.itempackUpdateQrcode(this.submitParams).then(res => {
+      let ids = []
+      this.tableData.forEach(item => {
+        ids.push(item.id)
+      })
+      this.$axios.itempackUpdateQrcode({ids: ids}).then(res => {
         if (res.data.code === '0') {
           this.$message.success('操作成功!')
           this.$router.go(-1)

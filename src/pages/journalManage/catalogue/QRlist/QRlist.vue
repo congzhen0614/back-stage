@@ -14,20 +14,36 @@
     </header>
     <el-table ref="multipleTable" :data="tableList" tooltip-effect="dark" style="width: 100%" :height="windowHeight" border @selection-change="handleSelectionChange">
       <el-table-column type="selection" width="55"></el-table-column>
-      <el-table-column type="index" width="120" label="排序"></el-table-column>
-      <el-table-column prop="groupName" label="姓名" width="120"></el-table-column>
-      <el-table-column prop="roleName" label="类型" show-overflow-tooltip></el-table-column>
-      <el-table-column fixed="right" label="操作" width="100">
+      <el-table-column type="index" width="100" label="序号"></el-table-column>
+      <el-table-column prop="title" label="名称"></el-table-column>
+      <el-table-column prop="qrimg" label="二维码" width="100px">
         <template slot-scope="scope">
-          <el-button type="text" size="small" @click="clickUpdate(scope.row)">修改</el-button>
-          <el-button type="text" size="small" @click="clickDelete(scope.row)">删除</el-button>
+          <img :src="scope.row.qrimg" width="100%"/>
+        </template>
+      </el-table-column>
+      <el-table-column prop="qrurl" label="URL地址"></el-table-column>
+      <el-table-column prop="roleName" label="审核状态">
+        <template slot-scope="scope">
+          <span>{{ scope.row.checkStatus | checkType }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column prop="roleName" label="征订状态">
+        <template slot-scope="scope">
+          <span>{{ scope.row.sub | subType }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column prop="remark" label="备注"></el-table-column>
+      <el-table-column fixed="right" label="操作" width="150">
+        <template slot-scope="scope">
+          <el-button type="text" size="small" @click="uploadLogo(scope.row)" v-if="scope.row.qrlogo === ''">上传logo</el-button>
+          <el-button type="text" size="small" @click="uploadLogo(scope.row)" v-if="scope.row.qrlogo !== ''">修改logo</el-button>
         </template>
       </el-table-column>
     </el-table>
     <el-pagination
       @size-change="handleSizeChange"
       @current-change="handleCurrentChange"
-      :current-page="pages.currentPage"
+      :current-page="pages.pageNum"
       :page-size="pages.pageSize"
       :page-sizes="[10, 20, 50, 100]"
       layout="total, sizes, prev, pager, next, jumper"
@@ -44,18 +60,103 @@ export default {
     return {
       windowHeight: window.innerHeight - 320 + 'px',
       search: {},
-      pages: {},
-      tableList: []
+      pages: {
+        pageNum: 1,
+        pageSize: 10,
+        total: 0
+      },
+      tableList: [],
+      selectIds: []
     }
   },
   created () {
   },
   mounted () {
+    this.loadDate()
   },
-  computed: {},
+  computed: {
+    loadParams () {
+      let param = {
+        pageNum: this.pages.pageNum,
+        pageSize: this.pages.pageSize,
+        title: this.search.title,
+        has: 1
+      }
+      return param
+    }
+  },
   methods: {
-    clickDelete () {},
-    clickUpload () {}
+    handleSelectionChange (val) {
+      let ids = []
+      val.forEach(item => {
+        ids.push(item.id)
+      })
+      this.selectIds = ids
+    },
+    loadDate () {
+      this.$axios.itempackList(this.loadParams).then(res => {
+        if (res.data.code === '0') {
+          this.tableList = res.data.data.list
+          this.pages.total = res.data.data.total
+          console.log(this.tableList)
+        } else {
+          this.$message.error(res.data.data.msg)
+        }
+      }, err => {
+        this.$message.error(err)
+      }).catch(err => {
+        this.$message.error(err)
+      })
+    },
+    handleCurrentChange () {},
+    handleSizeChange () {},
+    clickUpload () {
+      this.$axios.itempackDownload({ids: this.selectIds.join(',')}).then(res => {
+        if (res.data.code === '0') {
+          console.log(res)
+        } else {
+          this.$message.error(res.data.data.msg)
+        }
+      }, err => {
+        this.$message.error(err)
+      }).catch(err => {
+        this.$message.error(err)
+      })
+    },
+    clickDelete () {
+      this.$confirm('此操作将永久删除该选项, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        this.$axios.itempackDel({ids: this.selectIds}).then(res => {
+          if (res.data.code === '0') {
+            this.$message.success('删除成功!')
+            this.loadDate()
+          } else {
+            this.$message.error(res.data.data.msg)
+          }
+        }, err => {
+          this.$message.error(err)
+        }).catch(err => {
+          this.$message.error(err)
+        })
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '已取消删除'
+        })
+      })
+    },
+    uploadLogo (item) {
+      console.log(item)
+      this.$router.push({
+        path: '/QRenerat',
+        query: {
+          items: JSON.stringify([{id: item.id, name: item.title}])
+        }
+      })
+    }
   },
   watch: {}
 }
