@@ -186,7 +186,7 @@ export default {
     return axios.post('/itempack/update/qrcode/logo', params)
   },
   itempackUpdateQrcode (params) { // 批量生成二维码
-    return axios.post('/itempack/update/qrcode/open', params)
+    return axios.post('/itempack/update/qrcode', params)
   },
   itempackUpdatesub (params) { // 修改征订状态
     return axios.post('/itempack/updatesub', params)

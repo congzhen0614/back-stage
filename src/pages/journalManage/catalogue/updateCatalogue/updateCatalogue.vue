@@ -43,7 +43,7 @@
       </el-form>
       <el-tabs type="border-card">
         <el-tab-pane label="杂志"><el-magaList :postage="form.postage" :postageSum="form.postageSum" :sendType="form.sendType" :magazineIds="form.magazineIds" @mageDate="mageDate"></el-magaList></el-tab-pane>
-        <el-tab-pane label="图书"><el-bookList @bookDate="bookDate"></el-bookList></el-tab-pane>
+        <el-tab-pane label="图书"><el-bookList :postage="form.postageBook" :postageSum="form.postageSumBook" @bookDate="bookDate"></el-bookList></el-tab-pane>
         <el-tab-pane label="视听"><el-audioList @ypspDate="ypspDate"></el-audioList></el-tab-pane>
       </el-tabs>
     </header>
@@ -77,9 +77,7 @@ export default {
       ypspList: []
     }
   },
-  mounted () {
-    console.log(this.form)
-  },
+  mounted () {},
   methods: {
     handleSelectionChange (val) {
       console.log(val)

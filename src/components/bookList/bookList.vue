@@ -22,13 +22,6 @@
             </el-select>
           </el-form-item>
         </el-col>
-        <!--<el-col :span="5">-->
-          <!--<el-form-item label="适读年龄:">-->
-            <!--<el-select v-model="search.ageId">-->
-              <!--<el-option :label="item.name" :value="item.id" v-for="item in ageList" :key="item.id"></el-option>-->
-            <!--</el-select>-->
-          <!--</el-form-item>-->
-        <!--</el-col>-->
         <el-col :span="4">
           <el-button type="primary" plain @click="loadDate">检索</el-button>
         </el-col>
@@ -48,23 +41,6 @@
             <template slot="append">元</template>
           </el-input>
         </el-col>
-        <!--<el-col :span="6">-->
-          <!--<el-form-item label="适合年龄:">-->
-            <!--<el-select v-model="form.schoolLevel">-->
-              <!--<el-option label="幼儿园" value="2"></el-option>-->
-              <!--<el-option label="小学" value="0"></el-option>-->
-              <!--<el-option label="初中" value="1"></el-option>-->
-            <!--</el-select>-->
-          <!--</el-form-item>-->
-        <!--</el-col>-->
-        <!--<el-col :span="6">-->
-          <!--<el-form-item label="配送方式:">-->
-            <!--<el-select v-model="form.sendType">-->
-              <!--<el-option label="发到学校" value="0"></el-option>-->
-              <!--<el-option label="发到家里" value="1"></el-option>-->
-            <!--</el-select>-->
-          <!--</el-form-item>-->
-        <!--</el-col>-->
       </el-row>
     </el-form>
     <el-table border ref="multipleTable" tooltip-effect="dark" :data="tableList" :height="windowHeight" @selection-change="handleSelectionChange">
@@ -96,12 +72,17 @@ export default {
       selectIds: []
     }
   },
+  props: ['postage', 'postageSum'],
   mounted () {
     this.loadDate()
-    // this.loadItemageList()
+    this.loadItem()
     this.loadItemtypeList()
   },
   methods: {
+    loadItem () {
+      this.form.postageBook = this.postage
+      this.form.postageSumBook = this.postageSum
+    },
     handleSelectionChange (val) {
       let ids = []
       val.forEach(item => {
@@ -117,8 +98,13 @@ export default {
       this.$axios.bookList(this.search).then(res => {
         if (res.data.code === '0') {
           this.tableList = res.data.data.list
-          this.tableList.forEach(item => {
+          this.tableList.forEach((item, index) => {
             item.ord = 0
+            this.form.magazineIds.forEach(j => {
+              if (parseInt(j) === item.id) {
+                this.$refs.multipleTable(this.tableList[index], true)
+              }
+            })
           })
         } else {
           this.$message.error(res.data.data.msg)

@@ -95,11 +95,10 @@ export default {
   },
   methods: {
     loadItem () {
-      this.form.sendType = this.sendType
+      // this.form.sendType = this.sendType
       this.form.postage = this.postage
       this.form.postageSum = this.postageSum
       this.form.magazineIds = this.magazineIds
-      this.$refs.multipleTable.toggleRowSelection(this.magazineIds, true)
     },
     handleSelectionChange (val) {
       let ids = []
@@ -116,8 +115,13 @@ export default {
       this.$axios.magazineList(this.search).then(res => {
         if (res.data.code === '0') {
           this.tableList = res.data.data.list
-          this.tableList.forEach(item => {
+          this.tableList.forEach((item, index) => {
             item.ord = 0
+            this.form.magazineIds.forEach(j => {
+              if (parseInt(j) === item.id) {
+                this.$refs.multipleTable(this.tableList[index], true)
+              }
+            })
           })
         } else {
           this.$message.error(res.data.data.msg)

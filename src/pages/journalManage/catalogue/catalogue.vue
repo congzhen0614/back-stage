@@ -104,6 +104,7 @@ export default {
       search: {},
       options: [],
       seleteIds: [],
+      seleteItems: [],
       tableList: [],
       pages: {
         total: 0,
@@ -131,10 +132,19 @@ export default {
   methods: {
     handleSelectionChange (val) { // 选中返回数据
       let ids = []
+      let items = []
       val.forEach(item => {
         ids.push(item.id)
       })
+      val.forEach(item => {
+        console.log(item)
+        items.push({
+          id: item.id,
+          name: item.title
+        })
+      })
       this.seleteIds = ids
+      this.seleteItems = items
     },
     handleCurrentChange (val) {
       this.pages.pageNum = val
@@ -148,7 +158,7 @@ export default {
       this.$axios.itempackList(this.listParams).then(res => {
         if (res.data.code === '0') {
           this.tableList = res.data.data.list
-          this.pages.res.total = res.data.data.total
+          this.pages.total = res.data.data.total
         } else {
           this.$message.error(res.data.data.msg)
         }
@@ -185,7 +195,7 @@ export default {
       this.$router.push({
         path: '/QRenerat',
         query: {
-          ids: this.seleteIds
+          items: JSON.stringify(this.seleteItems)
         }
       })
     },
@@ -231,8 +241,11 @@ export default {
         query: item
       })
     },
-    onUpdate () {
-      console.log('onUpdate')
+    onUpdate (item) {
+      this.$router.push({
+        path: '/updateCatalogue',
+        query: item
+      })
     },
     onDelete (item) {
       this.$confirm('此操作将永久删除该选项, 是否继续?', '提示', {
