@@ -2,9 +2,9 @@
   <div class="journal-Manage-catalogue-QRlist">
     <header class="header" style="height: auto">
       <el-row :gutter="40">
-        <el-col :span="4"><el-input v-model="search.name" placeholder="请输入名称"></el-input></el-col>
+        <el-col :span="4"><el-input v-model="search.title" placeholder="请输入名称"></el-input></el-col>
         <el-col :span="4">
-          <el-button type="primary" plain>检索</el-button>
+          <el-button type="primary" plain @click="loadDate">检索</el-button>
         </el-col>
       </el-row>
       <el-row style="margin-top: 20px">
@@ -12,7 +12,14 @@
         <el-button type="primary" @click="clickUpload">批量下载</el-button>
       </el-row>
     </header>
-    <el-table ref="multipleTable" :data="tableList" tooltip-effect="dark" style="width: 100%" :height="windowHeight" border @selection-change="handleSelectionChange">
+    <el-table
+      border
+      style="width: 100%"
+      :height="windowHeight"
+      ref="multipleTable"
+      tooltip-effect="dark"
+      :data="tableList"
+      @selection-change="handleSelectionChange">
       <el-table-column type="selection" width="55"></el-table-column>
       <el-table-column type="index" width="100" label="序号"></el-table-column>
       <el-table-column prop="title" label="名称"></el-table-column>
@@ -98,7 +105,6 @@ export default {
         if (res.data.code === '0') {
           this.tableList = res.data.data.list
           this.pages.total = res.data.data.total
-          console.log(this.tableList)
         } else {
           this.$message.error(res.data.data.msg)
         }
@@ -108,20 +114,16 @@ export default {
         this.$message.error(err)
       })
     },
-    handleCurrentChange () {},
-    handleSizeChange () {},
+    handleCurrentChange (val) {
+      this.pages.pageNum = val
+      this.loadDate()
+    },
+    handleSizeChange (val) {
+      this.pages.pageSize = val
+      this.loadDate()
+    },
     clickUpload () {
-      this.$axios.itempackDownload({ids: this.selectIds.join(',')}).then(res => {
-        if (res.data.code === '0') {
-          console.log(res)
-        } else {
-          this.$message.error(res.data.data.msg)
-        }
-      }, err => {
-        this.$message.error(err)
-      }).catch(err => {
-        this.$message.error(err)
-      })
+      window.location.href = location.protocol + `//192.168.0.230:8081/qrzd/itempack/qrcode/download/zip/open?ids=${this.selectIds.join(',')}`
     },
     clickDelete () {
       this.$confirm('此操作将永久删除该选项, 是否继续?', '提示', {

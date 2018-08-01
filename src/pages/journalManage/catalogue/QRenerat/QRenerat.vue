@@ -5,13 +5,13 @@
       <el-table-column>
         <template slot-scope="scope">
           <el-upload ref="upload" class="upload-demo" :limit="1" :multiple="false" :on-success="upLoadSuccess" action="http://192.168.0.231:8080/app-api/api/upload">
-            <el-button slot="trigger" size="small" type="primary" @click="selectFile(scope.row.id)" style="float: left">选择文件</el-button>
+            <el-button slot="trigger" size="small" type="primary" @click="selectFile(scope.row.id)" style="float: left">上传logo</el-button>
           </el-upload>
         </template>
       </el-table-column>
     </el-table>
-    <el-button type="primary" @click="onSubmit">上传logo</el-button>
-    <el-button>取消</el-button>
+    <el-button type="primary" @click="onSubmit">保存提交</el-button>
+    <el-button @click="goBack">取消</el-button>
   </div>
 </template>
 
@@ -66,6 +66,9 @@ export default {
       }).catch(err => {
         this.$message.error(err)
       })
+    },
+    goBack () {
+      this.$router.go(-1)
     }
   },
   watch: {}
