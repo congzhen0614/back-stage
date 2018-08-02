@@ -14,7 +14,7 @@
     </el-form>
     <el-table border ref="multipleTable" tooltip-effect="dark" :data="tableList" :height="windowHeight" @selection-change="handleSelectionChange">
       <el-table-column type="selection" width="55"></el-table-column>
-      <el-table-column type="index" label="排序" width="80">
+      <el-table-column prop="ord" type="index" label="排序" width="100" sortable>
         <template slot-scope="scope">
           <el-input size="small" v-model="scope.row.ord" @change="ordChange(scope.row)"></el-input>
         </template>
@@ -25,7 +25,7 @@
           <img :src="scope.row.logo" width="100%">
         </template>
       </el-table-column>
-      <el-table-column prop="fee" label="价格" width="100%"></el-table-column>
+      <el-table-column prop="fee" label="价格" width="100%" sortable></el-table-column>
     </el-table>
   </div>
 </template>
@@ -41,6 +41,7 @@ export default {
       tableList: []
     }
   },
+  props: ['videoIds'],
   mounted () {
     this.loadDate()
   },
@@ -49,7 +50,7 @@ export default {
       let ids = []
       val.forEach(item => {
         ids.push({
-          cls: 3,
+          cls: 54,
           itemId: item.id,
           ord: parseInt(item.ord)
         })
@@ -61,7 +62,15 @@ export default {
         if (res.data.code === '0') {
           this.tableList = res.data.data.list
           this.tableList.forEach(item => {
-            item.ord = 0
+            item.ord = 9999
+          })
+          if (typeof this.videoIds === 'undefined') return false
+          this.$nextTick(() => {
+            this.tableList.forEach(item => {
+              if (this.videoIds.join(',').indexOf(item.id) > -1) {
+                this.$refs.multipleTable.toggleRowSelection(item, true)
+              }
+            })
           })
         } else {
           this.$message.error(res.data.data.msg)

@@ -33,23 +33,26 @@
           <el-col :span="8">
             <el-form-item label="适合年龄:">
               <el-select v-model="form.schoolLevel">
-                <el-option label="幼儿园" value="2"></el-option>
-                <el-option label="小学" value="0"></el-option>
-                <el-option label="初中" value="1"></el-option>
+                <el-option label="幼儿园" :value="2"></el-option>
+                <el-option label="小学" :value="0"></el-option>
+                <el-option label="初中" :value="1"></el-option>
               </el-select>
             </el-form-item>
           </el-col>
         </el-row>
       </el-form>
       <el-tabs type="border-card">
-        <el-tab-pane label="杂志"><el-magaList :postage="form.postage" :postageSum="form.postageSum" :sendType="form.sendType" :magazineIds="form.magazineIds" @mageDate="mageDate"></el-magaList></el-tab-pane>
-        <el-tab-pane label="图书"><el-bookList :postage="form.postageBook" :postageSum="form.postageSumBook" @bookDate="bookDate"></el-bookList></el-tab-pane>
-        <el-tab-pane label="视听"><el-audioList @ypspDate="ypspDate"></el-audioList></el-tab-pane>
+        <el-tab-pane label="杂志"><el-magaList @mageDate="mageDate" :postage="form.postage" :postageSum="form.postageSum" :sendType="form.sendType" :magazineIds="magazineIds"></el-magaList></el-tab-pane>
+        <el-tab-pane label="图书"><el-bookList @bookDate="bookDate" :postageBook="form.postageBook" :postageSumBook="form.postageSumBook" :bookIds="bookIds"></el-bookList></el-tab-pane>
+        <el-tab-pane label="视听"><el-audioList @ypspDate="ypspDate" :videoIds="videoIds"></el-audioList></el-tab-pane>
       </el-tabs>
     </header>
-    <el-row style="margin-top: 20px">
+    <el-row style="margin-top: 20px" v-if="isUpdate">
       <el-button type="primary" @click="onSave">保存书单</el-button>
       <el-button @click="goBack">取消</el-button>
+    </el-row>
+    <el-row style="margin-top: 20px" v-if="!isUpdate">
+      <el-button @click="goBack">返回</el-button>
     </el-row>
   </div>
 </template>
@@ -70,14 +73,34 @@ export default {
       windowHeight: window.innerHeight - 500 + 'px',
       options: [],
       search: [],
-      form: this.$route.query,
+      magazineIds: this.$route.query.item.magazineIds,
+      bookIds: this.$route.query.item.bookIds,
+      videoIds: this.$route.query.item.videoIds,
+      isUpdate: this.$route.query.update,
+      form: {
+        id: this.$route.query.item.id,
+        items: [],
+        linkman: this.$route.query.item.linkman,
+        linkmobile: this.$route.query.item.linkmobile,
+        postage: this.$route.query.item.postage,
+        postageBook: this.$route.query.item.postageBook,
+        postageSum: this.$route.query.item.postageSum,
+        postageSumBook: this.$route.query.item.postageSumBook,
+        remark: this.$route.query.item.remark,
+        schoolLevel: parseInt(this.$route.query.item.schoolLevel),
+        sendType: parseInt(this.$route.query.item.sendType),
+        tip: this.$route.query.item.tip,
+        title: this.$route.query.item.title
+      },
       tableList: [],
       mageList: [],
       bookList: [],
       ypspList: []
     }
   },
-  mounted () {},
+  mounted () {
+    console.log(this.form)
+  },
   methods: {
     handleSelectionChange (val) {
       console.log(val)
@@ -92,12 +115,15 @@ export default {
       this.form.postageBook = val.postageBook === undefined ? '' : val.postageBook
       this.form.postageSumBook = val.postageSumBook === undefined ? '' : val.postageSumBook
       this.bookList = val.items.length > 0 ? val.items : []
+      console.log(this.form.postageBook)
+      console.log(this.form.postageSumBook)
     },
     ypspDate (val) {
       this.ypspList = val.items.length > 0 ? val.items : []
     },
     onSave () {
-      this.$axios.itempackSave(this.form).then(res => {
+      console.log(this.form)
+      this.$axios.itempackUpdate(this.form).then(res => {
         if (res.data.code === '0') {
           this.$message.success('添加成功!')
           this.$router.push({

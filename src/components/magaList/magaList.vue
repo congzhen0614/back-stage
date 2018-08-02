@@ -22,13 +22,6 @@
             </el-select>
           </el-form-item>
         </el-col>
-        <!--<el-col :span="5">-->
-          <!--<el-form-item label="适读年龄:">-->
-            <!--<el-select v-model="search.ageId">-->
-              <!--<el-option :label="item.name" :value="item.id" v-for="item in ageList" :key="item.id"></el-option>-->
-            <!--</el-select>-->
-          <!--</el-form-item>-->
-        <!--</el-col>-->
         <el-col :span="4">
           <el-button type="primary" plain @click="loadDate">检索</el-button>
         </el-col>
@@ -51,16 +44,16 @@
         <el-col :span="6">
           <el-form-item label="配送方式:" style="margin-bottom: 0; height: 40px">
             <el-select v-model="form.sendType">
-              <el-option label="发到学校" value="0"></el-option>
-              <el-option label="发到家里" value="1"></el-option>
+              <el-option label="发到学校" :value="0"></el-option>
+              <el-option label="发到家里" :value="1"></el-option>
             </el-select>
           </el-form-item>
         </el-col>
       </el-row>
     </el-form>
-    <el-table border ref="multipleTable" tooltip-effect="dark" :data="tableList" :height="windowHeight" @selection-change="handleSelectionChange">
+    <el-table border ref="multipleTable" tooltip-effect="dark" :data="tableList" :height="windowHeight" row-key="id" @selection-change="handleSelectionChange">
       <el-table-column type="selection" width="55"></el-table-column>
-      <el-table-column type="index" label="排序" width="80">
+      <el-table-column prop="ord" label="排序" width="100" sortable>
         <template slot-scope="scope">
           <el-input size="small" v-model="scope.row.ord" @change="ordChange(scope.row)"></el-input>
         </template>
@@ -80,7 +73,11 @@ export default {
     return {
       windowHeight: window.innerHeight - 565 + 'px',
       search: {},
-      form: {},
+      form: {
+        sendType: this.sendType,
+        postage: this.postage,
+        postageSum: this.postageSum
+      },
       ageList: [],
       typeList: [],
       tableList: [],
@@ -89,17 +86,10 @@ export default {
   },
   props: ['sendType', 'postage', 'postageSum', 'magazineIds'],
   mounted () {
-    this.loadItem()
     this.loadDate()
     this.loadItemtypeList()
   },
   methods: {
-    loadItem () {
-      // this.form.sendType = this.sendType
-      this.form.postage = this.postage
-      this.form.postageSum = this.postageSum
-      this.form.magazineIds = this.magazineIds
-    },
     handleSelectionChange (val) {
       let ids = []
       val.forEach(item => {
@@ -115,11 +105,14 @@ export default {
       this.$axios.magazineList(this.search).then(res => {
         if (res.data.code === '0') {
           this.tableList = res.data.data.list
-          this.tableList.forEach((item, index) => {
-            item.ord = 0
-            this.form.magazineIds.forEach(j => {
-              if (parseInt(j) === item.id) {
-                this.$refs.multipleTable(this.tableList[index], true)
+          this.tableList.forEach(item => {
+            item.ord = 9999
+          })
+          if (typeof this.magazineIds === 'undefined') return false
+          this.$nextTick(() => {
+            this.tableList.forEach(item => {
+              if (this.magazineIds.join(',').indexOf(item.id) > -1) {
+                this.$refs.multipleTable.toggleRowSelection(item, true)
               }
             })
           })

@@ -202,7 +202,7 @@ export default {
     let param = qs.stringify(params)
     return axios.get(`/spyp/spyppacket/list?${param}`)
   },
-  itempackDownload (params) {
+  itempackDownload (params) { // 批量下载二维码
     let param = qs.stringify(params)
     return axios.get(`/itempack/qrcode/download/zip?${param}`)
   }

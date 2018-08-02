@@ -109,7 +109,7 @@ export default {
     },
     handleSelectionChange () {},
     handleCurrentChange (size) {
-      this.pages.total = size
+      this.pages.currentPage = size
       this.loadData()
     },
     handleSizeChange (size) {

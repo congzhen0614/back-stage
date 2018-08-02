@@ -45,7 +45,7 @@
     </el-form>
     <el-table border ref="multipleTable" tooltip-effect="dark" :data="tableList" :height="windowHeight" @selection-change="handleSelectionChange">
       <el-table-column type="selection" width="55"></el-table-column>
-      <el-table-column type="index" label="排序" width="80">
+      <el-table-column prop="ord" type="index" label="排序" width="100" sortable>
         <template slot-scope="scope">
           <el-input size="small" v-model="scope.row.ord" @change="ordChange(scope.row)"></el-input>
         </template>
@@ -65,24 +65,22 @@ export default {
     return {
       windowHeight: window.innerHeight - 565 + 'px',
       search: {},
-      form: {},
+      form: {
+        postageBook: this.postageBook,
+        postageSumBook: this.postageSumBook
+      },
       ageList: [],
       typeList: [],
       tableList: [],
       selectIds: []
     }
   },
-  props: ['postage', 'postageSum'],
+  props: ['postageBook', 'postageSumBook', 'bookIds'],
   mounted () {
     this.loadDate()
-    this.loadItem()
     this.loadItemtypeList()
   },
   methods: {
-    loadItem () {
-      this.form.postageBook = this.postage
-      this.form.postageSumBook = this.postageSum
-    },
     handleSelectionChange (val) {
       let ids = []
       val.forEach(item => {
@@ -98,11 +96,14 @@ export default {
       this.$axios.bookList(this.search).then(res => {
         if (res.data.code === '0') {
           this.tableList = res.data.data.list
-          this.tableList.forEach((item, index) => {
-            item.ord = 0
-            this.form.magazineIds.forEach(j => {
-              if (parseInt(j) === item.id) {
-                this.$refs.multipleTable(this.tableList[index], true)
+          this.tableList.forEach(item => {
+            item.ord = 9999
+          })
+          if (typeof this.bookIds === 'undefined') return false
+          this.$nextTick(() => {
+            this.tableList.forEach(item => {
+              if (this.bookIds.join(',').indexOf(item.id) > -1) {
+                this.$refs.multipleTable.toggleRowSelection(item, true)
               }
             })
           })
@@ -172,6 +173,7 @@ export default {
         postageSumBook: this.form.postageSumBook,
         items: val
       })
+      console.log(val)
     }
   }
 }

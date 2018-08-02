@@ -27,6 +27,9 @@ import upDateAge from '@/pages/journalManage/setAge/upDateAge/upDateAge.vue' // 
 import classify from '@/pages/journalManage/classify/classify.vue' // 分类设置
 import addClassify from '@/pages/journalManage/classify/addClassify/addClassify.vue' // 添加分类
 import updateClassify from '@/pages/journalManage/classify/updateClassify/updateClassify.vue' // 添加分类
+import magaOrder from '@/pages/order/magaOrder/magaOrder.vue' // 图书订单
+import bookOrder from '@/pages/order/bookOrder/bookOrder.vue' // 图书订单
+import spypOrder from '@/pages/order/spypOrder/spypOrder.vue' // 图书订单
 
 Vue.use(Router)
 
@@ -135,6 +138,18 @@ export default new Router({
       path: '/permission',
       name: '角色权限',
       component: permission
+    }, {
+      path: '/magaOrder',
+      name: '杂志订单',
+      component: magaOrder
+    }, {
+      path: '/bookOrder',
+      name: '图书订单',
+      component: bookOrder
+    }, {
+      path: '/spypOrder',
+      name: '电子包订单',
+      component: spypOrder
     }]
   }]
 })

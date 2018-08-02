@@ -5,7 +5,7 @@
         <el-row :gutter="10">
           <el-col :span="4">
             <el-form-item label="名称:">
-              <el-input v-model="search.title"></el-input>
+              <el-input v-model="search.title" placeholder="请输入"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="4">
@@ -26,7 +26,7 @@
           </el-col>
           <el-col :span="4">
             <el-form-item label="创建人:">
-              <el-input v-model="search.creator"></el-input>
+              <el-input v-model="search.creator" placeholder="请输入"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="6">
@@ -122,9 +122,9 @@ export default {
         pageNum: this.pages.pageNum,
         pageSize: this.pages.pageSize,
         sub: this.search.sub,
+        has: this.search.has,
         title: this.search.title,
-        sendType: this.search.sendType,
-        schoolLevel: this.search.schoolLevel
+        creator: this.search.creator
       }
       return param
     }
@@ -238,13 +238,19 @@ export default {
     onChecke (item) {
       this.$router.push({
         path: '/updateCatalogue',
-        query: item
+        query: {
+          item: item,
+          update: false
+        }
       })
     },
     onUpdate (item) {
       this.$router.push({
         path: '/updateCatalogue',
-        query: item
+        query: {
+          item: item,
+          update: true
+        }
       })
     },
     onDelete (item) {

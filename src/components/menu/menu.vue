@@ -34,13 +34,13 @@
           <i class="el-icon-document"></i>
           <span slot="title">订单管理</span>
         </template>
-        <el-menu-item @click="noRouter" index="/">
+        <el-menu-item index="/magaOrder">
           <span slot="title">杂志订单</span>
         </el-menu-item>
-        <el-menu-item @click="noRouter" index="/">
+        <el-menu-item index="/bookOrder">
           <span slot="title">图书订单</span>
         </el-menu-item>
-        <el-menu-item @click="noRouter" index="/">
+        <el-menu-item index="/spypOrder">
           <span slot="title">电子包订单</span>
         </el-menu-item>
       </el-submenu>
