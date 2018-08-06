@@ -184,7 +184,7 @@
               <template slot-scope="scope">
                 <el-button @click="onAgreeRefund(scope.row)" type="text" size="small">退款</el-button>
                 <el-button @click="onRejectRefund(scope.row)" type="text" size="small">拒绝退款</el-button>
-                <el-button @click="onUpload(scope.row)" type="text" size="small">修改</el-button>
+                <!--<el-button @click="onUpload(scope.row)" type="text" size="small">修改</el-button>-->
               </template>
             </el-table-column>
           </el-table>
@@ -208,7 +208,7 @@
     </el-header>
     <el-row style="margin-top: 20px">
       <el-button type="primary" @click="onSubmit">保存提交</el-button>
-      <el-button>取消</el-button>
+      <el-button @click="goBack">取消</el-button>
     </el-row>
   </div>
 </template>
@@ -452,6 +452,9 @@ export default {
       }).catch(err => {
         this.$message.error(err)
       })
+    },
+    goBack () {
+      this.$router.go(-1)
     }
   },
   watch: {}

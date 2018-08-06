@@ -20,7 +20,11 @@
       <el-table-column type="selection" width="55"></el-table-column>
       <el-table-column type="index" width="120" label="排序"></el-table-column>
       <el-table-column prop="name" label="姓名"></el-table-column>
-      <el-table-column prop="cls" label="类型"></el-table-column>
+      <el-table-column prop="cls" label="类型">
+        <template slot-scope="scope">
+          <span>{{ scope.row.cls | clsType }}</span>
+        </template>
+      </el-table-column>
       <el-table-column fixed="right" label="操作" width="150">
         <template slot-scope="scope">
           <el-button type="text" size="small" @click="clickUpdate(scope.row)">修改</el-button>

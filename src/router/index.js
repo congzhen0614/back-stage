@@ -18,6 +18,7 @@ import account from '@/pages/system/account/account.vue' // 账号列表页
 import addAccount from '@/pages/system/account/addAccount/addAccount.vue' // 添加账号页面
 import updateAccount from '@/pages/system/account/updateAccount/updateAccount.vue' // 修改账号页面
 import permission from '@/pages/system/permission/permission.vue' // 角色权限
+import permissionList from '@/pages/system/permission/permissionList/permissionList.vue' // 角色权限
 import organiza from '@/pages/system/organiza/organiza.vue' // 商家组织列表
 import addOrganiza from '@/pages/system/organiza/addOrganiza/addOrganiza.vue' // 添加商家组织
 import updateOrganiza from '@/pages/system/organiza/updateOrganiza/updateOrganiza.vue' // 修改商家组织
@@ -140,6 +141,10 @@ export default new Router({
       path: '/permission',
       name: '角色权限',
       component: permission
+    }, {
+      path: '/permissionList',
+      name: '绑定角色权限',
+      component: permissionList
     }, {
       path: '/magaOrder',
       name: '杂志订单',

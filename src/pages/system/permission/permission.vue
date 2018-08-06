@@ -10,16 +10,6 @@
         </template>
       </el-table-column>
     </el-table>
-    <el-dialog :visible.sync="dialogTableVisible">
-      <el-checkbox v-model="checkAll" @change="handleCheckAllChange">全选</el-checkbox>
-      <el-checkbox-group v-model="checkList">
-        <el-checkbox :label="item.id" v-for="item in permission" :key="item.id">{{item.name}}</el-checkbox>
-      </el-checkbox-group>
-      <el-row style="margin-left: 30px; margin-top: 20px">
-        <el-button type="primary" @click="clickSave">保存</el-button>
-        <el-button @click="clickCancel">取消</el-button>
-      </el-row>
-    </el-dialog>
   </div>
 </template>
 
@@ -30,32 +20,13 @@ export default {
   data () {
     return {
       windowHeight: window.innerHeight - 140 + 'px',
-      dialogTableVisible: false,
-      isIndeterminate: true,
-      checkAll: false,
-      checkIdList: [],
-      permissionIds: [],
-      permission: [],
-      tableList: [],
-      checkList: [],
-      roleId: 0
+      tableList: []
     }
   },
   created () {
   },
   mounted () {
-    this.$axios.testClear()
     this.roleCandidate()
-    this.loadPermissionList()
-  },
-  computed: {
-    params () {
-      let param = {
-        roleId: this.roleId,
-        list: this.checkIdList
-      }
-      return param
-    }
   },
   methods: {
     roleCandidate () {
@@ -71,83 +42,16 @@ export default {
         this.$message.error(err)
       })
     },
-    loadPermissionList () {
-      this.$axios.permissionList().then(res => {
-        if (res.data.code === '0') {
-          this.permission = res.data.data
-          this.permission.forEach(item => {
-            this.permissionIds.push(item.id)
-          })
-        } else {
-          this.$message.error(res.data.data.msg)
-        }
-      }, err => {
-        this.$message.error(err)
-      }).catch(err => {
-        this.$message.error(err)
-      })
-    },
-    rolepermissionList (roleId) {
-      let param = {
-        roleId: roleId
-      }
-      this.$axios.rolepermissionList(param).then(res => {
-        if (res.data.code === '0') {
-          res.data.data.forEach(item => {
-            this.checkList.push(item.permissionId)
-          })
-        } else {
-          this.$message.error(res.data.data.msg)
-        }
-      }, err => {
-        this.$message.error(err)
-      }).catch(err => {
-        this.$message.error(err)
-      })
-    },
-    handleCheckAllChange (val) {
-      this.checkList = val ? this.permissionIds : []
-      this.isIndeterminate = false
-    },
     bindPermission (item) {
-      this.dialogTableVisible = true
-      this.roleId = item.id
-      this.checkList = []
-      this.rolepermissionList(item.id)
-    },
-    clickSave () {
-      this.$axios.rolepermissionSave(this.params).then(res => {
-        if (res.data.code === '0') {
-          this.$message.success('操作成功!')
-          this.dialogTableVisible = false
-        } else {
-          this.$message.error(res.data.data.msg)
+      this.$router.push({
+        path: '/permissionList',
+        query: {
+          id: item.id
         }
-      }, err => {
-        this.$message.error(err)
-      }).catch(err => {
-        this.$message.error(err)
       })
-    },
-    clickCancel () {
-      this.dialogTableVisible = false
     }
   },
-  watch: {
-    checkList (value) {
-      if (value.length === this.permission.length) {
-        this.checkAll = true
-      } else {
-        this.checkAll = false
-      }
-      this.checkIdList = []
-      value.forEach(item => {
-        this.checkIdList.push({
-          id: item
-        })
-      })
-    }
-  }
+  watch: {}
 }
 </script>
 

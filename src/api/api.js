@@ -7,6 +7,7 @@ import qs from 'qs'
 import Vue from 'vue'
 import downloadHandler from '@/common/upload.js'
 let obj = new Vue()
+axios.defaults.baseURL = location.protocol + '//192.168.0.230:8081'
 
 // 设置headers
 axios.interceptors.request.use(config => {
@@ -95,7 +96,7 @@ export default {
   roleCandidate () { // 所有权限列表
     return axios.get('/qrzd/sys/role/candidate')
   },
-  rolepermissionSave (params) {
+  rolepermissionSave (params) { // 保存权限
     return axios.post('/qrzd/sys/rolepermission/save', params)
   },
   itemageList (params) { // 年龄设置列表

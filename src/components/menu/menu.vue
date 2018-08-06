@@ -34,37 +34,37 @@
           <i class="el-icon-document"></i>
           <span slot="title">订单管理</span>
         </template>
-        <el-menu-item index="/magaOrder">
-          <span slot="title">杂志订单</span>
-        </el-menu-item>
-        <el-menu-item index="/bookOrder">
-          <span slot="title">图书订单</span>
-        </el-menu-item>
-        <el-menu-item index="/spypOrder">
-          <span slot="title">电子包订单</span>
-        </el-menu-item>
+        <!--<el-menu-item index="/magaOrder">-->
+          <!--<span slot="title">杂志订单</span>-->
+        <!--</el-menu-item>-->
+        <!--<el-menu-item index="/bookOrder">-->
+          <!--<span slot="title">图书订单</span>-->
+        <!--</el-menu-item>-->
+        <!--<el-menu-item index="/spypOrder">-->
+          <!--<span slot="title">电子包订单</span>-->
+        <!--</el-menu-item>-->
         <el-menu-item index="/orderList">
           <span slot="title">二维码目录订单</span>
         </el-menu-item>
       </el-submenu>
-      <el-submenu index="4">
-        <template slot="title">
-          <i class="el-icon-document"></i>
-          <span slot="title">报表管理</span>
-        </template>
-        <el-menu-item @click="noRouter" index="/">
-          <span slot="title">线上刊物征订汇总</span>
-        </el-menu-item>
-        <el-menu-item @click="noRouter" index="/">
-          <span slot="title">线下刊物征订汇总</span>
-        </el-menu-item>
-        <el-menu-item @click="noRouter" index="/">
-          <span slot="title">按学校汇总杂志订单</span>
-        </el-menu-item>
-        <el-menu-item @click="noRouter" index="/">
-          <span slot="title">杂志销售统计</span>
-        </el-menu-item>
-      </el-submenu>
+      <!--<el-submenu index="4">-->
+        <!--<template slot="title">-->
+          <!--<i class="el-icon-document"></i>-->
+          <!--<span slot="title">报表管理</span>-->
+        <!--</template>-->
+        <!--<el-menu-item @click="noRouter" index="/">-->
+          <!--<span slot="title">线上刊物征订汇总</span>-->
+        <!--</el-menu-item>-->
+        <!--<el-menu-item @click="noRouter" index="/">-->
+          <!--<span slot="title">线下刊物征订汇总</span>-->
+        <!--</el-menu-item>-->
+        <!--<el-menu-item @click="noRouter" index="/">-->
+          <!--<span slot="title">按学校汇总杂志订单</span>-->
+        <!--</el-menu-item>-->
+        <!--<el-menu-item @click="noRouter" index="/">-->
+          <!--<span slot="title">杂志销售统计</span>-->
+        <!--</el-menu-item>-->
+      <!--</el-submenu>-->
       <el-submenu index="5">
         <template slot="title">
           <i class="el-icon-setting"></i>
@@ -79,58 +79,58 @@
         <el-menu-item index="/permission" v-if="havePermission(28)">
           <span slot="title">角色权限</span>
         </el-menu-item>
-        <el-menu-item @click="noRouter" index="/">
-          <span slot="title">用户管理</span>
-        </el-menu-item>
-        <el-menu-item @click="noRouter" index="/">
-          <span slot="title">用户孩子管理</span>
-        </el-menu-item>
-        <el-menu-item @click="noRouter" index="/">
-          <span slot="title">学校管理</span>
-        </el-menu-item>
+        <!--<el-menu-item @click="noRouter" index="/">-->
+          <!--<span slot="title">用户管理</span>-->
+        <!--</el-menu-item>-->
+        <!--<el-menu-item @click="noRouter" index="/">-->
+          <!--<span slot="title">用户孩子管理</span>-->
+        <!--</el-menu-item>-->
+        <!--<el-menu-item @click="noRouter" index="/">-->
+          <!--<span slot="title">学校管理</span>-->
+        <!--</el-menu-item>-->
       </el-submenu>
-      <el-submenu index="6">
-        <template slot="title">
-          <i class="el-icon-setting"></i>
-          <span slot="title">库存及物流</span>
-        </template>
-        <el-menu-item @click="noRouter" index="/">
-          <span slot="title">库存管理</span>
-        </el-menu-item>
-        <el-menu-item @click="noRouter" index="/">
-          <span slot="title">物流管理</span>
-        </el-menu-item>
-      </el-submenu>
-      <el-submenu index="7">
-        <template slot="title">
-          <i class="el-icon-setting"></i>
-          <span slot="title">财务管理</span>
-        </template>
-        <el-menu-item @click="noRouter" index="/">
-          <span slot="title">线上征订结算</span>
-        </el-menu-item>
-        <el-menu-item @click="noRouter" index="/">
-          <span slot="title">订单退款统计</span>
-        </el-menu-item>
-        <el-menu-item @click="noRouter" index="/">
-          <span slot="title">发票申领统计</span>
-        </el-menu-item>
-        <el-menu-item @click="noRouter" index="/">
-          <span slot="title">第三方支付对账</span>
-        </el-menu-item>
-      </el-submenu>
-      <el-submenu index="8">
-        <template slot="title">
-          <i class="el-icon-setting"></i>
-          <span slot="title">微校学院</span>
-        </template>
-        <el-menu-item @click="noRouter" index="/">
-          <span slot="title">帮助中心</span>
-        </el-menu-item>
-        <el-menu-item @click="noRouter" index="/">
-          <span slot="title">操作问答</span>
-        </el-menu-item>
-      </el-submenu>
+      <!--<el-submenu index="6">-->
+        <!--<template slot="title">-->
+          <!--<i class="el-icon-setting"></i>-->
+          <!--<span slot="title">库存及物流</span>-->
+        <!--</template>-->
+        <!--<el-menu-item @click="noRouter" index="/">-->
+          <!--<span slot="title">库存管理</span>-->
+        <!--</el-menu-item>-->
+        <!--<el-menu-item @click="noRouter" index="/">-->
+          <!--<span slot="title">物流管理</span>-->
+        <!--</el-menu-item>-->
+      <!--</el-submenu>-->
+      <!--<el-submenu index="7">-->
+        <!--<template slot="title">-->
+          <!--<i class="el-icon-setting"></i>-->
+          <!--<span slot="title">财务管理</span>-->
+        <!--</template>-->
+        <!--<el-menu-item @click="noRouter" index="/">-->
+          <!--<span slot="title">线上征订结算</span>-->
+        <!--</el-menu-item>-->
+        <!--<el-menu-item @click="noRouter" index="/">-->
+          <!--<span slot="title">订单退款统计</span>-->
+        <!--</el-menu-item>-->
+        <!--<el-menu-item @click="noRouter" index="/">-->
+          <!--<span slot="title">发票申领统计</span>-->
+        <!--</el-menu-item>-->
+        <!--<el-menu-item @click="noRouter" index="/">-->
+          <!--<span slot="title">第三方支付对账</span>-->
+        <!--</el-menu-item>-->
+      <!--</el-submenu>-->
+      <!--<el-submenu index="8">-->
+        <!--<template slot="title">-->
+          <!--<i class="el-icon-setting"></i>-->
+          <!--<span slot="title">微校学院</span>-->
+        <!--</template>-->
+        <!--<el-menu-item @click="noRouter" index="/">-->
+          <!--<span slot="title">帮助中心</span>-->
+        <!--</el-menu-item>-->
+        <!--<el-menu-item @click="noRouter" index="/">-->
+          <!--<span slot="title">操作问答</span>-->
+        <!--</el-menu-item>-->
+      <!--</el-submenu>-->
     </el-menu>
   </div>
 </template>

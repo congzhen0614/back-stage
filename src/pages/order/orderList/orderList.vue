@@ -110,7 +110,7 @@
         </template>
       </el-table-column>
       <el-table-column prop="" label="订单状态"></el-table-column>
-      <el-table-column prop="" label="操作" width="200px">
+      <el-table-column label="操作" width="200px">
         <template slot-scope="scope">
           <el-button @click="onDelive(scope.row)" type="text" size="small">发货</el-button>
           <el-button @click="onUpload(scope.row)" type="text" size="small">修改</el-button>
@@ -137,7 +137,11 @@ export default {
   data () {
     return {
       windowHeight: window.innerHeight - 450 + 'px',
-      search: {},
+      search: {
+        provinceId: '',
+        cityId: '',
+        regionId: ''
+      },
       options: [],
       provinces: [],
       cities: [],
@@ -308,18 +312,16 @@ export default {
     onChecke (item) {
       console.log(item)
     }
-  },
-  watch: {
   }
 }
 </script>
 
 <style>
-  .detail-list .order-maga-header {
+  .order-list .order-maga-header {
     background-color: #F2F6FC;
     padding: 20px;
   }
-  .detail-list .detail-list {
+  .order-list .detail-list {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;

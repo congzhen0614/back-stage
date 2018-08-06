@@ -46,10 +46,21 @@ let subType = value => {
   }
 }
 
+let clsType = value => {
+  if (value === '1') {
+    return '杂志'
+  } else if (value === '2') {
+    return '图书'
+  } else if (value === '54') {
+    return '电子包'
+  }
+}
+
 export {
   dateFormat,
   doubleNumber,
   accountStatus,
   checkType,
-  subType
+  subType,
+  clsType
 }
