@@ -30,6 +30,8 @@ import updateClassify from '@/pages/journalManage/classify/updateClassify/update
 import magaOrder from '@/pages/order/magaOrder/magaOrder.vue' // 图书订单
 import bookOrder from '@/pages/order/bookOrder/bookOrder.vue' // 图书订单
 import spypOrder from '@/pages/order/spypOrder/spypOrder.vue' // 图书订单
+import orderList from '@/pages/order/orderList/orderList.vue' // 订单列表
+import orderUpdate from '@/pages/order/orderList/orderUpdate/orderUpdate.vue' // 修改订单
 
 Vue.use(Router)
 
@@ -150,6 +152,14 @@ export default new Router({
       path: '/spypOrder',
       name: '电子包订单',
       component: spypOrder
+    }, {
+      path: '/orderList',
+      name: '二维码目录订单',
+      component: orderList
+    }, {
+      path: '/orderUpdate',
+      name: '目录订单修改',
+      component: orderUpdate
     }]
   }]
 })

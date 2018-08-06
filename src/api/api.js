@@ -87,7 +87,7 @@ export default {
     return axios.get('/qrzd/sys/test/clear')
   },
   rolepermissionList (params) { // 当前角色拥有的权限
-    return axios.post('/qrzd/sys/rolepermission/list/open', params)
+    return axios.post('/qrzd/sys/rolepermission/list', params)
   },
   permissionList () { // 权限列表
     return axios.get('/qrzd/sys/permission/list')
@@ -204,5 +204,34 @@ export default {
   itempackDownload (params) { // 批量下载二维码
     let param = qs.stringify(params)
     return axios.get(`/qrzd/itempack/qrcode/download/zip?${param}`)
+  },
+  tradeList (params) { // 订单列表
+    let param = qs.stringify(params)
+    return axios.get(`/qrzd/trade/list?${param}`)
+  },
+  schoolList (params) {
+    let param = qs.stringify(params)
+    return axios.get(`/qrzd/sys/school/list?${param}`)
+  },
+  schGradeList (params) {
+    let param = qs.stringify(params)
+    return axios.get(`/qrzd/sys/grade/list?${param}`)
+  },
+  schClassList (params) {
+    let param = qs.stringify(params)
+    return axios.get(`/qrzd/sys/schclass/list?${param}`)
+  },
+  tradeDetail (params) {
+    return axios.get(`/qrzd/trade/${params}`)
+  },
+  tradeDetails (params) {
+    let param = qs.stringify(params)
+    return axios.get(`/qrzd/trade/detail?${param}`)
+  },
+  tradeUpdate (params) {
+    return axios.post('/qrzd/trade/update', params)
+  },
+  tradeRefund (params) {
+    return axios.post('/qrzd/trade/refund', params)
   }
 }

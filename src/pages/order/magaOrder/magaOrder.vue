@@ -5,22 +5,22 @@
         <el-row>
           <el-col :span="6">
             <el-form-item label="订单号:">
-              <el-input v-model="search.name" placeholder="请输入"></el-input>
+              <el-input v-model="search.no" placeholder="请输入"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="6">
             <el-form-item label="手机号:">
-              <el-input v-model="search.name" placeholder="请输入"></el-input>
+              <el-input v-model="search.mobile" placeholder="请输入"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="6">
             <el-form-item label="学生名称:">
-              <el-input v-model="search.name" placeholder="请输入"></el-input>
+              <el-input v-model="search.childName" placeholder="请输入"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="6">
             <el-form-item label="订单状态">
-              <el-select v-model="search.region" placeholder="请选择订单状态">
+              <el-select v-model="search.tradeStatus" placeholder="请选择订单状态">
                 <el-option label="区域一" value="shanghai"></el-option>
                 <el-option label="区域二" value="beijing"></el-option>
               </el-select>
@@ -30,24 +30,24 @@
         <el-row>
           <el-col :span="6">
             <el-form-item label="省/市/区:">
-              <el-cascader :options="options" v-model="search.orderSource"></el-cascader>
+              <el-cascader :options="options" v-model="search.provinces"></el-cascader>
             </el-form-item>
           </el-col>
           <el-col :span="6">
             <el-form-item label="学校:">
-              <el-select v-model="search.orderSource" placeholder="请选择">
+              <el-select v-model="search.schoolId" placeholder="请选择">
                 <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value"></el-option>
               </el-select>
             </el-form-item>
           </el-col>
           <el-col :span="6">
             <el-form-item label="年级/班级:">
-              <el-cascader :options="options" v-model="search.orderSource"></el-cascader>
+              <el-cascader :options="options" v-model="search.classes"></el-cascader>
             </el-form-item>
           </el-col>
           <el-col :span="6">
             <el-form-item label="配送方式:">
-              <el-select v-model="search.orderSource" placeholder="请选择">
+              <el-select v-model="search.sendType" placeholder="请选择">
                 <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value"></el-option>
               </el-select>
             </el-form-item>
@@ -56,21 +56,21 @@
         <el-row>
           <el-col :span="6">
             <el-form-item label="订单时间(开始):" label-width="120px">
-              <el-date-picker v-model="search.date" type="date" placeholder="选择日期"></el-date-picker>
+              <el-date-picker v-model="search.startTime" type="date" placeholder="选择日期"></el-date-picker>
             </el-form-item>
           </el-col>
           <el-col :span="6">
             <el-form-item label="订单时间(结束):">
-              <el-date-picker v-model="search.date" type="date" placeholder="选择日期"></el-date-picker>
+              <el-date-picker v-model="search.endTime" type="date" placeholder="选择日期"></el-date-picker>
             </el-form-item>
           </el-col>
-          <el-col :span="6">
-            <el-form-item label="订单来源:">
-              <el-select v-model="search.orderSource" placeholder="请选择">
-                <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value"></el-option>
-              </el-select>
-            </el-form-item>
-          </el-col>
+          <!--<el-col :span="6">-->
+            <!--<el-form-item label="订单来源:">-->
+              <!--<el-select v-model="search.orderSource" placeholder="请选择">-->
+                <!--<el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value"></el-option>-->
+              <!--</el-select>-->
+            <!--</el-form-item>-->
+          <!--</el-col>-->
           <el-col :span="6">
             <el-button type="primary" style="margin-left: 50px" plain>检索</el-button>
           </el-col>
@@ -83,15 +83,15 @@
     </el-header>
     <el-table :data="tableData" style="width: 100%" border :height="windowHeight">
       <el-table-column type="selection" width="55"></el-table-column>
-      <el-table-column prop="" label="订单号"></el-table-column>
+      <el-table-column prop="no" label="订单号"></el-table-column>
       <el-table-column prop="" label="订单明细"></el-table-column>
       <el-table-column prop="" label="区域"></el-table-column>
       <el-table-column prop="" label="收货地址"></el-table-column>
       <el-table-column prop="" label="学校名称"></el-table-column>
       <el-table-column prop="" label="订单总额"></el-table-column>
-      <el-table-column prop="" label="下单人"></el-table-column>
-      <el-table-column prop="" label="联系电话"></el-table-column>
-      <el-table-column prop="" label="下单时间"></el-table-column>
+      <el-table-column prop="user" label="下单人"></el-table-column>
+      <el-table-column prop="username" label="联系电话"></el-table-column>
+      <el-table-column prop="createdAt" label="下单时间"></el-table-column>
       <el-table-column prop="" label="订单状态"></el-table-column>
       <el-table-column prop="" label="来源"></el-table-column>
       <el-table-column prop="" label="操作" width="150px">
@@ -131,9 +131,46 @@ export default {
     }
   },
   created () {},
-  mounted () {},
-  computed: {},
+  mounted () {
+    this.loadDate()
+  },
+  computed: {
+    listParams () {
+      let param = {
+        pageNum: this.pages.pageNum,
+        pageSize: this.pages.pageSize,
+        no: this.search.no,
+        mobile: this.search.mobile,
+        sendType: this.search.sendType,
+        provinceId: this.search.provinceId,
+        cityId: this.search.cityId,
+        regionId: this.search.regionId,
+        schoolId: this.search.schoolId,
+        gradeId: this.search.gradeId,
+        classId: this.search.classId,
+        childName: this.search.childName,
+        tradeStatus: this.search.tradeStatus,
+        startTime: this.search.startTime,
+        endTime: this.search.endTime
+      }
+      return param
+    }
+  },
   methods: {
+    loadDate () {
+      this.$axios.tradeList(this.listParams).then(res => {
+        if (res.data.code === '0') {
+          this.tableData = res.data.data.list
+          console.log(this.tableData)
+        } else {
+          this.$message.error(res.data.data.msg)
+        }
+      }, err => {
+        this.$message.error(err)
+      }).catch(err => {
+        this.$message.error(err)
+      })
+    },
     handleCurrentChange (val) {
       console.log(val)
     },
