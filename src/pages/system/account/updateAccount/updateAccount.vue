@@ -74,7 +74,6 @@ export default {
     this.setSelect()
     this.getGroup()
     this.getArea()
-    this.loadRoleList()
   },
   methods: {
     setSelect () {
@@ -115,7 +114,8 @@ export default {
           res.data.data.list.forEach(item => {
             this.groups.push({
               label: item.name,
-              value: item.id
+              value: item.id,
+              type: item.type
             })
           })
         } else {
@@ -154,13 +154,10 @@ export default {
         })
       })
     },
-    loadRoleList () {
-      let param = {
-        level: JSON.parse(localStorage.getItem('user')).roleLevel
-      }
-      this.$axios.roleList(param).then(res => {
+    loadRoleList (type) {
+      this.$axios.roleList({type: type}).then(res => {
         if (res.data.code === '0') {
-          this.roles = res.data.data.list
+          this.roles = res.data.data
           this.form.roleLevel = res.data.data.list[0].level
           this.form.rolename = res.data.data.list[0].rolename
           this.form.roleId = res.data.data.list[0].id
@@ -226,6 +223,13 @@ export default {
           this.form.cityIds.push(item.value)
         } else if (item.grade === 3) {
           this.form.regionIds.push(item.value)
+        }
+      })
+    },
+    'form.groupId' (val) {
+      this.groups.forEach(item => {
+        if (item.value === val) {
+          this.loadRoleList(item.type)
         }
       })
     }

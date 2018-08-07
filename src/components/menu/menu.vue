@@ -44,7 +44,7 @@
           <!--<span slot="title">电子包订单</span>-->
         <!--</el-menu-item>-->
         <el-menu-item index="/orderList">
-          <span slot="title">二维码目录订单</span>
+          <span slot="title">用户订单</span>
         </el-menu-item>
       </el-submenu>
       <!--<el-submenu index="4">-->

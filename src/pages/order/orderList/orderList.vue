@@ -42,7 +42,7 @@
           </el-col>
           <el-col :span="6">
             <el-form-item label="学校:">
-              <el-select v-model="search.schoolId" placeholder="请选择">
+              <el-select v-model="search.schoolId" filterable placeholder="请选择">
                 <el-option v-for="item in schoolList" :key="item.value" :label="item.name" :value="item.id"></el-option>
               </el-select>
             </el-form-item>
@@ -89,7 +89,7 @@
       </el-form>
       <el-row>
         <el-button type="primary">批量发货</el-button>
-        <el-button type="primary">导出Excel</el-button>
+        <!--<el-button type="primary">导出Excel</el-button>-->
       </el-row>
     </el-header>
     <el-table :data="tableData" style="width: 100%" border :height="windowHeight">

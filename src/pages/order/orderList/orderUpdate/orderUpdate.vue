@@ -31,6 +31,11 @@
             </el-form-item>
           </el-col>
           <el-col :span="6">
+            <el-form-item label="备注:">
+              <el-input v-model="form.adminId" placeholder="请输入" disabled></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="6">
             <el-form-item label="邮费:">
               <el-input v-model="form.deliveryFee" placeholder="请输入" disabled></el-input>
             </el-form-item>
@@ -58,7 +63,7 @@
               </el-col>
               <el-col :span="6">
                 <el-form-item label="运费:">
-                  <el-input v-model="form.createdAt" placeholder="请输入" disabled></el-input>
+                  <el-input v-model="form.deliveryFee" placeholder="请输入" disabled></el-input>
                 </el-form-item>
               </el-col>
               <el-col :span="6">
@@ -88,7 +93,7 @@
               </el-col>
               <el-col :span="6">
                 <el-form-item label="学校:">
-                  <el-select v-model="form.schoolId" placeholder="请选择">
+                  <el-select v-model="form.schoolId" filterable placeholder="请选择">
                     <el-option v-for="item in schoolList" :key="item.value" :label="item.name" :value="item.id"></el-option>
                   </el-select>
                 </el-form-item>
@@ -111,7 +116,6 @@
           </el-form>
           <el-table :data="tradeDetail" border style="width: 100%" :height="windowHeight">
             <el-table-column prop="name" label="杂志名称"></el-table-column>
-            <el-table-column prop="logo" label="杂志封面图"></el-table-column>
             <el-table-column prop="quantity" label="数量"></el-table-column>
             <el-table-column prop="fee" label="金额"></el-table-column>
             <el-table-column prop="" label="单品杂志状态"></el-table-column>
@@ -119,7 +123,7 @@
               <template slot-scope="scope">
                 <el-button @click="onAgreeRefund(scope.row)" type="text" size="small">退款</el-button>
                 <el-button @click="onRejectRefund(scope.row)" type="text" size="small">拒绝退款</el-button>
-                <el-button @click="onUpload(scope.row)" type="text" size="small">修改</el-button>
+                <!--<el-button @click="onUpload(scope.row)" type="text" size="small">修改</el-button>-->
               </template>
             </el-table-column>
           </el-table>
@@ -176,7 +180,6 @@
           </el-form>
           <el-table :data="tradeDetail" border style="width: 100%" :height="windowHeight">
             <el-table-column prop="name" label="图书名称"></el-table-column>
-            <el-table-column prop="logo" label="图书封面图"></el-table-column>
             <el-table-column prop="quantity" label="数量"></el-table-column>
             <el-table-column prop="fee" label="金额"></el-table-column>
             <el-table-column prop="" label="单品杂志状态"></el-table-column>
@@ -192,7 +195,6 @@
         <el-tab-pane label="电子读物">
           <el-table :data="tradeDetail" border style="width: 100%" :height="spypHeight">
             <el-table-column prop="name" label="电子包名称"></el-table-column>
-            <el-table-column prop="logo" label="电子包封面图"></el-table-column>
             <el-table-column prop="quantity" label="音频专辑"></el-table-column>
             <el-table-column prop="quantity" label="视频专辑"></el-table-column>
             <el-table-column prop="fee" label="金额"></el-table-column>
@@ -273,6 +275,7 @@ export default {
       this.$axios.tradeDetail(this.$route.query.id).then(res => {
         if (res.data.code === '0') {
           this.form = res.data.data
+          console.log(this.form)
           if (this.form.cityId) {
             this.loadcitiesList(this.form.provinceId)
           }
