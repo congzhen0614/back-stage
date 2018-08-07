@@ -3,11 +3,6 @@
     <header class="header" style="height: auto">
       <el-row :gutter="40">
         <el-col :span="4"><el-input v-model="search.name" placeholder="请输入名称筛选"></el-input></el-col>
-        <!--<el-col :span="4">-->
-          <!--<el-select v-model="search.type" placeholder="请选择类别">-->
-            <!--<el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value"></el-option>-->
-          <!--</el-select>-->
-        <!--</el-col>-->
         <el-col :span="8">
           <el-button type="primary" @click="loadData">检索</el-button>
           <el-button type="primary" @click="clickAddnew" v-if="havePermission(6)">添加</el-button>
@@ -29,9 +24,9 @@
       </el-table-column>
       <el-table-column fixed="right" label="操作" width="250">
         <template slot-scope="scope">
-          <el-button type="text" size="small" @click="clickUpdate(scope.row)">绑定学校</el-button>
+          <el-button type="text" size="small" @click="clickBind(scope.row)">绑定学校</el-button>
           <el-button type="text" size="small" @click="clickUpdate(scope.row)" v-if="havePermission(7)">修改</el-button>
-          <el-button type="text" size="small" @click="clickReset(scope.row)">重置密码</el-button>
+          <el-button type="text" size="small" @click="resetPassword(scope.row)">重置密码</el-button>
           <el-button type="text" size="small" @click="clickAstatus(scope.row)">{{ scope.row.adminAccountStatusDesc | accountStatus }}</el-button>
         </template>
       </el-table-column>
@@ -45,17 +40,6 @@
       layout="total, sizes, prev, pager, next, jumper"
       :total="pages.total">
     </el-pagination>
-    <el-dialog :visible.sync="dialogVisible" width="30%">
-      <el-form ref="form" :model="password" label-width="80px">
-        <el-form-item label="新密码:">
-          <el-input v-model="password.newPassword"></el-input>
-        </el-form-item>
-      </el-form>
-      <span slot="footer" class="dialog-footer">
-        <el-button @click="clickCancel">取 消</el-button>
-      <el-button type="primary" @click="clickConfirm">确 定</el-button>
-      </span>
-    </el-dialog>
   </div>
 </template>
 
@@ -66,10 +50,6 @@ export default {
   data () {
     return {
       windowHeight: window.innerHeight - 265 + 'px',
-      dialogVisible: false,
-      password: {
-        newPassword: ''
-      },
       search: {},
       options: [],
       tableList: [],
@@ -121,6 +101,14 @@ export default {
         path: '/addAccount'
       })
     },
+    clickBind (item) {
+      this.$router.push({
+        path: '/bindSchool',
+        query: {
+          item: JSON.stringify(item)
+        }
+      })
+    },
     clickUpdate (item) {
       this.$router.push({
         path: '/updateAccount',
@@ -129,24 +117,12 @@ export default {
         }
       })
     },
-    clickReset (item) {
-      this.dialogVisible = true
-      this.password.changePassId = item.id
-    },
     clickCancel () {
       this.dialogVisible = false
       this.password.newPassword = ''
     },
-    clickConfirm () {
-      this.dialogVisible = false
-      this.resetPassword()
-    },
-    resetPassword () {
-      let param = {
-        id: this.password.changePassId,
-        now: this.password.newPassword
-      }
-      this.$axios.accountUpdatepsw(param).then(res => {
+    resetPassword (item) {
+      this.$axios.accountUpdatepsw({id: item.id}).then(res => {
         if (res.data.code === '0') {
           this.$message.success('操作成功!')
           this.password.newPassword = ''

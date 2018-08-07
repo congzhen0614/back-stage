@@ -234,5 +234,12 @@ export default {
   },
   tradeRefund (params) {
     return axios.post('/qrzd/trade/refund', params)
+  },
+  schoolBind (params) {
+    return axios.post('/qrzd/sys/school/bind', params)
+  },
+  schoolFindByAdmin (params) {
+    let param = qs.stringify(params)
+    return axios.get(`/qrzd/sys/school/findByAdmin?${param}`)
   }
 }

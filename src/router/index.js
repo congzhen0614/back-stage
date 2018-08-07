@@ -17,6 +17,7 @@ import QRlist from '@/pages/journalManage/catalogue/QRlist/QRlist.vue' // 二维
 import account from '@/pages/system/account/account.vue' // 账号列表页
 import addAccount from '@/pages/system/account/addAccount/addAccount.vue' // 添加账号页面
 import updateAccount from '@/pages/system/account/updateAccount/updateAccount.vue' // 修改账号页面
+import bindSchool from '@/pages/system/account/bindSchool/bindSchool.vue' // 绑定学校
 import permission from '@/pages/system/permission/permission.vue' // 角色权限
 import permissionList from '@/pages/system/permission/permissionList/permissionList.vue' // 角色权限
 import organiza from '@/pages/system/organiza/organiza.vue' // 商家组织列表
@@ -101,6 +102,10 @@ export default new Router({
       path: '/updateAccount',
       name: '修改账号',
       component: updateAccount
+    }, {
+      path: '/bindSchool',
+      name: '绑定学校',
+      component: bindSchool
     }, {
       path: '/organiza',
       name: '商家组织',
