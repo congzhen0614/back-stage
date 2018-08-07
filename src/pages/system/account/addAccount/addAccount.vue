@@ -15,17 +15,22 @@
       </el-form-item>
       <el-form-item label="所属组织:">
         <el-select v-model="form.groupId" placeholder="请选择组织">
-          <el-option v-for="item in groups" :key="item.id" :label="item.name" :value="item.id"></el-option>
+          <el-option v-for="item in groupList" :key="item.id" :label="item.name" :value="item.id"></el-option>
         </el-select>
       </el-form-item>
+      <el-form-item label="角色:">
+        <el-radio-group v-model="form.roleId">
+          <el-radio-button :label="item.id" v-for="item in roles" :key="item.id">{{ item.rolename }}</el-radio-button>
+        </el-radio-group>
+      </el-form-item>
       <el-form-item label="VIP高级用户:" v-if="groupType === 1">
-        <el-select v-model="form.groupId" placeholder="请选择组织">
-          <el-option v-for="item in groups" :key="item.id" :label="item.name" :value="item.id"></el-option>
+        <el-select v-model="form.userId" placeholder="请选择组织">
+          <el-option v-for="item in belongList" :key="item.id" :label="item.realname" :value="item.id"></el-option>
         </el-select>
       </el-form-item>
       <el-form-item label="高级用户:"  v-if="groupType === 0">
-        <el-select v-model="form.groupId" placeholder="请选择组织">
-          <el-option v-for="item in groups" :key="item.id" :label="item.name" :value="item.id"></el-option>
+        <el-select v-model="form.userId" placeholder="请选择组织">
+          <el-option v-for="item in belongList" :key="item.id" :label="item.realname" :value="item.id"></el-option>
         </el-select>
       </el-form-item>
       <el-form-item label="服务范围:">
@@ -49,10 +54,12 @@ export default {
   },
   data () {
     return {
+      form: {},
       groupType: 0,
       rules: rules,
-      groups: [],
-      form: {}
+      roles: [],
+      groupList: [],
+      belongList: []
     }
   },
   created () {
@@ -68,7 +75,7 @@ export default {
     getGroup () {
       this.$axios.admingroupList().then(res => {
         if (res.data.code === '0') {
-          this.groups = res.data.data.list
+          this.groupList = res.data.data.list
         } else {
           this.$message.error(res.data.data.msg)
         }
@@ -81,10 +88,7 @@ export default {
     loadRoleList () {
       this.$axios.roleList({type: this.groupType}).then(res => {
         if (res.data.code === '0') {
-          this.roles = res.data.data.list
-          this.form.roleLevel = res.data.data.list[0].level
-          this.form.rolename = res.data.data.list[0].rolename
-          this.form.roleId = res.data.data.list[0].id
+          this.roles = res.data.data
         } else {
           this.$message.error(res.data.data.msg)
         }
@@ -94,10 +98,10 @@ export default {
         this.$message.error(err)
       })
     },
-    loadAccountList () {
-      this.$axios.accountList({level: 1}).then(res => {
+    loadAccountList (level) {
+      this.$axios.accountList({level: level}).then(res => {
         if (res.data.code === '0') {
-          console.log(res.data.data.list)
+          this.belongList = res.data.data.list
         } else {
           this.$message.error(res.data.data.msg)
         }
@@ -144,9 +148,21 @@ export default {
   },
   watch: {
     'form.groupId' (val) {
-      this.groups.forEach(item => {
+      this.groupList.forEach(item => {
         if (item.id === val) {
           this.groupType = item.type
+          if (item.type === 1) {
+            this.loadAccountList(3)
+          } else if (item.type === 0) {
+            this.loadAccountList(4)
+          }
+        }
+      })
+    },
+    'form.roleId' (val) {
+      this.roles.forEach(item => {
+        if (item.id === val) {
+          this.form.roleLevel = item.level
         }
       })
     },
