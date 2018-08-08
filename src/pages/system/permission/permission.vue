@@ -1,7 +1,7 @@
 <template>
   <div class="system-permission">
     <el-table ref="multipleTable" :data="tableList" tooltip-effect="dark" style="width: 100%" :height="windowHeight" border>
-      <el-table-column type="index" width="120" label="序号"></el-table-column>
+      <el-table-column type="index" width="55" label="序号"></el-table-column>
       <el-table-column prop="rolename" label="角色名称"></el-table-column>
       <el-table-column prop="intro" label="角色描述" show-overflow-tooltip></el-table-column>
       <el-table-column fixed="right" label="操作" width="100">

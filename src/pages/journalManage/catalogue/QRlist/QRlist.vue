@@ -21,7 +21,7 @@
       :data="tableList"
       @selection-change="handleSelectionChange">
       <el-table-column type="selection" width="55"></el-table-column>
-      <el-table-column type="index" width="100" label="序号"></el-table-column>
+      <el-table-column type="index" width="55" label="序号"></el-table-column>
       <el-table-column prop="title" label="名称"></el-table-column>
       <el-table-column prop="qrimg" label="二维码" width="100px">
         <template slot-scope="scope">

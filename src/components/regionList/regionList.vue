@@ -25,7 +25,27 @@ export default {
       regions: []
     }
   },
+  props: {
+    form: {
+      type: Object
+    }
+  },
   mounted () {
+    console.log(this.form)
+    if (JSON.stringify(this.form) !== '{}') {
+      this.province = this.form.provinceId.toString()
+      this.form.cityIds.forEach(item => {
+        this.$nextTick(() => {
+          this.cities.push(item.id.toString())
+        })
+      })
+      this.form.regionIds.forEach(item => {
+        this.$nextTick(() => {
+          this.regions.push(item.id.toString())
+        })
+      })
+      this.loadCities(this.form.provinceId)
+    }
     this.loadProvince()
   },
   methods: {
@@ -87,6 +107,7 @@ export default {
       this.$emit('province', val)
     },
     cities (val) {
+      console.log(val)
       if (val.length === 0) {
         this.regions = []
       }
@@ -104,4 +125,7 @@ export default {
 </script>
 
 <style>
+  .account-region-list .el-select {
+    width: 150px;
+  }
 </style>

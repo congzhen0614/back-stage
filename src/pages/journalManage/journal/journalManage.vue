@@ -68,7 +68,12 @@
         <el-table-column prop="fee" label="价格" sortable></el-table-column>
         <el-table-column prop="feeUnitName" label="单位"></el-table-column>
         <el-table-column prop="giftName" label="礼品"></el-table-column>
-        <el-table-column prop="isSale" label="是否上架"></el-table-column>
+        <el-table-column prop="isSale" label="是否上架">
+          <template slot-scope="scope">
+            <span v-if="scope.row.isSale === 1">是</span>
+            <span v-if="scope.row.isSale === 0">否</span>
+          </template>
+        </el-table-column>
         <el-table-column prop="createdAt" label="创建日期" sortable>
           <template slot-scope="scope">
             <span>{{ scope.row.createdAt | dateFormat }}</span>

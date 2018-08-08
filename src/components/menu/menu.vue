@@ -19,7 +19,7 @@
       </el-submenu>
       <el-submenu index="2">
         <template slot="title">
-          <i class="el-icon-document"></i>
+          <i class="el-icon-tickets"></i>
           <span slot="title">目录管理</span>
         </template>
         <el-menu-item index="/catalogue">

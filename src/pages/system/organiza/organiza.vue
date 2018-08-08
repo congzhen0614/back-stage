@@ -4,10 +4,10 @@
       <el-button type="primary" @click="clickAddnew" v-if="havePermission(15)">添加</el-button>
   </header>
     <el-main>
-      <el-table ref="multipleTable" :data="tableList" tooltip-effect="dark" style="width: 100%" :height="windowHeight" border @selection-change="handleSelectionChange">
-        <el-table-column type="selection" width="50"></el-table-column>
-        <el-table-column type="index" label="序号" width="50"></el-table-column>
+      <el-table ref="multipleTable" :data="tableList" tooltip-effect="dark" style="width: 100%" :height="windowHeight" border>
+        <el-table-column type="index" label="序号" width="55"></el-table-column>
         <el-table-column prop="name" label="组织名称" sortable></el-table-column>
+        <el-table-column prop="typeName" label="组织形式" sortable></el-table-column>
         <el-table-column prop="linkman" label="联系人"></el-table-column>
         <el-table-column prop="phone" label="联系电话"></el-table-column>
         <el-table-column prop="contractTime" label="创建时间" sortable>
@@ -19,7 +19,6 @@
           <template slot-scope="scope">
             <el-button type="text" size="small" @click="clickChecke(scope.row)">查看</el-button>
             <el-button type="text" size="small" @click="clickUpdate(scope.row)" v-if="havePermission(16)">修改</el-button>
-            <!--<el-button type="text" size="small" @click="clickAstatus(scope.row)">{{ scope.row.adminAccountStatus | accountStatus }}</el-button>-->
           </template>
         </el-table-column>
       </el-table>
@@ -89,7 +88,6 @@ export default {
         this.$message.error(err)
       })
     },
-    handleSelectionChange () {},
     handleCurrentChange (size) {
       this.pages.currentPage = size
       this.loadData()

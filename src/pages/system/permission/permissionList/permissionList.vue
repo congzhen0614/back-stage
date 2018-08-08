@@ -29,7 +29,6 @@ export default {
   created () {
   },
   mounted () {
-    this.loadPermissionList()
     this.loadRolepermissionList()
   },
   methods: {
@@ -50,8 +49,9 @@ export default {
       this.$axios.rolepermissionList({roleId: this.$route.query.id}).then(res => {
         if (res.data.code === '0') {
           res.data.data.forEach(item => {
-            this.checkedList.push(item.id)
+            this.checkedList.push(item.permissionId)
           })
+          this.loadPermissionList()
         } else {
           this.$message.error(res.data.data.msg)
         }

@@ -1,6 +1,6 @@
 <template>
   <div class="system-account-add">
-    <el-form ref="form" :model="form" label-width="150px" :rules="rules" style="width: 850px">
+    <el-form ref="form" :model="form" label-width="150px" :rules="rules" style="width: 650px">
       <el-form-item label="用户名:">
         <el-input v-model="form.username" prop="name"></el-input>
       </el-form-item>
@@ -11,7 +11,7 @@
         <el-input v-model="form.phone"></el-input>
       </el-form-item>
       <el-form-item label="业务范围:">
-        <el-region @province="province" @cities="cities" @regions="regions"></el-region>
+        <el-region @province="province" @cities="cities" @regions="regions" :form="form"></el-region>
       </el-form-item>
       <el-form-item label="所属组织:">
         <el-select v-model="form.groupId" placeholder="请选择组织">
@@ -58,16 +58,16 @@ export default {
       belongList: [],
       form: {
         id: JSON.parse(this.$route.query.param).id,
-        adminAccountStatus: JSON.parse(this.$route.query.param).adminAccountStatus,
-        provinceIds: JSON.parse(this.$route.query.param).provinces,
+        provinceId: JSON.parse(this.$route.query.param).provinceId,
         cityIds: JSON.parse(this.$route.query.param).citys,
         regionIds: JSON.parse(this.$route.query.param).regions,
         groupId: JSON.parse(this.$route.query.param).groupId,
-        phone: JSON.parse(this.$route.query.param).phone,
+        username: JSON.parse(this.$route.query.param).username,
         realname: JSON.parse(this.$route.query.param).realname,
-        rolename: JSON.parse(this.$route.query.param).rolename,
+        phone: JSON.parse(this.$route.query.param).phone,
+        roleId: JSON.parse(this.$route.query.param).roleId,
         roleLevel: JSON.parse(this.$route.query.param).roleLevel,
-        username: JSON.parse(this.$route.query.param).username
+        userId: JSON.parse(this.$route.query.param).userId
       }
     }
   },

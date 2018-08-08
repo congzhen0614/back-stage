@@ -7,8 +7,8 @@
         </el-form-item>
         <el-form-item label="组织形式:">
           <el-radio-group v-model="form.type">
-            <el-radio :label="1">个人</el-radio>
-            <el-radio :label="2">组织</el-radio>
+            <el-radio :label="0">个人</el-radio>
+            <el-radio :label="1">组织</el-radio>
           </el-radio-group>
         </el-form-item>
         <el-form-item label="合同时间:">
@@ -44,7 +44,7 @@ export default {
         name: '',
         phone: '',
         signer: '',
-        type: 1
+        type: 0
       }
     }
   },

@@ -16,8 +16,8 @@
         </el-col>
       </el-row>
     </header>
-    <el-table ref="multipleTable" :data="tableList" tooltip-effect="dark" style="width: 100%" :height="windowHeight" border>
-      <el-table-column type="index" width="120" label="排序"></el-table-column>
+    <el-table ref="multipleTable" :data="tableList" style="width: 100%" :height="windowHeight" border>
+      <el-table-column type="index" width="55" label="序号"></el-table-column>
       <el-table-column prop="name" label="姓名"></el-table-column>
       <el-table-column prop="cls" label="类型">
         <template slot-scope="scope">

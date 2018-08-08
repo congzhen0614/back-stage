@@ -1,6 +1,6 @@
 <template>
   <div class="system-account-add">
-    <el-form ref="form" :model="form" label-width="150px" :rules="rules" style="width: 850px">
+    <el-form ref="form" :model="form" label-width="150px" :rules="rules" style="width: 650px">
       <el-form-item label="用户名:">
         <el-input v-model="form.username" prop="name"></el-input>
       </el-form-item>
@@ -29,12 +29,12 @@
         </el-select>
       </el-form-item>
       <el-form-item label="高级用户:"  v-if="groupType === 0">
-        <el-select v-model="form.userId" placeholder="请选择组织">
+        <el-select v-model="form.userId" placeholder="请选择">
           <el-option v-for="item in belongList" :key="item.id" :label="item.realname" :value="item.id"></el-option>
         </el-select>
       </el-form-item>
       <el-form-item label="服务范围:">
-        <el-region @province="province" @cities="cities" @regions="regions"></el-region>
+        <el-region @province="province" @cities="cities" @regions="regions" :form="{}"></el-region>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="onSubmit">立即创建</el-button>
