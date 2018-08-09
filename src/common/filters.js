@@ -10,6 +10,18 @@ let dateFormat = value => {
   return year + '-' + month + '-' + day
 }
 
+// 时间格式
+let timeFormat = value => {
+  let date = new Date(value)
+  let year = date.getFullYear()
+  let month = doubleNumber(date.getMonth() + 1)
+  let day = doubleNumber(date.getDate())
+  let hour = date.getHours()
+  let minu = date.getMinutes()
+  let seco = date.getSeconds()
+  return year + '-' + month + '-' + day + ' ' + hour + ':' + minu + ':' + seco
+}
+
 let doubleNumber = value => {
   if (value.toString().length < 2) {
     return '0' + value
@@ -58,6 +70,7 @@ let clsType = value => {
 
 export {
   dateFormat,
+  timeFormat,
   doubleNumber,
   accountStatus,
   checkType,

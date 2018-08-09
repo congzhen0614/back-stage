@@ -26,9 +26,9 @@
     <el-pagination
       @size-change="handleSizeChange"
       @current-change="handleCurrentChange"
-      :current-page="pages.currentPage"
+      :current-page="pages.pageNum"
       :page-size="pages.pageSize"
-      :page-sizes="[10, 20, 50, 100]"
+      :page-sizes="[20, 50, 75, 100]"
       layout="total, sizes, prev, pager, next, jumper"
       :total="pages.total">
     </el-pagination>
@@ -43,9 +43,9 @@ export default {
       windowHeight: window.innerHeight - 265 + 'px',
       tableList: [],
       pages: {
-        currentPage: 1,
-        pageSize: 10,
-        total: 0
+        total: 0,
+        pageNum: 1,
+        pageSize: 20
       },
       deleParams: {
         code: '',
@@ -67,7 +67,7 @@ export default {
   computed: {
     listParams () {
       let param = {
-        pageNum: this.pages.currentPage,
+        pageNum: this.pages.pageNum,
         pageSize: this.pages.pageSize
       }
       return param

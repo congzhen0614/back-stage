@@ -46,16 +46,16 @@
     </el-header>
     <el-table ref="multipleTable" :data="tableList" tooltip-effect="dark" style="width: 100%" :height="windowHeight" border @selection-change="handleSelectionChange">
       <el-table-column type="selection" width="55"></el-table-column>
-      <el-table-column prop="title" label="名称" width="300"></el-table-column>
+      <el-table-column prop="title" label="名称" width="200"></el-table-column>
       <el-table-column prop="itemQuantity" label="商品数"></el-table-column>
-      <el-table-column prop="createdAt" label="创建时间">
+      <el-table-column prop="createdAt" label="创建时间" width="200">
         <template slot-scope="scope">
-          <span>{{ scope.row.createdAt | dateFormat }}</span>
+          <span>{{ scope.row.createdAt | timeFormat }}</span>
         </template>
       </el-table-column>
-      <el-table-column prop="updatedAt" label="修改时间">
+      <el-table-column prop="updatedAt" label="修改时间" width="200">
         <template slot-scope="scope">
-          <span>{{ scope.row.updatedAt | dateFormat }}</span>
+          <span>{{ scope.row.updatedAt | timeFormat }}</span>
         </template>
       </el-table-column>
       <el-table-column prop="createUser" label="创建人"></el-table-column>
@@ -87,7 +87,7 @@
       @current-change="handleCurrentChange"
       :current-page="pages.pageNum"
       :page-size="pages.pageSize"
-      :page-sizes="[10, 20, 50, 100]"
+      :page-sizes="[20, 50, 75, 100]"
       layout="total, sizes, prev, pager, next, jumper"
       :total="pages.total">
     </el-pagination>
@@ -109,7 +109,7 @@ export default {
       pages: {
         total: 0,
         pageNum: 1,
-        pageSize: 10
+        pageSize: 20
       }
     }
   },

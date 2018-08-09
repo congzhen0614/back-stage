@@ -31,7 +31,7 @@
       <el-row :gutter="20">
         <el-col :span="6">
           <el-input v-model="form.postageSumBook">
-            <template slot="prepend">图书金额未满:</template>
+            <template slot="prepend">商品金额:</template>
             <template slot="append">元</template>
           </el-input>
         </el-col>
@@ -64,7 +64,9 @@ export default {
   data () {
     return {
       windowHeight: window.innerHeight - 565 + 'px',
-      search: {},
+      search: {
+        isSale: 1
+      },
       form: {
         postageBook: this.postageBook,
         postageSumBook: this.postageSumBook

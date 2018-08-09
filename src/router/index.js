@@ -76,11 +76,11 @@ export default new Router({
       component: catalogue
     }, {
       path: '/updateCatalogue',
-      name: '修改杂志目录',
+      name: '修改目录',
       component: updateCatalogue
     }, {
       path: '/addCatalogue',
-      name: '新增杂志目录',
+      name: '新增目录',
       component: addCatalogue
     }, {
       path: '/QRenerat',

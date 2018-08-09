@@ -122,7 +122,7 @@
       :total="pages.total"
       :page-size="pages.pageSize"
       :current-page="pages.pageNum"
-      :page-sizes="[10, 20, 50, 100]"
+      :page-sizes="[20, 50, 75, 100]"
       layout="total, sizes, prev, pager, next, jumper"
       @size-change="handleSizeChange"
       @current-change="handleCurrentChange">
@@ -151,9 +151,9 @@ export default {
       classList: [],
       tableData: [],
       pages: {
-        total: 10,
+        total: 0,
         pageNum: 1,
-        pageSize: 10
+        pageSize: 20
       }
     }
   },

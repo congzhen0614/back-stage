@@ -31,7 +31,7 @@
       <el-row :gutter="20">
         <el-col :span="6">
           <el-input v-model="form.postageSum">
-            <template slot="prepend">图书金额未满:</template>
+            <template slot="prepend">商品金额:</template>
             <template slot="append">元</template>
           </el-input>
         </el-col>
@@ -44,8 +44,8 @@
         <el-col :span="6">
           <el-form-item label="配送方式:" style="margin-bottom: 0; height: 40px">
             <el-select v-model="form.sendType">
-              <el-option label="发到学校" :value="0"></el-option>
-              <el-option label="发到家里" :value="1"></el-option>
+              <el-option label="直送" :value="0"></el-option>
+              <el-option label="寄送" :value="1"></el-option>
             </el-select>
           </el-form-item>
         </el-col>
@@ -72,7 +72,9 @@ export default {
   data () {
     return {
       windowHeight: window.innerHeight - 565 + 'px',
-      search: {},
+      search: {
+        isSale: 1
+      },
       form: {
         sendType: this.sendType,
         postage: this.postage,

@@ -4,7 +4,7 @@
       <el-form-item label="姓名:">
         <el-input v-model="form.name" prop="name"></el-input>
       </el-form-item>
-      <el-form-item label="排序:">
+      <el-form-item label="序号:">
         <el-input v-model="form.ord" prop="type"></el-input>
       </el-form-item>
       <el-form-item>

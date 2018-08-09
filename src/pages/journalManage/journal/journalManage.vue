@@ -99,7 +99,7 @@
       @current-change="handleCurrentChange"
       :current-page="pages.pageNum"
       :page-size="pages.pageSize"
-      :page-sizes="[10, 20, 50, 100]"
+      :page-sizes="[20, 50, 75, 100]"
       layout="total, sizes, prev, pager, next, jumper"
       :total="pages.total">
     </el-pagination>
@@ -138,7 +138,7 @@ export default {
       pages: {
         total: 0,
         pageNum: 1,
-        pageSize: 10
+        pageSize: 20
       }
     }
   },

@@ -33,9 +33,9 @@
     <el-pagination
       @size-change="handleSizeChange"
       @current-change="handleCurrentChange"
-      :current-page="pages.currentPage"
+      :current-page="pages.pageNum"
       :page-size="pages.pageSize"
-      :page-sizes="[10, 20, 50, 100]"
+      :page-sizes="[20, 50, 75, 100]"
       layout="total, sizes, prev, pager, next, jumper"
       :total="pages.total">
     </el-pagination>
@@ -54,8 +54,8 @@ export default {
       tableList: [],
       pages: {
         total: 0,
-        pageSize: 10,
-        currentPage: 1
+        pageNum: 1,
+        pageSize: 20
       }
     }
   },
@@ -67,7 +67,7 @@ export default {
   computed: {
     params () {
       let data = {
-        pageNum: this.pages.currentPage,
+        pageNum: this.pages.pageNum,
         pageSize: this.pages.pageSize,
         key: this.search.name
       }
