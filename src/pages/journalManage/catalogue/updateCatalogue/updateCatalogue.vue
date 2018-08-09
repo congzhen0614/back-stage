@@ -47,11 +47,11 @@
         <el-tab-pane label="视听"><el-audioList @ypspDate="ypspDate" :videoIds="videoIds"></el-audioList></el-tab-pane>
       </el-tabs>
     </header>
-    <el-row style="margin-top: 20px" v-if="isUpdate">
+    <el-row style="margin-top: 20px; margin-left: 20px" v-if="isUpdate">
       <el-button type="primary" @click="onSave">保存书单</el-button>
       <el-button @click="goBack">取消</el-button>
     </el-row>
-    <el-row style="margin-top: 20px" v-if="!isUpdate">
+    <el-row style="margin-top: 20px; margin-left: 20px" v-if="!isUpdate">
       <el-button @click="goBack">返回</el-button>
     </el-row>
   </div>

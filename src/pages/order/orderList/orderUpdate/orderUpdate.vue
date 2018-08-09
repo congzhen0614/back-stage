@@ -208,7 +208,7 @@
         <el-tab-pane :label="commodityName + '商品状态: ' + ordersType" disabled></el-tab-pane>
       </el-tabs>
     </el-header>
-    <el-row style="margin-top: 20px">
+    <el-row style="margin-top: 20px; margin-left: 20px">
       <el-button type="primary" @click="onSubmit">保存提交</el-button>
       <el-button @click="goBack">取消</el-button>
     </el-row>

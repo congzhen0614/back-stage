@@ -1,10 +1,16 @@
 <template>
   <div class="system-serAge-update">
     <el-form ref="form" :model="form" label-width="80px" :rules="rules">
-      <el-form-item label="姓名:">
+      <el-form-item label="名称:">
         <el-input v-model="form.name" prop="name"></el-input>
       </el-form-item>
-      <el-form-item label="序号:">
+      <el-form-item label="类型:">
+        <el-select v-model="form.cls" placeholder="请选择">
+          <el-option label="杂志" value="1"></el-option>
+          <el-option label="图书" value="2"></el-option>
+        </el-select>
+      </el-form-item>
+      <el-form-item label="排序:">
         <el-input v-model="form.ord" prop="type"></el-input>
       </el-form-item>
       <el-form-item>

@@ -5,19 +5,20 @@
         <el-col :span="4">
           <el-input v-model="search.name" placeholder="请输入名称筛选"></el-input>
         </el-col>
-        <!--<el-col :span="4">-->
-          <!--<el-select v-model="search.type" placeholder="请选择类别">-->
-            <!--<el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value"></el-option>-->
-          <!--</el-select>-->
-        <!--</el-col>-->
+        <el-col :span="4">
+          <el-select v-model="search.cls" placeholder="请选择类别">
+            <el-option label="杂志" value="1"></el-option>
+            <el-option label="图书" value="2"></el-option>
+          </el-select>
+        </el-col>
         <el-col :span="8">
           <el-button type="primary" plain @click="loadDate">检索</el-button>
           <el-button type="primary" @click="clickAdd" v-if="havePermission(23)">添加</el-button>
         </el-col>
       </el-row>
     </header>
-    <el-table ref="multipleTable" :data="tableList" style="width: 100%" :height="windowHeight" border>
-      <el-table-column type="index" width="55" label="序号"></el-table-column>
+    <el-table :data="tableList" style="width: 100%" :height="windowHeight" border>
+      <el-table-column prop="ord" width="150" label="排序"></el-table-column>
       <el-table-column prop="name" label="姓名"></el-table-column>
       <el-table-column prop="cls" label="类型">
         <template slot-scope="scope">

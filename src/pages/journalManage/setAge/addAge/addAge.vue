@@ -4,6 +4,12 @@
       <el-form-item label="名称:" prop="name">
         <el-input v-model="form.name"></el-input>
       </el-form-item>
+      <el-form-item label="类型:">
+        <el-select v-model="form.cls" placeholder="请选择">
+          <el-option label="杂志" value="1"></el-option>
+          <el-option label="图书" value="2"></el-option>
+        </el-select>
+      </el-form-item>
       <el-form-item label="排序:">
         <el-input v-model="form.ord"></el-input>
       </el-form-item>
@@ -24,7 +30,7 @@ export default {
     return {
       rules: rules.ageRules,
       form: {
-        cls: 1,
+        cls: '1',
         ord: 9999
       }
     }

@@ -47,7 +47,7 @@
         <el-tab-pane label="视听"><el-audioList @ypspDate="ypspDate"></el-audioList></el-tab-pane>
       </el-tabs>
     </header>
-    <el-row style="margin-top: 20px">
+    <el-row style="margin-top: 20px; margin-left: 20px">
       <el-button type="primary" @click="onSave">保存书单</el-button>
       <el-button @click="goBack">取消</el-button>
     </el-row>
