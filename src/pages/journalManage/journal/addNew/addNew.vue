@@ -164,4 +164,7 @@ export default {
     width: 170px;
     margin-left: 0px;
   }
+  .journal-manage-add .el-textarea__inner {
+    min-height: 100px!important;
+  }
 </style>

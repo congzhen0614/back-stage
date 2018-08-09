@@ -66,7 +66,13 @@
         <el-table-column prop="typeName" label="类别"></el-table-column>
         <el-table-column prop="ageName" label="年级"></el-table-column>
         <el-table-column prop="fee" label="价格" sortable></el-table-column>
-        <el-table-column prop="feeUnitName" label="单位"></el-table-column>
+        <el-table-column prop="feeUnitNum" label="单位">
+          <template slot-scope="scope">
+            <span>{{ scope.row.feeUnitTypeName }}</span>
+            <span>{{ scope.row.feeUnitNum }}</span>
+            <span>{{ scope.row.feeUnitName }}</span>
+          </template>
+        </el-table-column>
         <el-table-column prop="giftName" label="礼品"></el-table-column>
         <el-table-column prop="isSale" label="是否上架">
           <template slot-scope="scope">
@@ -81,8 +87,8 @@
         </el-table-column>
         <el-table-column fixed="right" label="操作" width="200">
           <template slot-scope="scope">
-            <el-button @click="onDelete(scope.row)" type="text" size="small">删除</el-button>
             <el-button @click="onUpdate(scope.row)" type="text" size="small">修改</el-button>
+            <el-button @click="onDelete(scope.row)" type="text" size="small">删除</el-button>
             <el-button @click="onUpload(scope.row)" type="text" size="small">上传图片</el-button>
           </template>
         </el-table-column>
@@ -108,7 +114,7 @@
         :before-upload="beforeAvatarUpload">
         <i class="el-icon-upload"></i>
         <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
-        <div class="el-upload__tip" slot="tip">只能上传xlsx文件</div>
+        <div class="el-upload__tip" slot="tip" style="cursor: pointer" @click="loadTemplate">点击下载模板</div>
       </el-upload>
     </el-dialog>
   </div>
@@ -315,9 +321,11 @@ export default {
       })
     },
     beforeAvatarUpload (file) {
-      const isXlsx = file.type === 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+      let xls = 'application/vnd.ms-excel'
+      let xlsx = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+      const isXlsx = file.type === xls || file.type === xlsx
       if (!isXlsx) {
-        this.$message.error('只能上传Excel!')
+        this.$message.error('只能上传Excel')
       }
       return isXlsx
     },
@@ -344,6 +352,9 @@ export default {
           ids: JSON.stringify(this.selectIds)
         }
       })
+    },
+    loadTemplate () {
+      window.location.href = location.protocol + '//' + window.location.host + '/static/file/杂志批量导入模板.xlsx'
     }
   },
   watch: {}
