@@ -1,34 +1,34 @@
 <template>
   <div class="system-account-add">
     <el-form ref="form" :model="form" label-width="150px" :rules="rules" style="width: 650px">
-      <el-form-item label="用户名:">
+      <el-form-item label="用户名:" prop="username">
         <el-input v-model="form.username" prop="name"></el-input>
       </el-form-item>
-      <el-form-item label="密码:">
+      <el-form-item label="密码:" prop="password">
         <el-input v-model="form.password"></el-input>
       </el-form-item>
-      <el-form-item label="真实姓名:">
+      <el-form-item label="真实姓名:" prop="realname">
         <el-input v-model="form.realname"></el-input>
       </el-form-item>
-      <el-form-item label="联系电话:">
+      <el-form-item label="联系电话:" prop="phone">
         <el-input v-model="form.phone"></el-input>
       </el-form-item>
-      <el-form-item label="所属组织:">
-        <el-select v-model="form.groupId" placeholder="请选择组织">
+      <el-form-item label="所属组织:" prop="groupId">
+        <el-select v-model="form.groupId" filterable placeholder="请选择组织">
           <el-option v-for="item in groupList" :key="item.id" :label="item.name" :value="item.id"></el-option>
         </el-select>
       </el-form-item>
-      <el-form-item label="角色:">
+      <el-form-item label="角色:" v-if="form.groupId !== undefined">
         <el-radio-group v-model="form.roleId">
           <el-radio-button :label="item.id" v-for="item in roles" :key="item.id">{{ item.rolename }}</el-radio-button>
         </el-radio-group>
       </el-form-item>
-      <el-form-item label="VIP高级用户:" v-if="groupType === 1">
+      <el-form-item label="VIP高级用户:" v-if="isSuperAdmin && form.groupId !== undefined && groupType === 1 && (form.roleLevel === 4 || form.roleLevel === 5)">
         <el-select v-model="form.userId" placeholder="请选择组织">
           <el-option v-for="item in belongList" :key="item.id" :label="item.realname" :value="item.id"></el-option>
         </el-select>
       </el-form-item>
-      <el-form-item label="高级用户:"  v-if="groupType === 0">
+      <el-form-item label="高级用户:"  v-if="isSuperAdmin && form.groupId !== undefined && groupType === 0 && form.roleLevel === 5">
         <el-select v-model="form.userId" placeholder="请选择">
           <el-option v-for="item in belongList" :key="item.id" :label="item.realname" :value="item.id"></el-option>
         </el-select>
@@ -46,7 +46,7 @@
 
 <script>
 import region from '@/components/regionList/regionList.vue'
-import rules from '@/libs/rules.js'
+import rules from '@/common/rules.js'
 export default {
   name: 'system-account-add',
   components: {
@@ -54,17 +54,17 @@ export default {
   },
   data () {
     return {
+      isSuperAdmin: JSON.parse(localStorage.getItem('user')).roleLevel === 1,
+      rules: rules.accountRules,
       form: {},
       groupType: 0,
-      rules: rules,
       roles: [],
       groupList: [],
       belongList: []
     }
   },
-  created () {
-  },
   mounted () {
+    console.log(this.form.groupId)
     this.getGroup()
     this.loadRoleList()
     this.loadAccountList()

@@ -31,7 +31,6 @@ export default {
     }
   },
   mounted () {
-    console.log(this.form)
     if (JSON.stringify(this.form) !== '{}') {
       this.province = this.form.provinceId.toString()
       this.form.cityIds.forEach(item => {

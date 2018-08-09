@@ -43,7 +43,7 @@
 
 <script>
 import region from '@/components/regionList/regionList.vue'
-import rules from '@/libs/rules.js'
+import rules from '@/common/rules.js'
 export default {
   name: 'system-account-add',
   components: {

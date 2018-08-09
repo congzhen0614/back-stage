@@ -40,8 +40,8 @@
         </el-row>
       </el-form>
       <el-row>
-        <el-button type="primary" @click="onBind">批量绑定</el-button>
-        <el-button type="primary">批量取消绑定</el-button>
+        <el-button type="primary" @click="onBind(0)">批量绑定</el-button>
+        <el-button type="primary" @click="onBind(1)">批量取消绑定</el-button>
         <el-button @click="goBack">返回</el-button>
       </el-row>
     </header>
@@ -53,7 +53,7 @@
       <el-table-column prop="regionName" label="地区"></el-table-column>
       <el-table-column prop="address" label="地址" show-overflow-tooltip width="500px"></el-table-column>
       <el-table-column prop="isHighGrade" label="年级阶段"></el-table-column>
-      <el-table-column prop="status" label="绑定状态"></el-table-column>
+      <el-table-column prop="bindStatus" label="绑定状态"></el-table-column>
     </el-table>
     <el-pagination
       @size-change="handleSizeChange"
@@ -97,7 +97,7 @@ export default {
         pageSize: this.pages.pageSize,
         name: this.search.name,
         provinceId: this.search.provinceId,
-        adminId: this.search.adminId,
+        adminId: JSON.parse(this.$route.query.item).id,
         schoolLevel: this.search.schoolLevel
       }
       if (this.search.cityIds !== '') {
@@ -105,13 +105,6 @@ export default {
       }
       if (this.search.regionIds !== '') {
         param.regionIds = this.search.regionIds
-      }
-      return param
-    },
-    bindParam () {
-      let param = {
-        adminId: JSON.parse(this.$route.query.item).id,
-        schoolIds: this.selectIds
       }
       return param
     }
@@ -183,8 +176,13 @@ export default {
       this.pages.pageSize = val
       this.loadSchoolList()
     },
-    onBind () {
-      this.$axios.schoolBind(this.bindParam).then(res => {
+    onBind (code) {
+      let bindParam = {
+        adminId: JSON.parse(this.$route.query.item).id,
+        schoolIds: this.selectIds,
+        code: code
+      }
+      this.$axios.schoolBind(bindParam).then(res => {
         if (res.data.code === '0') {
           this.$message.success('操作成功!')
           this.$router.go(-1)

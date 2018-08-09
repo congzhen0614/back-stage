@@ -73,6 +73,7 @@ export default {
       this.$axios.rolepermissionSave({roleId: this.$route.query.id, list: this.checkedList}).then(res => {
         if (res.data.code === '0') {
           this.$message.success('操作成功')
+          this.$axios.testClear()
           this.$router.go(-1)
         } else {
           this.$message.error(res.data.data.msg)

@@ -73,12 +73,13 @@
 </template>
 
 <script>
-import rules from '@/libs/rules.js'
+import rules from '@/common/rules.js'
 export default {
   name: 'journal-manage-add',
   components: {},
   data () {
     return {
+      rules: rules.magazineRules,
       ageList: [],
       typeList: [],
       form: {
@@ -86,8 +87,7 @@ export default {
         typeId: [],
         ageId: []
       },
-      fileList2: [],
-      rules: rules
+      fileList2: []
     }
   },
   mounted () {

@@ -1,11 +1,11 @@
 <template>
   <div class="system-serAge-add">
     <el-form ref="form" :model="form" label-width="80px" :rules="rules">
-      <el-form-item label="姓名:">
-        <el-input v-model="form.name" prop="name"></el-input>
+      <el-form-item label="名称:" prop="name">
+        <el-input v-model="form.name"></el-input>
       </el-form-item>
       <el-form-item label="排序:">
-        <el-input v-model="form.ord" prop="type"></el-input>
+        <el-input v-model="form.ord"></el-input>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="onSubmit">立即创建</el-button>
@@ -16,16 +16,17 @@
 </template>
 
 <script>
-import rules from '@/libs/rules.js'
+import rules from '@/common/rules.js'
 export default {
   name: 'system-serAge-add',
   components: {},
   data () {
     return {
+      rules: rules.ageRules,
       form: {
+        cls: 1,
         ord: 9999
-      },
-      rules: rules
+      }
     }
   },
   created () {},

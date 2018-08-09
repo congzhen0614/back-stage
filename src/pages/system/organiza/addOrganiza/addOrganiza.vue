@@ -1,26 +1,26 @@
 <template>
   <div class="system-organiza-add">
     <div class="system-account-add">
-      <el-form ref="form" :model="form" label-width="80px">
-        <el-form-item label="组织名称:">
-          <el-input v-model="form.name" prop="name"></el-input>
+      <el-form ref="form" :model="form" label-width="150px" :rules="rules">
+        <el-form-item label="组织名称:" prop="name">
+          <el-input v-model="form.name"></el-input>
         </el-form-item>
-        <el-form-item label="组织形式:">
+        <el-form-item label="组织形式:" prop="type">
           <el-radio-group v-model="form.type">
             <el-radio :label="0">个人</el-radio>
             <el-radio :label="1">组织</el-radio>
           </el-radio-group>
         </el-form-item>
-        <el-form-item label="合同时间:">
+        <el-form-item label="合同时间:" prop="contractTime">
           <el-date-picker v-model="form.contractTime" type="date" placeholder="选择日期"></el-date-picker>
         </el-form-item>
-        <el-form-item label="合同签署:">
+        <el-form-item label="合同签署:" prop="signer">
           <el-input v-model="form.signer"></el-input>
         </el-form-item>
-        <el-form-item label="联系人:">
+        <el-form-item label="联系人:" prop="linkman">
           <el-input v-model="form.linkman"></el-input>
         </el-form-item>
-        <el-form-item label="联系电话:">
+        <el-form-item label="联系电话:" prop="phone">
           <el-input v-model="form.phone"></el-input>
         </el-form-item>
         <el-form-item>
@@ -33,11 +33,12 @@
 </template>
 
 <script>
+import rules from '@/common/rules.js'
 export default {
   name: 'system-organiza-add',
-  components: {},
   data () {
     return {
+      rules: rules.organizeRules,
       form: {
         contractTime: '',
         linkman: '',
@@ -48,10 +49,6 @@ export default {
       }
     }
   },
-  created () {
-  },
-  mounted () {},
-  computed: {},
   methods: {
     onSubmit () {
       this.$axios.admingroupSave(this.form).then(res => {

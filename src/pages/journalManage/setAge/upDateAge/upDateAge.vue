@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import rules from '@/libs/rules.js'
+import rules from '@/common/rules.js'
 export default {
   name: 'system-serAge-update',
   components: {},

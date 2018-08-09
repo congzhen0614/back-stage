@@ -212,7 +212,7 @@ export default {
   },
   schoolList (params) {
     let param = qs.stringify(params)
-    return axios.get(`/qrzd/sys/school/list?${param}`)
+    return axios.get(`/qrzd//sys/school/bindlist?${param}`)
   },
   schGradeList (params) {
     let param = qs.stringify(params)
