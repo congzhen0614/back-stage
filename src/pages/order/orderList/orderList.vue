@@ -102,8 +102,8 @@
       </el-table-column>
       <el-table-column prop="" label="业务员"></el-table-column>
       <el-table-column prop="totalFee" label="订单总额"></el-table-column>
-      <el-table-column prop="user" label="下单人"></el-table-column>
-      <el-table-column prop="username" label="联系电话"></el-table-column>
+      <el-table-column prop="user" label="下单人" width="200"></el-table-column>
+      <el-table-column prop="username" label="联系电话" width="200"></el-table-column>
       <el-table-column prop="createdAt" label="下单时间">
         <template slot-scope="scope">
           <span>{{ scope.row.createdAt | dateFormat }}</span>

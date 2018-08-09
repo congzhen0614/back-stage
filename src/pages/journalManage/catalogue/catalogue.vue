@@ -61,7 +61,7 @@
       <el-table-column prop="createUser" label="创建人"></el-table-column>
       <el-table-column prop="qrimg" label="是否生成条码">
         <template slot-scope="scope">
-          <span>{{ scope.row.updatedAt === '' ? '否' : '是' }}</span>
+          <span>{{ scope.row.qrimg === '' ? '否' : '是' }}</span>
         </template>
       </el-table-column>
       <el-table-column prop="checkStatus" label="审核状态">

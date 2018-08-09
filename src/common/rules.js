@@ -33,7 +33,10 @@ let magazineRules = {
 
 // 年龄
 let ageRules = {
-  name: [{required: true, message: '请输入组织名称', trigger: 'blur'}]
+  name: [
+    {required: true, message: '请输入组织名称', trigger: 'blur'},
+    {max: 6, message: '名称超过最大长度'}
+  ]
 }
 
 // 组织

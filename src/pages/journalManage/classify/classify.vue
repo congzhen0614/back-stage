@@ -19,7 +19,7 @@
     </header>
     <el-table :data="tableList" style="width: 100%" :height="windowHeight" border>
       <el-table-column prop="ord" width="150" label="排序"></el-table-column>
-      <el-table-column prop="name" label="姓名"></el-table-column>
+      <el-table-column prop="name" label="名称"></el-table-column>
       <el-table-column prop="cls" label="类型">
         <template slot-scope="scope">
           <span>{{ scope.row.cls | clsType }}</span>
