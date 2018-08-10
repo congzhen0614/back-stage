@@ -25,8 +25,8 @@
         <template slot-scope="scope">
           <el-button type="text" size="small" @click="clickBind(scope.row)">绑定学校</el-button>
           <el-button type="text" size="small" @click="clickUpdate(scope.row)" v-if="havePermission(7)">修改</el-button>
-          <el-button type="text" size="small" @click="resetPassword(scope.row)">重置密码</el-button>
-          <el-button type="text" size="small" @click="clickAstatus(scope.row)">{{ scope.row.adminAccountStatusDesc | accountStatus }}</el-button>
+          <el-button type="text" size="small" @click="resetPassword(scope.row)" v-if="havePermission(44)">重置密码</el-button>
+          <el-button type="text" size="small" @click="clickAstatus(scope.row)" v-if="havePermission(42)">{{ scope.row.adminAccountStatusDesc | accountStatus }}</el-button>
         </template>
       </el-table-column>
     </el-table>

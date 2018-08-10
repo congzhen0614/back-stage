@@ -5,29 +5,29 @@
         <el-row>
           <el-col :span="8">
             <el-form-item label="目录名称:">
-              <el-input v-model="form.title"></el-input>
+              <el-input v-model="form.title" placeholder="请输入目录名称"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="联系人:">
-              <el-input v-model="form.linkman"></el-input>
+              <el-input v-model="form.linkman" placeholder="请输入联系人"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="联系电话:">
-              <el-input v-model="form.linkmobile"></el-input>
+              <el-input v-model="form.linkmobile" placeholder="请输入联系电话"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
         <el-row>
           <el-col :span="8">
             <el-form-item label="提示语:">
-              <el-input v-model="form.tip"></el-input>
+              <el-input v-model="form.tip" placeholder="请输入提示语"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="备注:">
-              <el-input v-model="form.remark"></el-input>
+              <el-input v-model="form.remark" placeholder="请输入备注"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="8">

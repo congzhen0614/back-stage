@@ -7,13 +7,13 @@
           <i class="el-icon-menu"></i>
           <span slot="title">商品管理</span>
         </template>
-        <el-menu-item index="/journalManage">
+        <el-menu-item index="/journalManage" v-if="havePermission(12)">
           <span slot="title">杂志管理</span>
         </el-menu-item>
         <el-menu-item index="/setAge" v-if="havePermission(25)">
           <span slot="title">年龄设置</span>
         </el-menu-item>
-        <el-menu-item index="/classify">
+        <el-menu-item index="/classify" v-if="havePermission(25)">
           <span slot="title">分类设置</span>
         </el-menu-item>
       </el-submenu>
@@ -22,7 +22,7 @@
           <i class="el-icon-tickets"></i>
           <span slot="title">目录管理</span>
         </template>
-        <el-menu-item index="/catalogue">
+        <el-menu-item index="/catalogue" v-if="havePermission(60)">
           <span slot="title">目录表单</span>
         </el-menu-item>
         <el-menu-item index="/QRlist">
@@ -73,10 +73,10 @@
         <el-menu-item index="/organiza" v-if="havePermission(18)">
           <span slot="title">商家组织</span>
         </el-menu-item>
-        <el-menu-item index="/account">
+        <el-menu-item index="/account" v-if="havePermission(41)">
           <span slot="title">账号设置</span>
         </el-menu-item>
-        <el-menu-item index="/permission" v-if="havePermission(28)">
+        <el-menu-item index="/permission" v-if="havePermission(30)">
           <span slot="title">角色权限</span>
         </el-menu-item>
         <!--<el-menu-item @click="noRouter" index="/">-->

@@ -43,14 +43,14 @@
           <el-row>
             <el-button type="primary" plain @click="loadDate">检索</el-button>
             <el-button type="primary" plain @click="copyToMagazine">批量复制</el-button>
-            <el-button type="primary" plain @click="setMagazinePublish(1)">批量上架</el-button>
-            <el-button type="primary" plain @click="setMagazinePublish(0)">批量下架</el-button>
+            <el-button type="primary" plain @click="setMagazinePublish(1)" v-if="havePermission(13)">批量上架</el-button>
+            <el-button type="primary" plain @click="setMagazinePublish(0)" v-if="havePermission(13)">批量下架</el-button>
           </el-row>
         </div>
         <div class="header-button">
-          <el-button type="primary" icon="el-icon-plus" @click="clickAddNew">添加</el-button>
+          <el-button type="primary" icon="el-icon-plus" @click="clickAddNew" v-if="havePermission(9)">添加</el-button>
           <el-button type="primary" icon="el-icon-upload2" @click="dialogVisible = true">导入杂志</el-button>
-          <el-button type="primary" icon="el-icon-upload" @click="onUploadImages">上传封面图</el-button>
+          <el-button type="primary" icon="el-icon-upload" @click="onUploadImages" v-if="havePermission(45)">上传封面图</el-button>
         </div>
       </el-form>
     </el-header>
@@ -87,8 +87,8 @@
         </el-table-column>
         <el-table-column fixed="right" label="操作" width="200">
           <template slot-scope="scope">
-            <el-button @click="onUpdate(scope.row)" type="text" size="small">修改</el-button>
-            <el-button @click="onDelete(scope.row)" type="text" size="small">删除</el-button>
+            <el-button @click="onUpdate(scope.row)" type="text" size="small" v-if="havePermission(10)">修改</el-button>
+            <el-button @click="onDelete(scope.row)" type="text" size="small" v-if="havePermission(11)">删除</el-button>
             <el-button @click="onUpload(scope.row)" type="text" size="small">上传图片</el-button>
           </template>
         </el-table-column>
@@ -97,7 +97,7 @@
     <el-pagination
       @size-change="handleSizeChange"
       @current-change="handleCurrentChange"
-      :current-page="pages.pageNum"
+      :current-page.sync="pages.pageNum"
       :page-size="pages.pageSize"
       :page-sizes="[20, 50, 75, 100]"
       layout="total, sizes, prev, pager, next, jumper"
@@ -210,6 +210,7 @@ export default {
       })
     },
     loadDate () {
+      console.log(this.params)
       this.$axios.magazineList(this.params).then(res => {
         if (res.data.code === '0') {
           this.tableData = res.data.data.list
@@ -231,6 +232,7 @@ export default {
     // 选择第几页
     handleCurrentChange (val) {
       this.pages.pageNum = val
+      localStorage.setItem('pageNum', val)
       this.loadDate()
     },
     // 选择的项目
@@ -239,7 +241,6 @@ export default {
       item.forEach(item => {
         this.selectIds.push(item.id)
       })
-      console.log(this.selectIds)
     },
     // 复制给渠道商
     copyToMagazine () {
@@ -357,7 +358,11 @@ export default {
       window.location.href = location.protocol + '//' + window.location.host + '/static/file/杂志批量导入模板.xlsx'
     }
   },
-  watch: {}
+  watch: {
+    'pages.pageNum' (val) {
+      console.log(val)
+    }
+  }
 }
 </script>
 
