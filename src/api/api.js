@@ -142,7 +142,7 @@ export default {
     return axios.post('/qrzd/magazine/qrzditem/publish', params)
   },
   magazineBatch () { // 导入杂志地址
-    return location.protocol + '//192.168.0.230:8081/qrzd/magazine/qrzditem/batch/open'
+    return location.protocol + '//192.168.0.230:8081/qrzd/magazine/qrzditem/batch'
   },
   magazineItemImgst (params) { // 杂志列表
     let param = qs.stringify(params)

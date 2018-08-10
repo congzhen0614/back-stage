@@ -31,7 +31,7 @@ export default {
       rules: rules.ageRules,
       form: {
         cls: '1',
-        ord: 9999
+        ord: 999
       }
     }
   },

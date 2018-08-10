@@ -11,11 +11,13 @@
         <el-input v-model="form.issn"></el-input>
       </el-form-item>
       <el-form-item label="产品类别(类别):" prop="typeId">
+        <el-checkbox :indeterminate="isIndeterminateType" v-model="checkAllType" @change="handleCheckAllType">全选</el-checkbox>
         <el-checkbox-group v-model="form.typeId">
           <el-checkbox :label="item.id" v-for="item in typeList" :key="item.id">{{ item.name }}</el-checkbox>
         </el-checkbox-group>
       </el-form-item>
       <el-form-item label="产品类别(年级):" prop="ageId">
+        <el-checkbox :indeterminate="isIndeterminateAge" v-model="checkAllAge" @change="handleCheckAllAge">全选</el-checkbox>
         <el-checkbox-group v-model="form.ageId">
           <el-checkbox :label="item.id" v-for="item in ageList" :key="item.id">{{ item.name }}</el-checkbox>
         </el-checkbox-group>
@@ -79,11 +81,17 @@ export default {
   components: {},
   data () {
     return {
+      rules: rules.magazineRules,
+      isIndeterminateType: false,
+      checkAllType: false,
+      isIndeterminateAge: false,
+      checkAllAge: false,
       ageList: [],
+      ageSelect: [],
       typeList: [],
+      typeSelect: [],
       form: {},
-      fileList2: [],
-      rules: rules
+      fileList2: []
     }
   },
   mounted () {
@@ -124,6 +132,9 @@ export default {
       this.$axios.itemageList().then(res => {
         if (res.data.code === '0') {
           this.ageList = res.data.data.list
+          res.data.data.list.forEach(item => {
+            this.ageSelect.push(item.id)
+          })
         } else {
           this.$message.error(res.data.data.msg)
         }
@@ -137,6 +148,9 @@ export default {
       this.$axios.itemtypeList().then(res => {
         if (res.data.code === '0') {
           this.typeList = res.data.data.list
+          res.data.data.list.forEach(item => {
+            this.typeSelect.push(item.id)
+          })
         } else {
           this.$message.error(res.data.data.msg)
         }
@@ -169,6 +183,14 @@ export default {
           return false
         }
       })
+    },
+    handleCheckAllType (val) {
+      this.form.typeId = val ? this.typeSelect : []
+      this.isIndeterminateType = false
+    },
+    handleCheckAllAge (val) {
+      this.form.ageId = val ? this.ageSelect : []
+      this.isIndeterminateAge = false
     },
     clickCancel () {
       this.$router.go(-1)

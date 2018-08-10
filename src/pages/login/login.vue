@@ -20,7 +20,6 @@
 import rules from '@/common/rules.js'
 export default {
   name: 'login',
-  components: {},
   data () {
     return {
       rules: rules,
@@ -30,9 +29,6 @@ export default {
       }
     }
   },
-  mounted () {
-  },
-  computed: {},
   methods: {
     clickLogin () {
       this.$axios.login(this.login).then(res => {
@@ -41,6 +37,7 @@ export default {
             message: '登录成功',
             type: 'success'
           })
+          this.$axios.testClear()
           this.loadPermission(res.data.data.roleId)
           localStorage.setItem('user', JSON.stringify(res.data.data))
         } else {
@@ -66,8 +63,7 @@ export default {
         this.$message.error(err)
       })
     }
-  },
-  watch: {}
+  }
 }
 </script>
 

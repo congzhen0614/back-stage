@@ -25,7 +25,7 @@
         <el-menu-item index="/catalogue" v-if="havePermission(60)">
           <span slot="title">目录表单</span>
         </el-menu-item>
-        <el-menu-item index="/QRlist">
+        <el-menu-item index="/QRlist" v-if="havePermission(60)">
           <span slot="title">条码管理</span>
         </el-menu-item>
       </el-submenu>
@@ -43,7 +43,7 @@
         <!--<el-menu-item index="/spypOrder">-->
           <!--<span slot="title">电子包订单</span>-->
         <!--</el-menu-item>-->
-        <el-menu-item index="/orderList">
+        <el-menu-item index="/orderList" v-if="havePermission(25)">
           <span slot="title">用户订单</span>
         </el-menu-item>
       </el-submenu>
@@ -138,7 +138,6 @@
 <script>
 export default {
   name: '',
-  components: {},
   data () {
     return {
       nowRouter: ''
@@ -147,7 +146,6 @@ export default {
   mounted () {
     this.getRouter()
   },
-  computed: {},
   methods: {
     getRouter () {
       let href = window.location.href
@@ -160,8 +158,7 @@ export default {
     noRouter () {
       this.$message.error('功能待开发!')
     }
-  },
-  watch: {}
+  }
 }
 </script>
 

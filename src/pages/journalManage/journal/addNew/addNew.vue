@@ -11,11 +11,13 @@
         <el-input v-model="form.issn"></el-input>
       </el-form-item>
       <el-form-item label="产品类别(类别):" prop="typeId">
+        <el-checkbox :indeterminate="isIndeterminateType" v-model="checkAllType" @change="handleCheckAllType">全选</el-checkbox>
         <el-checkbox-group v-model="form.typeId">
           <el-checkbox :label="item.id" v-for="item in typeList" :key="item.id">{{ item.name }}</el-checkbox>
         </el-checkbox-group>
       </el-form-item>
       <el-form-item label="产品类别(年级):" prop="ageId">
+        <el-checkbox :indeterminate="isIndeterminateAge" v-model="checkAllAge" @change="handleCheckAllAge">全选</el-checkbox>
         <el-checkbox-group v-model="form.ageId">
           <el-checkbox :label="item.id" v-for="item in ageList" :key="item.id">{{ item.name }}</el-checkbox>
         </el-checkbox-group>
@@ -80,8 +82,14 @@ export default {
   data () {
     return {
       rules: rules.magazineRules,
+      isIndeterminateType: false,
+      checkAllType: false,
+      isIndeterminateAge: false,
+      checkAllAge: false,
       ageList: [],
+      ageSelect: [],
       typeList: [],
+      typeSelect: [],
       form: {
         isSale: 1,
         typeId: [],
@@ -94,11 +102,38 @@ export default {
     this.loadItemageList()
     this.loadItemtypeList()
   },
+  computed: {
+    params () {
+      let ageId = this.form.ageId
+      let typeId = this.form.typeId
+      let param = {
+        ageId: ageId.join(','),
+        content: this.form.content,
+        fee: this.form.fee,
+        feeUnit: this.form.feeUnit,
+        feeUnitNum: this.form.feeUnitNum,
+        feeUnitType: this.form.feeUnitType,
+        giftName: this.form.giftName,
+        isSale: this.form.isSale,
+        issn: this.form.issn,
+        memo: this.form.memo,
+        name: this.form.name,
+        nameShort: this.form.nameShort,
+        press: this.form.press,
+        pubdate: this.form.pubdate,
+        typeId: typeId.join(',')
+      }
+      return param
+    }
+  },
   methods: {
     loadItemageList () {
       this.$axios.itemageList().then(res => {
         if (res.data.code === '0') {
           this.ageList = res.data.data.list
+          res.data.data.list.forEach(item => {
+            this.ageSelect.push(item.id)
+          })
         } else {
           this.$message.error(res.data.data.msg)
         }
@@ -112,6 +147,9 @@ export default {
       this.$axios.itemtypeList().then(res => {
         if (res.data.code === '0') {
           this.typeList = res.data.data.list
+          res.data.data.list.forEach(item => {
+            this.typeSelect.push(item.id)
+          })
         } else {
           this.$message.error(res.data.data.msg)
         }
@@ -122,11 +160,9 @@ export default {
       })
     },
     onSubmit () {
-      this.form.ageId = this.form.ageId.join(',')
-      this.form.typeId = this.form.typeId.join(',')
       this.$refs.ruleForm.validate(valid => {
         if (valid) {
-          this.$axios.magazineSave(this.form).then(res => {
+          this.$axios.magazineSave(this.params).then(res => {
             if (res.data.code === '0') {
               this.$message.success('保存成功!')
               this.$router.push({
@@ -145,11 +181,44 @@ export default {
         }
       })
     },
+    handleCheckAllType (val) {
+      this.form.typeId = val ? this.typeSelect : []
+      this.isIndeterminateType = false
+    },
+    handleCheckAllAge (val) {
+      this.form.ageId = val ? this.ageSelect : []
+      this.isIndeterminateAge = false
+    },
     clickCancel () {
       this.$router.go(-1)
     }
   },
-  watch: {}
+  watch: {
+    'form.typeId' (val) {
+      if (val.length === 0) {
+        this.checkAllType = false
+        this.isIndeterminateType = false
+      } else if (val.length > 0 && val.length < this.typeSelect.length) {
+        this.checkAllType = false
+        this.isIndeterminateType = true
+      } else if (val.length === this.typeSelect.length) {
+        this.checkAllType = true
+        this.isIndeterminateType = false
+      }
+    },
+    'form.ageId' (val) {
+      if (val.length === 0) {
+        this.checkAllAge = false
+        this.isIndeterminateAge = false
+      } else if (val.length > 0 && val.length < this.ageSelect.length) {
+        this.checkAllAge = false
+        this.isIndeterminateAge = true
+      } else if (val.length === this.ageSelect.length) {
+        this.checkAllAge = true
+        this.isIndeterminateAge = false
+      }
+    }
+  }
 }
 </script>
 

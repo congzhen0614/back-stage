@@ -109,6 +109,7 @@
         drag
         multiple
         :action="upLoadUrl"
+        :headers="{Authorization: authorization}"
         :on-success="upLoadSuccess"
         :on-error="upLoadError"
         :before-upload="beforeAvatarUpload">
@@ -128,6 +129,7 @@ export default {
     return {
       windowHeight: window.innerHeight - 325 + 'px',
       dialogVisible: false,
+      authorization: JSON.parse(localStorage.getItem('user')).authorization,
       ageList: [],
       typeList: [],
       groupList: [],
