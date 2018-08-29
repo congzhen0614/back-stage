@@ -5,12 +5,12 @@
         <el-col :span="4">
           <el-input v-model="search.name" placeholder="请输入名称筛选"></el-input>
         </el-col>
-        <el-col :span="4">
-          <el-select v-model="search.cls" placeholder="请选择类别">
-            <el-option label="杂志" value="1"></el-option>
-            <el-option label="图书" value="2"></el-option>
-          </el-select>
-        </el-col>
+        <!--<el-col :span="4">-->
+          <!--<el-select v-model="search.cls" placeholder="请选择类别">-->
+            <!--<el-option label="杂志" value="1"></el-option>-->
+            <!--<el-option label="图书" value="2"></el-option>-->
+          <!--</el-select>-->
+        <!--</el-col>-->
         <el-col :span="8">
           <el-button type="primary" plain @click="loadDate">检索</el-button>
           <el-button type="primary" @click="clickAdd" v-if="havePermission(23)">添加</el-button>
@@ -20,11 +20,11 @@
     <el-table :data="tableList" style="width: 100%" :height="windowHeight" border>
       <el-table-column prop="ord" width="150" label="排序"></el-table-column>
       <el-table-column prop="name" label="名称"></el-table-column>
-      <el-table-column prop="cls" label="类型">
-        <template slot-scope="scope">
-          <span>{{ scope.row.cls | clsType }}</span>
-        </template>
-      </el-table-column>
+      <!--<el-table-column prop="cls" label="类型">-->
+        <!--<template slot-scope="scope">-->
+          <!--<span>{{ scope.row.cls | clsType }}</span>-->
+        <!--</template>-->
+      <!--</el-table-column>-->
       <el-table-column fixed="right" label="操作" width="150">
         <template slot-scope="scope">
           <el-button type="text" size="small" @click="clickUpdate(scope.row)" v-if="havePermission(23)">修改</el-button>
@@ -72,7 +72,7 @@ export default {
     params () {
       let param = {
         name: this.search.name,
-        total: this.pages.total,
+        cls: this.search.cls,
         pageNum: this.pages.pageNum,
         pageSize: this.pages.pageSize
       }

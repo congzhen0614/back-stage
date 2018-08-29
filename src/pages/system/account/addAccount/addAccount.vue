@@ -64,9 +64,7 @@ export default {
     }
   },
   mounted () {
-    console.log(this.form.groupId)
     this.getGroup()
-    this.loadRoleList()
     this.loadAccountList()
   },
   computed: {
@@ -148,6 +146,7 @@ export default {
   },
   watch: {
     'form.groupId' (val) {
+      console.log(val)
       this.groupList.forEach(item => {
         if (item.id === val) {
           this.groupType = item.type
@@ -166,7 +165,8 @@ export default {
         }
       })
     },
-    groupType () {
+    groupType (val) {
+      console.log(val)
       this.loadRoleList()
     }
   }

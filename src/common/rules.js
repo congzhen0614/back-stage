@@ -23,12 +23,12 @@ let letterNumber = (rule, value, callback) => {
 
 // 杂志
 let magazineRules = {
-  name: [{required: true, message: '请输入组织名称', trigger: 'blur'}],
-  issn: [{required: true, message: '请输入组织名称', trigger: 'blur'}],
-  typeId: [{required: true, message: '请输入组织名称', trigger: 'blur'}],
-  ageId: [{required: true, message: '请输入组织名称', trigger: 'blur'}],
-  fee: [{required: true, message: '请输入组织名称', trigger: 'blur'}],
-  content: [{required: true, message: '请输入组织名称', trigger: 'blur'}]
+  name: [{required: true, message: '请输入杂志名称', trigger: 'blur'}],
+  issn: [{required: true, message: '请输入杂志刊号', trigger: 'blur'}],
+  typeId: [{required: true, message: '请输入选择产品类别', trigger: 'blur'}],
+  ageId: [{required: true, message: '请输入选择适读年龄', trigger: 'blur'}],
+  fee: [{required: true, message: '请输入杂志价格', trigger: 'blur'}],
+  content: [{required: true, message: '请输入杂志介绍', trigger: 'blur'}]
 }
 
 // 年龄
@@ -69,9 +69,19 @@ let accountRules = {
   groupId: [{required: true, message: '请选择所属组织', trigger: 'blur'}]
 }
 
+let ManageCatalogue = {
+  title: [{required: true, message: '请输入目录名称', trigger: 'blur'}],
+  schoolLevel: [{required: true, message: '请输入目录名称', trigger: 'blur'}],
+  linkman: [{required: true, message: '请输入目录名称', trigger: 'blur'}],
+  linkmobile: [{required: true, message: '请输入目录名称', trigger: 'blur'}],
+  tip: [{required: true, message: '请输入目录名称', trigger: 'blur'}],
+  remark: [{required: true, message: '请输入目录名称', trigger: 'blur'}]
+}
+
 export default {
   organizeRules,
   magazineRules,
   ageRules,
-  accountRules
+  accountRules,
+  ManageCatalogue
 }

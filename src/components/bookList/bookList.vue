@@ -18,6 +18,7 @@
         <el-col :span="5">
           <el-form-item label="类别:">
             <el-select v-model="search.typeId">
+              <el-option label="全部" :value="''"></el-option>
               <el-option :label="item.name" :value="item.id" v-for="item in typeList" :key="item.id"></el-option>
             </el-select>
           </el-form-item>
@@ -31,7 +32,7 @@
       <el-row :gutter="20">
         <el-col :span="6">
           <el-input v-model="form.postageSumBook">
-            <template slot="prepend">商品金额:</template>
+            <template slot="prepend">商品金额未满:</template>
             <template slot="append">元</template>
           </el-input>
         </el-col>
@@ -65,6 +66,7 @@ export default {
     return {
       windowHeight: window.innerHeight - 565 + 'px',
       search: {
+        typeId: '',
         isSale: 1
       },
       form: {

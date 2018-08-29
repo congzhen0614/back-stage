@@ -33,7 +33,9 @@ import magaOrder from '@/pages/order/magaOrder/magaOrder.vue' // 图书订单
 import bookOrder from '@/pages/order/bookOrder/bookOrder.vue' // 图书订单
 import spypOrder from '@/pages/order/spypOrder/spypOrder.vue' // 图书订单
 import orderList from '@/pages/order/orderList/orderList.vue' // 订单列表
-import orderUpdate from '@/pages/order/orderList/orderUpdate/orderUpdate.vue' // 修改订单
+// import orderUpdate from '@/pages/order/orderList/orderUpdate/orderUpdate.vue' // 修改订单
+import orderInfo from '@/pages/order/orderList/orderInfo/orderInfo.vue' // 修改订单
+import delive from '@/pages/order/orderList/delive/delive.vue' // 发货
 
 Vue.use(Router)
 
@@ -167,9 +169,13 @@ export default new Router({
       name: '二维码目录订单',
       component: orderList
     }, {
-      path: '/orderUpdate',
+      path: '/orderInfo',
       name: '目录订单修改',
-      component: orderUpdate
+      component: orderInfo
+    }, {
+      path: '/delive',
+      name: '发货',
+      component: delive
     }]
   }]
 })

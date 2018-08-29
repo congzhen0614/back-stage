@@ -52,7 +52,8 @@
         <el-input v-model="form.pubdate"></el-input>
       </el-form-item>
       <el-form-item label="杂志介绍：（必填）" prop="content">
-        <el-input type="textarea" v-model="form.content"></el-input>
+        <!--<el-input type="textarea" v-model="form.content"></el-input>-->
+        <quill-editor v-model="form.content" :options="editorOption"></quill-editor>
       </el-form-item>
       <el-form-item label="杂志亮点:">
         <el-input type="textarea" v-model="form.memo"></el-input>
@@ -81,6 +82,11 @@ export default {
   components: {},
   data () {
     return {
+      editorOption: {
+        modules: {
+          toolbar: ['bold', 'italic', 'strike', 'underline', 'image', 'clean']
+        }
+      },
       rules: rules.magazineRules,
       isIndeterminateType: false,
       checkAllType: false,
@@ -117,9 +123,9 @@ export default {
         typeId: typeId,
         ageId: ageId,
         fee: this.$route.query.fee,
-        feeUnitType: this.$route.query.feeUnitType ? this.$route.query.feeUnitType.toString() : '',
+        feeUnitType: this.$route.query.feeUnitType ? this.$route.query.feeUnitType : '',
         feeUnitNum: this.$route.query.feeUnitNum,
-        feeUnit: this.$route.query.feeUnitType ? this.$route.query.feeUnitType.toString() : '',
+        feeUnit: this.$route.query.feeUnitType ? this.$route.query.feeUnitType : '',
         press: this.$route.query.press,
         pubdate: this.$route.query.pubdate,
         content: this.$route.query.content,
@@ -161,8 +167,10 @@ export default {
       })
     },
     onSubmit () {
-      this.form.ageId = this.form.ageId.join(',')
-      this.form.typeId = this.form.typeId.join(',')
+      let ageId = this.form.ageId
+      let typeId = this.form.typeId
+      this.form.ageId = ageId.join(',')
+      this.form.typeId = typeId.join(',')
       this.$refs.ruleForm.validate(valid => {
         if (valid) {
           this.$axios.magazineUpdate(this.form).then(res => {

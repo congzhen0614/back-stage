@@ -2,7 +2,7 @@
   <div class="system-account-add">
     <el-form ref="form" :model="form" label-width="150px" :rules="rules" style="width: 650px">
       <el-form-item label="用户名:">
-        <el-input v-model="form.username" prop="name"></el-input>
+        <el-input v-model="form.username" prop="name" disabled></el-input>
       </el-form-item>
       <el-form-item label="真实姓名:">
         <el-input v-model="form.realname"></el-input>
@@ -20,7 +20,7 @@
       </el-form-item>
       <el-form-item label="角色:">
         <el-radio-group v-model="form.roleId">
-          <el-radio-button v-for="(role, index) in roles" :label="role.rolename" :key="index">{{ role.rolename }}</el-radio-button>
+          <el-radio-button v-for="(role, index) in roles" :label="role.id" :key="index">{{ role.rolename }}</el-radio-button>
         </el-radio-group>
       </el-form-item>
       <el-form-item label="VIP高级用户:" v-if="groupType === 1">
@@ -79,6 +79,11 @@ export default {
       this.$axios.admingroupList().then(res => {
         if (res.data.code === '0') {
           this.groupList = res.data.data.list
+          this.groupList.forEach(item => {
+            if (this.form.groupId === item.id) {
+              this.loadRoleList(item.type)
+            }
+          })
         } else {
           this.$message.error(res.data.data.msg)
         }
@@ -130,7 +135,7 @@ export default {
       })
     },
     onSubmit () {
-      this.$axios.accountUpdateastatus(this.form).then(res => {
+      this.$axios.accountUpdate(this.form).then(res => {
         if (res.data.code === '0') {
           this.$message.success('操作成功!')
           this.$router.push({

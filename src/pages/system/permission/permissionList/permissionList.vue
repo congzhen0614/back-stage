@@ -62,6 +62,8 @@ export default {
       })
     },
     checkChange (val1, val2) {
+      console.log(val1)
+      console.log(val2)
       this.checkedList = val2.checkedKeys
       val2.checkedKeys.forEach((item, index) => {
         if (item === null) {
@@ -70,6 +72,11 @@ export default {
       })
     },
     onSubmit () {
+      this.checkedList.forEach((item, index) => {
+        if (typeof item === 'string') {
+          this.checkedList.splice(index, 1)
+        }
+      })
       this.$axios.rolepermissionSave({roleId: this.$route.query.id, list: this.checkedList}).then(res => {
         if (res.data.code === '0') {
           this.$message.success('操作成功')

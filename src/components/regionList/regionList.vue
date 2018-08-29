@@ -106,7 +106,6 @@ export default {
       this.$emit('province', val)
     },
     cities (val) {
-      console.log(val)
       if (val.length === 0) {
         this.regions = []
       }

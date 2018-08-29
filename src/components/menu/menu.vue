@@ -76,7 +76,7 @@
         <el-menu-item index="/account" v-if="havePermission(41)">
           <span slot="title">账号设置</span>
         </el-menu-item>
-        <el-menu-item index="/permission" v-if="havePermission(30)">
+        <el-menu-item index="/permission" v-if="havePermission(28)">
           <span slot="title">角色权限</span>
         </el-menu-item>
         <!--<el-menu-item @click="noRouter" index="/">-->

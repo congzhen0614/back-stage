@@ -83,12 +83,20 @@
             </el-form-item>
           </el-col>
           <el-col :span="6">
-            <el-button type="primary" plain @click="loadData">检索</el-button>
+            <el-form-item label="产品类型:">
+              <el-select v-model="search.cls" placeholder="请选择">
+                <el-option label="全部" value=""></el-option>
+                <el-option label="杂志" value="1"></el-option>
+                <el-option label="图书" value="2"></el-option>
+                <el-option label="电子读物" value="54"></el-option>
+              </el-select>
+            </el-form-item>
           </el-col>
         </el-row>
       </el-form>
       <el-row>
         <el-button type="primary">批量发货</el-button>
+        <el-button type="primary" plain @click="loadData" :style="{float: 'right'}">检索</el-button>
         <!--<el-button type="primary">导出Excel</el-button>-->
       </el-row>
     </el-header>
@@ -112,9 +120,10 @@
       <el-table-column prop="" label="订单状态"></el-table-column>
       <el-table-column label="操作" width="200px">
         <template slot-scope="scope">
-          <el-button @click="onDelive(scope.row)" type="text" size="small">发货</el-button>
+          <el-button @click="onChecke(scope.row)" type="text" size="small">查看</el-button>
           <el-button @click="onUpload(scope.row)" type="text" size="small">修改</el-button>
-          <el-button @click="onChecke(scope.row)" type="text" size="small">查看详情</el-button>
+          <el-button @click="onFlowed(scope.row)" type="text" size="small">流程</el-button>
+          <el-button @click="onDelive(scope.row)" type="text" size="small">发货物流</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -183,7 +192,8 @@ export default {
         childName: this.search.childName,
         tradeStatus: this.search.tradeStatus,
         startTime: this.search.startTime,
-        endTime: this.search.endTime
+        endTime: this.search.endTime,
+        cls: this.search.cls
       }
       return param
     }
@@ -298,19 +308,33 @@ export default {
       this.pages.pageSize = val
       this.loadData()
     },
-    onDelive (item) {
+    onChecke (item) {
+      console.log('查看')
       console.log(item)
     },
     onUpload (item) {
+      console.log('修改')
+      console.log(item)
       this.$router.push({
-        path: '/orderUpdate',
+        path: '/orderInfo',
+        query: {
+          item: JSON.stringify(item)
+        }
+      })
+    },
+    onFlowed (item) {
+      console.log('流程')
+      console.log(item)
+    },
+    onDelive (item) {
+      console.log('发货')
+      console.log(item)
+      this.$router.push({
+        path: '/delive',
         query: {
           id: item.id
         }
       })
-    },
-    onChecke (item) {
-      console.log(item)
     }
   }
 }

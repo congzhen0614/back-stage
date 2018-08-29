@@ -58,8 +58,8 @@ export default {
   accountSave (params) { // 新建用户
     return axios.post('/qrzd/agent/account/save', params)
   },
-  accountUpdateastatus (params) { // 修改用户
-    return axios.post('/qrzd/agent/account/updateastatus', params)
+  accountUpdate (params) { // 修改用户
+    return axios.post('/qrzd/agent/account/update', params)
   },
   accountUpdatepsw (params) { // 修改账号
     return axios.post('/qrzd/agent/account/updatepsw/reset', params)
@@ -146,7 +146,7 @@ export default {
   },
   magazineItemImgst (params) { // 杂志列表
     let param = qs.stringify(params)
-    return axios.get(`/qrzd/magazine/itemImg/list?${param}`)
+    return axios.get(`/qrzd/magazine/itemimg/list?${param}`)
   },
   magazineCover (params) { // 修改封面图
     return axios.post('/qrzd/magazine/qrzditem/cover', params)
@@ -212,15 +212,13 @@ export default {
   },
   schoolList (params) {
     let param = qs.stringify(params)
-    return axios.get(`/qrzd//sys/school/bindlist?${param}`)
+    return axios.get(`/qrzd/sys/school/bindlist?${param}`)
   },
-  schGradeList (params) {
-    let param = qs.stringify(params)
-    return axios.get(`/qrzd/sys/grade/list?${param}`)
+  schGradeList () {
+    return axios.get('/qrzd/sys/grade/list/open')
   },
-  schClassList (params) {
-    let param = qs.stringify(params)
-    return axios.get(`/qrzd/sys/schclass/list?${param}`)
+  schClassList () {
+    return axios.get('/qrzd/sys/schclass/list/open')
   },
   tradeDetail (params) {
     return axios.get(`/qrzd/trade/${params}`)
@@ -241,5 +239,8 @@ export default {
   schoolFindByAdmin (params) {
     let param = qs.stringify(params)
     return axios.get(`/qrzd/sys/school/findByAdmin?${param}`)
+  },
+  delive (params) {
+    return axios.post('/qrzd/trade/delive', params)
   }
 }

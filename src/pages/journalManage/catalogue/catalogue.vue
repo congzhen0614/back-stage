@@ -201,7 +201,7 @@ export default {
     },
     onStar () {
       let param = {
-        sub: 0,
+        sub: 1,
         ids: this.seleteIds
       }
       this.$axios.itempackUpdatesub(param).then(res => {
@@ -219,7 +219,7 @@ export default {
     },
     onStop () {
       let param = {
-        sub: 1,
+        sub: 0,
         ids: this.seleteIds
       }
       this.$axios.itempackUpdatesub(param).then(res => {

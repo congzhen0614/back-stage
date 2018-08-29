@@ -16,9 +16,11 @@
           <el-col :span="8">
             <el-form-item label="类别:">
               <el-select v-model="search.typeId" style="width: 50%; float: left; padding-right: 5px">
+                <el-option label="全部" :value="''"></el-option>
                 <el-option :label="item.name" :value="item.id" v-for="item in typeList" :key="item.id"></el-option>
               </el-select>
               <el-select v-model="search.ageId" style="width: 50%; float: left; padding-left: 5px">
+                <el-option label="全部" :value="''"></el-option>
                 <el-option :label="item.name" :value="item.id" v-for="item in ageList" :key="item.id"></el-option>
               </el-select>
             </el-form-item>
@@ -133,7 +135,10 @@ export default {
       ageList: [],
       typeList: [],
       groupList: [],
-      search: {},
+      search: {
+        typeId: '',
+        ageId: ''
+      },
       tableData: [],
       selectIds: [],
       upLoadUrl: this.$axios.magazineBatch(),

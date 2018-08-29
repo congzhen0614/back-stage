@@ -52,7 +52,8 @@
         <el-input v-model="form.pubdate"></el-input>
       </el-form-item>
       <el-form-item label="杂志介绍：（必填）" prop="content">
-        <el-input type="textarea" v-model="form.content"></el-input>
+        <!--<el-input type="textarea" v-model="form.content"></el-input>-->
+        <quill-editor v-model="form.content" :options="editorOption"></quill-editor>
       </el-form-item>
       <el-form-item label="杂志亮点:">
         <el-input type="textarea" v-model="form.memo"></el-input>
@@ -81,6 +82,11 @@ export default {
   components: {},
   data () {
     return {
+      editorOption: {
+        modules: {
+          toolbar: ['bold', 'italic', 'strike', 'underline', 'image', 'clean']
+        }
+      },
       rules: rules.magazineRules,
       isIndeterminateType: false,
       checkAllType: false,
@@ -227,7 +233,7 @@ export default {
     width: 100%;
   }
   .journal-manage-add {
-    width: 900px;
+    width: 1000px;
   }
   .journal-manage-add .el-checkbox.el-checkbox {
     width: 170px;
