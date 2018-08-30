@@ -85,7 +85,6 @@ export default {
   created () {
   },
   mounted () {
-    console.log(this.form)
     this.loadProvince()
     this.loadCities()
     this.loadRegions()

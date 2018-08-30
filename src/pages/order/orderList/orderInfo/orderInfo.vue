@@ -88,13 +88,20 @@
           <el-table-column prop="fee" label="商品价格"></el-table-column>
           <el-table-column prop="quantity" label="数量"></el-table-column>
           <el-table-column prop="totalCost" label="合计金额"></el-table-column>
-          <el-table-column prop="refundStatus" label="商品状态"></el-table-column>
+          <el-table-column prop="refundStatus" label="商品状态">
+            <template slot-scope="scope">
+              <span v-if="scope.row.refundStatus === 0">正常</span>
+              <span v-if="scope.row.refundStatus === 1">申请退款</span>
+              <span v-if="scope.row.refundStatus === 2">拒绝退款</span>
+              <span v-if="scope.row.refundStatus === 3">同意退款</span>
+            </template>
+          </el-table-column>
           <el-table-column label="操作" width="330">
             <template slot-scope="scope">
-              <el-button @click="onApplyRefund(scope.row)" type="text" size="small">申请退款</el-button>
-              <el-button @click="onCancelRefund(scope.row)" type="text" size="small">取消退款</el-button>
-              <el-button @click="onRepulseRefund(scope.row)" type="text" size="small">拒绝退款</el-button>
-              <el-button @click="onRefund(scope.row)" type="text" size="small">同意退款</el-button>
+              <el-button @click="onApplyRefund(scope.row)" type="text" size="small" v-if="scope.row.refundStatus === 0">申请退款</el-button>
+              <el-button @click="onCancelRefund(scope.row)" type="text" size="small" v-if="scope.row.refundStatus === 1">取消退款</el-button>
+              <el-button @click="onRepulseRefund(scope.row)" type="text" size="small" v-if="scope.row.refundStatus === 1">拒绝退款</el-button>
+              <el-button @click="onRefund(scope.row)" type="text" size="small" v-if="scope.row.refundStatus === 1">同意退款</el-button>
               <el-button @click="onListUpdate(scope.row)" type="text" size="small">修改</el-button>
             </template>
           </el-table-column>
@@ -109,7 +116,14 @@
           <el-table-column prop="fee" label="商品价格"></el-table-column>
           <el-table-column prop="quantity" label="数量"></el-table-column>
           <el-table-column prop="totalCost" label="合计金额"></el-table-column>
-          <el-table-column prop="refundStatus" label="商品状态"></el-table-column>
+          <el-table-column prop="refundStatus" label="商品状态">
+            <template slot-scope="scope">
+              <span v-if="scope.row.refundStatus === 0">正常</span>
+              <span v-if="scope.row.refundStatus === 1">申请退款</span>
+              <span v-if="scope.row.refundStatus === 2">拒绝退款</span>
+              <span v-if="scope.row.refundStatus === 3">同意退款</span>
+            </template>
+          </el-table-column>
           <el-table-column prop="refundReason" label="申请退款原因"></el-table-column>
           <el-table-column prop="refundImgs" label="申请退款图片"></el-table-column>
           <el-table-column label="操作" width="330">
@@ -270,6 +284,7 @@ export default {
       this.$axios.refundApply({id: item.id}).then(res => {
         if (res.data.code === '0') {
           this.$message.success('操作成功')
+          this.loadTradeDetail()
         } else {
           this.$message.error(res.data.data.msg)
         }
@@ -283,6 +298,7 @@ export default {
       this.$axios.refundCancel({id: item.id}).then(res => {
         if (res.data.code === '0') {
           this.$message.success('操作成功')
+          this.loadTradeDetail()
         } else {
           this.$message.error(res.data.data.msg)
         }
@@ -296,6 +312,7 @@ export default {
       this.$axios.tradeRefund({refund: false, tradeDetailId: item.id}).then(res => {
         if (res.data.code === '0') {
           this.$message.success('操作成功')
+          this.loadTradeDetail()
         } else {
           this.$message.error(res.data.data.msg)
         }
@@ -309,6 +326,7 @@ export default {
       this.$axios.tradeRefund({refund: true, tradeDetailId: item.id}).then(res => {
         if (res.data.code === '0') {
           this.$message.success('操作成功')
+          this.loadTradeDetail()
         } else {
           this.$message.error(res.data.data.msg)
         }

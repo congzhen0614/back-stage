@@ -115,10 +115,6 @@ export default {
       this.$router.go(-1)
     },
     onSubmit () {
-      // this.form.tradeId = parseInt(this.form.tradeId)
-      // this.form.addressCityId = parseInt(this.form.addressCityId)
-      // this.form.addressProvinceId = parseInt(this.form.addressProvinceId)
-      // this.form.addressRegionId = parseInt(this.form.addressRegionId)
       this.$axios.addressHomeUpdate(this.form).then(res => {
         if (res.data.code === '0') {
           this.$message.success('操作成功')
