@@ -220,18 +220,8 @@ export default {
   schClassList () {
     return axios.get('/qrzd/sys/schclass/list/open')
   },
-  tradeDetail (params) {
-    return axios.get(`/qrzd/trade/${params}`)
-  },
-  tradeDetails (params) {
-    let param = qs.stringify(params)
-    return axios.get(`/qrzd/trade/detail?${param}`)
-  },
   tradeUpdate (params) {
     return axios.post('/qrzd/trade/update', params)
-  },
-  tradeRefund (params) {
-    return axios.post('/qrzd/trade/refund', params)
   },
   schoolBind (params) {
     return axios.post('/qrzd/sys/school/bind', params)
@@ -242,5 +232,23 @@ export default {
   },
   delive (params) {
     return axios.post('/qrzd/trade/delive', params)
+  },
+  tradeHis (params) {
+    return axios.get(`/qrzd/trade/tradeHis/${params}`)
+  },
+  trade (params) {
+    return axios.get(`/qrzd/trade/${params}`)
+  },
+  tradeDetail (params) {
+    return axios.get(`/qrzd/trade/detail/${params}`)
+  },
+  refundApply (params) {
+    return axios.post('/qrzd/trade/refundApply', params)
+  },
+  refundCancel (params) {
+    return axios.post('/qrzd/trade/refund/cancel', params)
+  },
+  tradeRefund (params) {
+    return axios.post('/qrzd/trade/refund', params)
   }
 }

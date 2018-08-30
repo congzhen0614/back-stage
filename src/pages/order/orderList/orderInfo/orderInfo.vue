@@ -1,68 +1,62 @@
 <template>
   <div class="order-info">
     <header class="order-info-heder">
-      <el-form ref="form" :model="search" label-width="120px">
+      <el-form ref="form" :model="form" label-width="120px">
         <el-row>
           <el-col :span="8">
             <el-form-item label="订单号:">
-              <el-input v-model="search.no" placeholder="请输入" disabled></el-input>
+              <el-input v-model="form.no" placeholder="请输入" disabled></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="订单状态:">
-              <el-select v-model="search.region" placeholder="请选择状态">
-                <el-option label="待付款" value="0"></el-option>
-                <el-option label="已付款" value="1"></el-option>
-                <el-option label="已完成" value="2"></el-option>
-                <el-option label="已退款" value="3"></el-option>
-                <el-option label="订单失效" value="4"></el-option>
-              </el-select>
+              <el-input v-model="orderItem.tradeStatusName" placeholder="请输入" disabled></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="业务员:">
-              <el-input v-model="search.mobile" placeholder="请输入"></el-input>
+              <el-input v-model="orderItem.adminName" placeholder="请输入" disabled></el-input>
             </el-form-item>
           </el-col>
         </el-row>
         <el-row>
           <el-col :span="8">
             <el-form-item label="订单金额:">
-              <el-input v-model="search.no" placeholder="请输入" disabled></el-input>
+              <el-input v-model="form.receivables" placeholder="请输入" disabled></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="实付金额:">
-              <el-input v-model="search.mobile" placeholder="请输入" disabled></el-input>
+              <el-input v-model="form.receipt" placeholder="请输入" disabled></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="运费:">
-              <el-input v-model="search.mobile" placeholder="请输入" disabled></el-input>
+              <el-input v-model="form.deliveryFee" placeholder="请输入" disabled></el-input>
             </el-form-item>
           </el-col>
         </el-row>
         <el-row>
           <el-col :span="8">
             <el-form-item label="商品数:">
-              <el-input v-model="search.no" placeholder="请输入" disabled></el-input>
+              <el-input v-model="form.itemQuantity" placeholder="请输入" disabled></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="下单人:">
-              <el-input v-model="search.mobile" placeholder="请输入" disabled></el-input>
+              <el-input v-model="form.username" placeholder="请输入" disabled></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="下单时间:">
-              <el-input v-model="search.mobile" placeholder="请输入" disabled></el-input>
+              <el-input v-model="form.createdAt" placeholder="请输入" disabled></el-input>
             </el-form-item>
           </el-col>
         </el-row>
         <el-row>
           <el-col :span="8">
             <el-form-item label="留言:">
-              <el-input v-model="search.no" placeholder="请输入" disabled></el-input>
+              <el-input v-model="form.userRemark" placeholder="请输入" disabled></el-input>
             </el-form-item>
           </el-col>
         </el-row>
@@ -74,51 +68,71 @@
           <span>收货信息</span>
         </header>
         <el-table :data="addressTable" border>
-          <el-table-column prop="date" label="配送方式"></el-table-column>
-          <el-table-column prop="date" label="收件地址"></el-table-column>
-          <el-table-column prop="date" label="收件人"></el-table-column>
-          <el-table-column prop="date" label="联系电话"></el-table-column>
-          <el-table-column prop="date" label="操作" width="120"></el-table-column>
+          <el-table-column prop="sendType" label="配送方式"></el-table-column>
+          <el-table-column prop="address" label="收件地址"></el-table-column>
+          <el-table-column prop="mobile" label="收件人"></el-table-column>
+          <el-table-column prop="name" label="联系电话"></el-table-column>
+          <el-table-column label="操作" width="120">
+            <template slot-scope="scope">
+              <el-button @click="onAddressUpdate(scope.row)" type="text" size="small">修改</el-button>
+            </template>
+          </el-table-column>
         </el-table>
       </template>
-      <template>
+      <template v-if="magaTable.length > 0">
         <header class="table-title">
           <span>杂志</span>
         </header>
         <el-table :data="magaTable" border>
-          <el-table-column prop="date" label="商品名称"></el-table-column>
-          <el-table-column prop="date" label="商品价格"></el-table-column>
-          <el-table-column prop="date" label="数量"></el-table-column>
-          <el-table-column prop="date" label="合计金额"></el-table-column>
-          <el-table-column prop="date" label="商品状态"></el-table-column>
-          <el-table-column prop="date" label="操作" width="120"></el-table-column>
+          <el-table-column prop="name" label="商品名称"></el-table-column>
+          <el-table-column prop="fee" label="商品价格"></el-table-column>
+          <el-table-column prop="quantity" label="数量"></el-table-column>
+          <el-table-column prop="totalCost" label="合计金额"></el-table-column>
+          <el-table-column prop="refundStatus" label="商品状态"></el-table-column>
+          <el-table-column label="操作" width="330">
+            <template slot-scope="scope">
+              <el-button @click="onApplyRefund(scope.row)" type="text" size="small">申请退款</el-button>
+              <el-button @click="onCancelRefund(scope.row)" type="text" size="small">取消退款</el-button>
+              <el-button @click="onRepulseRefund(scope.row)" type="text" size="small">拒绝退款</el-button>
+              <el-button @click="onRefund(scope.row)" type="text" size="small">同意退款</el-button>
+              <el-button @click="onListUpdate(scope.row)" type="text" size="small">修改</el-button>
+            </template>
+          </el-table-column>
         </el-table>
       </template>
-      <template>
+      <template v-if="bookTable.length > 0">
         <header class="table-title">
           <span>图书</span>
         </header>
         <el-table :data="bookTable" border>
-          <el-table-column prop="date" label="商品名称"></el-table-column>
-          <el-table-column prop="date" label="商品价格"></el-table-column>
-          <el-table-column prop="date" label="数量"></el-table-column>
-          <el-table-column prop="date" label="合计金额"></el-table-column>
-          <el-table-column prop="date" label="商品状态"></el-table-column>
-          <el-table-column prop="date" label="申请退款原因"></el-table-column>
-          <el-table-column prop="date" label="申请退款图片"></el-table-column>
-          <el-table-column prop="date" label="操作" width="120"></el-table-column>
+          <el-table-column prop="name" label="商品名称"></el-table-column>
+          <el-table-column prop="fee" label="商品价格"></el-table-column>
+          <el-table-column prop="quantity" label="数量"></el-table-column>
+          <el-table-column prop="totalCost" label="合计金额"></el-table-column>
+          <el-table-column prop="refundStatus" label="商品状态"></el-table-column>
+          <el-table-column prop="refundReason" label="申请退款原因"></el-table-column>
+          <el-table-column prop="refundImgs" label="申请退款图片"></el-table-column>
+          <el-table-column label="操作" width="330">
+            <template slot-scope="scope">
+              <el-button @click="onApplyRefund(scope.row)" type="text" size="small">申请退款</el-button>
+              <el-button @click="onCancelRefund(scope.row)" type="text" size="small">取消退款</el-button>
+              <el-button @click="onRepulseRefund(scope.row)" type="text" size="small">拒绝退款</el-button>
+              <el-button @click="onRefund(scope.row)" type="text" size="small">同意退款</el-button>
+              <el-button @click="onListUpdate(scope.row)" type="text" size="small">修改</el-button>
+            </template>
+          </el-table-column>
         </el-table>
       </template>
-      <template>
+      <template v-if="spypTable.length > 0">
         <header class="table-title">
           <span>电子读物</span>
         </header>
         <el-table :data="spypTable" border>
-          <el-table-column prop="date" label="商品名称"></el-table-column>
-          <el-table-column prop="date" label="商品价格"></el-table-column>
-          <el-table-column prop="date" label="数量"></el-table-column>
-          <el-table-column prop="date" label="合计金额"></el-table-column>
-          <el-table-column prop="date" label="商品状态"></el-table-column>
+          <el-table-column prop="name" label="商品名称"></el-table-column>
+          <el-table-column prop="fee" label="商品价格"></el-table-column>
+          <el-table-column prop="quantity" label="数量"></el-table-column>
+          <el-table-column prop="totalCost" label="合计金额"></el-table-column>
+          <el-table-column prop="refundStatus" label="商品状态"></el-table-column>
         </el-table>
       </template>
     </main>
@@ -132,7 +146,7 @@ export default {
   data () {
     return {
       orderItem: JSON.parse(this.$route.query.item),
-      search: {},
+      form: {},
       addressTable: [],
       magaTable: [],
       bookTable: [],
@@ -140,11 +154,130 @@ export default {
     }
   },
   created () {
+    this.loadTradeDetail()
+    this.loadTrade()
   },
   mounted () {
+    console.log(this.orderItem.sendType === 0 ? '直送' : '寄送')
   },
   computed: {},
-  methods: {},
+  methods: {
+    loadTradeDetail () {
+      this.$axios.tradeDetail(this.orderItem.id).then(res => {
+        if (res.data.code === '0') {
+          this.magaTable = res.data.data.magazinesDetails
+          this.bookTable = res.data.data.booksDetails
+          this.spypTable = res.data.data.packetsDetails
+        } else {
+          this.$message.error(res.data.data.msg)
+        }
+      }, err => {
+        this.$message.error(err)
+      }).catch(err => {
+        this.$message.error(err)
+      })
+    },
+    loadTrade () {
+      this.$axios.trade(this.orderItem.id).then(res => {
+        if (res.data.code === '0') {
+          this.form = res.data.data
+          this.setAddress(this.form)
+        } else {
+          this.$message.error(res.data.data.msg)
+        }
+      }, err => {
+        this.$message.error(err)
+      }).catch(err => {
+        this.$message.error(err)
+      })
+    },
+    setAddress (item) {
+      if (item.address !== null) {
+        this.addressTable.push({
+          sendType: '寄送',
+          address: item.addressProvinceId + item.addressCityId + item.addressRegionId + item.address,
+          mobile: item.consigneeMobile,
+          name: item.consigneeName
+        })
+      }
+      if (item.addressMagazine !== null && this.orderItem.sendType === 1) {
+        this.addressTable.push({
+          sendType: '寄送',
+          address: item.addressProvinceIdMagazine + item.addressCityIdMagazine + item.addressRegionIdMagazine + item.addressMagazine,
+          mobile: item.consigneeMobileMagazine,
+          name: item.consigneeNameMagazine
+        })
+      }
+      if (item.childId !== null && this.orderItem.sendType === 0) {
+        this.addressTable.push({
+          sendType: '直送',
+          address: item.provinceId + item.cityId + item.regionId + item.schoolName + item.gradeName + (item.className ? item.className : item.classNameDef),
+          mobile: item.childMobile,
+          name: item.childName
+        })
+      }
+    },
+    onAddressUpdate (item) {
+      console.log(item)
+    },
+    onApplyRefund (item) {
+      this.$axios.refundApply({id: item.id}).then(res => {
+        if (res.data.code === '0') {
+          this.$message.success('操作成功')
+        } else {
+          this.$message.error(res.data.data.msg)
+        }
+      }, err => {
+        this.$message.error(err)
+      }).catch(err => {
+        this.$message.error(err)
+      })
+    },
+    onCancelRefund (item) {
+      this.$axios.refundCancel({id: item.id}).then(res => {
+        if (res.data.code === '0') {
+          this.$message.success('操作成功')
+        } else {
+          this.$message.error(res.data.data.msg)
+        }
+      }, err => {
+        this.$message.error(err)
+      }).catch(err => {
+        this.$message.error(err)
+      })
+    },
+    onRepulseRefund (item) {
+      console.log(item)
+      this.$axios.tradeRefund({refund: false, tradeDetailId: item.id}).then(res => {
+        if (res.data.code === '0') {
+          console.log(res)
+        } else {
+          this.$message.error(res.data.data.msg)
+        }
+      }, err => {
+        this.$message.error(err)
+      }).catch(err => {
+        this.$message.error(err)
+      })
+    },
+    onRefund (item) {
+      console.log(item)
+      this.$axios.tradeRefund({refund: true, tradeDetailId: item.id}).then(res => {
+        if (res.data.code === '0') {
+          console.log(res)
+        } else {
+          this.$message.error(res.data.data.msg)
+        }
+      }, err => {
+        this.$message.error(err)
+      }).catch(err => {
+        this.$message.error(err)
+      })
+    },
+    onListUpdate (item) {
+      console.log(item)
+    }
+  },
   watch: {}
 }
 </script>

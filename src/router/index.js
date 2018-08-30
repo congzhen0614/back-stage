@@ -36,6 +36,7 @@ import orderList from '@/pages/order/orderList/orderList.vue' // 订单列表
 // import orderUpdate from '@/pages/order/orderList/orderUpdate/orderUpdate.vue' // 修改订单
 import orderInfo from '@/pages/order/orderList/orderInfo/orderInfo.vue' // 修改订单
 import delive from '@/pages/order/orderList/delive/delive.vue' // 发货
+import flowed from '@/pages/order/orderList/flowed/flowed.vue' // 流程
 
 Vue.use(Router)
 
@@ -176,6 +177,10 @@ export default new Router({
       path: '/delive',
       name: '发货',
       component: delive
+    }, {
+      path: '/flowed',
+      name: '流程',
+      component: flowed
     }]
   }]
 })

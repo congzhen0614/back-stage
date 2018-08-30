@@ -1,0 +1,47 @@
+<template>
+  <div class="order-flowed">
+    <el-button @click="goBack" style="margin-bottom: 20px">返回</el-button>
+    <el-table :data="tableData" border>
+      <el-table-column prop="no" label="订单号"></el-table-column>
+      <el-table-column prop="adminName" label="业务员"></el-table-column>
+      <el-table-column prop="receivables " label="订单总额"></el-table-column>
+      <el-table-column prop="user" label="下单人"></el-table-column>
+      <el-table-column prop="tradeStatusName" label="订单状态"></el-table-column>
+      <el-table-column prop="updatedAt" label="操作时间"></el-table-column>
+    </el-table>
+  </div>
+</template>
+
+<script>
+export default {
+  name: 'order-flowed',
+  components: {},
+  data () {
+    return {
+      tableData: []
+    }
+  },
+  created () {
+    this.loadFlow()
+  },
+  methods: {
+    loadFlow () {
+      this.$axios.tradeHis(this.$route.query.id).then(res => {
+        if (res.data.code === '0') {
+          this.tableData = res.data.data.qrzdTradeHisViews
+        }
+      })
+    },
+    goBack () {
+      this.$router.go(-1)
+    }
+  },
+  watch: {}
+}
+</script>
+
+<style>
+  .order-flowed {
+    padding: 20px;
+  }
+</style>

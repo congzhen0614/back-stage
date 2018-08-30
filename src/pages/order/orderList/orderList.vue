@@ -95,7 +95,6 @@
         </el-row>
       </el-form>
       <el-row>
-        <el-button type="primary">批量发货</el-button>
         <el-button type="primary" plain @click="loadData" :style="{float: 'right'}">检索</el-button>
         <!--<el-button type="primary">导出Excel</el-button>-->
       </el-row>
@@ -108,7 +107,7 @@
           <p class="detail-list" v-for="item in scope.row.tradeDetailViewList" :key="item.id">{{item.name}} (杂志类型:{{item.clsName}},数量:{{item.quantity}})</p>
         </template>
       </el-table-column>
-      <el-table-column prop="" label="业务员"></el-table-column>
+      <el-table-column prop="adminName" label="业务员"></el-table-column>
       <el-table-column prop="totalFee" label="订单总额"></el-table-column>
       <el-table-column prop="user" label="下单人" width="200"></el-table-column>
       <el-table-column prop="username" label="联系电话" width="200"></el-table-column>
@@ -117,7 +116,7 @@
           <span>{{ scope.row.createdAt | dateFormat }}</span>
         </template>
       </el-table-column>
-      <el-table-column prop="" label="订单状态"></el-table-column>
+      <el-table-column prop="tradeStatusName" label="订单状态"></el-table-column>
       <el-table-column label="操作" width="200px">
         <template slot-scope="scope">
           <el-button @click="onChecke(scope.row)" type="text" size="small">查看</el-button>
@@ -325,6 +324,12 @@ export default {
     onFlowed (item) {
       console.log('流程')
       console.log(item)
+      this.$router.push({
+        path: '/flowed',
+        query: {
+          id: item.id
+        }
+      })
     },
     onDelive (item) {
       console.log('发货')
