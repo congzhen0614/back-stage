@@ -72,7 +72,7 @@
           <el-table-column prop="addressStr" label="收件地址"></el-table-column>
           <el-table-column prop="mobile" label="收件人"></el-table-column>
           <el-table-column prop="name" label="联系电话"></el-table-column>
-          <el-table-column label="操作" width="120">
+          <el-table-column label="操作" width="120" v-if="update">
             <template slot-scope="scope">
               <el-button @click="onAddressUpdate(scope.row)" type="text" size="small">修改</el-button>
             </template>
@@ -96,7 +96,7 @@
               <span v-if="scope.row.refundStatus === 3">同意退款</span>
             </template>
           </el-table-column>
-          <el-table-column label="操作" width="330">
+          <el-table-column label="操作" width="330" v-if="update">
             <template slot-scope="scope">
               <el-button @click="onApplyRefund(scope.row)" type="text" size="small" v-if="scope.row.refundStatus === 0">申请退款</el-button>
               <el-button @click="onCancelRefund(scope.row)" type="text" size="small" v-if="scope.row.refundStatus === 1">取消退款</el-button>
@@ -126,7 +126,7 @@
           </el-table-column>
           <el-table-column prop="refundReason" label="申请退款原因"></el-table-column>
           <el-table-column prop="refundImgs" label="申请退款图片"></el-table-column>
-          <el-table-column label="操作" width="330">
+          <el-table-column label="操作" width="330" v-if="update">
             <template slot-scope="scope">
               <el-button @click="onApplyRefund(scope.row)" type="text" size="small">申请退款</el-button>
               <el-button @click="onCancelRefund(scope.row)" type="text" size="small">取消退款</el-button>
@@ -160,6 +160,7 @@ export default {
   data () {
     return {
       orderItem: JSON.parse(this.$route.query.item),
+      update: this.$route.query.update,
       form: {},
       addressTable: [],
       magaTable: [],
@@ -172,7 +173,7 @@ export default {
     this.loadTrade()
   },
   mounted () {
-    console.log(this.orderItem.sendType === 0 ? '直送' : '寄送')
+    console.log(this.update)
   },
   computed: {},
   methods: {

@@ -120,7 +120,7 @@
       <el-table-column label="操作" width="200px">
         <template slot-scope="scope">
           <el-button @click="onChecke(scope.row)" type="text" size="small">查看</el-button>
-          <el-button @click="onUpload(scope.row)" type="text" size="small">修改</el-button>
+          <el-button @click="onUpdate(scope.row)" type="text" size="small">修改</el-button>
           <el-button @click="onFlowed(scope.row)" type="text" size="small">流程</el-button>
           <el-button @click="onDelive(scope.row)" type="text" size="small">发货物流</el-button>
         </template>
@@ -308,22 +308,24 @@ export default {
       this.loadData()
     },
     onChecke (item) {
-      console.log('查看')
-      console.log(item)
-    },
-    onUpload (item) {
-      console.log('修改')
-      console.log(item)
       this.$router.push({
         path: '/orderInfo',
         query: {
-          item: JSON.stringify(item)
+          item: JSON.stringify(item),
+          update: false
+        }
+      })
+    },
+    onUpdate (item) {
+      this.$router.push({
+        path: '/orderInfo',
+        query: {
+          item: JSON.stringify(item),
+          update: true
         }
       })
     },
     onFlowed (item) {
-      console.log('流程')
-      console.log(item)
       this.$router.push({
         path: '/flowed',
         query: {
@@ -332,8 +334,6 @@ export default {
       })
     },
     onDelive (item) {
-      console.log('发货')
-      console.log(item)
       this.$router.push({
         path: '/delive',
         query: {

@@ -7,7 +7,11 @@
       <el-table-column prop="receivables " label="订单总额"></el-table-column>
       <el-table-column prop="user" label="下单人"></el-table-column>
       <el-table-column prop="tradeStatusName" label="订单状态"></el-table-column>
-      <el-table-column prop="updatedAt" label="操作时间"></el-table-column>
+      <el-table-column prop="updatedAt" label="操作时间">
+        <template slot-scope="scope">
+          <span>{{ scope.row.updatedAt | timeFormat }}</span>
+        </template>
+      </el-table-column>
     </el-table>
   </div>
 </template>

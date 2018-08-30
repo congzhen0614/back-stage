@@ -33,10 +33,10 @@
               </el-select>
             </el-form-item>
           </el-col>
-          <el-col :span="4">
+          <el-col :span="4" v-if="havePermission(46)">
             <el-form-item label="复制给商家:">
               <el-select v-model="search.merchants">
-                <el-option :label="item.name" :value="item.id" v-for="item in groupList" :key="item.id"></el-option>
+                <el-option :label="item.username" :value="item.id" v-for="item in groupList" :key="item.id"></el-option>
               </el-select>
             </el-form-item>
           </el-col>
@@ -44,7 +44,7 @@
         <div class="header-button-right">
           <el-row>
             <el-button type="primary" plain @click="loadDate">检索</el-button>
-            <el-button type="primary" plain @click="copyToMagazine">批量复制</el-button>
+            <el-button type="primary" plain @click="copyToMagazine" v-if="havePermission(46)">批量复制</el-button>
             <el-button type="primary" plain @click="setMagazinePublish(1)" v-if="havePermission(13)">批量上架</el-button>
             <el-button type="primary" plain @click="setMagazinePublish(0)" v-if="havePermission(13)">批量下架</el-button>
           </el-row>
@@ -167,13 +167,6 @@ export default {
         isSale: this.search.isSale
       }
       return param
-    },
-    copyParams () {
-      let param = {
-        ids: this.selectIds,
-        adminId: this.search.merchants
-      }
-      return param
     }
   },
   methods: {
@@ -204,12 +197,8 @@ export default {
       })
     },
     loadAdmingroupList () {
-      this.$axios.admingroupList().then(res => {
-        if (res.data.code === '0') {
-          this.groupList = res.data.data.list
-        } else {
-          this.$message.error(res.data.data.msg)
-        }
+      this.$axios.accountList().then(res => {
+        this.groupList = res.data.data.list
       }, err => {
         this.$message.error(err)
       }).catch(err => {
@@ -217,7 +206,6 @@ export default {
       })
     },
     loadDate () {
-      console.log(this.params)
       this.$axios.magazineList(this.params).then(res => {
         if (res.data.code === '0') {
           this.tableData = res.data.data.list
@@ -251,7 +239,18 @@ export default {
     },
     // 复制给渠道商
     copyToMagazine () {
-      this.$axios.magazineCopy(this.copyParams).then(res => {
+      let groupId = ''
+      this.groupList.forEach(item => {
+        if (item.id === this.search.merchants) {
+          groupId = item.groupId
+        }
+      })
+      let param = {
+        ids: this.selectIds,
+        adminId: this.search.merchants,
+        groupId: groupId
+      }
+      this.$axios.magazineCopy(param).then(res => {
         if (res.data.code === '0') {
           this.$message.success('操作成功!')
           this.loadDate()
