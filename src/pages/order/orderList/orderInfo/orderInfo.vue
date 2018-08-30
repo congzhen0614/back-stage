@@ -69,7 +69,7 @@
         </header>
         <el-table :data="addressTable" border>
           <el-table-column prop="sendType" label="配送方式"></el-table-column>
-          <el-table-column prop="address" label="收件地址"></el-table-column>
+          <el-table-column prop="addressStr" label="收件地址"></el-table-column>
           <el-table-column prop="mobile" label="收件人"></el-table-column>
           <el-table-column prop="name" label="联系电话"></el-table-column>
           <el-table-column label="操作" width="120">
@@ -194,31 +194,77 @@ export default {
     setAddress (item) {
       if (item.address !== null) {
         this.addressTable.push({
+          cls: 2,
           sendType: '寄送',
-          address: item.addressProvinceId + item.addressCityId + item.addressRegionId + item.address,
+          addressStr: item.addressProvinceName + item.addressCityName + item.addressRegionName + item.address,
+          address: item.address,
+          provinceName: item.addressProvinceName,
+          provinceId: item.addressProvinceId,
+          cityName: item.addressCityName,
+          cityId: item.addressCityId,
+          regionName: item.addressRegionName,
+          regionId: item.addressRegionId,
           mobile: item.consigneeMobile,
           name: item.consigneeName
         })
       }
       if (item.addressMagazine !== null && this.orderItem.sendType === 1) {
         this.addressTable.push({
+          cls: 1,
           sendType: '寄送',
-          address: item.addressProvinceIdMagazine + item.addressCityIdMagazine + item.addressRegionIdMagazine + item.addressMagazine,
+          addressStr: item.addressProvinceNameMagazine + item.addressCityNameMagazine + item.addressRegionNameMagazine + item.addressMagazine,
+          address: item.addressMagazine,
+          provinceName: item.addressProvinceNameMagazine,
+          provinceId: item.addressProvinceIdMagazine,
+          cityName: item.addressCityNameMagazine,
+          cityId: item.addressCityIdMagazine,
+          regionName: item.addressRegionNameMagazine,
+          regionId: item.addressRegionIdMagazine,
           mobile: item.consigneeMobileMagazine,
           name: item.consigneeNameMagazine
         })
       }
       if (item.childId !== null && this.orderItem.sendType === 0) {
         this.addressTable.push({
+          cls: 1,
           sendType: '直送',
-          address: item.provinceId + item.cityId + item.regionId + item.schoolName + item.gradeName + (item.className ? item.className : item.classNameDef),
+          addressStr: item.provinceName + item.cityName + item.regionName + item.schoolName + item.gradeName + (item.className ? item.className : item.classNameDef),
+          provinceName: item.provinceName,
+          provinceId: item.provinceId,
+          cityName: item.cityName,
+          cityId: item.cityId,
+          regionName: item.regionName,
+          regionId: item.regionId,
+          schoolName: item.schoolName,
+          schoolId: item.schoolId,
+          gradeName: item.gradeName,
+          gradeId: item.gradeId,
+          className: item.className,
+          classId: item.classId,
+          classNameDef: item.classNameDef,
           mobile: item.childMobile,
           name: item.childName
         })
       }
     },
     onAddressUpdate (item) {
-      console.log(item)
+      if (item.cls === 1 && item.sendType === '直送') {
+        this.$router.push({
+          path: '/updateChild',
+          query: {
+            item: JSON.stringify(item),
+            tradeId: this.orderItem.id
+          }
+        })
+      } else {
+        this.$router.push({
+          path: '/updateAddress',
+          query: {
+            item: JSON.stringify(item),
+            tradeId: this.orderItem.id
+          }
+        })
+      }
     },
     onApplyRefund (item) {
       this.$axios.refundApply({id: item.id}).then(res => {
@@ -247,10 +293,9 @@ export default {
       })
     },
     onRepulseRefund (item) {
-      console.log(item)
       this.$axios.tradeRefund({refund: false, tradeDetailId: item.id}).then(res => {
         if (res.data.code === '0') {
-          console.log(res)
+          this.$message.success('操作成功')
         } else {
           this.$message.error(res.data.data.msg)
         }
@@ -261,10 +306,9 @@ export default {
       })
     },
     onRefund (item) {
-      console.log(item)
       this.$axios.tradeRefund({refund: true, tradeDetailId: item.id}).then(res => {
         if (res.data.code === '0') {
-          console.log(res)
+          this.$message.success('操作成功')
         } else {
           this.$message.error(res.data.data.msg)
         }
@@ -275,7 +319,14 @@ export default {
       })
     },
     onListUpdate (item) {
-      console.log(item)
+      this.$router.push({
+        path: '/updateOrder',
+        query: {
+          item: JSON.stringify(item),
+          form: JSON.stringify(this.form),
+          tradeId: this.orderItem.id
+        }
+      })
     }
   },
   watch: {}

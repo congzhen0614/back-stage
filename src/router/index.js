@@ -37,6 +37,9 @@ import orderList from '@/pages/order/orderList/orderList.vue' // 订单列表
 import orderInfo from '@/pages/order/orderList/orderInfo/orderInfo.vue' // 修改订单
 import delive from '@/pages/order/orderList/delive/delive.vue' // 发货
 import flowed from '@/pages/order/orderList/flowed/flowed.vue' // 流程
+import updateOrder from '@/pages/order/orderList/updateOrder/updateOrder.vue' // 流程
+import updateAddress from '@/pages/order/orderList/updateAddress/updateAddress.vue' // 修改地址
+import updateChild from '@/pages/order/orderList/updateChild/updateChild.vue' // 修改孩子
 
 Vue.use(Router)
 
@@ -181,6 +184,18 @@ export default new Router({
       path: '/flowed',
       name: '流程',
       component: flowed
+    }, {
+      path: '/updateOrder',
+      name: '修改商品',
+      component: updateOrder
+    }, {
+      path: '/updateAddress',
+      name: '修改地址',
+      component: updateAddress
+    }, {
+      path: '/updateChild',
+      name: '修改孩子',
+      component: updateChild
     }]
   }]
 })

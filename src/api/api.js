@@ -250,5 +250,18 @@ export default {
   },
   tradeRefund (params) {
     return axios.post('/qrzd/trade/refund', params)
+  },
+  detailUpdate (params) {
+    return axios.post('/qrzd/trade/detail/update', params)
+  },
+  tradeItemPackList (params) {
+    let param = qs.stringify(params)
+    return axios.get(`/qrzd/trade/itemPack/list?${param}`)
+  },
+  addressHomeUpdate (params) {
+    return axios.post('/qrzd/trade/address/home/update', params)
+  },
+  magazineSchoolUpdate (params) {
+    return axios.post('/qrzd/trade/address/magazineSchool/update', params)
   }
 }
