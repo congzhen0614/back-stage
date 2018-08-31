@@ -171,7 +171,7 @@ export default {
   },
   methods: {
     loadItemageList () {
-      this.$axios.itemageList().then(res => {
+      this.$axios.itemageListCandidate().then(res => {
         if (res.data.code === '0') {
           this.ageList = res.data.data.list
         } else {
@@ -184,7 +184,7 @@ export default {
       })
     },
     loadItemtypeList () {
-      this.$axios.itemtypeList().then(res => {
+      this.$axios.itemtypeListCandidate().then(res => {
         if (res.data.code === '0') {
           this.typeList = res.data.data.list
         } else {

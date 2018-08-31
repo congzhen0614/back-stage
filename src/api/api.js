@@ -103,6 +103,10 @@ export default {
     let param = qs.stringify(params)
     return axios.get(`/qrzd/sys/itemage/list?${param}`)
   },
+  itemageListCandidate (params) { // 年龄设置列表
+    let param = qs.stringify(params)
+    return axios.get(`/qrzd/sys/itemage/list/candidate?${param}`)
+  },
   itemageUpdate (params) { // 年龄设置修改
     return axios.post('/qrzd/sys/itemage/update', params)
   },
@@ -112,6 +116,10 @@ export default {
   itemtypeList (params) { // 分类设置列表
     let param = qs.stringify(params)
     return axios.get(`/qrzd/sys/itemtype/list?${param}`)
+  },
+  itemtypeListCandidate (params) { // 分类设置列表
+    let param = qs.stringify(params)
+    return axios.get(`/qrzd/sys/itemtype/list/candidate?${param}`)
   },
   itemtypeSave (params) { // 分类设置新增加
     return axios.post('/qrzd/sys/itemtype/save', params)
@@ -180,7 +188,7 @@ export default {
     return axios.post('/qrzd/itempack/del', params)
   },
   itempackSubmit (params) { // 提交审核
-    return axios.post('/qrzd/itempack/submit', params)
+    return axios.post('/qrzd/itempack/check', params)
   },
   itempackCheck (params) { // 审核
     return axios.post('/qrzd/itempack/check', params)
