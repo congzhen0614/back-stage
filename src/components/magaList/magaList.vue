@@ -152,7 +152,7 @@ export default {
       })
     },
     loadItemtypeList () {
-      this.$axios.itemtypeList().then(res => {
+      this.$axios.itemtypeListCandidate().then(res => {
         if (res.data.code === '0') {
           this.typeList = res.data.data.list
         } else {

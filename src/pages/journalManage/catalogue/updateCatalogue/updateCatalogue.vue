@@ -99,11 +99,9 @@ export default {
     }
   },
   mounted () {
-    console.log(this.form)
   },
   methods: {
     handleSelectionChange (val) {
-      console.log(val)
     },
     mageDate (val) {
       this.form.postage = val.postage === undefined ? '' : val.postage
@@ -115,14 +113,11 @@ export default {
       this.form.postageBook = val.postageBook === undefined ? '' : val.postageBook
       this.form.postageSumBook = val.postageSumBook === undefined ? '' : val.postageSumBook
       this.bookList = val.items.length > 0 ? val.items : []
-      console.log(this.form.postageBook)
-      console.log(this.form.postageSumBook)
     },
     ypspDate (val) {
       this.ypspList = val.items.length > 0 ? val.items : []
     },
     onSave () {
-      console.log(this.form)
       this.$axios.itempackUpdate(this.form).then(res => {
         if (res.data.code === '0') {
           this.$message.success('添加成功!')

@@ -55,6 +55,9 @@ export default {
     let param = qs.stringify(params)
     return axios.get(`/qrzd/agent/account/list?${param}`)
   },
+  accountListCandidate () { // 用户列表
+    return axios.get('/qrzd/agent/account/list/candidate')
+  },
   accountSave (params) { // 新建用户
     return axios.post('/qrzd/agent/account/save', params)
   },
@@ -121,6 +124,9 @@ export default {
     let param = qs.stringify(params)
     return axios.get(`/qrzd/sys/itemtype/list/candidate?${param}`)
   },
+  bookType () {
+    return axios.get('/qrzd/book/type/open')
+  },
   itemtypeSave (params) { // 分类设置新增加
     return axios.post('/qrzd/sys/itemtype/save', params)
   },
@@ -166,13 +172,13 @@ export default {
     return axios.post('/qrzd/magazine/qrzditem/cover/del', params)
   },
   magazineItemImgSave (params) { // 内页图列表
-    return axios.post('/qrzd/magazine/itemImg/save', params)
+    return axios.post('/qrzd/magazine/itemimg/save', params)
   },
   magazineItemImgUpdate (params) { // 修改内页图
-    return axios.post('/qrzd/magazine/itemImg/update', params)
+    return axios.post('/qrzd/magazine/itemimg/update', params)
   },
   magazineItemImgDel (params) { // 删除内页图
-    return axios.post('/qrzd/magazine/itemImg/del', params)
+    return axios.post('/qrzd/magazine/itemimg/del', params)
   },
   itempackList (params) { // 目录管理列表
     let param = qs.stringify(params)
@@ -188,7 +194,7 @@ export default {
     return axios.post('/qrzd/itempack/del', params)
   },
   itempackSubmit (params) { // 提交审核
-    return axios.post('/qrzd/itempack/check', params)
+    return axios.post('/qrzd/itempack/submit', params)
   },
   itempackCheck (params) { // 审核
     return axios.post('/qrzd/itempack/check', params)
@@ -271,5 +277,17 @@ export default {
   },
   magazineSchoolUpdate (params) {
     return axios.post('/qrzd/trade/address/magazineSchool/update', params)
+  },
+  schoolOrd (params) {
+    return axios.post('/qrzd/sys/school/ord', params)
+  },
+  schoolSave (params) {
+    return axios.post('/qrzd/sys/school/save', params)
+  },
+  schoolUpdate (params) {
+    return axios.post('/qrzd/sys/school/update', params)
+  },
+  schoolDel (params) {
+    return axios.post('/qrzd/sys/school/del', params)
   }
 }

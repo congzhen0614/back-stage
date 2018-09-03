@@ -40,6 +40,9 @@ import flowed from '@/pages/order/orderList/flowed/flowed.vue' // 流程
 import updateOrder from '@/pages/order/orderList/updateOrder/updateOrder.vue' // 流程
 import updateAddress from '@/pages/order/orderList/updateAddress/updateAddress.vue' // 修改地址
 import updateChild from '@/pages/order/orderList/updateChild/updateChild.vue' // 修改孩子
+import schoolList from '@/pages/system/school/schoolList.vue'
+import addSchool from '@/pages/system/school/addSchool/addSchool.vue' // 添加学校
+import updateSchool from '@/pages/system/school/updateSchool/updateSchool.vue' // 添加学校
 
 Vue.use(Router)
 
@@ -196,6 +199,18 @@ export default new Router({
       path: '/updateChild',
       name: '修改孩子',
       component: updateChild
+    }, {
+      path: '/schoolList',
+      name: '学校列表',
+      component: schoolList
+    }, {
+      path: '/addSchool',
+      name: '添加学校',
+      component: addSchool
+    }, {
+      path: '/updateSchool',
+      name: '修改学校',
+      component: updateSchool
     }]
   }]
 })

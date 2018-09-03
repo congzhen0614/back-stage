@@ -36,8 +36,8 @@
         <div class="header-button">
           <el-button type="primary" @click="onAdd" v-if="havePermission(54)">添加</el-button>
           <el-button type="primary" @click="onSubmit" v-if="havePermission(57)">提交审核</el-button>
-          <el-button type="primary" @click="onSubmit" v-if="havePermission(58)">审核通过</el-button>
-          <el-button type="primary" @click="onSubmit" v-if="havePermission(58)">审核不通过</el-button>
+          <el-button type="primary" @click="onCheck(2)" v-if="havePermission(58)">审核通过</el-button>
+          <el-button type="primary" @click="onCheck(3)" v-if="havePermission(58)">审核不通过</el-button>
           <el-button type="primary" @click="onCreate" v-if="havePermission(62)">批量生成</el-button>
           <el-button type="primary" @click="onStar" v-if="havePermission(56)">批量开启</el-button>
           <el-button type="primary" @click="onStop" v-if="havePermission(56)">批量关闭</el-button>
@@ -177,6 +177,20 @@ export default {
       this.$axios.itempackSubmit({ids: this.seleteIds}).then(res => {
         if (res.data.code === '0') {
           this.$message.success('操作成功!')
+          this.loadDate()
+        } else {
+          this.$message.error(res.data.data.msg)
+        }
+      }, err => {
+        this.$message.error(err)
+      }).catch(err => {
+        this.$message.error(err)
+      })
+    },
+    onCheck (checkStatus) {
+      this.$axios.itempackCheck({checkStatus: checkStatus, ids: this.seleteIds}).then(res => {
+        if (res.data.code === '0') {
+          this.$message.success('操作成功')
           this.loadDate()
         } else {
           this.$message.error(res.data.data.msg)

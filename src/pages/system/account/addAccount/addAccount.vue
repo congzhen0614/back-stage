@@ -14,24 +14,29 @@
         <el-input v-model="form.phone"></el-input>
       </el-form-item>
       <el-form-item label="所属组织:" prop="groupId">
-        <el-select v-model="form.groupId" filterable placeholder="请选择组织">
+        <el-select v-model="form.groupId" filterable placeholder="请选择组织" disabled>
           <el-option v-for="item in groupList" :key="item.id" :label="item.name" :value="item.id"></el-option>
         </el-select>
       </el-form-item>
-      <el-form-item label="角色:" v-if="form.groupId !== undefined">
-        <el-radio-group v-model="form.roleId">
-          <el-radio-button :label="item.id" v-for="item in roles" :key="item.id">{{ item.rolename }}</el-radio-button>
-        </el-radio-group>
-      </el-form-item>
-      <el-form-item label="VIP高级用户:" v-if="isSuperAdmin && form.groupId !== undefined && groupType === 1 && (form.roleLevel === 4 || form.roleLevel === 5)">
+      <el-form-item label="VIP高级用户:" v-if="groupType === 1 && form.roleLevel === 4">
         <el-select v-model="form.userId" placeholder="请选择组织">
           <el-option v-for="item in belongList" :key="item.id" :label="item.realname" :value="item.id"></el-option>
         </el-select>
       </el-form-item>
-      <el-form-item label="高级用户:"  v-if="isSuperAdmin && form.groupId !== undefined && groupType === 0 && form.roleLevel === 5">
+      <el-form-item label="高级用户（组织）:" v-if="groupType === 1 && form.roleLevel === 5">
         <el-select v-model="form.userId" placeholder="请选择">
           <el-option v-for="item in belongList" :key="item.id" :label="item.realname" :value="item.id"></el-option>
         </el-select>
+      </el-form-item>
+      <el-form-item label="高级用户(个人):" v-if="groupType === 0 && form.roleLevel === 5">
+        <el-select v-model="form.userId" placeholder="请选择">
+          <el-option v-for="item in belongList" :key="item.id" :label="item.realname" :value="item.id"></el-option>
+        </el-select>
+      </el-form-item>
+      <el-form-item label="角色:">
+        <el-radio-group v-model="form.roleId">
+          <el-radio-button :label="item.id" v-for="item in roles" :key="item.id">{{ item.rolename }}</el-radio-button>
+        </el-radio-group>
       </el-form-item>
       <el-form-item label="服务范围:">
         <el-region @province="province" @cities="cities" @regions="regions" :form="{}"></el-region>
@@ -56,8 +61,10 @@ export default {
     return {
       isSuperAdmin: JSON.parse(localStorage.getItem('user')).roleLevel === 1,
       rules: rules.accountRules,
-      form: {},
-      groupType: 0,
+      form: {
+        groupId: JSON.parse(localStorage.getItem('user')).groupId
+      },
+      groupType: '',
       roles: [],
       groupList: [],
       belongList: []
@@ -74,6 +81,12 @@ export default {
       this.$axios.admingroupList().then(res => {
         if (res.data.code === '0') {
           this.groupList = res.data.data.list
+          res.data.data.list.forEach(item => {
+            if (item.id === this.form.groupId) {
+              this.groupType = item.type
+            }
+          })
+          this.loadRoleList(this.groupType)
         } else {
           this.$message.error(res.data.data.msg)
         }
@@ -96,8 +109,11 @@ export default {
         this.$message.error(err)
       })
     },
-    loadAccountList (level) {
-      this.$axios.accountList({level: level}).then(res => {
+    loadAccountList () {
+      this.$axios.accountList({
+        level: JSON.parse(localStorage.getItem('user')).roleLevel,
+        groupId: this.form.groupId
+      }).then(res => {
         if (res.data.code === '0') {
           this.belongList = res.data.data.list
         } else {
@@ -145,29 +161,13 @@ export default {
     }
   },
   watch: {
-    'form.groupId' (val) {
-      console.log(val)
-      this.groupList.forEach(item => {
-        if (item.id === val) {
-          this.groupType = item.type
-          if (item.type === 1) {
-            this.loadAccountList(3)
-          } else if (item.type === 0) {
-            this.loadAccountList(4)
-          }
-        }
-      })
-    },
     'form.roleId' (val) {
+      console.log(val)
       this.roles.forEach(item => {
         if (item.id === val) {
           this.form.roleLevel = item.level
         }
       })
-    },
-    groupType (val) {
-      console.log(val)
-      this.loadRoleList()
     }
   }
 }

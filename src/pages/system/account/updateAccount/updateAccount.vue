@@ -14,25 +14,25 @@
         <el-region @province="province" @cities="cities" @regions="regions" :form="form"></el-region>
       </el-form-item>
       <el-form-item label="所属组织:">
-        <el-select v-model="form.groupId" placeholder="请选择组织">
+        <el-select v-model="form.groupId" placeholder="请选择组织" disabled>
           <el-option v-for="item in groupList" :key="item.id" :label="item.name" :value="item.id"></el-option>
         </el-select>
       </el-form-item>
       <el-form-item label="角色:">
-        <el-radio-group v-model="form.roleId">
+        <el-radio-group v-model="form.roleId" disabled>
           <el-radio-button v-for="(role, index) in roles" :label="role.id" :key="index">{{ role.rolename }}</el-radio-button>
         </el-radio-group>
       </el-form-item>
-      <el-form-item label="VIP高级用户:" v-if="groupType === 1">
-        <el-select v-model="form.userId" placeholder="请选择组织">
-          <el-option v-for="item in belongList" :key="item.id" :label="item.realname" :value="item.id"></el-option>
-        </el-select>
-      </el-form-item>
-      <el-form-item label="高级用户:"  v-if="groupType === 0">
-        <el-select v-model="form.userId" placeholder="请选择组织">
-          <el-option v-for="item in belongList" :key="item.id" :label="item.realname" :value="item.id"></el-option>
-        </el-select>
-      </el-form-item>
+      <!--<el-form-item label="VIP高级用户:" v-if="groupType === 1">-->
+        <!--<el-select v-model="form.userId" placeholder="请选择组织">-->
+          <!--<el-option v-for="item in belongList" :key="item.id" :label="item.realname" :value="item.id"></el-option>-->
+        <!--</el-select>-->
+      <!--</el-form-item>-->
+      <!--<el-form-item label="高级用户:"  v-if="groupType === 0">-->
+        <!--<el-select v-model="form.userId" placeholder="请选择组织">-->
+          <!--<el-option v-for="item in belongList" :key="item.id" :label="item.realname" :value="item.id"></el-option>-->
+        <!--</el-select>-->
+      <!--</el-form-item>-->
       <el-form-item>
         <el-button type="primary" @click="onSubmit">立即修改</el-button>
         <el-button @click="goBack">取消</el-button>

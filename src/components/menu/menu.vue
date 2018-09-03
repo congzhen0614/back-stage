@@ -85,9 +85,9 @@
         <!--<el-menu-item @click="noRouter" index="/">-->
           <!--<span slot="title">用户孩子管理</span>-->
         <!--</el-menu-item>-->
-        <!--<el-menu-item @click="noRouter" index="/">-->
-          <!--<span slot="title">学校管理</span>-->
-        <!--</el-menu-item>-->
+        <el-menu-item index="/schoolList">
+          <span slot="title">学校管理</span>
+        </el-menu-item>
       </el-submenu>
       <!--<el-submenu index="6">-->
         <!--<template slot="title">-->

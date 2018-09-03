@@ -143,9 +143,9 @@ export default {
       })
     },
     loadItemtypeList () {
-      this.$axios.itemtypeList().then(res => {
+      this.$axios.bookType().then(res => {
         if (res.data.code === '0') {
-          this.typeList = res.data.data.list
+          this.typeList = res.data.data
         } else {
           this.$message.error(res.data.data.msg)
         }
