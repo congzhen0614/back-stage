@@ -202,6 +202,7 @@ export default {
       this.$axios.tradeList(this.listParams).then(res => {
         if (res.data.code === '0') {
           this.tableData = res.data.data.list
+          this.pages.total = res.data.data.total
         } else {
           this.$message.error(res.data.data.msg)
         }

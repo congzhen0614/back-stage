@@ -52,8 +52,7 @@
         <el-input v-model="form.pubdate"></el-input>
       </el-form-item>
       <el-form-item label="杂志介绍：（必填）" prop="content">
-        <!--<el-input type="textarea" v-model="form.content"></el-input>-->
-        <quill-editor v-model="form.content" :options="editorOption"></quill-editor>
+        <v-editor @content="content"></v-editor>
       </el-form-item>
       <el-form-item label="杂志亮点:">
         <el-input type="textarea" v-model="form.memo"></el-input>
@@ -77,16 +76,14 @@
 
 <script>
 import rules from '@/common/rules.js'
+import editor from '@/components/editor/editor.vue'
 export default {
   name: 'journal-manage-add',
-  components: {},
+  components: {
+    'v-editor': editor
+  },
   data () {
     return {
-      editorOption: {
-        modules: {
-          toolbar: ['bold', 'italic', 'strike', 'underline', 'image', 'clean']
-        }
-      },
       rules: rules.magazineRules,
       isIndeterminateType: false,
       checkAllType: false,
@@ -133,6 +130,9 @@ export default {
     }
   },
   methods: {
+    content (val) {
+      this.form.content = val
+    },
     loadItemageList () {
       this.$axios.itemageList().then(res => {
         if (res.data.code === '0') {

@@ -168,9 +168,15 @@ export default {
       })
     },
     loadAccountList () {
-      this.$axios.accountListCandidate().then(res => {
+      this.$axios.accountListCandidate({groupId: '', level: '', type: ''}).then(res => {
         if (res.data.code === '0') {
-          this.accountList = res.data.data.list
+          let accountList = []
+          res.data.data.forEach(item => {
+            if (!(item.roleLevel === 1 || item.roleLevel === 2)) {
+              accountList.push(item)
+            }
+          })
+          this.accountList = accountList
         } else {
           this.$message.error(res.data.data.msg)
         }
@@ -185,7 +191,6 @@ export default {
         if (res.data.code === '0') {
           this.schoolList = res.data.data.list
           this.pages.total = res.data.data.total
-          console.log(this.schoolList)
         } else {
           this.$message.error(res.data.data.msg)
         }

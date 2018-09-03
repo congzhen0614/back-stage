@@ -14,7 +14,7 @@
         <el-input v-model="form.phone"></el-input>
       </el-form-item>
       <el-form-item label="所属组织:" prop="groupId">
-        <el-select v-model="form.groupId" filterable placeholder="请选择组织" disabled>
+        <el-select v-model="form.groupId" filterable placeholder="请选择组织" :disabled="!isSuperAdmin">
           <el-option v-for="item in groupList" :key="item.id" :label="item.name" :value="item.id"></el-option>
         </el-select>
       </el-form-item>
@@ -72,7 +72,6 @@ export default {
   },
   mounted () {
     this.getGroup()
-    this.loadAccountList()
   },
   computed: {
   },
@@ -86,7 +85,8 @@ export default {
               this.groupType = item.type
             }
           })
-          this.loadRoleList(this.groupType)
+          this.loadRoleList()
+          this.loadAccountList()
         } else {
           this.$message.error(res.data.data.msg)
         }
@@ -110,12 +110,13 @@ export default {
       })
     },
     loadAccountList () {
-      this.$axios.accountList({
+      this.$axios.accountListCandidate({
         level: JSON.parse(localStorage.getItem('user')).roleLevel,
-        groupId: this.form.groupId
+        groupId: this.form.groupId,
+        type: this.groupType
       }).then(res => {
         if (res.data.code === '0') {
-          this.belongList = res.data.data.list
+          this.belongList = res.data.data
         } else {
           this.$message.error(res.data.data.msg)
         }
@@ -161,8 +162,16 @@ export default {
     }
   },
   watch: {
+    'form.groupId' (val) {
+      this.groupList.forEach(item => {
+        if (item.id === val) {
+          this.groupType = item.type
+          this.loadRoleList()
+          this.loadAccountList()
+        }
+      })
+    },
     'form.roleId' (val) {
-      console.log(val)
       this.roles.forEach(item => {
         if (item.id === val) {
           this.form.roleLevel = item.level

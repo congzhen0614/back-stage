@@ -52,8 +52,7 @@
         <el-input v-model="form.pubdate"></el-input>
       </el-form-item>
       <el-form-item label="杂志介绍：（必填）" prop="content">
-        <!--<el-input type="textarea" v-model="form.content"></el-input>-->
-        <quill-editor v-model="form.content" :options="editorOption"></quill-editor>
+        <v-editor :contentStr="form.content" @content="content"></v-editor>
       </el-form-item>
       <el-form-item label="杂志亮点:">
         <el-input type="textarea" v-model="form.memo"></el-input>
@@ -77,9 +76,12 @@
 
 <script>
 import rules from '@/common/rules.js'
+import editor from '@/components/editor/editor.vue'
 export default {
   name: 'journal-manage-add',
-  components: {},
+  components: {
+    'v-editor': editor
+  },
   data () {
     return {
       editorOption: {
@@ -106,6 +108,9 @@ export default {
     this.loadItemtypeList()
   },
   methods: {
+    content (val) {
+      this.form.content = val
+    },
     getItem () {
       let typeId = []
       let ageId = []
@@ -123,9 +128,9 @@ export default {
         typeId: typeId,
         ageId: ageId,
         fee: this.$route.query.fee,
-        feeUnitType: this.$route.query.feeUnitType ? this.$route.query.feeUnitType : '',
+        feeUnitType: this.$route.query.feeUnitType.toString(),
         feeUnitNum: this.$route.query.feeUnitNum,
-        feeUnit: this.$route.query.feeUnitType ? this.$route.query.feeUnitType : '',
+        feeUnit: this.$route.query.feeUnit.toString(),
         press: this.$route.query.press,
         pubdate: this.$route.query.pubdate,
         content: this.$route.query.content,
@@ -133,6 +138,7 @@ export default {
         giftName: this.$route.query.giftName,
         isSale: this.$route.query.isSaleName === '已上架' ? 1 : 0
       }
+      console.log(this.form)
     },
     loadItemageList () {
       this.$axios.itemageList().then(res => {

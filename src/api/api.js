@@ -55,8 +55,8 @@ export default {
     let param = qs.stringify(params)
     return axios.get(`/qrzd/agent/account/list?${param}`)
   },
-  accountListCandidate () { // 用户列表
-    return axios.get('/qrzd/agent/account/list/candidate')
+  accountListCandidate (params) { // 用户列表
+    return axios.post('/qrzd/agent/account/list/candidate', params)
   },
   accountSave (params) { // 新建用户
     return axios.post('/qrzd/agent/account/save', params)
