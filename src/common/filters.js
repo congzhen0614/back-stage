@@ -52,9 +52,9 @@ let checkType = value => {
 
 let subType = value => {
   if (value === 0) {
-    return '开启'
-  } else if (value === 1) {
     return '关闭'
+  } else if (value === 1) {
+    return '开启'
   }
 }
 

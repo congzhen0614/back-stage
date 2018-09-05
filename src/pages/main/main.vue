@@ -7,7 +7,7 @@
           <div class="head-button">
             <el-row>
               <span class="head-username">{{ username }}</span>
-              <span class="head-username">修改密码</span>
+              <span class="head-username" @click="changePassword">修改密码</span>
               <span style="cursor: pointer" @click="clickLogout">退出</span>
             </el-row>
           </div>
@@ -63,6 +63,11 @@ export default {
         })
       }, err => {
         this.$message.error(err)
+      })
+    },
+    changePassword () {
+      this.$router.push({
+        path: '/changePassword'
       })
     }
   },

@@ -3,6 +3,7 @@ import Router from 'vue-router'
 
 import main from '@/pages/main/main.vue' // 首页
 import login from '@/pages/login/login.vue' // 登录
+import changePassword from '@/pages/login/changePassword/changePassword.vue' // 修改密码
 import journalManage from '@/pages/journalManage/journal/journalManage.vue' // 杂志列表页
 import addNewJournal from '@/pages/journalManage/journal/addNew/addNew.vue' // 杂志添加页
 import updataJournal from '@/pages/journalManage/journal/updata/updata.vue' // 杂志修改页
@@ -33,7 +34,6 @@ import magaOrder from '@/pages/order/magaOrder/magaOrder.vue' // 图书订单
 import bookOrder from '@/pages/order/bookOrder/bookOrder.vue' // 图书订单
 import spypOrder from '@/pages/order/spypOrder/spypOrder.vue' // 图书订单
 import orderList from '@/pages/order/orderList/orderList.vue' // 订单列表
-// import orderUpdate from '@/pages/order/orderList/orderUpdate/orderUpdate.vue' // 修改订单
 import orderInfo from '@/pages/order/orderList/orderInfo/orderInfo.vue' // 修改订单
 import delive from '@/pages/order/orderList/delive/delive.vue' // 发货
 import flowed from '@/pages/order/orderList/flowed/flowed.vue' // 流程
@@ -211,6 +211,10 @@ export default new Router({
       path: '/updateSchool',
       name: '修改学校',
       component: updateSchool
+    }, {
+      path: '/changePassword',
+      name: '修改密码',
+      component: changePassword
     }]
   }]
 })

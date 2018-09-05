@@ -67,6 +67,9 @@ export default {
   accountUpdatepsw (params) { // 修改账号
     return axios.post('/qrzd/agent/account/updatepsw/reset', params)
   },
+  accountUpdateastatus (params) {
+    return axios.post('/qrzd/agent/account/updateastatus', params)
+  },
   admingroupList (params) { // 获取商家组织列表
     let param = qs.stringify(params)
     return axios.get(`/qrzd/sys/admingroup/list?${param}`)

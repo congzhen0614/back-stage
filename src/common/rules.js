@@ -13,9 +13,9 @@ let phone = (rule, value, callback) => {
 }
 
 let letterNumber = (rule, value, callback) => {
-  let username = /[a-zA-Z0-9]/
+  let username = /^[0-9a-zA-Z_]{1,}$/
   if (!username.test(value)) {
-    callback(new Error('用户名只能是字母和数字!'))
+    callback(new Error('用户名只能是字母、数字和下划线!'))
   } else {
     callback()
   }

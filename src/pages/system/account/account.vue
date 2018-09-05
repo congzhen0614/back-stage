@@ -134,6 +134,7 @@ export default {
       })
     },
     clickAstatus (item) {
+      console.log(item)
       let param = {
         id: item.id,
         adminAccountStatus: item.adminAccountStatusDesc === '正常' ? 2 : 1
