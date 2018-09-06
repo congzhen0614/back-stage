@@ -14,25 +14,14 @@
         <el-region @province="province" @cities="cities" @regions="regions" :form="form"></el-region>
       </el-form-item>
       <el-form-item label="所属组织:">
-        <el-select v-model="form.groupId" placeholder="请选择组织" disabled>
-          <el-option v-for="item in groupList" :key="item.id" :label="item.name" :value="item.id"></el-option>
-        </el-select>
+        <el-input v-model="form.groupName" disabled></el-input>
+      </el-form-item>
+      <el-form-item label="高级用户:">
+        <el-input v-model="form.createUserName" disabled></el-input>
       </el-form-item>
       <el-form-item label="角色:">
-        <el-radio-group v-model="form.roleId" disabled>
-          <el-radio-button v-for="(role, index) in roles" :label="role.id" :key="index">{{ role.rolename }}</el-radio-button>
-        </el-radio-group>
+        <el-input v-model="form.roleName" disabled></el-input>
       </el-form-item>
-      <!--<el-form-item label="VIP高级用户:" v-if="groupType === 1">-->
-        <!--<el-select v-model="form.userId" placeholder="请选择组织">-->
-          <!--<el-option v-for="item in belongList" :key="item.id" :label="item.realname" :value="item.id"></el-option>-->
-        <!--</el-select>-->
-      <!--</el-form-item>-->
-      <!--<el-form-item label="高级用户:"  v-if="groupType === 0">-->
-        <!--<el-select v-model="form.userId" placeholder="请选择组织">-->
-          <!--<el-option v-for="item in belongList" :key="item.id" :label="item.realname" :value="item.id"></el-option>-->
-        <!--</el-select>-->
-      <!--</el-form-item>-->
       <el-form-item>
         <el-button type="primary" @click="onSubmit">立即修改</el-button>
         <el-button @click="goBack">取消</el-button>
@@ -52,73 +41,25 @@ export default {
   data () {
     return {
       rules: rules,
-      roles: [],
-      groupType: 0,
-      groupList: [],
-      belongList: [],
       form: {
         id: JSON.parse(this.$route.query.param).id,
         provinceId: JSON.parse(this.$route.query.param).provinceId,
         cityIds: JSON.parse(this.$route.query.param).citys,
+        createUserName: JSON.parse(this.$route.query.param).createUserName,
         regionIds: JSON.parse(this.$route.query.param).regions,
         groupId: JSON.parse(this.$route.query.param).groupId,
+        groupName: JSON.parse(this.$route.query.param).groupName,
         username: JSON.parse(this.$route.query.param).username,
         realname: JSON.parse(this.$route.query.param).realname,
         phone: JSON.parse(this.$route.query.param).phone,
         roleId: JSON.parse(this.$route.query.param).roleId,
+        roleName: JSON.parse(this.$route.query.param).roleName,
         roleLevel: JSON.parse(this.$route.query.param).roleLevel,
         userId: JSON.parse(this.$route.query.param).userId
       }
     }
   },
-  mounted () {
-    this.getGroup()
-  },
   methods: {
-    getGroup () {
-      this.$axios.admingroupList().then(res => {
-        if (res.data.code === '0') {
-          this.groupList = res.data.data.list
-          this.groupList.forEach(item => {
-            if (this.form.groupId === item.id) {
-              this.loadRoleList(item.type)
-            }
-          })
-        } else {
-          this.$message.error(res.data.data.msg)
-        }
-      }, err => {
-        this.$message.error(err)
-      }).catch(err => {
-        this.$message.error(err)
-      })
-    },
-    loadRoleList (type) {
-      this.$axios.roleList({type: type}).then(res => {
-        if (res.data.code === '0') {
-          this.roles = res.data.data
-        } else {
-          this.$message.error(res.data.data.msg)
-        }
-      }, err => {
-        this.$message.error(err)
-      }).catch(err => {
-        this.$message.error(err)
-      })
-    },
-    loadAccountList (level) {
-      this.$axios.accountList({level: level}).then(res => {
-        if (res.data.code === '0') {
-          this.belongList = res.data.data.list
-        } else {
-          this.$message.error(res.data.data.msg)
-        }
-      }, err => {
-        this.$message.error(err)
-      }).catch(err => {
-        this.$message.error(err)
-      })
-    },
     province (val) {
       this.form.provinceId = parseInt(val)
     },
@@ -152,28 +93,6 @@ export default {
     },
     goBack () {
       this.$router.go(-1)
-    }
-  },
-  watch: {
-    'form.groupId' (val) {
-      this.groupList.forEach(item => {
-        if (val === item.id) {
-          this.groupType = item.type
-          this.loadRoleList(item.type)
-          if (item.type === 1) {
-            this.loadAccountList(3)
-          } else if (item.type === 0) {
-            this.loadAccountList(4)
-          }
-        }
-      })
-    },
-    'form.roleId' (val) {
-      this.roles.forEach(item => {
-        if (item.id === val) {
-          this.form.roleLevel = item.level
-        }
-      })
     }
   }
 }

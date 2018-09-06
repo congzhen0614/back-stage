@@ -27,6 +27,7 @@
         <el-row>
           <el-col :span="2">
             <el-select v-model="search.provinceId" placeholder="请选择省" @change="selectProvince">
+              <el-option label="全部" value=""></el-option>
               <el-option v-for="item in provinces" :key="item.id" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-col>
@@ -43,6 +44,7 @@
           <el-col :span="6">
             <el-form-item label="学校:">
               <el-select v-model="search.schoolId" filterable placeholder="请选择">
+                <el-option label="全部" value=""></el-option>
                 <el-option v-for="item in schoolList" :key="item.value" :label="item.name" :value="item.id"></el-option>
               </el-select>
             </el-form-item>
@@ -50,6 +52,7 @@
           <el-col :span="6">
             <el-form-item label="年级:">
               <el-select v-model="search.gradeId" placeholder="请选择">
+                <el-option label="全部" value=""></el-option>
                 <el-option v-for="item in gradeList" :key="item.value" :label="item.name" :value="item.id"></el-option>
               </el-select>
             </el-form-item>
@@ -57,6 +60,7 @@
           <el-col :span="6">
             <el-form-item label="班级:">
               <el-select v-model="search.classId" placeholder="请选择">
+                <el-option label="全部" value=""></el-option>
                 <el-option v-for="item in classList" :key="item.value" :label="item.name" :value="item.id"></el-option>
               </el-select>
             </el-form-item>
@@ -119,8 +123,8 @@
       <el-table-column prop="tradeStatusName" label="订单状态"></el-table-column>
       <el-table-column label="操作" width="200px">
         <template slot-scope="scope">
-          <el-button @click="onChecke(scope.row)" type="text" size="small">查看</el-button>
-          <el-button @click="onUpdate(scope.row)" type="text" size="small">修改</el-button>
+          <el-button @click="onChecke(scope.row)" type="text" size="small" v-if="havePermission('trade:list')">查看</el-button>
+          <el-button @click="onUpdate(scope.row)" type="text" size="small" v-if="havePermission('trade:update')">修改</el-button>
           <el-button @click="onFlowed(scope.row)" type="text" size="small">流程</el-button>
           <el-button @click="onDelive(scope.row)" type="text" size="small">发货物流</el-button>
         </template>

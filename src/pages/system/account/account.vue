@@ -5,7 +5,7 @@
         <el-col :span="4"><el-input v-model="search.name" placeholder="请输入名称筛选"></el-input></el-col>
         <el-col :span="8">
           <el-button type="primary" @click="loadData">检索</el-button>
-          <el-button type="primary" @click="clickAddnew" v-if="havePermission(6)">添加</el-button>
+          <el-button type="primary" @click="clickAddnew" v-if="havePermission('account:add')">添加</el-button>
         </el-col>
       </el-row>
     </header>
@@ -21,12 +21,13 @@
           <span>{{ scope.row.createdAt | dateFormat }}</span>
         </template>
       </el-table-column>
-      <el-table-column fixed="right" label="操作" width="250">
+      <el-table-column fixed="right" label="操作" width="350">
         <template slot-scope="scope">
-          <el-button type="text" size="small" @click="clickBind(scope.row)" v-if="havePermission(74)">绑定学校</el-button>
-          <el-button type="text" size="small" @click="clickUpdate(scope.row)" v-if="havePermission(7)">修改</el-button>
-          <el-button type="text" size="small" @click="resetPassword(scope.row)" v-if="havePermission(44)">重置密码</el-button>
-          <el-button type="text" size="small" @click="clickAstatus(scope.row)" v-if="havePermission(42)">{{ scope.row.adminAccountStatusDesc | accountStatus }}</el-button>
+          <el-button type="text" size="small" @click="checkBind(scope.row)" v-if="havePermission('school:findByAdmin')">查看绑定学校</el-button>
+          <el-button type="text" size="small" @click="clickBind(scope.row)" v-if="havePermission('school:bind')">绑定学校</el-button>
+          <el-button type="text" size="small" @click="clickUpdate(scope.row)" v-if="havePermission('account:update')">修改</el-button>
+          <el-button type="text" size="small" @click="resetPassword(scope.row)" v-if="havePermission('account:reset')">重置密码</el-button>
+          <el-button type="text" size="small" @click="clickAstatus(scope.row)" v-if="havePermission('account:disable')">{{ scope.row.adminAccountStatusDesc | accountStatus }}</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -87,7 +88,7 @@ export default {
       })
     },
     handleCurrentChange (size) {
-      this.pages.currentPage = size
+      this.pages.pageNum = size
       this.loadData()
     },
     handleSizeChange (size) {
@@ -120,7 +121,7 @@ export default {
       this.password.newPassword = ''
     },
     resetPassword (item) {
-      this.$axios.accountUpdatepsw({id: item.id}).then(res => {
+      this.$axios.accountUpdatepswReset({id: item.id}).then(res => {
         if (res.data.code === '0') {
           this.$message.success('操作成功!')
           this.password.newPassword = ''
@@ -150,6 +151,14 @@ export default {
         this.$message.error(err)
       }).catch(err => {
         this.$message.error(err)
+      })
+    },
+    checkBind (item) {
+      this.$router.push({
+        path: '/bindSchoolList',
+        query: {
+          adminId: item.id
+        }
       })
     }
   },

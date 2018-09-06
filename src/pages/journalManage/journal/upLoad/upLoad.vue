@@ -5,6 +5,7 @@
       list-type="picture-card"
       :multiple="multiple"
       :limit="limit"
+      :before-upload="beforeUpload"
       :on-success="handleSuccess"
       :on-preview="handlePictureCardPreview">
       <i class="el-icon-plus"></i>
@@ -30,6 +31,21 @@ export default {
   mounted () {},
   computed: {},
   methods: {
+    beforeUpload (file) {
+      let k100 = 1024 * 100
+      let k300 = 1024 * 300
+      if (this.$route.query.type === 1) {
+        if (file.size > k100) {
+          this.$message.warning('图片大小不能超出100kb')
+          return false
+        }
+      } else {
+        if (file.size > k300) {
+          this.$message.warning('图片大小不能超出300kb')
+          return false
+        }
+      }
+    },
     handleSuccess (res) {
       if (res.result.status === '0') {
         if (this.$route.query.type === '1') {
@@ -124,6 +140,9 @@ export default {
 </script>
 
 <style>
+  .journal-manage-upLoad {
+    padding: 20px;
+  }
   .journal-manage-upLoad .el-upload-list--picture-card .el-upload-list__item-thumbnail {
     width: auto;
     height: 100%;

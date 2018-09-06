@@ -1,7 +1,7 @@
 <template>
   <div class="system-organiza">
     <header class="header" style="height: auto">
-      <el-button type="primary" @click="clickAddnew" v-if="havePermission(15)">添加</el-button>
+      <el-button type="primary" @click="clickAddnew" v-if="havePermission('adminGroup:add')">添加</el-button>
   </header>
     <el-main>
       <el-table ref="multipleTable" :data="tableList" tooltip-effect="dark" style="width: 100%" :height="windowHeight" border>
@@ -18,7 +18,7 @@
         <el-table-column fixed="right" label="操作" width="200">
           <template slot-scope="scope">
             <el-button type="text" size="small" @click="clickChecke(scope.row)">查看</el-button>
-            <el-button type="text" size="small" @click="clickUpdate(scope.row)" v-if="havePermission(16)">修改</el-button>
+            <el-button type="text" size="small" @click="clickUpdate(scope.row)" v-if="havePermission('adminGroup:update')">修改</el-button>
           </template>
         </el-table-column>
       </el-table>

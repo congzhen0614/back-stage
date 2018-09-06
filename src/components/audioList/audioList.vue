@@ -27,6 +27,15 @@
       </el-table-column>
       <el-table-column prop="fee" label="价格" width="100%" sortable></el-table-column>
     </el-table>
+    <el-pagination
+      @size-change="handleSizeChange"
+      @current-change="handleCurrentChange"
+      :current-page="search.pageNum"
+      :page-size="search.pageSize"
+      :page-sizes="[20, 50, 75, 100]"
+      layout="total, sizes, prev, pager, next, jumper"
+      :total="total">
+    </el-pagination>
   </div>
 </template>
 
@@ -35,8 +44,12 @@ export default {
   name: 'audioList',
   data () {
     return {
-      windowHeight: window.innerHeight - 500 + 'px',
-      search: {},
+      windowHeight: window.innerHeight - 531 + 'px',
+      search: {
+        pageNum: 1,
+        pageSize: 20
+      },
+      total: 0,
       selectIds: [],
       tableList: []
     }
@@ -57,10 +70,19 @@ export default {
       })
       this.selectIds = ids
     },
+    handleSizeChange (val) {
+      this.search.pageSize = val
+      this.loadDate()
+    },
+    handleCurrentChange (val) {
+      this.search.pageNum = val
+      this.loadDate()
+    },
     loadDate () {
       this.$axios.spyppacketList(this.search).then(res => {
         if (res.data.code === '0') {
           this.tableList = res.data.data.list
+          this.total = res.data.data.total
           this.tableList.forEach(item => {
             item.ord = 9999
           })

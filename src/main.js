@@ -48,7 +48,7 @@ router.beforeEach((to, from, next) => {
 Vue.prototype.havePermission = function (value) {
   let per = false
   JSON.parse(localStorage.getItem('permission')).forEach(item => {
-    if (item.permissionId === value) {
+    if (item.button === value) {
       per = true
     }
   })

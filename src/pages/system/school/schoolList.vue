@@ -42,8 +42,8 @@
           </el-col>
         </el-row>
       </el-form>
-      <el-button type="primary" @click="addSchool">添加</el-button>
-      <el-button type="primary" @click="onOrder">排序提交</el-button>
+      <el-button type="primary" @click="addSchool" v-if="havePermission('school:add')">添加</el-button>
+      <el-button type="primary" @click="onOrder" v-if="havePermission('school:ord')">排序提交</el-button>
       <!--<el-button type="primary" @click="loadSchoolList">批量导入</el-button>-->
     </header>
     <el-table :data="schoolList" style="width: 100%" border :height="windowHeight" @selection-change="handleSelectionChange">
@@ -60,9 +60,9 @@
       <el-table-column prop="address" label="详细地址"></el-table-column>
       <el-table-column label="操作">
         <template slot-scope="scope">
-          <!--<el-button @click="onChecke(scope.row)" type="text" size="small">查看商家用户</el-button>-->
-          <el-button @click="onUpdate(scope.row)" type="text" size="small">修改</el-button>
-          <el-button @click="onDelete(scope.row)" type="text" size="small">删除</el-button>
+          <el-button @click="onChecke(scope.row)" type="text" size="small" v-if="havePermission('school:admingroup')">查看商家用户</el-button>
+          <el-button @click="onUpdate(scope.row)" type="text" size="small" v-if="havePermission('school:update')">修改</el-button>
+          <el-button @click="onDelete(scope.row)" type="text" size="small" v-if="havePermission('school:delete')">删除</el-button>
         </template>
       </el-table-column>
     </el-table>

@@ -18,7 +18,7 @@
           <el-option v-for="item in groupList" :key="item.id" :label="item.name" :value="item.id"></el-option>
         </el-select>
       </el-form-item>
-      <el-form-item label="VIP高级用户:" v-if="groupType === 1 && form.roleLevel === 4">
+      <el-form-item label="高级用户(VIP):" v-if="groupType === 1 && form.roleLevel === 4">
         <el-select v-model="form.userId" placeholder="请选择组织">
           <el-option v-for="item in belongList" :key="item.id" :label="item.realname" :value="item.id"></el-option>
         </el-select>
@@ -86,7 +86,6 @@ export default {
             }
           })
           this.loadRoleList()
-          this.loadAccountList()
         } else {
           this.$message.error(res.data.data.msg)
         }
@@ -111,7 +110,7 @@ export default {
     },
     loadAccountList () {
       this.$axios.accountListCandidate({
-        level: JSON.parse(localStorage.getItem('user')).roleLevel,
+        level: this.form.roleLevel,
         groupId: this.form.groupId,
         type: this.groupType
       }).then(res => {
@@ -167,7 +166,7 @@ export default {
         if (item.id === val) {
           this.groupType = item.type
           this.loadRoleList()
-          this.loadAccountList()
+          if (this.form.roleLevel) this.loadAccountList()
         }
       })
     },
@@ -175,6 +174,7 @@ export default {
       this.roles.forEach(item => {
         if (item.id === val) {
           this.form.roleLevel = item.level
+          this.loadAccountList()
         }
       })
     }

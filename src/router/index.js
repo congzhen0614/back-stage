@@ -19,6 +19,7 @@ import account from '@/pages/system/account/account.vue' // 账号列表页
 import addAccount from '@/pages/system/account/addAccount/addAccount.vue' // 添加账号页面
 import updateAccount from '@/pages/system/account/updateAccount/updateAccount.vue' // 修改账号页面
 import bindSchool from '@/pages/system/account/bindSchool/bindSchool.vue' // 绑定学校
+import bindSchoolList from '@/pages/system/account/bindSchool/bindSchoolList.vue' // 绑定学校
 import permission from '@/pages/system/permission/permission.vue' // 角色权限
 import permissionList from '@/pages/system/permission/permissionList/permissionList.vue' // 角色权限
 import organiza from '@/pages/system/organiza/organiza.vue' // 商家组织列表
@@ -50,7 +51,10 @@ export default new Router({
   routes: [{
     path: '/login',
     name: 'login',
-    component: login
+    component: login,
+    meta: {
+      keepAlive: true
+    }
   }, {
     path: '/',
     name: '首页',
@@ -58,7 +62,10 @@ export default new Router({
     children: [{
       path: '/journalManage',
       name: '杂志管理',
-      component: journalManage
+      component: journalManage,
+      meta: {
+        keepAlive: true
+      }
     }, {
       path: '/addNewJournal',
       name: '添加杂志',
@@ -78,11 +85,17 @@ export default new Router({
     }, {
       path: '/imagesList',
       name: '图片列表',
-      component: imagesList
+      component: imagesList,
+      meta: {
+        keepAlive: true
+      }
     }, {
       path: '/catalogue',
       name: '目录表单',
-      component: catalogue
+      component: catalogue,
+      meta: {
+        keepAlive: true
+      }
     }, {
       path: '/updateCatalogue',
       name: '修改目录',
@@ -98,11 +111,17 @@ export default new Router({
     }, {
       path: '/QRlist',
       name: '条码管理',
-      component: QRlist
+      component: QRlist,
+      meta: {
+        keepAlive: true
+      }
     }, {
       path: '/account',
       name: '账号列表',
-      component: account
+      component: account,
+      meta: {
+        keepAlive: true
+      }
     }, {
       path: '/addAccount',
       name: '新增账号',
@@ -116,9 +135,16 @@ export default new Router({
       name: '绑定学校',
       component: bindSchool
     }, {
+      path: '/bindSchoolList',
+      name: '查看绑定学校',
+      component: bindSchoolList
+    }, {
       path: '/organiza',
       name: '商家组织',
-      component: organiza
+      component: organiza,
+      meta: {
+        keepAlive: true
+      }
     }, {
       path: '/addOrganiza',
       name: '添加商家组织',
@@ -130,7 +156,10 @@ export default new Router({
     }, {
       path: '/setAge',
       name: '年龄设置',
-      component: setAge
+      component: setAge,
+      meta: {
+        keepAlive: true
+      }
     }, {
       path: '/addAge',
       name: '添加年龄',
@@ -142,7 +171,10 @@ export default new Router({
     }, {
       path: '/classify',
       name: '分类设置',
-      component: classify
+      component: classify,
+      meta: {
+        keepAlive: true
+      }
     }, {
       path: '/addClassify',
       name: '添加分类',
@@ -162,19 +194,31 @@ export default new Router({
     }, {
       path: '/magaOrder',
       name: '杂志订单',
-      component: magaOrder
+      component: magaOrder,
+      meta: {
+        keepAlive: true
+      }
     }, {
       path: '/bookOrder',
       name: '图书订单',
-      component: bookOrder
+      component: bookOrder,
+      meta: {
+        keepAlive: true
+      }
     }, {
       path: '/spypOrder',
       name: '电子包订单',
-      component: spypOrder
+      component: spypOrder,
+      meta: {
+        keepAlive: true
+      }
     }, {
       path: '/orderList',
       name: '二维码目录订单',
-      component: orderList
+      component: orderList,
+      meta: {
+        keepAlive: true
+      }
     }, {
       path: '/orderInfo',
       name: '目录订单修改',
@@ -202,7 +246,10 @@ export default new Router({
     }, {
       path: '/schoolList',
       name: '学校列表',
-      component: schoolList
+      component: schoolList,
+      meta: {
+        keepAlive: true
+      }
     }, {
       path: '/addSchool',
       name: '添加学校',

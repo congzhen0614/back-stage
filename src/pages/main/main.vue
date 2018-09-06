@@ -17,7 +17,10 @@
         </el-header>
         <img v-if="routeList.length === 1" :style="{'height': windowHeight}" src="../../assets/index-backgroud.jpg"/>
         <el-main  v-if="routeList.length > 1" :style="{height: windowHeight}">
-          <router-view></router-view>
+          <keep-alive>
+            <router-view v-if="$route.meta.keepAlive"></router-view>
+          </keep-alive>
+          <router-view v-if="!$route.meta.keepAlive"></router-view>
         </el-main>
         <el-footer>©2013－2014 浙ICP备15001306号-1, All Rights Reserved.</el-footer>
       </el-container>

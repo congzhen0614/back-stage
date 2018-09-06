@@ -4,6 +4,7 @@
       action="http://192.168.0.231:8080/app-api/api/upload"
       list-type="picture-card"
       :limit="1"
+      :before-upload="beforeUpload"
       :on-success="handleSuccess"
       :on-preview="handlePictureCardPreview">
       <i class="el-icon-plus"></i>
@@ -39,6 +40,13 @@ export default {
         this.setMagazineCover(param)
       }
     },
+    beforeUpload (file) {
+      let k100 = 1024 * 100
+      if (file.size > k100) {
+        this.$message.warning('图片大小不能超出100kb')
+        return false
+      }
+    },
     handlePictureCardPreview (file) {
       this.dialogImageUrl = file.url
       this.dialogVisible = true
@@ -63,4 +71,7 @@ export default {
 </script>
 
 <style>
+.upload-head-images {
+  padding: 20px;
+}
 </style>

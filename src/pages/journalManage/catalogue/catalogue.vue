@@ -34,13 +34,13 @@
           </el-col>
         </el-row>
         <div class="header-button">
-          <el-button type="primary" @click="onAdd" v-if="havePermission(54)">添加</el-button>
-          <el-button type="primary" @click="onSubmit" v-if="havePermission(57)">提交审核</el-button>
-          <el-button type="primary" @click="onCheck(2)" v-if="havePermission(58)">审核通过</el-button>
-          <el-button type="primary" @click="onCheck(3)" v-if="havePermission(58)">审核不通过</el-button>
-          <el-button type="primary" @click="onCreate" v-if="havePermission(62)">批量生成</el-button>
-          <el-button type="primary" @click="onStar" v-if="havePermission(56)">批量开启</el-button>
-          <el-button type="primary" @click="onStop" v-if="havePermission(56)">批量关闭</el-button>
+          <el-button type="primary" @click="onAdd" v-if="havePermission('itempack:save')">添加</el-button>
+          <el-button type="primary" @click="onSubmit" v-if="havePermission('itempack:submit')">提交审核</el-button>
+          <el-button type="primary" @click="onCheck(2)" v-if="havePermission('itempack:check')">审核通过</el-button>
+          <el-button type="primary" @click="onCheck(3)" v-if="havePermission('itempack:check')">审核不通过</el-button>
+          <el-button type="primary" @click="onCreate" v-if="havePermission('itempack:qrcode')">批量生成</el-button>
+          <el-button type="primary" @click="onStar" v-if="havePermission('itempack:updatesub')">批量开启</el-button>
+          <el-button type="primary" @click="onStop" v-if="havePermission('itempack:updatesub')">批量关闭</el-button>
         </div>
       </el-form>
     </el-header>
@@ -76,9 +76,9 @@
       </el-table-column>
       <el-table-column fixed="right" label="操作" width="200">
         <template slot-scope="scope">
-          <el-button type="text" size="small" @click="onChecke(scope.row)" v-if="havePermission(60)">查看</el-button>
-          <el-button type="text" size="small" @click="onUpdate(scope.row)" v-if="havePermission(55)">修改</el-button>
-          <el-button type="text" size="small" @click="onDelete(scope.row)" v-if="havePermission(59)">删除</el-button>
+          <el-button type="text" size="small" @click="onChecke(scope.row)">查看</el-button>
+          <el-button type="text" size="small" @click="onUpdate(scope.row)" v-if="havePermission('itempack:update')">修改</el-button>
+          <el-button type="text" size="small" @click="onDelete(scope.row)" v-if="havePermission('itempack:del')">删除</el-button>
         </template>
       </el-table-column>
     </el-table>

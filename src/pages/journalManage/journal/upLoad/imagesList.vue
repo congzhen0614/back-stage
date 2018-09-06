@@ -3,9 +3,9 @@
     <el-header class="journal-Manage-header" style="height: auto">
       <p style="font-size: 16px; margin-bottom: 20px">杂志名称: {{ info.name }}</p>
       <div class="header-button">
-        <el-button size="small" type="primary" @click="addImages('1')" v-if="havePermission(45)">添加封面图</el-button>
-        <el-button size="small" type="primary" @click="addImages('2')" v-if="havePermission(48)">添加礼品图</el-button>
-        <el-button size="small" type="primary" @click="addImages('3')" v-if="havePermission(50)">添加内页图</el-button>
+        <el-button size="small" type="primary" @click="addImages('1')" v-if="havePermission('magazine:updatelogo')">添加封面图</el-button>
+        <el-button size="small" type="primary" @click="addImages('2')" v-if="havePermission('magazine:giftlogo')">添加礼品图</el-button>
+        <el-button size="small" type="primary" @click="addImages('3')" v-if="havePermission('itemimg:save')">添加内页图</el-button>
       </div>
     </el-header>
     <el-main>
@@ -22,8 +22,8 @@
         <el-table-column prop="type" label="类别"></el-table-column>
         <el-table-column fixed="right" label="操作" width="200">
           <template slot-scope="scope">
-            <el-button @click="onDelete(scope.row)" type="text" size="small" v-if="havePermission(19)">删除</el-button>
-            <el-button @click="onUpdate(scope.row)" type="text" size="small" v-if="havePermission(45)">修改</el-button>
+            <el-button @click="onDelete(scope.row)" type="text" size="small" v-if="havePermission('itemimg:del')">删除</el-button>
+            <el-button @click="onUpdate(scope.row)" type="text" size="small" v-if="havePermission('itemimg:update')">修改</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -150,7 +150,6 @@ export default {
       })
     },
     onUpdate (item) {
-      console.log(item)
       if (item.type === '封面图') {
         this.addImages('1')
       } else if (item.type === '礼品图') {

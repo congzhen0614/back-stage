@@ -111,6 +111,22 @@ export default {
       this.ypspList = val.items.length > 0 ? val.items : []
     },
     onSave () {
+      if (this.form.tip.length > 30) {
+        this.$message.error('提示语不能超过30字')
+        return
+      }
+      let haveBook = false
+      this.form.items.forEach(item => {
+        if (item.cls === 2) haveBook = true
+      })
+      if (haveBook && (this.form.postageSumBook === '' || this.form.postageBook === '')) {
+        this.$message.error('选中图书的时候图书未满金额和图书运费是必填的哦')
+        return
+      }
+      if (this.form.sendType === 1 && (this.form.postageSum === '' || this.form.postage === '')) {
+        this.$message.error('寄送的时候杂志未满金额和杂志运费是必填的哦')
+        return
+      }
       this.$axios.itempackSave(this.form).then(res => {
         if (res.data.code === '0') {
           this.$message.success('添加成功!')

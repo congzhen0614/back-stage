@@ -8,7 +8,7 @@
         <el-input v-model="form.now"></el-input>
       </el-form-item>
       <el-form-item label="新密码:">
-        <el-input v-model="form.repeat"></el-input>
+        <el-input v-model="repeat"></el-input>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="onSubmit">立即创建</el-button>
@@ -24,6 +24,7 @@ export default {
   components: {},
   data () {
     return {
+      repeat: '',
       form: {}
     }
   },
@@ -34,14 +35,17 @@ export default {
   computed: {},
   methods: {
     onSubmit () {
-      if (this.form.repeat !== this.form.now) {
+      if (this.repeat !== this.form.now) {
         this.$message.error('两次密码不一致')
         return
       }
       this.$axios.accountUpdatepsw(this.form).then(res => {
         if (res.data.code === '0') {
-          this.Toast.success('操作成功')
-          this.$router.go(-1)
+          console.log(res.data.code)
+          this.$message.success('操作成功')
+          this.$router.push({
+            path: '/login'
+          })
         }
       }, err => {
         console.log(err)

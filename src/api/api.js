@@ -65,6 +65,9 @@ export default {
     return axios.post('/qrzd/agent/account/update', params)
   },
   accountUpdatepsw (params) { // 修改账号
+    return axios.post('/qrzd/agent/account/updatepsw', params)
+  },
+  accountUpdatepswReset (params) {
     return axios.post('/qrzd/agent/account/updatepsw/reset', params)
   },
   accountUpdateastatus (params) {
@@ -292,5 +295,8 @@ export default {
   },
   schoolDel (params) {
     return axios.post('/qrzd/sys/school/del', params)
+  },
+  updateQrcode (params) {
+    return axios.post('/qrzd/itempack/update/qrcode/status', params)
   }
 }

@@ -64,6 +64,15 @@
       <el-table-column prop="ageName" label="适读年龄"></el-table-column>
       <el-table-column prop="fee" label="价格"></el-table-column>
     </el-table>
+    <el-pagination
+      @size-change="handleSizeChange"
+      @current-change="handleCurrentChange"
+      :current-page="search.pageNum"
+      :page-size="search.pageSize"
+      :page-sizes="[20, 50, 75, 100]"
+      layout="total, sizes, prev, pager, next, jumper"
+      :total="total">
+    </el-pagination>
   </div>
 </template>
 
@@ -72,16 +81,19 @@ export default {
   name: 'magaList',
   data () {
     return {
-      windowHeight: window.innerHeight - 565 + 'px',
+      windowHeight: window.innerHeight - 596 + 'px',
       search: {
         typeId: '',
-        isSale: 1
+        isSale: 1,
+        pageNum: 1,
+        pageSize: 20
       },
       form: {
         sendType: this.sendType,
         postage: this.postage,
         postageSum: this.postageSum
       },
+      total: 0,
       ageList: [],
       typeList: [],
       tableList: [],
@@ -105,10 +117,19 @@ export default {
       })
       this.selectIds = ids
     },
+    handleSizeChange (val) {
+      this.search.pageSize = val
+      this.loadDate()
+    },
+    handleCurrentChange (val) {
+      this.search.pageNum = val
+      this.loadDate()
+    },
     loadDate () {
       this.$axios.magazineList(this.search).then(res => {
         if (res.data.code === '0') {
           this.tableList = res.data.data.list
+          this.total = res.data.data.total
           this.tableList.forEach(item => {
             item.ord = 9999
           })

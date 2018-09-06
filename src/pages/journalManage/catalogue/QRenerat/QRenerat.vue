@@ -4,7 +4,14 @@
       <el-table-column prop="name"></el-table-column>
       <el-table-column>
         <template slot-scope="scope">
-          <el-upload ref="upload" class="upload-demo" :limit="1" :multiple="false" :on-success="upLoadSuccess" action="http://192.168.0.231:8080/app-api/api/upload">
+          <el-upload
+            ref="upload"
+            class="upload-demo"
+            :limit="1"
+            :multiple="false"
+            :before-upload="beforeUpload"
+            :on-success="upLoadSuccess"
+            action="http://192.168.0.231:8080/app-api/api/upload">
             <el-button slot="trigger" size="small" type="primary" @click="selectFile(scope.row.id)" style="float: left">上传logo</el-button>
           </el-upload>
         </template>
@@ -32,6 +39,13 @@ export default {
   mounted () {
   },
   methods: {
+    beforeUpload (file) {
+      let k100 = 1024 * 100
+      if (file.size > k100) {
+        this.$message.warning('图片大小不能超出100kb')
+        return false
+      }
+    },
     selectFile (id) {
       this.uploadId = id
     },

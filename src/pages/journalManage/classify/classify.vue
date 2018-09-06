@@ -13,7 +13,7 @@
         <!--</el-col>-->
         <el-col :span="8">
           <el-button type="primary" plain @click="loadDate">检索</el-button>
-          <el-button type="primary" @click="clickAdd" v-if="havePermission(23)">添加</el-button>
+          <el-button type="primary" @click="clickAdd" v-if="havePermission('itemType:add')">添加</el-button>
         </el-col>
       </el-row>
     </header>
@@ -27,8 +27,8 @@
       <!--</el-table-column>-->
       <el-table-column fixed="right" label="操作" width="150">
         <template slot-scope="scope">
-          <el-button type="text" size="small" @click="clickUpdate(scope.row)" v-if="havePermission(23)">修改</el-button>
-          <el-button type="text" size="small" @click="clickDelete(scope.row)" v-if="havePermission(24)">删除</el-button>
+          <el-button type="text" size="small" @click="clickUpdate(scope.row)" v-if="havePermission('itemType:update')">修改</el-button>
+          <el-button type="text" size="small" @click="clickDelete(scope.row)" v-if="havePermission('itemType:delete')">删除</el-button>
         </template>
       </el-table-column>
     </el-table>

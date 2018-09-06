@@ -52,7 +52,13 @@
       <el-table-column prop="cityName" label="城市"></el-table-column>
       <el-table-column prop="regionName" label="地区"></el-table-column>
       <el-table-column prop="address" label="地址" show-overflow-tooltip width="500px"></el-table-column>
-      <el-table-column prop="isHighGrade" label="年级阶段"></el-table-column>
+      <el-table-column prop="isHighGrade" label="年级阶段">
+        <template slot-scope="scope">
+          <span v-if="scope.row.isHighGrade === 2">幼儿园</span>
+          <span v-if="scope.row.isHighGrade === 0">小学</span>
+          <span v-if="scope.row.isHighGrade === 1">初中</span>
+        </template>
+      </el-table-column>
       <el-table-column prop="bindStatus" label="绑定状态"></el-table-column>
     </el-table>
     <el-pagination

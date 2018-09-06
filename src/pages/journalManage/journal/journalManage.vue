@@ -28,12 +28,13 @@
           <el-col :span="4">
             <el-form-item label="是否上架:">
               <el-select v-model="search.isSale">
+                <el-option label="全部" :value="''"></el-option>
                 <el-option label="是" value="1"></el-option>
                 <el-option label="否" value="0"></el-option>
               </el-select>
             </el-form-item>
           </el-col>
-          <el-col :span="4" v-if="havePermission(46)">
+          <el-col :span="4" v-if="havePermission('magazine:copy')">
             <el-form-item label="复制给商家:">
               <el-select v-model="search.merchants">
                 <el-option :label="item.username" :value="item.id" v-for="item in groupList" :key="item.id"></el-option>
@@ -44,15 +45,15 @@
         <div class="header-button-right">
           <el-row>
             <el-button type="primary" plain @click="loadDate">检索</el-button>
-            <el-button type="primary" plain @click="copyToMagazine" v-if="havePermission(46)">批量复制</el-button>
-            <el-button type="primary" plain @click="setMagazinePublish(1)" v-if="havePermission(13)">批量上架</el-button>
-            <el-button type="primary" plain @click="setMagazinePublish(0)" v-if="havePermission(13)">批量下架</el-button>
+            <el-button type="primary" plain @click="copyToMagazine" v-if="havePermission('magazine:copy')">批量复制</el-button>
+            <el-button type="primary" plain @click="setMagazinePublish(1)" v-if="havePermission('magazine:publish')">批量上架</el-button>
+            <el-button type="primary" plain @click="setMagazinePublish(0)" v-if="havePermission('magazine:publish')">批量下架</el-button>
           </el-row>
         </div>
         <div class="header-button">
-          <el-button type="primary" icon="el-icon-plus" @click="clickAddNew" v-if="havePermission(9)">添加</el-button>
-          <el-button type="primary" icon="el-icon-upload2" @click="dialogVisible = true">导入杂志</el-button>
-          <el-button type="primary" icon="el-icon-upload" @click="onUploadImages" v-if="havePermission(45)">上传封面图</el-button>
+          <el-button type="primary" icon="el-icon-plus" @click="clickAddNew" v-if="havePermission('magazine:add')">添加</el-button>
+          <el-button type="primary" icon="el-icon-upload2" @click="dialogVisible = true" v-if="havePermission('magazine:batch')">导入杂志</el-button>
+          <el-button type="primary" icon="el-icon-upload" @click="onUploadImages" v-if="havePermission('magazine:updatelogo')">上传封面图</el-button>
         </div>
       </el-form>
     </el-header>
@@ -89,9 +90,9 @@
         </el-table-column>
         <el-table-column fixed="right" label="操作" width="200">
           <template slot-scope="scope">
-            <el-button @click="onUpdate(scope.row)" type="text" size="small" v-if="havePermission(10)">修改</el-button>
-            <el-button @click="onDelete(scope.row)" type="text" size="small" v-if="havePermission(11)">删除</el-button>
-            <el-button @click="onUpload(scope.row)" type="text" size="small">上传图片</el-button>
+            <el-button @click="onUpdate(scope.row)" type="text" size="small" v-if="havePermission('magazine:update')">修改</el-button>
+            <el-button @click="onDelete(scope.row)" type="text" size="small" v-if="havePermission('magazine:delete')">删除</el-button>
+            <el-button @click="onUpload(scope.row)" type="text" size="small" v-if="havePermission('magazine:updatelogo') || havePermission('magazine:giftlogo') || havePermission('itemimg:save')">上传图片</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -137,7 +138,8 @@ export default {
       groupList: [],
       search: {
         typeId: '',
-        ageId: ''
+        ageId: '',
+        isSale: ''
       },
       tableData: [],
       selectIds: [],
@@ -197,8 +199,16 @@ export default {
       })
     },
     loadAdmingroupList () {
-      this.$axios.accountList().then(res => {
-        this.groupList = res.data.data.list
+      this.$axios.accountListCandidate({
+        groupId: '',
+        level: '',
+        type: ''
+      }).then(res => {
+        res.data.data.forEach(item => {
+          if (item.roleLevel === 4 || item.roleLevel === 6) {
+            this.groupList.push(item)
+          }
+        })
       }, err => {
         this.$message.error(err)
       }).catch(err => {
@@ -362,11 +372,6 @@ export default {
     },
     loadTemplate () {
       window.location.href = location.protocol + '//' + window.location.host + '/static/file/杂志批量导入模板.xlsx'
-    }
-  },
-  watch: {
-    'pages.pageNum' (val) {
-      console.log(val)
     }
   }
 }

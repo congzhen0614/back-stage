@@ -7,13 +7,13 @@
           <i class="el-icon-menu"></i>
           <span slot="title">商品管理</span>
         </template>
-        <el-menu-item index="/journalManage" v-if="havePermission(12)">
+        <el-menu-item index="/journalManage" v-if="havePermission('magazine:list')">
           <span slot="title">杂志管理</span>
         </el-menu-item>
-        <el-menu-item index="/setAge" v-if="havePermission(25)">
+        <el-menu-item index="/setAge" v-if="havePermission('age:list')">
           <span slot="title">年龄设置</span>
         </el-menu-item>
-        <el-menu-item index="/classify" v-if="havePermission(25)">
+        <el-menu-item index="/classify" v-if="havePermission('itemType:list')">
           <span slot="title">分类设置</span>
         </el-menu-item>
       </el-submenu>
@@ -22,10 +22,10 @@
           <i class="el-icon-tickets"></i>
           <span slot="title">目录管理</span>
         </template>
-        <el-menu-item index="/catalogue" v-if="havePermission(60)">
+        <el-menu-item index="/catalogue" v-if="havePermission('itempack:list')">
           <span slot="title">目录表单</span>
         </el-menu-item>
-        <el-menu-item index="/QRlist" v-if="havePermission(60)">
+        <el-menu-item index="/QRlist" v-if="havePermission('itempack:list')">
           <span slot="title">条码管理</span>
         </el-menu-item>
       </el-submenu>
@@ -43,7 +43,7 @@
         <!--<el-menu-item index="/spypOrder">-->
           <!--<span slot="title">电子包订单</span>-->
         <!--</el-menu-item>-->
-        <el-menu-item index="/orderList" v-if="havePermission(25)">
+        <el-menu-item index="/orderList" v-if="havePermission('trade:list')">
           <span slot="title">用户订单</span>
         </el-menu-item>
       </el-submenu>
@@ -70,13 +70,13 @@
           <i class="el-icon-setting"></i>
           <span slot="title">系统设置</span>
         </template>
-        <el-menu-item index="/organiza" v-if="havePermission(18)">
+        <el-menu-item index="/organiza" v-if="havePermission('adminGroup:list')">
           <span slot="title">商家组织</span>
         </el-menu-item>
-        <el-menu-item index="/account" v-if="havePermission(41)">
+        <el-menu-item index="/account" v-if="havePermission('account:list')">
           <span slot="title">账号设置</span>
         </el-menu-item>
-        <el-menu-item index="/permission" v-if="havePermission(28)">
+        <el-menu-item index="/permission" v-if="havePermission('rolePermission:add')">
           <span slot="title">角色权限</span>
         </el-menu-item>
         <!--<el-menu-item @click="noRouter" index="/">-->
@@ -85,7 +85,7 @@
         <!--<el-menu-item @click="noRouter" index="/">-->
           <!--<span slot="title">用户孩子管理</span>-->
         <!--</el-menu-item>-->
-        <el-menu-item index="/schoolList">
+        <el-menu-item index="/schoolList" v-if="havePermission('school:list')">
           <span slot="title">学校管理</span>
         </el-menu-item>
       </el-submenu>
