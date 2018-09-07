@@ -4,17 +4,17 @@
       <el-form ref="form" :model="search" label-width="90px">
         <el-row :gutter="20">
           <el-col :span="4">
-            <el-form-item label="名称：">
+            <el-form-item label="名称：" label-width="60px">
               <el-input v-model="search.name" placeholder="请输入名称筛选"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="4">
-            <el-form-item label="刊号:">
+            <el-form-item label="刊号:" label-width="60px">
               <el-input v-model="search.issn" placeholder="请输入编号筛选"></el-input>
             </el-form-item>
           </el-col>
-          <el-col :span="8">
-            <el-form-item label="类别:">
+          <el-col :span="5">
+            <el-form-item label="类别:" label-width="60px">
               <el-select v-model="search.typeId" style="width: 50%; float: left; padding-right: 5px">
                 <el-option label="全部" :value="''"></el-option>
                 <el-option :label="item.name" :value="item.id" v-for="item in typeList" :key="item.id"></el-option>
@@ -25,12 +25,19 @@
               </el-select>
             </el-form-item>
           </el-col>
-          <el-col :span="4">
+          <el-col :span="3">
             <el-form-item label="是否上架:">
               <el-select v-model="search.isSale">
                 <el-option label="全部" :value="''"></el-option>
                 <el-option label="是" value="1"></el-option>
                 <el-option label="否" value="0"></el-option>
+              </el-select>
+            </el-form-item>
+          </el-col>
+          <el-col :span="4">
+            <el-form-item label="商家账号:">
+              <el-select v-model="search.createUser">
+                <el-option :label="item.username" :value="item.id" v-for="item in groupList" :key="item.id"></el-option>
               </el-select>
             </el-form-item>
           </el-col>
@@ -166,7 +173,8 @@ export default {
         name: this.search.name,
         typeId: this.search.typeId,
         ageId: this.search.ageId,
-        isSale: this.search.isSale
+        isSale: this.search.isSale,
+        createUser: this.search.createUser
       }
       return param
     }
