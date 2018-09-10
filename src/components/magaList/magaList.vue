@@ -10,6 +10,7 @@
         <el-col :span="5">
           <el-form-item label="是否上架:">
             <el-select v-model="search.isSale">
+              <el-option label="全部" :value="''"></el-option>
               <el-option label="是" :value="1"></el-option>
               <el-option label="否" :value="0"></el-option>
             </el-select>
@@ -87,7 +88,7 @@ export default {
       windowHeight: window.innerHeight - 596 + 'px',
       search: {
         typeId: '',
-        isSale: 1,
+        isSale: '',
         pageNum: 1,
         pageSize: 20
       },
@@ -181,7 +182,7 @@ export default {
     loadItemtypeList () {
       this.$axios.itemtypeListCandidate().then(res => {
         if (res.data.code === '0') {
-          this.typeList = res.data.data.list
+          this.typeList = res.data.data
         } else {
           this.$message.error(res.data.data.msg)
         }

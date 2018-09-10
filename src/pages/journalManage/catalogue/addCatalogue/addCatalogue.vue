@@ -111,10 +111,6 @@ export default {
       this.ypspList = val.items.length > 0 ? val.items : []
     },
     onSave () {
-      if (this.form.tip.length > 60) {
-        this.$message.error('提示语不能超过60字')
-        return
-      }
       let haveBook = false
       this.form.items.forEach(item => {
         if (item.cls === 2) haveBook = true

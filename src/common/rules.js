@@ -73,11 +73,11 @@ let accountRules = {
 
 let ManageCatalogue = {
   title: [{required: true, message: '请输入目录名称', trigger: 'blur'}],
-  schoolLevel: [{required: true, message: '请输入目录名称', trigger: 'blur'}],
-  linkman: [{required: true, message: '请输入目录名称', trigger: 'blur'}],
-  linkmobile: [{required: true, message: '请输入目录名称', trigger: 'blur'}],
-  tip: [{required: true, message: '请输入目录名称', trigger: 'blur'}],
-  remark: [{required: true, message: '请输入目录名称', trigger: 'blur'}]
+  schoolLevel: [{required: true, message: '请选择学校类型', trigger: 'blur'}],
+  linkman: [{required: true, message: '请输入联系人', trigger: 'blur'}],
+  linkmobile: [{required: true, message: '请输入联系电话', trigger: 'blur'}],
+  tip: [{required: true, message: '请输入提示语', trigger: 'blur'}, {max: 60, message: '提示语最大长度为60'}],
+  remark: [{required: true, message: '请输入备注', trigger: 'blur'}]
 }
 
 export default {

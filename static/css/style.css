@@ -140,3 +140,7 @@ input {
 .el-main {
   padding: 0!important;
 }
+
+.el-pagination {
+  margin-top: 10px;
+}

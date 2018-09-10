@@ -1,7 +1,7 @@
 <template>
   <div class="increase-main">
     <el-container>
-      <el-aside><v-menu @routerPush="toPages"></v-menu></el-aside>
+      <el-aside style="width: 260px"><v-menu @routerPush="toPages"></v-menu></el-aside>
       <el-container>
         <el-header style="height: auto; padding: 20px">
           <div class="head-button">
@@ -22,7 +22,7 @@
           </keep-alive>
           <router-view v-if="!$route.meta.keepAlive"></router-view>
         </el-main>
-        <el-footer>©2013－2014 浙ICP备15001306号-1, All Rights Reserved.</el-footer>
+        <el-footer></el-footer>
       </el-container>
     </el-container>
   </div>
