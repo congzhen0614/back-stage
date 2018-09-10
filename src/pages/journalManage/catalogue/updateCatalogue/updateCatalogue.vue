@@ -49,7 +49,7 @@
     </header>
     <el-row style="margin-top: 20px; margin-left: 20px" v-if="isUpdate">
       <el-button type="primary" @click="onSave">保存书单</el-button>
-      <el-button @click="goBack">取消</el-button>
+      <el-button @click="goBack">返回</el-button>
     </el-row>
     <el-row style="margin-top: 20px; margin-left: 20px" v-if="!isUpdate">
       <el-button @click="goBack">返回</el-button>
@@ -73,32 +73,30 @@ export default {
       windowHeight: window.innerHeight - 500 + 'px',
       options: [],
       search: [],
-      magazineIds: this.$route.query.item.magazineIds,
-      bookIds: this.$route.query.item.bookIds,
-      videoIds: this.$route.query.item.videoIds,
+      magazineIds: JSON.parse(this.$route.query.item).magazineIds,
+      bookIds: JSON.parse(this.$route.query.item).bookIds,
+      videoIds: JSON.parse(this.$route.query.item).videoIds,
       isUpdate: this.$route.query.update,
       form: {
-        id: this.$route.query.item.id,
+        id: JSON.parse(this.$route.query.item).id,
         items: [],
-        linkman: this.$route.query.item.linkman,
-        linkmobile: this.$route.query.item.linkmobile,
-        postage: this.$route.query.item.postage,
-        postageBook: this.$route.query.item.postageBook,
-        postageSum: this.$route.query.item.postageSum,
-        postageSumBook: this.$route.query.item.postageSumBook,
-        remark: this.$route.query.item.remark,
-        schoolLevel: parseInt(this.$route.query.item.schoolLevel),
-        sendType: parseInt(this.$route.query.item.sendType),
-        tip: this.$route.query.item.tip,
-        title: this.$route.query.item.title
+        linkman: JSON.parse(this.$route.query.item).linkman,
+        linkmobile: JSON.parse(this.$route.query.item).linkmobile,
+        postage: JSON.parse(this.$route.query.item).postage,
+        postageBook: JSON.parse(this.$route.query.item).postageBook,
+        postageSum: JSON.parse(this.$route.query.item).postageSum,
+        postageSumBook: JSON.parse(this.$route.query.item).postageSumBook,
+        remark: JSON.parse(this.$route.query.item).remark,
+        schoolLevel: parseInt(JSON.parse(this.$route.query.item).schoolLevel),
+        sendType: parseInt(JSON.parse(this.$route.query.item).sendType),
+        tip: JSON.parse(this.$route.query.item).tip,
+        title: JSON.parse(this.$route.query.item).title
       },
       tableList: [],
       mageList: [],
       bookList: [],
       ypspList: []
     }
-  },
-  mounted () {
   },
   methods: {
     handleSelectionChange (val) {

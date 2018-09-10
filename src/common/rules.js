@@ -66,6 +66,8 @@ let accountRules = {
     {required: true, message: '请输入联系电话', trigger: 'blur'},
     {validator: phone, trigger: 'blur'}
   ],
+  roleId: [{required: true, message: '请选择角色', trigger: 'blur'}],
+  userId: [{required: true, message: '请选择高级用户', trigger: 'blur'}],
   groupId: [{required: true, message: '请选择所属组织', trigger: 'blur'}]
 }
 

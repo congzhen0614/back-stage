@@ -127,9 +127,12 @@ export default {
           if (typeof this.bookIds === 'undefined') return false
           this.$nextTick(() => {
             this.tableList.forEach(item => {
-              if (this.bookIds.join(',').indexOf(item.id) > -1) {
-                this.$refs.multipleTable.toggleRowSelection(item, true)
-              }
+              this.bookIds.forEach(select => {
+                if (item.id === select.id) {
+                  item.ord = select.ord
+                  this.$refs.multipleTable.toggleRowSelection(item, true)
+                }
+              })
             })
           })
         } else {

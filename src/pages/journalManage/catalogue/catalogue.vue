@@ -253,7 +253,7 @@ export default {
       this.$router.push({
         path: '/updateCatalogue',
         query: {
-          item: item,
+          item: JSON.stringify(item),
           update: false
         }
       })
@@ -262,7 +262,7 @@ export default {
       this.$router.push({
         path: '/updateCatalogue',
         query: {
-          item: item,
+          item: JSON.stringify(item),
           update: true
         }
       })

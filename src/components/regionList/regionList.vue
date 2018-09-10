@@ -4,10 +4,12 @@
       <el-option v-for="item in provinceList" :key="item.id" :label="item.name" :value="item.id"></el-option>
     </el-select>
     <el-select v-model="cities" multiple placeholder="请选择市" :disabled="cityList.length === 0" @remove-tag="onCloseCity">
+      <el-option label="全选" value="all"></el-option>
       <el-option v-for="item in cityList" :key="item.id" :label="item.name" :value="item.id"></el-option>
     </el-select>
     <el-select v-model="regions" multiple placeholder="请选择区" :disabled="regionList.length === 0">
-      <el-option v-for="item in regionList" :key="item.id" :label="item.name" :value="item.id"></el-option>
+      <el-option label="全选" value="all"></el-option>
+      <el-option v-for="(item, index) in regionList" :key="index" :label="item.name" :value="item.id"></el-option>
     </el-select>
   </div>
 </template>
@@ -111,11 +113,27 @@ export default {
       }
       this.regionList = []
       val.forEach(item => {
-        this.loadRegions(item)
+        if (item === 'all') {
+          this.cities = []
+          this.cityList.forEach(item => {
+            this.cities.push(item.id)
+            this.loadRegions(item.id)
+          })
+        } else {
+          this.loadRegions(item)
+        }
       })
       this.$emit('cities', val)
     },
     regions (val) {
+      val.forEach(item => {
+        if (item === 'all') {
+          this.regions = []
+          this.regionList.forEach(item => {
+            this.regions.push(item.id)
+          })
+        }
+      })
       this.$emit('regions', val)
     }
   }
@@ -125,5 +143,6 @@ export default {
 <style>
   .account-region-list .el-select {
     width: 150px;
+    vertical-align: top;
   }
 </style>

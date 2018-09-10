@@ -14,7 +14,7 @@
         <el-input v-model="form.ord"></el-input>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" @click="onSubmit">立即创建</el-button>
+        <el-button type="primary" @click="onSubmit()">立即创建</el-button>
         <el-button @click="goBack">取消</el-button>
       </el-form-item>
     </el-form>
@@ -40,19 +40,23 @@ export default {
   computed: {},
   methods: {
     onSubmit () {
-      this.$axios.itemageUpdate(this.form).then(res => {
-        if (res.data.code === '0') {
-          this.$message.success('操作成功!')
-          this.$router.push({
-            path: '/setAge'
+      this.$refs.form.validate(valid => {
+        if (valid) {
+          this.$axios.itemageUpdate(this.form).then(res => {
+            if (res.data.code === '0') {
+              this.$message.success('操作成功!')
+              this.$router.push({
+                path: '/setAge'
+              })
+            } else {
+              this.$message.error(res.data.data.msg)
+            }
+          }, err => {
+            this.$message.error(err)
+          }).catch(err => {
+            this.$message.error(err)
           })
-        } else {
-          this.$message.error(res.data.data.msg)
         }
-      }, err => {
-        this.$message.error(err)
-      }).catch(err => {
-        this.$message.error(err)
       })
     },
     goBack () {

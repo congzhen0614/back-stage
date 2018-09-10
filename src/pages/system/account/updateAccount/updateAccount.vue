@@ -16,7 +16,10 @@
       <el-form-item label="所属组织:">
         <el-input v-model="form.groupName" disabled></el-input>
       </el-form-item>
-      <el-form-item label="高级用户:">
+      <el-form-item v-if="form.vipCreateUsername" label="高级用户(VIP):">
+        <el-input v-model="form.vipCreateUsername" disabled></el-input>
+      </el-form-item>
+      <el-form-item v-if="form.roleLevel === 5" label="高级用户:">
         <el-input v-model="form.createUserName" disabled></el-input>
       </el-form-item>
       <el-form-item label="角色:">
@@ -46,9 +49,11 @@ export default {
         provinceId: JSON.parse(this.$route.query.param).provinceId,
         cityIds: JSON.parse(this.$route.query.param).citys,
         createUserName: JSON.parse(this.$route.query.param).createUserName,
+        vipCreateUsername: JSON.parse(this.$route.query.param).vipCreateUsername,
         regionIds: JSON.parse(this.$route.query.param).regions,
         groupId: JSON.parse(this.$route.query.param).groupId,
         groupName: JSON.parse(this.$route.query.param).groupName,
+        groupType: JSON.parse(this.$route.query.param).groupType,
         username: JSON.parse(this.$route.query.param).username,
         realname: JSON.parse(this.$route.query.param).realname,
         phone: JSON.parse(this.$route.query.param).phone,
@@ -58,6 +63,9 @@ export default {
         userId: JSON.parse(this.$route.query.param).userId
       }
     }
+  },
+  mounted () {
+    console.log(JSON.parse(this.$route.query.param))
   },
   methods: {
     province (val) {

@@ -40,19 +40,23 @@ export default {
   computed: {},
   methods: {
     onSubmit () {
-      this.$axios.itemtypeSave(this.form).then(res => {
-        if (res.data.code === '0') {
-          this.$message.success('添加成功!')
-          this.$router.push({
-            path: '/classify'
+      this.$refs.form.validate(valid => {
+        if (valid) {
+          this.$axios.itemtypeSave(this.form).then(res => {
+            if (res.data.code === '0') {
+              this.$message.success('添加成功!')
+              this.$router.push({
+                path: '/classify'
+              })
+            } else {
+              this.$message.error(res.data.data.msg)
+            }
+          }, err => {
+            this.$message.error(err)
+          }).catch(err => {
+            this.$message.error(err)
           })
-        } else {
-          this.$message.error(res.data.data.msg)
         }
-      }, err => {
-        this.$message.error(err)
-      }).catch(err => {
-        this.$message.error(err)
       })
     },
     goBack () {

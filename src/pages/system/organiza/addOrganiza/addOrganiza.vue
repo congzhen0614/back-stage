@@ -51,19 +51,23 @@ export default {
   },
   methods: {
     onSubmit () {
-      this.$axios.admingroupSave(this.form).then(res => {
-        if (res.data.code === '0') {
-          this.$message.success('添加成功')
-          this.$router.push({
-            path: '/organiza'
+      this.$refs.form.validate(valid => {
+        if (valid) {
+          this.$axios.admingroupSave(this.form).then(res => {
+            if (res.data.code === '0') {
+              this.$message.success('添加成功')
+              this.$router.push({
+                path: '/organiza'
+              })
+            } else {
+              this.$message.error(res.data.data.msg)
+            }
+          }, err => {
+            this.$message.error(err)
+          }).catch(err => {
+            this.$message.error(err)
           })
-        } else {
-          this.$message.error(res.data.data.msg)
         }
-      }, err => {
-        this.$message.error(err)
-      }).catch(err => {
-        this.$message.error(err)
       })
     },
     goBack () {

@@ -28,7 +28,7 @@
         </el-col>
       </el-row>
     </el-form>
-    <el-form ref="form" :model="form" label-width="80px">
+    <el-form ref="form" :model="form" label-width="90px" :rules="rules">
       <el-row :gutter="20">
         <el-col :span="6">
           <el-input v-model="form.postageSum">
@@ -43,7 +43,7 @@
           </el-input>
         </el-col>
         <el-col :span="6">
-          <el-form-item label="配送方式:" style="margin-bottom: 0; height: 40px">
+          <el-form-item label="配送方式:" style="margin-bottom: 0; height: 40px" prop="sendType">
             <el-select v-model="form.sendType">
               <el-option label="直送" :value="0"></el-option>
               <el-option label="寄送" :value="1"></el-option>
@@ -81,6 +81,9 @@ export default {
   name: 'magaList',
   data () {
     return {
+      rules: {
+        sendType: [{required: true, message: '请选择配送方式', trigger: 'blur'}]
+      },
       windowHeight: window.innerHeight - 596 + 'px',
       search: {
         typeId: '',
@@ -136,9 +139,12 @@ export default {
           if (typeof this.magazineIds === 'undefined') return false
           this.$nextTick(() => {
             this.tableList.forEach(item => {
-              if (this.magazineIds.join(',').indexOf(item.id) > -1) {
-                this.$refs.multipleTable.toggleRowSelection(item, true)
-              }
+              this.magazineIds.forEach(select => {
+                if (item.id === select.id) {
+                  item.ord = select.ord
+                  this.$refs.multipleTable.toggleRowSelection(item, true)
+                }
+              })
             })
           })
         } else {

@@ -89,9 +89,12 @@ export default {
           if (typeof this.videoIds === 'undefined') return false
           this.$nextTick(() => {
             this.tableList.forEach(item => {
-              if (this.videoIds.join(',').indexOf(item.id) > -1) {
-                this.$refs.multipleTable.toggleRowSelection(item, true)
-              }
+              this.videoIds.forEach(select => {
+                if (item.id === select.id) {
+                  item.ord = select.ord
+                  this.$refs.multipleTable.toggleRowSelection(item, true)
+                }
+              })
             })
           })
         } else {

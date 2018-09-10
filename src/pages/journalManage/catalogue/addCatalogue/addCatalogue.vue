@@ -111,8 +111,8 @@ export default {
       this.ypspList = val.items.length > 0 ? val.items : []
     },
     onSave () {
-      if (this.form.tip.length > 30) {
-        this.$message.error('提示语不能超过30字')
+      if (this.form.tip.length > 60) {
+        this.$message.error('提示语不能超过60字')
         return
       }
       let haveBook = false
@@ -127,19 +127,23 @@ export default {
         this.$message.error('寄送的时候杂志未满金额和杂志运费是必填的哦')
         return
       }
-      this.$axios.itempackSave(this.form).then(res => {
-        if (res.data.code === '0') {
-          this.$message.success('添加成功!')
-          this.$router.push({
-            path: '/catalogue'
+      this.$refs.form.validate(valid => {
+        if (valid) {
+          this.$axios.itempackSave(this.form).then(res => {
+            if (res.data.code === '0') {
+              this.$message.success('添加成功!')
+              this.$router.push({
+                path: '/catalogue'
+              })
+            } else {
+              this.$message.error(res.data.data.msg)
+            }
+          }, err => {
+            this.$message.error(err)
+          }).catch(err => {
+            this.$message.error(err)
           })
-        } else {
-          this.$message.error(res.data.data.msg)
         }
-      }, err => {
-        this.$message.error(err)
-      }).catch(err => {
-        this.$message.error(err)
       })
     },
     goBack () {

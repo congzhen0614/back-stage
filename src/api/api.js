@@ -77,6 +77,10 @@ export default {
     let param = qs.stringify(params)
     return axios.get(`/qrzd/sys/admingroup/list?${param}`)
   },
+  admingroupListCandidate (params) { // 获取商家组织列表
+    let param = qs.stringify(params)
+    return axios.get(`/qrzd/sys/admingroup/list/candidate?${param}`)
+  },
   admingroupDelete (params) { // 删除商家组织
     return axios.post('/qrzd/sys/admingroup/delete', params)
   },
@@ -113,8 +117,7 @@ export default {
     return axios.get(`/qrzd/sys/itemage/list?${param}`)
   },
   itemageListCandidate (params) { // 年龄设置列表
-    let param = qs.stringify(params)
-    return axios.get(`/qrzd/sys/itemage/list/candidate?${param}`)
+    return axios.get('/qrzd/sys/itemage/list/open')
   },
   itemageUpdate (params) { // 年龄设置修改
     return axios.post('/qrzd/sys/itemage/update', params)
@@ -127,8 +130,7 @@ export default {
     return axios.get(`/qrzd/sys/itemtype/list?${param}`)
   },
   itemtypeListCandidate (params) { // 分类设置列表
-    let param = qs.stringify(params)
-    return axios.get(`/qrzd/sys/itemtype/list/candidate?${param}`)
+    return axios.get('/qrzd/sys/itemtype/list/open')
   },
   bookType () {
     return axios.get('/qrzd/book/type/open')
@@ -254,7 +256,7 @@ export default {
     return axios.post('/qrzd/trade/delive', params)
   },
   tradeHis (params) {
-    return axios.get(`/qrzd/trade/tradeHis/${params}`)
+    return axios.get(`/qrzd/trade/tradehis/${params}`)
   },
   trade (params) {
     return axios.get(`/qrzd/trade/${params}`)
@@ -263,7 +265,7 @@ export default {
     return axios.get(`/qrzd/trade/detail/${params}`)
   },
   refundApply (params) {
-    return axios.post('/qrzd/trade/refundApply', params)
+    return axios.post('/qrzd/trade/refundapply', params)
   },
   refundCancel (params) {
     return axios.post('/qrzd/trade/refund/cancel', params)
@@ -276,13 +278,13 @@ export default {
   },
   tradeItemPackList (params) {
     let param = qs.stringify(params)
-    return axios.get(`/qrzd/trade/itemPack/list?${param}`)
+    return axios.get(`/qrzd/trade/itempack/list?${param}`)
   },
   addressHomeUpdate (params) {
     return axios.post('/qrzd/trade/address/home/update', params)
   },
   magazineSchoolUpdate (params) {
-    return axios.post('/qrzd/trade/address/magazineSchool/update', params)
+    return axios.post('/qrzd/trade/address/magazineschool/update', params)
   },
   schoolOrd (params) {
     return axios.post('/qrzd/sys/school/ord', params)

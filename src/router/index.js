@@ -51,10 +51,7 @@ export default new Router({
   routes: [{
     path: '/login',
     name: 'login',
-    component: login,
-    meta: {
-      keepAlive: true
-    }
+    component: login
   }, {
     path: '/',
     name: '首页',
@@ -62,10 +59,7 @@ export default new Router({
     children: [{
       path: '/journalManage',
       name: '杂志管理',
-      component: journalManage,
-      meta: {
-        keepAlive: true
-      }
+      component: journalManage
     }, {
       path: '/addNewJournal',
       name: '添加杂志',
@@ -85,17 +79,11 @@ export default new Router({
     }, {
       path: '/imagesList',
       name: '图片列表',
-      component: imagesList,
-      meta: {
-        keepAlive: true
-      }
+      component: imagesList
     }, {
       path: '/catalogue',
       name: '目录表单',
-      component: catalogue,
-      meta: {
-        keepAlive: true
-      }
+      component: catalogue
     }, {
       path: '/updateCatalogue',
       name: '修改目录',
@@ -111,17 +99,11 @@ export default new Router({
     }, {
       path: '/QRlist',
       name: '条码管理',
-      component: QRlist,
-      meta: {
-        keepAlive: true
-      }
+      component: QRlist
     }, {
       path: '/account',
       name: '账号列表',
-      component: account,
-      meta: {
-        keepAlive: true
-      }
+      component: account
     }, {
       path: '/addAccount',
       name: '新增账号',
@@ -141,10 +123,7 @@ export default new Router({
     }, {
       path: '/organiza',
       name: '商家组织',
-      component: organiza,
-      meta: {
-        keepAlive: true
-      }
+      component: organiza
     }, {
       path: '/addOrganiza',
       name: '添加商家组织',
@@ -156,10 +135,7 @@ export default new Router({
     }, {
       path: '/setAge',
       name: '年龄设置',
-      component: setAge,
-      meta: {
-        keepAlive: true
-      }
+      component: setAge
     }, {
       path: '/addAge',
       name: '添加年龄',
@@ -171,10 +147,7 @@ export default new Router({
     }, {
       path: '/classify',
       name: '分类设置',
-      component: classify,
-      meta: {
-        keepAlive: true
-      }
+      component: classify
     }, {
       path: '/addClassify',
       name: '添加分类',
@@ -194,31 +167,19 @@ export default new Router({
     }, {
       path: '/magaOrder',
       name: '杂志订单',
-      component: magaOrder,
-      meta: {
-        keepAlive: true
-      }
+      component: magaOrder
     }, {
       path: '/bookOrder',
       name: '图书订单',
-      component: bookOrder,
-      meta: {
-        keepAlive: true
-      }
+      component: bookOrder
     }, {
       path: '/spypOrder',
       name: '电子包订单',
-      component: spypOrder,
-      meta: {
-        keepAlive: true
-      }
+      component: spypOrder
     }, {
       path: '/orderList',
       name: '二维码目录订单',
-      component: orderList,
-      meta: {
-        keepAlive: true
-      }
+      component: orderList
     }, {
       path: '/orderInfo',
       name: '目录订单修改',
@@ -246,10 +207,7 @@ export default new Router({
     }, {
       path: '/schoolList',
       name: '学校列表',
-      component: schoolList,
-      meta: {
-        keepAlive: true
-      }
+      component: schoolList
     }, {
       path: '/addSchool',
       name: '添加学校',
