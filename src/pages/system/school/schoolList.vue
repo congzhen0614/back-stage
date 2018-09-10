@@ -47,7 +47,7 @@
       <!--<el-button type="primary" @click="loadSchoolList">批量导入</el-button>-->
     </header>
     <el-table :data="schoolList" style="width: 100%" border :height="windowHeight" @selection-change="handleSelectionChange">
-      <el-table-column type="selection" width="55"></el-table-column>
+      <el-table-column type="selection" width="55" align="center"></el-table-column>
       <el-table-column prop="ord" label="排序" width="100" sortable>
         <template slot-scope="scope">
           <el-input size="small" v-model="scope.row.ord" @change="ordChange(scope.row)"></el-input>

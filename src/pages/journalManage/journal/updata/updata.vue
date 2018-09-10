@@ -29,9 +29,9 @@
         <el-row :gutter="10">
           <el-col :span="7">
             <el-select v-model="form.feeUnitType">
-              <el-option label="半年" value="0"></el-option>
-              <el-option label="全年" value="1"></el-option>
-              <el-option label="其他" value="2"></el-option>
+              <el-option label="半年" :value="0"></el-option>
+              <el-option label="全年" :value="1"></el-option>
+              <el-option label="其他" :value="2"></el-option>
             </el-select>
           </el-col>
           <el-col :span="7">
@@ -39,8 +39,8 @@
           </el-col>
           <el-col :span="7">
             <el-select v-model="form.feeUnit">
-              <el-option label="册" value="1"></el-option>
-              <el-option label="期" value="2"></el-option>
+              <el-option label="册" :value="1"></el-option>
+              <el-option label="期" :value="2"></el-option>
             </el-select>
           </el-col>
         </el-row>
@@ -128,9 +128,9 @@ export default {
         typeId: typeId,
         ageId: ageId,
         fee: this.$route.query.fee,
-        feeUnitType: this.$route.query.feeUnitType.toString(),
+        feeUnitType: this.$route.query.feeUnitType,
         feeUnitNum: this.$route.query.feeUnitNum,
-        feeUnit: this.$route.query.feeUnit.toString(),
+        feeUnit: this.$route.query.feeUnit,
         press: this.$route.query.press,
         pubdate: this.$route.query.pubdate,
         content: this.$route.query.content,

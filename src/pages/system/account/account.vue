@@ -10,13 +10,13 @@
       </el-row>
     </header>
     <el-table ref="multipleTable" :data="tableList" tooltip-effect="dark" style="width: 100%" :height="windowHeight" border>
-      <el-table-column type="index" width="55" label="序号"></el-table-column>
-      <el-table-column prop="groupName" label="所属组织"></el-table-column>
-      <el-table-column prop="username" label="用户名" show-overflow-tooltip></el-table-column>
-      <el-table-column prop="realname" label="真实姓名" show-overflow-tooltip></el-table-column>
-      <el-table-column prop="roleName" label="角色" show-overflow-tooltip></el-table-column>
-      <el-table-column prop="adminAccountStatusDesc" label="账号状态" show-overflow-tooltip></el-table-column>
-      <el-table-column label="创建时间">
+      <el-table-column type="index" width="55" label="序号" align="center"></el-table-column>
+      <el-table-column prop="groupName" label="所属组织" header-align="center"></el-table-column>
+      <el-table-column prop="username" label="用户名" header-align="center"></el-table-column>
+      <el-table-column prop="realname" label="真实姓名" header-align="center"></el-table-column>
+      <el-table-column prop="roleName" label="角色" header-align="center" width="120"></el-table-column>
+      <el-table-column prop="adminAccountStatusDesc" label="账号状态" align="center" width="120"></el-table-column>
+      <el-table-column label="创建时间" align="center" width="120">
         <template slot-scope="scope">
           <span>{{ scope.row.createdAt | dateFormat }}</span>
         </template>

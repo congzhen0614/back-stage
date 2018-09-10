@@ -19,6 +19,9 @@
       <el-form-item v-if="form.vipCreateUsername" label="高级用户(VIP):">
         <el-input v-model="form.vipCreateUsername" disabled></el-input>
       </el-form-item>
+      <el-form-item v-if="form.roleLevel === 4" label="高级用户(VIP):">
+        <el-input v-model="form.createUserName" disabled></el-input>
+      </el-form-item>
       <el-form-item v-if="form.roleLevel === 5" label="高级用户:">
         <el-input v-model="form.createUserName" disabled></el-input>
       </el-form-item>
@@ -63,9 +66,6 @@ export default {
         userId: JSON.parse(this.$route.query.param).userId
       }
     }
-  },
-  mounted () {
-    console.log(JSON.parse(this.$route.query.param))
   },
   methods: {
     province (val) {

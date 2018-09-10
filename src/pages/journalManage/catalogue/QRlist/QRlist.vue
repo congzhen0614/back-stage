@@ -14,32 +14,31 @@
     </header>
     <el-table
       border
-      style="width: 100%"
-      :height="windowHeight"
       ref="multipleTable"
-      tooltip-effect="dark"
       :data="tableList"
+      tooltip-effect="dark"
+      :height="windowHeight"
       @selection-change="handleSelectionChange">
-      <el-table-column type="selection" width="55"></el-table-column>
-      <el-table-column type="index" width="55" label="序号"></el-table-column>
+      <el-table-column type="selection" width="55" align="center"></el-table-column>
+      <el-table-column type="index" width="55" label="序号" align="center"></el-table-column>
       <el-table-column prop="title" label="名称"></el-table-column>
+      <el-table-column prop="qrurl" label="URL地址"></el-table-column>
       <el-table-column prop="qrimg" label="二维码" width="100px">
         <template slot-scope="scope">
           <img :src="scope.row.qrimg" width="100%"/>
         </template>
       </el-table-column>
-      <el-table-column prop="qrurl" label="URL地址"></el-table-column>
-      <el-table-column prop="roleName" label="审核状态">
+      <el-table-column prop="roleName" label="审核状态" width="100" align="center">
         <template slot-scope="scope">
           <span>{{ scope.row.checkStatus | checkType }}</span>
         </template>
       </el-table-column>
-      <el-table-column prop="roleName" label="征订状态">
+      <el-table-column prop="roleName" label="征订状态" width="100" align="center">
         <template slot-scope="scope">
           <span>{{ scope.row.sub | subType }}</span>
         </template>
       </el-table-column>
-      <el-table-column prop="remark" label="备注"></el-table-column>
+      <el-table-column prop="remark" label="备注" width="100" align="center"></el-table-column>
       <el-table-column fixed="right" label="操作" width="150">
         <template slot-scope="scope">
           <el-button type="text" size="small" @click="uploadLogo(scope.row)" v-if="scope.row.qrlogo === '' || havePermission('itempack:qrcodelogo')">上传/修改logo</el-button>
@@ -102,8 +101,10 @@ export default {
     loadDate () {
       this.$axios.itempackList(this.loadParams).then(res => {
         if (res.data.code === '0') {
-          this.tableList = res.data.data.list
-          this.pages.total = res.data.data.total
+          this.$nextTick(() => {
+            this.tableList = res.data.data.list
+            this.pages.total = res.data.data.total
+          })
         } else {
           this.$message.error(res.data.data.msg)
         }

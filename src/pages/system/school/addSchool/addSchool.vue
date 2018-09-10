@@ -105,23 +105,22 @@ export default {
       })
     },
     onSubmit () {
-      console.log(this.$route)
-      // this.$refs.form.validate(valid => {
-      //   if (valid) {
-      //     this.$axios.schoolSave(this.form).then(res => {
-      //       if (res.data.code === '0') {
-      //         this.$message.success('操作成功')
-      //         this.$router.go(-1)
-      //       } else {
-      //         this.$message.error(res.data.data.msg)
-      //       }
-      //     }, err => {
-      //       this.$message.error(err)
-      //     }).catch(err => {
-      //       this.$message.error(err)
-      //     })
-      //   }
-      // })
+      this.$refs.form.validate(valid => {
+        if (valid) {
+          this.$axios.schoolSave(this.form).then(res => {
+            if (res.data.code === '0') {
+              this.$message.success('操作成功')
+              this.$router.go(-1)
+            } else {
+              this.$message.error(res.data.data.msg)
+            }
+          }, err => {
+            this.$message.error(err)
+          }).catch(err => {
+            this.$message.error(err)
+          })
+        }
+      })
     },
     onCancel () {
       this.$router.go(-1)

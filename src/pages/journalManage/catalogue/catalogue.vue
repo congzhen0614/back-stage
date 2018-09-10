@@ -44,32 +44,38 @@
         </div>
       </el-form>
     </el-header>
-    <el-table ref="multipleTable" :data="tableList" tooltip-effect="dark" style="width: 100%" :height="windowHeight" border @selection-change="handleSelectionChange">
-      <el-table-column type="selection" width="55"></el-table-column>
-      <el-table-column prop="title" label="名称" width="200"></el-table-column>
-      <el-table-column prop="itemQuantity" label="商品数"></el-table-column>
-      <el-table-column prop="createdAt" label="创建时间" width="200">
+    <el-table
+      border
+      ref="multipleTable"
+      :data="tableList"
+      style="width: 100%"
+      :height="windowHeight"
+      @selection-change="handleSelectionChange">
+      <el-table-column type="selection" width="55" align="center"></el-table-column>
+      <el-table-column prop="title" label="名称" header-align="center"></el-table-column>
+      <el-table-column prop="itemQuantity" label="商品数" width="80" align="center"></el-table-column>
+      <el-table-column prop="createdAt" label="创建时间" width="170" align="center">
         <template slot-scope="scope">
           <span>{{ scope.row.createdAt | timeFormat }}</span>
         </template>
       </el-table-column>
-      <el-table-column prop="updatedAt" label="修改时间" width="200">
+      <el-table-column prop="updatedAt" label="修改时间" width="170" align="center">
         <template slot-scope="scope">
           <span>{{ scope.row.updatedAt | timeFormat }}</span>
         </template>
       </el-table-column>
-      <el-table-column prop="createUserName" label="创建人"></el-table-column>
-      <el-table-column prop="qrimg" label="是否生成条码">
+      <el-table-column prop="createUserName" label="创建人" width="120" align="center"></el-table-column>
+      <el-table-column prop="qrimg" label="是否生成条码" width="130" align="center">
         <template slot-scope="scope">
           <span>{{ scope.row.qrimg === '' ? '否' : '是' }}</span>
         </template>
       </el-table-column>
-      <el-table-column prop="checkStatus" label="审核状态">
+      <el-table-column prop="checkStatus" label="审核状态" width="100" align="center">
         <template slot-scope="scope">
           <span>{{ scope.row.checkStatus | checkType }}</span>
         </template>
       </el-table-column>
-      <el-table-column prop="sub" label="征订状态">
+      <el-table-column prop="sub" label="征订状态" width="100" align="center">
         <template slot-scope="scope">
           <span>{{ scope.row.sub | subType }}</span>
         </template>
@@ -137,7 +143,6 @@ export default {
         ids.push(item.id)
       })
       val.forEach(item => {
-        console.log(item)
         items.push({
           id: item.id,
           name: item.title

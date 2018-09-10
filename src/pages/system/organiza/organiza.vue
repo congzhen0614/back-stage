@@ -5,7 +5,7 @@
   </header>
     <el-main>
       <el-table ref="multipleTable" :data="tableList" tooltip-effect="dark" style="width: 100%" :height="windowHeight" border>
-        <el-table-column type="index" label="序号" width="55"></el-table-column>
+        <el-table-column type="index" label="序号" width="55" align="center"></el-table-column>
         <el-table-column prop="name" label="组织名称" sortable></el-table-column>
         <el-table-column prop="typeName" label="组织形式"></el-table-column>
         <el-table-column prop="linkman" label="联系人"></el-table-column>
