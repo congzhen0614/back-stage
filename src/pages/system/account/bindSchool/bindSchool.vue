@@ -5,19 +5,24 @@
         <el-row>
           <el-col :span="4">
             <el-form-item label="学校名称:">
-              <el-input :model="search.name"></el-input>
+              <el-input :model="search.name" placeholder="请输入"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="4">
             <el-form-item label="商家用户:">
-              <el-input :model="search.adminId"></el-input>
+              <el-select v-model="search.adminId" placeholder="请选择商家用户">
+                <el-option label="全部" value=""></el-option>
+                <el-option :label="item.username" :value="item.id" v-for="item in accountList" :key="item.id"></el-option>
+              </el-select>
             </el-form-item>
           </el-col>
           <el-col :span="4">
             <el-form-item label="年级阶段:">
               <el-select v-model="search.schoolLevel">
-                <el-option label="区域一" value="shanghai"></el-option>
-                <el-option label="区域二" value="beijing"></el-option>
+                <el-option label="全部" value=""></el-option>
+                <el-option label="幼儿园" value="2"></el-option>
+                <el-option label="小学" value="0"></el-option>
+                <el-option label="初中" value="1"></el-option>
               </el-select>
             </el-form-item>
           </el-col>
@@ -84,6 +89,7 @@ export default {
         cityIds: JSON.parse(this.$route.query.item).citys[0].id,
         regionIds: JSON.parse(this.$route.query.item).regions[0].id
       },
+      accountList: [],
       schoolList: [],
       provinceList: [],
       citiesList: [],
@@ -103,7 +109,7 @@ export default {
         pageSize: this.pages.pageSize,
         name: this.search.name,
         provinceId: this.search.provinceId,
-        adminId: JSON.parse(this.$route.query.item).id,
+        adminId: this.search.adminId,
         schoolLevel: this.search.schoolLevel
       }
       if (this.search.cityIds !== '') {
@@ -116,12 +122,32 @@ export default {
     }
   },
   mounted () {
+    this.loadAccountList()
     this.loadSchoolList()
     this.loadProvince()
   },
   methods: {
+    loadAccountList () {
+      this.$axios.accountListCandidate({groupId: '', level: '', type: ''}).then(res => {
+        if (res.data.code === '0') {
+          let accountList = []
+          res.data.data.forEach(item => {
+            if (!(item.roleLevel === 1 || item.roleLevel === 2)) {
+              accountList.push(item)
+            }
+          })
+          this.accountList = accountList
+        } else {
+          this.$message.error(res.data.data.msg)
+        }
+      }, err => {
+        this.$message.error(err)
+      }).catch(err => {
+        this.$message.error(err)
+      })
+    },
     loadSchoolList () {
-      this.$axios.schoolList(this.params).then(res => {
+      this.$axios.sysSchoolList(this.params).then(res => {
         if (res.data.code === '0') {
           this.schoolList = res.data.data.list
           this.pages.total = res.data.data.total
@@ -191,7 +217,6 @@ export default {
       this.$axios.schoolBind(bindParam).then(res => {
         if (res.data.code === '0') {
           this.$message.success('操作成功!')
-          this.$router.go(-1)
         } else {
           this.$message.error(res.data.data.msg)
         }

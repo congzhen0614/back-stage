@@ -44,6 +44,7 @@ import updateChild from '@/pages/order/orderList/updateChild/updateChild.vue' //
 import schoolList from '@/pages/system/school/schoolList.vue'
 import addSchool from '@/pages/system/school/addSchool/addSchool.vue' // 添加学校
 import updateSchool from '@/pages/system/school/updateSchool/updateSchool.vue' // 添加学校
+import checkAccount from '@/pages/system/school/checkAccount/checkAccount.vue' // 查看绑定学校商家
 
 Vue.use(Router)
 
@@ -220,6 +221,10 @@ export default new Router({
       path: '/changePassword',
       name: '修改密码',
       component: changePassword
+    }, {
+      path: '/checkAccount',
+      name: '查看绑定学校商家',
+      component: checkAccount
     }]
   }]
 })

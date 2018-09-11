@@ -44,7 +44,6 @@
       </el-form>
       <el-button type="primary" @click="addSchool" v-if="havePermission('school:add')">添加</el-button>
       <el-button type="primary" @click="onOrder" v-if="havePermission('school:ord')">排序提交</el-button>
-      <!--<el-button type="primary" @click="loadSchoolList">批量导入</el-button>-->
     </header>
     <el-table :data="schoolList" style="width: 100%" border :height="windowHeight" @selection-change="handleSelectionChange">
       <el-table-column type="selection" width="55" align="center"></el-table-column>
@@ -187,7 +186,7 @@ export default {
       })
     },
     loadSchoolList () {
-      this.$axios.schoolList(this.params).then(res => {
+      this.$axios.sysSchoolList(this.params).then(res => {
         if (res.data.code === '0') {
           this.schoolList = res.data.data.list
           this.pages.total = res.data.data.total
@@ -231,6 +230,7 @@ export default {
       this.$axios.schoolOrd({idAndOrdViews: this.selectIds}).then(res => {
         if (res.data.code === '0') {
           this.$message.success('操作成功')
+          this.loadSchoolList()
         } else {
           this.$message.error(res.data.data.msg)
         }
@@ -245,7 +245,14 @@ export default {
         path: '/addSchool'
       })
     },
-    onChecke () {},
+    onChecke (item) {
+      this.$router.push({
+        path: '/checkAccount',
+        query: {
+          schoolId: item.id
+        }
+      })
+    },
     onUpdate (item) {
       this.$router.push({
         path: '/updateSchool',

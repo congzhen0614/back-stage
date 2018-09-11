@@ -236,6 +236,10 @@ export default {
     let param = qs.stringify(params)
     return axios.get(`/qrzd/sys/school/bindlist?${param}`)
   },
+  sysSchoolList (params) {
+    let param = qs.stringify(params)
+    return axios.get(`/qrzd/sys/school/list?${param}`)
+  },
   schGradeList () {
     return axios.get('/qrzd/sys/grade/list/open')
   },
@@ -300,5 +304,8 @@ export default {
   },
   updateQrcode (params) {
     return axios.post('/qrzd/itempack/update/qrcode/status', params)
+  },
+  schoolAdmin (schoolId) {
+    return axios.get(`/qrzd/sys/school/${schoolId}/admin`)
   }
 }

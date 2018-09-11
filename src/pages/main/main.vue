@@ -15,7 +15,10 @@
             <el-breadcrumb-item :to="{ path: item.path }" v-for="(item, index) in routeList" :key="index">{{ item.name }}</el-breadcrumb-item>
           </el-breadcrumb>
         </el-header>
-        <img v-if="routeList.length === 1" :style="{'height': windowHeight}" src="../../assets/index-backgroud.jpg"/>
+        <el-main class="main-background" v-if="routeList.length === 1" :style="{'height': windowHeight}">
+          <h2>二维码征订后台欢迎您,</h2>
+          <h1>{{ username }}</h1>
+        </el-main>
         <el-main  v-if="routeList.length > 1" :style="{height: windowHeight}">
           <keep-alive>
             <router-view v-if="$route.meta.keepAlive"></router-view>
@@ -83,6 +86,23 @@ export default {
 </script>
 
 <style>
+  .main-background {
+    background-image: url("../../assets/index-backgroud.jpg");
+    background-repeat: no-repeat;
+    background-size: 100%;
+    color: #ffffff;
+  }
+  .main-background h1 {
+    width: 650px;
+    margin: 0 auto;
+    font-size: 100px;
+  }
+  .main-background h2 {
+    width: 650px;
+    margin: 0 auto;
+    font-size: 32px;
+    margin-top: 280px;
+  }
   .el-footer {
     background-color: #F2F6FC;
     text-align: center;
