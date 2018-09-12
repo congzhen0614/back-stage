@@ -82,7 +82,11 @@ export default {
   data () {
     return {
       windowHeight: window.innerHeight - 320 + 'px',
+      cityIds: [],
+      regionIds: [],
       search: {
+        name: '',
+        schoolLevel: '',
         username: JSON.parse(this.$route.query.item).username,
         provinceId: JSON.parse(this.$route.query.item).provinceId.toString(),
         cityIds: [],
@@ -107,8 +111,8 @@ export default {
         pageSize: this.pages.pageSize,
         name: this.search.name,
         provinceId: this.search.provinceId,
-        cityIds: this.search.cityIds,
-        regionIds: this.search.regionIds,
+        cityIds: this.search.cityIds.length > 0 ? this.search.cityIds : this.cityIds,
+        regionIds: this.search.regionIds.length > 0 ? this.search.regionIds : this.regionIds,
         adminId: JSON.parse(this.$route.query.item).id,
         schoolLevel: this.search.schoolLevel
       }
@@ -116,18 +120,18 @@ export default {
     }
   },
   created () {
-    console.log(JSON.parse(this.$route.query.item).provinceId)
     this.setRegions()
     this.loadProvince()
     this.loadSchoolList()
   },
+  mounted () {},
   methods: {
     setRegions () {
       JSON.parse(this.$route.query.item).citys.forEach(item => {
-        this.search.cityIds.push(item.id)
+        this.cityIds.push(item.id)
       })
       JSON.parse(this.$route.query.item).regions.forEach(item => {
-        this.search.regionIds.push(item.id)
+        this.regionIds.push(item.id)
       })
     },
     loadSchoolList () {
@@ -136,17 +140,6 @@ export default {
           this.schoolList = res.data.data.list
           this.pages.total = res.data.data.total
         } else {
-          this.$message.error(res.data.data.msg)
-        }
-      }, err => {
-        this.$message.error(err)
-      }).catch(err => {
-        this.$message.error(err)
-      })
-    },
-    loadSchoolFindByAdmin () {
-      this.$axios.schoolFindByAdmin({adminId: JSON.parse(this.$route.query.item).id}).then(res => {
-        if (res.data.code === '0') {} else {
           this.$message.error(res.data.data.msg)
         }
       }, err => {

@@ -1,10 +1,10 @@
 <template>
   <div class="account-area">
     <el-input class="input" type="text" v-model="provinceName" disabled></el-input>
-    <el-select class="select" v-model="cities" multiple placeholder="请选择市" @remove-tag="onCloseCity">
+    <el-select class="select" v-model="cities" multiple placeholder="请选择市" :disabled="isSelf">
       <el-option v-for="item in cityList" :key="item.cityId" :label="item.cityName" :value="item.cityId"></el-option>
     </el-select>
-    <el-select class="select" v-model="regions" multiple placeholder="请选择区">
+    <el-select class="select" v-model="regions" multiple placeholder="请选择区" :disabled="isSelf">
       <el-option v-for="item in regionList" :key="item.regionId" :label="item.regionName" :value="item.regionId"></el-option>
     </el-select>
   </div>
@@ -17,10 +17,21 @@ export default {
     return {
       area: {},
       provinceName: '',
-      cities: '',
+      cities: [],
       regions: [],
       cityList: [],
       regionList: []
+    }
+  },
+  props: {
+    isSelf: {
+      type: Boolean
+    },
+    cityIds: {
+      type: Array
+    },
+    regionIds: {
+      type: Array
     }
   },
   created () {
@@ -34,6 +45,12 @@ export default {
           this.provinceName = res.data.data.area.provinceName
           this.$emit('province', res.data.data.area.provinceId)
           this.cityList = res.data.data.area.cities
+          this.cityIds.forEach(item => {
+            this.cities.push(parseInt(item.id))
+          })
+          this.regionIds.forEach(item => {
+            this.regions.push(parseInt(item.id))
+          })
         } else {
           this.$message.error(res.data.msg)
         }
@@ -42,9 +59,6 @@ export default {
       }).catch(err => {
         this.$message.error(err)
       })
-    },
-    onCloseCity (val) {
-      console.log(val)
     }
   },
   watch: {

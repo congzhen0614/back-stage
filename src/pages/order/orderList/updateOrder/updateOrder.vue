@@ -91,11 +91,12 @@ export default {
       let own = false
       if (this.form.quantity === '' || this.form.id === '') return
       this.itemList.forEach(item => {
+        console.log(item)
         if (item.id === this.form.id) {
           formItem = {
             name: item.name,
             fee: item.fee,
-            id: item.itemId,
+            id: item.id,
             quantity: this.form.quantity
           }
         }

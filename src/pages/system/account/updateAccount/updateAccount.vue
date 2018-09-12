@@ -11,7 +11,8 @@
         <el-input v-model="form.phone"></el-input>
       </el-form-item>
       <el-form-item label="业务范围:">
-        <el-region @province="province" @cities="cities" @regions="regions" :form="form"></el-region>
+        <el-region v-if="isSuperAdmin" @province="province" @cities="cities" @regions="regions" :form="form"></el-region>
+        <el-account-area v-if="!isSuperAdmin" @province="province" @cities="cities" @regions="regions" :cityIds="form.cityIds" :regionIds="form.regionIds" :isSelf="isSelf"></el-account-area>
       </el-form-item>
       <el-form-item label="所属组织:">
         <el-input v-model="form.groupName" disabled></el-input>
@@ -38,14 +39,18 @@
 
 <script>
 import region from '@/components/regionList/regionList.vue'
+import accountArea from '@/components/regionList/accountArea.vue'
 import rules from '@/common/rules.js'
 export default {
   name: 'system-account-add',
   components: {
-    'el-region': region
+    'el-region': region,
+    'el-account-area': accountArea
   },
   data () {
     return {
+      isSuperAdmin: JSON.parse(localStorage.getItem('user')).roleLevel === 1,
+      isSelf: JSON.parse(this.$route.query.param).id === JSON.parse(localStorage.getItem('user')).id,
       rules: rules,
       form: {
         id: JSON.parse(this.$route.query.param).id,
@@ -67,6 +72,7 @@ export default {
       }
     }
   },
+  mounted () {},
   methods: {
     province (val) {
       this.form.provinceId = parseInt(val)
