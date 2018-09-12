@@ -157,7 +157,11 @@ export default {
       this.$router.push({
         path: '/bindSchoolList',
         query: {
-          adminId: item.id
+          adminId: item.id,
+          username: item.username,
+          provinceId: item.provinceId,
+          citys: JSON.stringify(item.citys),
+          regions: JSON.stringify(item.regions)
         }
       })
     }

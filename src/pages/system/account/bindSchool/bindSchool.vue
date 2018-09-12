@@ -4,16 +4,13 @@
       <el-form ref="form" :model="search" label-width="100px">
         <el-row>
           <el-col :span="4">
-            <el-form-item label="学校名称:">
-              <el-input :model="search.name" placeholder="请输入"></el-input>
+            <el-form-item label="商家用户:">
+              <el-input v-model="search.username" disabled></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="4">
-            <el-form-item label="商家用户:">
-              <el-select v-model="search.adminId" placeholder="请选择商家用户">
-                <el-option label="全部" value=""></el-option>
-                <el-option :label="item.username" :value="item.id" v-for="item in accountList" :key="item.id"></el-option>
-              </el-select>
+            <el-form-item label="学校名称:">
+              <el-input v-model="search.name" placeholder="请输入"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="4">
@@ -28,10 +25,11 @@
           </el-col>
           <el-col :span="10">
             <el-form-item label="省/市/区:" class="region">
-              <el-select v-model="search.provinceId">
+              <el-select v-model="search.provinceId" disabled>
                 <el-option :label="item.name" :value="item.id" v-for="item in provinceList" :key="item.id"></el-option>
               </el-select>
               <el-select v-model="search.cityIds">
+                <el-option label="全部" value=""></el-option>
                 <el-option :label="item.name" :value="item.id" v-for="item in citiesList" :key="item.id"></el-option>
               </el-select>
               <el-select v-model="search.regionIds">
@@ -71,7 +69,7 @@
       @current-change="handleCurrentChange"
       :current-page="pages.pageNum"
       :page-size="pages.pageSize"
-      :page-sizes="[10, 20, 50, 100]"
+      :page-sizes="[20, 50, 75, 100]"
       layout="total, sizes, prev, pager, next, jumper"
       :total="pages.total">
     </el-pagination>
@@ -85,11 +83,11 @@ export default {
     return {
       windowHeight: window.innerHeight - 320 + 'px',
       search: {
+        username: JSON.parse(this.$route.query.item).username,
         provinceId: JSON.parse(this.$route.query.item).provinceId.toString(),
-        cityIds: JSON.parse(this.$route.query.item).citys[0].id,
-        regionIds: JSON.parse(this.$route.query.item).regions[0].id
+        cityIds: [],
+        regionIds: []
       },
-      accountList: [],
       schoolList: [],
       provinceList: [],
       citiesList: [],
@@ -98,7 +96,7 @@ export default {
       pages: {
         total: 0,
         pageNum: 1,
-        pageSize: 10
+        pageSize: 20
       }
     }
   },
@@ -109,49 +107,34 @@ export default {
         pageSize: this.pages.pageSize,
         name: this.search.name,
         provinceId: this.search.provinceId,
-        adminId: this.search.adminId,
+        cityIds: this.search.cityIds,
+        regionIds: this.search.regionIds,
+        adminId: JSON.parse(this.$route.query.item).id,
         schoolLevel: this.search.schoolLevel
-      }
-      if (this.search.cityIds !== '') {
-        param.cityIds = this.search.cityIds
-      }
-      if (this.search.regionIds !== '') {
-        param.regionIds = this.search.regionIds
       }
       return param
     }
   },
-  mounted () {
-    this.loadAccountList()
-    this.loadSchoolList()
+  created () {
+    console.log(JSON.parse(this.$route.query.item).provinceId)
+    this.setRegions()
     this.loadProvince()
+    this.loadSchoolList()
   },
   methods: {
-    loadAccountList () {
-      this.$axios.accountListCandidate({groupId: '', level: '', type: ''}).then(res => {
-        if (res.data.code === '0') {
-          let accountList = []
-          res.data.data.forEach(item => {
-            if (!(item.roleLevel === 1 || item.roleLevel === 2)) {
-              accountList.push(item)
-            }
-          })
-          this.accountList = accountList
-        } else {
-          this.$message.error(res.data.data.msg)
-        }
-      }, err => {
-        this.$message.error(err)
-      }).catch(err => {
-        this.$message.error(err)
+    setRegions () {
+      JSON.parse(this.$route.query.item).citys.forEach(item => {
+        this.search.cityIds.push(item.id)
+      })
+      JSON.parse(this.$route.query.item).regions.forEach(item => {
+        this.search.regionIds.push(item.id)
       })
     },
     loadSchoolList () {
-      this.$axios.sysSchoolList(this.params).then(res => {
+      this.$axios.schoolList(this.params).then(res => {
         if (res.data.code === '0') {
           this.schoolList = res.data.data.list
           this.pages.total = res.data.data.total
-          this.loadSchoolFindByAdmin()
         } else {
           this.$message.error(res.data.data.msg)
         }
@@ -163,10 +146,7 @@ export default {
     },
     loadSchoolFindByAdmin () {
       this.$axios.schoolFindByAdmin({adminId: JSON.parse(this.$route.query.item).id}).then(res => {
-        if (res.data.code === '0') {
-          console.log(this.schoolList)
-          console.log(res.data.data.list)
-        } else {
+        if (res.data.code === '0') {} else {
           this.$message.error(res.data.data.msg)
         }
       }, err => {
@@ -184,9 +164,29 @@ export default {
             }
           })
           this.citiesList = JSON.parse(this.$route.query.item).citys
-          this.regionsList = JSON.parse(this.$route.query.item).regions
         } else {
           this.$message.error(res.data.data.msg)
+        }
+      }, err => {
+        this.$message.error(err)
+      }).catch(err => {
+        this.$message.error(err)
+      })
+    },
+    loadRegions () {
+      this.$axios.regions({id: this.search.cityIds}).then(res => {
+        if (res.data.code === '0') {
+          let regionsList = []
+          res.data.data.forEach(item => {
+            JSON.parse(this.$route.query.item).regions.forEach(obj => {
+              if (obj.id === item.id) {
+                regionsList.push(item)
+              }
+            })
+          })
+          this.regionsList = regionsList
+        } else {
+          this.$message.error(res.data.msg)
         }
       }, err => {
         this.$message.error(err)
@@ -230,7 +230,16 @@ export default {
       this.$router.go(-1)
     }
   },
-  watch: {}
+  watch: {
+    'search.cityIds' (val) {
+      this.search.regionIds = ''
+      if (val !== '') {
+        this.loadRegions()
+      } else {
+        this.regionsList = []
+      }
+    }
+  }
 }
 </script>
 

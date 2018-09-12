@@ -1,6 +1,6 @@
 <template>
   <div class="check-account">
-    <el-table :data="tableList" border>
+    <el-table :data="tableList" border :height="windowHeight">
       <el-table-column prop="adminName" label="商家名称"></el-table-column>
       <el-table-column prop="groupName" label="组织名称"></el-table-column>
     </el-table>
@@ -12,10 +12,12 @@ export default {
   name: 'check-account',
   data () {
     return {
+      windowHeight: window.innerHeight - 320 + 'px',
       tableList: []
     }
   },
   created () {
+    console.log(this.$route.query)
     this.loadSchoolAdmin()
   },
   methods: {
@@ -23,7 +25,6 @@ export default {
       this.$axios.schoolAdmin(this.$route.query.schoolId).then(res => {
         if (res.data.code === '0') {
           this.tableList = res.data.data.adminNameAndGroupViews
-          console.log(this.tableList)
         } else {
           this.$message.error(res.data.msg)
         }
