@@ -1,0 +1,84 @@
+<template>
+  <div class="account-area">
+    <el-input class="input" type="text" v-model="provinceName" disabled></el-input>
+    <el-select class="select" v-model="cities" multiple placeholder="请选择市" @remove-tag="onCloseCity">
+      <el-option v-for="item in cityList" :key="item.cityId" :label="item.cityName" :value="item.cityId"></el-option>
+    </el-select>
+    <el-select class="select" v-model="regions" multiple placeholder="请选择区">
+      <el-option v-for="item in regionList" :key="item.regionId" :label="item.regionName" :value="item.regionId"></el-option>
+    </el-select>
+  </div>
+</template>
+
+<script>
+export default {
+  name: 'account-area',
+  data () {
+    return {
+      area: {},
+      provinceName: '',
+      cities: '',
+      regions: [],
+      cityList: [],
+      regionList: []
+    }
+  },
+  created () {
+    this.loadAccountArea()
+  },
+  methods: {
+    loadAccountArea () {
+      this.$axios.accountArea({id: JSON.parse(localStorage.getItem('user')).id}).then(res => {
+        if (res.data.code === '0') {
+          this.area = res.data.data.area
+          this.provinceName = res.data.data.area.provinceName
+          this.$emit('province', res.data.data.area.provinceId)
+          this.cityList = res.data.data.area.cities
+        } else {
+          this.$message.error(res.data.msg)
+        }
+      }, err => {
+        this.$message.error(err)
+      }).catch(err => {
+        this.$message.error(err)
+      })
+    },
+    onCloseCity (val) {
+      console.log(val)
+    }
+  },
+  watch: {
+    cities (value) {
+      if (value.length === 0) {
+        this.regions = []
+        this.regionList = []
+      } else {
+        value.forEach(id => {
+          this.cityList.forEach(item => {
+            if (item.cityId === id) {
+              this.regionList = item.regions
+            }
+          })
+        })
+      }
+      this.$emit('cities', value)
+    },
+    regions (val) {
+      this.$emit('regions', val)
+    }
+  }
+}
+</script>
+
+<style>
+.account-area .el-input,
+.account-area .el-select{
+  vertical-align: top;
+}
+.account-area .input {
+  width: 20%;
+}
+.account-area .select {
+  width: 35%;
+}
+</style>

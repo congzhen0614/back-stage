@@ -68,7 +68,7 @@ export default {
     this.tableData.push({
       name: this.orderItem.name,
       fee: this.orderItem.fee,
-      id: this.orderItem.id,
+      id: this.orderItem.itemId,
       quantity: this.orderItem.quantity
     })
   },
@@ -77,19 +77,6 @@ export default {
       this.$axios.tradeItemPackList({cls: this.orderItem.cls, itemPackId: this.formItem.qrzdItemPackId}).then(res => {
         if (res.data.code === '0') {
           this.itemList = res.data.data.itemViews
-        } else {
-          this.$message.error(res.data.data.code)
-        }
-      }, err => {
-        this.$message.error(err)
-      }).catch(err => {
-        this.$message.error(err)
-      })
-    },
-    detailUpdate () {
-      this.$axios.detailUpdate().then(res => {
-        if (res.data.code === '0') {
-          console.log(res)
         } else {
           this.$message.error(res.data.data.code)
         }
@@ -108,7 +95,7 @@ export default {
           formItem = {
             name: item.name,
             fee: item.fee,
-            id: item.id,
+            id: item.itemId,
             quantity: this.form.quantity
           }
         }

@@ -23,7 +23,7 @@
               </el-select>
             </el-form-item>
           </el-col>
-          <el-col :span="8">
+          <el-col :span="6">
             <el-form-item label="省/市/区:" class="region">
               <el-select v-model="search.provinceId" disabled>
                 <el-option :label="item.name" :value="item.id" v-for="item in provinceList" :key="item.id"></el-option>
@@ -37,9 +37,11 @@
               </el-select>
             </el-form-item>
           </el-col>
-          <el-col :span="4">
+          <el-col :span="6">
             <el-button type="primary" plain @click="loadSchoolList">检索</el-button>
             <el-button type="primary" @click="changeOrder">排序</el-button>
+            <el-button type="primary" @click="clickIfShown(1)">显示</el-button>
+            <el-button type="primary" @click="clickIfShown(0)">隐藏</el-button>
           </el-col>
         </el-row>
       </el-form>
@@ -175,6 +177,24 @@ export default {
     },
     changeOrder () {
       this.$axios.schoolOrd({idAndOrdViews: this.selectIds}).then(res => {
+        if (res.data.code === '0') {
+          this.$message.success('操作成功')
+          this.loadSchoolList()
+        } else {
+          this.$message.error(res.data.msg)
+        }
+      }, err => {
+        this.$message.error(err)
+      }).catch(err => {
+        this.$message.error(err)
+      })
+    },
+    clickIfShown (flag) {
+      let ids = []
+      this.selectIds.forEach(item => {
+        ids.push(item.id)
+      })
+      this.$axios.schoolShow({dis: flag, ids: ids}).then(res => {
         if (res.data.code === '0') {
           this.$message.success('操作成功')
           this.loadSchoolList()

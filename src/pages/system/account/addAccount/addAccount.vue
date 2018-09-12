@@ -42,7 +42,8 @@
         </el-radio-group>
       </el-form-item>
       <el-form-item label="服务范围:">
-        <el-region @province="province" @cities="cities" @regions="regions" :form="{}"></el-region>
+        <el-region v-if="isSuperAdmin" @province="province" @cities="cities" @regions="regions" :form="{}"></el-region>
+        <el-account-area v-if="!isSuperAdmin" @province="province" @cities="cities" @regions="regions"></el-account-area>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="onSubmit">立即创建</el-button>
@@ -54,11 +55,13 @@
 
 <script>
 import region from '@/components/regionList/regionList.vue'
+import accountArea from '@/components/regionList/accountArea.vue'
 import rules from '@/common/rules.js'
 export default {
   name: 'system-account-add',
   components: {
-    'el-region': region
+    'el-region': region,
+    'el-account-area': accountArea
   },
   data () {
     return {

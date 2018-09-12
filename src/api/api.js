@@ -307,5 +307,11 @@ export default {
   },
   schoolAdmin (schoolId) {
     return axios.get(`/qrzd/sys/school/${schoolId}/admin`)
+  },
+  schoolShow (params) {
+    return axios.post('/qrzd/sys/school/show', params)
+  },
+  accountArea (params) {
+    return axios.post('/qrzd/agent/account/listarea/open', params)
   }
 }

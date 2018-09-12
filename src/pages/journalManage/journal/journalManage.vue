@@ -37,7 +37,7 @@
           <el-col :span="4">
             <el-form-item label="商家账号:">
               <el-select v-model="search.createUser">
-                <el-option :label="item.username" :value="item.id" v-for="item in groupList" :key="item.id"></el-option>
+                <el-option :label="item.username" :value="item.id" v-for="item in accountList" :key="item.id"></el-option>
               </el-select>
             </el-form-item>
           </el-col>
@@ -150,6 +150,7 @@ export default {
       ageList: [],
       typeList: [],
       groupList: [],
+      accountList: [],
       search: {
         typeId: '',
         ageId: '',
@@ -214,16 +215,23 @@ export default {
       })
     },
     loadAdmingroupList () {
-      this.$axios.accountListCandidate({
-        groupId: '',
-        level: '',
-        type: ''
-      }).then(res => {
-        res.data.data.forEach(item => {
-          if (item.roleLevel === 4 || item.roleLevel === 6) {
-            this.groupList.push(item)
+      this.$axios.accountListCandidate({groupId: '', level: '', type: ''}).then(res => {
+        let level = JSON.parse(localStorage.getItem('user')).roleLevel
+        let adminID = JSON.parse(localStorage.getItem('user')).id
+        this.accountList = res.data.data
+        if (level === 1) {
+          this.groupList = res.data.data
+        } else {
+          if (level === 4 || level === 6) {
+            res.data.data.forEach(item => {
+              if (item.id === adminID) {
+                this.groupList = [item]
+              }
+            })
+          } else {
+            this.groupList = res.data.data
           }
-        })
+        }
       }, err => {
         this.$message.error(err)
       }).catch(err => {
