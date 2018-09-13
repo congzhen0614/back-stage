@@ -41,10 +41,34 @@
           </el-col>
         </el-row>
       </el-form>
-      <el-tabs type="border-card">
-        <el-tab-pane label="杂志">杂志</el-tab-pane>
-        <el-tab-pane label="图书">图书</el-tab-pane>
-        <el-tab-pane label="视听">视听</el-tab-pane>
+      <el-tabs type="border-card" v-if="magaIds.length > 0">
+        <el-tab-pane label="杂志">
+          <el-table :data="magaIds" style="width: 100%" border>
+            <el-table-column prop="ord" label="排序" width="60" align="center"></el-table-column>
+            <el-table-column prop="name" label="名称" header-align="center"></el-table-column>
+            <el-table-column prop="typeNames" label="类别" header-align="center"></el-table-column>
+            <el-table-column prop="ageNames" label="适读年龄" header-align="center"></el-table-column>
+            <el-table-column prop="fee" label="价格" width="120" align="center"></el-table-column>
+          </el-table>
+        </el-tab-pane>
+        <el-tab-pane label="图书" v-if="bookIds.length > 0">
+          <el-table :data="bookIds" style="width: 100%" border>
+            <el-table-column prop="ord" label="排序" width="60" align="center"></el-table-column>
+            <el-table-column prop="name" label="名称" header-align="center"></el-table-column>
+            <el-table-column prop="typeNames" label="类别" header-align="center"></el-table-column>
+            <el-table-column prop="ageNames" label="适读年龄" header-align="center"></el-table-column>
+            <el-table-column prop="fee" label="价格" width="120" align="center"></el-table-column>
+          </el-table>
+        </el-tab-pane>
+        <el-tab-pane label="视听" v-if="spypIds.length > 0">
+          <el-table :data="spypIds" style="width: 100%" border>
+            <el-table-column prop="ord" label="排序" width="60" align="center"></el-table-column>
+            <el-table-column prop="name" label="名称" header-align="center"></el-table-column>
+            <el-table-column prop="typeNames" label="类别" header-align="center"></el-table-column>
+            <el-table-column prop="ageNames" label="适读年龄" header-align="center"></el-table-column>
+            <el-table-column prop="fee" label="价格" width="120" align="center"></el-table-column>
+          </el-table>
+        </el-tab-pane>
       </el-tabs>
     </header>
   </div>

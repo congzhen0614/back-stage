@@ -38,7 +38,7 @@
           <el-button type="primary" @click="onSubmit" v-if="havePermission('itempack:submit')">提交审核</el-button>
           <el-button type="primary" @click="onCheck(2)" v-if="havePermission('itempack:check')">审核通过</el-button>
           <el-button type="primary" @click="onCheck(3)" v-if="havePermission('itempack:check')">审核不通过</el-button>
-          <el-button type="primary" @click="onCreate" v-if="havePermission('itempack:qrcode')">批量生成</el-button>
+          <el-button type="primary" @click="onCreate" v-if="havePermission('itempack:qrcode')" :class="{haveQr: haveQr}">批量生成</el-button>
           <el-button type="primary" @click="onStar" v-if="havePermission('itempack:updatesub')">批量开启</el-button>
           <el-button type="primary" @click="onStop" v-if="havePermission('itempack:updatesub')">批量关闭</el-button>
         </div>
@@ -67,7 +67,7 @@
       <el-table-column prop="createUserName" label="创建人" width="120" align="center"></el-table-column>
       <el-table-column prop="qrimg" label="是否生成条码" width="130" align="center">
         <template slot-scope="scope">
-          <span>{{ scope.row.qrimg === '' ? '否' : '是' }}</span>
+          <span>{{ scope.row.has === 0 ? '否' : '是' }}</span>
         </template>
       </el-table-column>
       <el-table-column prop="checkStatus" label="审核状态" width="100" align="center">
@@ -107,6 +107,7 @@ export default {
   data () {
     return {
       windowHeight: window.innerHeight - 320 + 'px',
+      haveQr: false,
       search: {},
       options: [],
       seleteIds: [],
@@ -139,10 +140,12 @@ export default {
     handleSelectionChange (val) { // 选中返回数据
       let ids = []
       let items = []
+      this.haveQr = false
       val.forEach(item => {
         ids.push(item.id)
       })
       val.forEach(item => {
+        if (item.has === 1) this.haveQr = true
         items.push({
           id: item.id,
           name: item.title
@@ -211,6 +214,7 @@ export default {
         this.$message.warning('请选择最少一个目录!')
         return false
       }
+      if (this.haveQr) return false
       this.$router.push({
         path: '/QRenerat',
         query: {
@@ -305,5 +309,10 @@ export default {
   .journal-Manage-catalogue header {
     padding: 20px;
     background-color: #F2F6FC;
+  }
+  .journal-Manage-catalogue .haveQr {
+    color: #ffffff;
+    border-color: #dedede;
+    background-color: #dedede;
   }
 </style>
