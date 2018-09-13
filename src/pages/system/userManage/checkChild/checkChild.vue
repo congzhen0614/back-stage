@@ -24,19 +24,10 @@ export default {
       tableData: []
     }
   },
-  created () {
-  },
-  mounted () {
-  },
+  created () {},
+  mounted () {},
   computed: {},
-  methods: {
-    handleSizeChange (val) {
-      console.log(val)
-    },
-    handleCurrentChange (val) {
-      console.log(val)
-    }
-  },
+  methods: {},
   watch: {}
 }
 </script>

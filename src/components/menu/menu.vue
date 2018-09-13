@@ -53,16 +53,16 @@
           <span slot="title">报表管理</span>
         </template>
         <el-menu-item index="/onLineReport">
-          <span slot="title">线上刊物征订汇总</span>
+          <span slot="title">线上刊物征订汇总(静态页)</span>
         </el-menu-item>
         <el-menu-item index="/offlineReport">
-          <span slot="title">线下刊物征订汇总</span>
+          <span slot="title">线下刊物征订汇总(静态页)</span>
         </el-menu-item>
         <el-menu-item index="/schoolReport">
-          <span slot="title">按学校汇总杂志订单</span>
+          <span slot="title">按学校汇总杂志订单(静态页)</span>
         </el-menu-item>
         <el-menu-item index="/magaReport">
-          <span slot="title">杂志销售统计</span>
+          <span slot="title">杂志销售统计(静态页)</span>
         </el-menu-item>
       </el-submenu>
       <el-submenu index="5">
@@ -80,10 +80,10 @@
           <span slot="title">角色权限</span>
         </el-menu-item>
         <el-menu-item index="/userManage">
-          <span slot="title">用户管理</span>
+          <span slot="title">用户管理(静态页)</span>
         </el-menu-item>
         <el-menu-item index="/childManage">
-          <span slot="title">孩子管理</span>
+          <span slot="title">孩子管理(静态页)</span>
         </el-menu-item>
         <el-menu-item index="/schoolList" v-if="havePermission('school:list')">
           <span slot="title">学校管理</span>
