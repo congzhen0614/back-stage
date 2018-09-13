@@ -259,6 +259,9 @@ export default {
   delive (params) {
     return axios.post('/qrzd/trade/delive', params)
   },
+  tradeDelive (tradeId) {
+    return axios.get(`/qrzd/trade/delive/${tradeId}`)
+  },
   tradeHis (params) {
     return axios.get(`/qrzd/trade/tradehis/${params}`)
   },

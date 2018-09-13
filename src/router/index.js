@@ -41,11 +41,15 @@ import flowed from '@/pages/order/orderList/flowed/flowed.vue' // 流程
 import updateOrder from '@/pages/order/orderList/updateOrder/updateOrder.vue' // 流程
 import updateAddress from '@/pages/order/orderList/updateAddress/updateAddress.vue' // 修改地址
 import updateChild from '@/pages/order/orderList/updateChild/updateChild.vue' // 修改孩子
-import schoolList from '@/pages/system/school/schoolList.vue'
+import schoolList from '@/pages/system/school/schoolList.vue' // 学校列表
 import addSchool from '@/pages/system/school/addSchool/addSchool.vue' // 添加学校
 import updateSchool from '@/pages/system/school/updateSchool/updateSchool.vue' // 添加学校
 import checkAccount from '@/pages/system/school/checkAccount/checkAccount.vue' // 查看绑定学校商家
 import checkCatalogue from '@/pages/journalManage/catalogue/checkCatalogue/checkCatalogue.vue' // 查看目录
+import magaReport from '@/pages/report/magaReport/magaReport.vue' // 杂志销售统计
+import offlineReport from '@/pages/report/offlineReport/offlineReport.vue' // 线下刊物征订汇总
+import onLineReport from '@/pages/report/onLineReport/onLineReport.vue' // 线上刊物征订汇总
+import schoolReport from '@/pages/report/schoolReport/schoolReport.vue' // 按学校汇总杂志订单
 
 Vue.use(Router)
 
@@ -230,6 +234,22 @@ export default new Router({
       path: '/checkCatalogue',
       name: '查看目录',
       component: checkCatalogue
+    }, {
+      path: '/magaReport',
+      name: '杂志销售统计',
+      component: magaReport
+    }, {
+      path: '/offlineReport',
+      name: '线下刊物征订汇总',
+      component: offlineReport
+    }, {
+      path: '/onLineReport',
+      name: '线上刊物征订汇总',
+      component: onLineReport
+    }, {
+      path: '/schoolReport',
+      name: '按学校汇总杂志订单',
+      component: schoolReport
     }]
   }]
 })

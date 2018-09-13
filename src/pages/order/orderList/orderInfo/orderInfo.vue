@@ -128,10 +128,6 @@
           <el-table-column prop="refundImgs" label="申请退款图片"></el-table-column>
           <el-table-column label="操作" width="330" v-if="update">
             <template slot-scope="scope">
-              <el-button @click="onApplyRefund(scope.row)" type="text" size="small">申请退款</el-button>
-              <el-button @click="onCancelRefund(scope.row)" type="text" size="small">取消退款</el-button>
-              <el-button @click="onRepulseRefund(scope.row)" type="text" size="small">拒绝退款</el-button>
-              <el-button @click="onRefund(scope.row)" type="text" size="small">同意退款</el-button>
               <el-button @click="onListUpdate(scope.row)" type="text" size="small">修改</el-button>
             </template>
           </el-table-column>

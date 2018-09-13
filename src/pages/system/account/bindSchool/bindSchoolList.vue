@@ -90,7 +90,10 @@ export default {
       regionsList: [],
       schoolList: [],
       selectIds: [],
+      cityIds: [],
+      regionIds: [],
       search: {
+        cityIds: '',
         regionIds: '',
         provinceId: this.$route.query.provinceId.toString(),
         username: this.$route.query.username
@@ -109,8 +112,8 @@ export default {
         pageNum: this.pages.pageNum,
         pageSize: this.pages.pageSize,
         provinceId: this.search.provinceId,
-        cityIds: this.search.cityIds,
-        regionIds: this.search.regionIds,
+        cityIds: this.search.cityIds !== '' ? this.search.cityIds : this.cityIds,
+        regionIds: this.search.regionIds !== '' ? this.search.regionIds : this.regionIds,
         adminId: this.$route.query.adminId,
         schoolLevel: this.search.schoolLevel
       }
@@ -118,12 +121,19 @@ export default {
     }
   },
   mounted () {
+    JSON.parse(this.$route.query.citys).forEach(item => {
+      this.cityIds.push(item.id)
+    })
+    JSON.parse(this.$route.query.regions).forEach(item => {
+      this.regionIds.push(item.id)
+    })
     this.loadProvince()
     this.loadSchoolList()
   },
   methods: {
     loadSchoolList () {
-      this.$axios.sysSchoolList(this.params).then(res => {
+      console.log(this.params)
+      this.$axios.schoolFindByAdmin(this.params).then(res => {
         if (res.data.code === '0') {
           this.schoolList = res.data.data.list
           this.pages.total = res.data.data.total
@@ -166,6 +176,7 @@ export default {
             })
           })
           this.regionsList = regionsList
+          console.log(this.regionsList)
         } else {
           this.$message.error(res.data.msg)
         }

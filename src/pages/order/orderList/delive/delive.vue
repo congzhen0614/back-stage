@@ -30,7 +30,7 @@
       </el-row>
       <el-row style="margin-top: 20px">
         <el-button @click="goback">取消</el-button>
-        <el-button @click="onSubmit" type="primary">确定</el-button>
+        <el-button @click="onSubmit" type="primary">保存提交</el-button>
       </el-row>
     </el-form>
   </div>
@@ -51,7 +51,23 @@ export default {
       }
     }
   },
+  created () {
+    this.loadTradeDelive()
+  },
   methods: {
+    loadTradeDelive () {
+      this.$axios.tradeDelive(this.$route.query.id).then(res => {
+        if (res.data.code === '0') {
+          console.log(res)
+        } else {
+          this.$message.error(res.data.msg)
+        }
+      }, err => {
+        this.$message.error(err)
+      }).catch(err => {
+        this.$message.error(err)
+      })
+    },
     onSubmit () {
       this.$axios.delive(this.form).then(res => {
         if (res.data.code === '0') {

@@ -81,6 +81,8 @@ export default {
   name: 'account-bind-school',
   data () {
     return {
+      isBind: false,
+      notBind: false,
       windowHeight: window.innerHeight - 320 + 'px',
       cityIds: [],
       regionIds: [],
@@ -124,7 +126,6 @@ export default {
     this.loadProvince()
     this.loadSchoolList()
   },
-  mounted () {},
   methods: {
     setRegions () {
       JSON.parse(this.$route.query.item).citys.forEach(item => {
@@ -188,10 +189,14 @@ export default {
       })
     },
     handleSelectionChange (val) {
+      this.isBind = false
+      this.notBind = false
       this.selectIds = []
       val.forEach(item => {
         if (item.bindStatus !== '未绑定') {
-          console.log('绑定')
+          this.isBind = true
+        } else {
+          this.notBind = true
         }
         this.selectIds.push(item.id)
       })
@@ -210,9 +215,18 @@ export default {
         schoolIds: this.selectIds,
         code: code
       }
+      if (code === 0 && this.isBind) {
+        this.$message.warning('学校已绑定')
+        return
+      }
+      if (code === 1 && this.notBind) {
+        this.$message.warning('学校未绑定')
+        return
+      }
       this.$axios.schoolBind(bindParam).then(res => {
         if (res.data.code === '0') {
           this.$message.success('操作成功!')
+          this.loadSchoolList()
         } else {
           this.$message.error(res.data.data.msg)
         }

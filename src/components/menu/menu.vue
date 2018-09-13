@@ -47,24 +47,24 @@
           <span slot="title">用户订单</span>
         </el-menu-item>
       </el-submenu>
-      <!--<el-submenu index="4">-->
-        <!--<template slot="title">-->
-          <!--<i class="el-icon-document"></i>-->
-          <!--<span slot="title">报表管理</span>-->
-        <!--</template>-->
-        <!--<el-menu-item @click="noRouter" index="/">-->
-          <!--<span slot="title">线上刊物征订汇总</span>-->
-        <!--</el-menu-item>-->
-        <!--<el-menu-item @click="noRouter" index="/">-->
-          <!--<span slot="title">线下刊物征订汇总</span>-->
-        <!--</el-menu-item>-->
-        <!--<el-menu-item @click="noRouter" index="/">-->
-          <!--<span slot="title">按学校汇总杂志订单</span>-->
-        <!--</el-menu-item>-->
-        <!--<el-menu-item @click="noRouter" index="/">-->
-          <!--<span slot="title">杂志销售统计</span>-->
-        <!--</el-menu-item>-->
-      <!--</el-submenu>-->
+      <el-submenu index="4">
+        <template slot="title">
+          <i class="el-icon-document"></i>
+          <span slot="title">报表管理</span>
+        </template>
+        <el-menu-item index="/onLineReport">
+          <span slot="title">线上刊物征订汇总</span>
+        </el-menu-item>
+        <el-menu-item index="/offlineReport">
+          <span slot="title">线下刊物征订汇总</span>
+        </el-menu-item>
+        <el-menu-item index="/schoolReport">
+          <span slot="title">按学校汇总杂志订单</span>
+        </el-menu-item>
+        <el-menu-item index="/magaReport">
+          <span slot="title">杂志销售统计</span>
+        </el-menu-item>
+      </el-submenu>
       <el-submenu index="5">
         <template slot="title">
           <i class="el-icon-setting"></i>
