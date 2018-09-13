@@ -256,10 +256,9 @@ export default {
     },
     onChecke (item) {
       this.$router.push({
-        path: '/updateCatalogue',
+        path: '/checkCatalogue',
         query: {
-          item: JSON.stringify(item),
-          update: false
+          item: JSON.stringify(item)
         }
       })
     },

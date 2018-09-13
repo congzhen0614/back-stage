@@ -45,6 +45,7 @@ import schoolList from '@/pages/system/school/schoolList.vue'
 import addSchool from '@/pages/system/school/addSchool/addSchool.vue' // 添加学校
 import updateSchool from '@/pages/system/school/updateSchool/updateSchool.vue' // 添加学校
 import checkAccount from '@/pages/system/school/checkAccount/checkAccount.vue' // 查看绑定学校商家
+import checkCatalogue from '@/pages/journalManage/catalogue/checkCatalogue/checkCatalogue.vue' // 查看目录
 
 Vue.use(Router)
 
@@ -225,6 +226,10 @@ export default new Router({
       path: '/checkAccount',
       name: '查看绑定学校商家',
       component: checkAccount
+    }, {
+      path: '/checkCatalogue',
+      name: '查看目录',
+      component: checkCatalogue
     }]
   }]
 })

@@ -190,6 +190,9 @@ export default {
     handleSelectionChange (val) {
       this.selectIds = []
       val.forEach(item => {
+        if (item.bindStatus !== '未绑定') {
+          console.log('绑定')
+        }
         this.selectIds.push(item.id)
       })
     },

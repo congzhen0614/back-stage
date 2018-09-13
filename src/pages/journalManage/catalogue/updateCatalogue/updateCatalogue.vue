@@ -47,11 +47,8 @@
         <el-tab-pane label="视听"><el-audioList @ypspDate="ypspDate" :videoIds="videoIds"></el-audioList></el-tab-pane>
       </el-tabs>
     </header>
-    <el-row style="margin-top: 20px; margin-left: 20px" v-if="isUpdate">
+    <el-row style="margin-top: 20px; margin-left: 20px">
       <el-button type="primary" @click="onSave">保存书单</el-button>
-      <el-button @click="goBack">返回</el-button>
-    </el-row>
-    <el-row style="margin-top: 20px; margin-left: 20px" v-if="!isUpdate">
       <el-button @click="goBack">返回</el-button>
     </el-row>
   </div>
@@ -76,7 +73,6 @@ export default {
       magazineIds: JSON.parse(this.$route.query.item).magazineIds,
       bookIds: JSON.parse(this.$route.query.item).bookIds,
       videoIds: JSON.parse(this.$route.query.item).videoIds,
-      isUpdate: this.$route.query.update,
       form: {
         id: JSON.parse(this.$route.query.item).id,
         items: [],
@@ -99,8 +95,6 @@ export default {
     }
   },
   methods: {
-    handleSelectionChange (val) {
-    },
     mageDate (val) {
       this.form.postage = val.postage === undefined ? '' : val.postage
       this.form.postageSum = val.postageSum === undefined ? '' : val.postageSum
