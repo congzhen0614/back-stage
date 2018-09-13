@@ -42,8 +42,8 @@
         </el-radio-group>
       </el-form-item>
       <el-form-item label="服务范围:">
-        <el-region v-if="isSuperAdmin" @province="province" @cities="cities" @regions="regions" :form="{}"></el-region>
-        <el-account-area v-if="!isSuperAdmin" @province="province" @cities="cities" @regions="regions"></el-account-area>
+        <el-region v-if="serviceArea" @province="province" @cities="cities" @regions="regions" :form="{}"></el-region>
+        <el-account-area v-if="!serviceArea" @province="province" @cities="cities" @regions="regions" :userId="form.userId"></el-account-area>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="onSubmit">立即创建</el-button>
@@ -67,6 +67,7 @@ export default {
     return {
       isSuperAdmin: JSON.parse(localStorage.getItem('user')).roleLevel === 1,
       rules: rules.accountRules,
+      userLevel: '',
       form: {
         groupId: JSON.parse(localStorage.getItem('user')).groupId,
         groupName: JSON.parse(localStorage.getItem('user')).groupName
@@ -85,6 +86,13 @@ export default {
     }
   },
   computed: {
+    serviceArea () {
+      if (this.isSuperAdmin && this.userLevel !== 3 && this.userLevel !== 5 && this.userLevel !== 6) {
+        return true
+      } else {
+        return false
+      }
+    }
   },
   methods: {
     getGroup () {
@@ -189,7 +197,19 @@ export default {
       this.roles.forEach(item => {
         if (item.id === val) {
           this.form.roleLevel = item.level
+          console.log(item.level)
+          if (item.level !== 4 && item.level !== 5) {
+            this.form.userId = ''
+            this.userLevel = ''
+          }
           this.loadAccountList()
+        }
+      })
+    },
+    'form.userId' (val) {
+      this.belongList.forEach(item => {
+        if (val === item.id) {
+          this.userLevel = item.roleLevel
         }
       })
     }

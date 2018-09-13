@@ -24,6 +24,9 @@ export default {
     }
   },
   props: {
+    userId: {
+      type: Number
+    },
     isSelf: {
       type: Boolean
     },
@@ -35,11 +38,15 @@ export default {
     }
   },
   created () {
-    this.loadAccountArea()
+    if (this.userId) {
+      this.loadAccountArea({id: this.userId})
+    } else {
+      this.loadAccountArea({id: JSON.parse(localStorage.getItem('user')).id})
+    }
   },
   methods: {
-    loadAccountArea () {
-      this.$axios.accountArea({id: JSON.parse(localStorage.getItem('user')).id}).then(res => {
+    loadAccountArea (id) {
+      this.$axios.accountArea(id).then(res => {
         if (res.data.code === '0') {
           this.area = res.data.data.area
           this.provinceName = res.data.data.area.provinceName
