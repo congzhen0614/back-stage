@@ -50,6 +50,9 @@ import magaReport from '@/pages/report/magaReport/magaReport.vue' // 杂志销�
 import offlineReport from '@/pages/report/offlineReport/offlineReport.vue' // 线下刊物征订汇总
 import onLineReport from '@/pages/report/onLineReport/onLineReport.vue' // 线上刊物征订汇总
 import schoolReport from '@/pages/report/schoolReport/schoolReport.vue' // 按学校汇总杂志订单
+import userManage from '@/pages/system/userManage/userManage.vue' // 用户管理
+import checkChild from '@/pages/system/userManage/checkChild/checkChild.vue' // 用户管理
+import childManage from '@/pages/system/childManage/childManage.vue' // 孩子管理
 
 Vue.use(Router)
 
@@ -250,6 +253,18 @@ export default new Router({
       path: '/schoolReport',
       name: '按学校汇总杂志订单',
       component: schoolReport
+    }, {
+      path: '/userManage',
+      name: '用户管理',
+      component: userManage
+    }, {
+      path: '/checkChild',
+      name: '查看孩子',
+      component: checkChild
+    }, {
+      path: '/childManage',
+      name: '孩子管理',
+      component: childManage
     }]
   }]
 })

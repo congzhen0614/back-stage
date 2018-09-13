@@ -134,9 +134,9 @@ export default {
       this.form.content = val
     },
     loadItemageList () {
-      this.$axios.itemageList().then(res => {
+      this.$axios.itemageListCandidate().then(res => {
         if (res.data.code === '0') {
-          this.ageList = res.data.data.list
+          this.ageList = res.data.data
           res.data.data.list.forEach(item => {
             this.ageSelect.push(item.id)
           })
@@ -150,9 +150,9 @@ export default {
       })
     },
     loadItemtypeList () {
-      this.$axios.itemtypeList().then(res => {
+      this.$axios.itemtypeListCandidate().then(res => {
         if (res.data.code === '0') {
-          this.typeList = res.data.data.list
+          this.typeList = res.data.data
           res.data.data.list.forEach(item => {
             this.typeSelect.push(item.id)
           })
