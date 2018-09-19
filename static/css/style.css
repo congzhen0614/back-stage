@@ -46,6 +46,11 @@ body {
   line-height: 1;
 }
 
+@font-face {
+  font-family: "pingfang_font";
+  src: url('pingfang-font.ttf') format('truetype');
+}
+
 body {
   font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   font-size: 12px;
