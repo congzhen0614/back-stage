@@ -27,8 +27,8 @@
       <template>
         <el-table :data="tableData" border :style="{height: windowHeight}">
           <el-table-column prop="name" label="商品名称"></el-table-column>
-          <el-table-column prop="fee" label="商品价格"></el-table-column>
-          <el-table-column prop="quantity" label="数量"></el-table-column>
+          <el-table-column prop="fee" label="商品价格" width="100"></el-table-column>
+          <el-table-column prop="quantity" label="数量" width="100"></el-table-column>
           <el-table-column label="操作" width="100">
             <template slot-scope="scope">
               <el-button @click="onDelete(scope.$index)" type="text" size="small">删除</el-button>

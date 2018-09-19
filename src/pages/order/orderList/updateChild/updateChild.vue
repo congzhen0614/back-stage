@@ -174,6 +174,9 @@ export default {
       this.$router.go(-1)
     },
     onSubmit () {
+      if (this.form.classNameDef !== '' && this.form.classNameDef !== null) {
+        this.form.classId = ''
+      }
       this.$axios.magazineSchoolUpdate(this.form).then(res => {
         if (res.data.code === '0') {
           this.$message.success('操作成功')

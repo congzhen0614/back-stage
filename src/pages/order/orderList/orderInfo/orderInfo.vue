@@ -68,10 +68,10 @@
           <span>收货信息</span>
         </header>
         <el-table :data="addressTable" border>
-          <el-table-column prop="sendType" label="配送方式"></el-table-column>
+          <el-table-column prop="sendType" label="配送方式" width="100" align="center"></el-table-column>
           <el-table-column prop="addressStr" label="收件地址"></el-table-column>
-          <el-table-column prop="mobile" label="收件人"></el-table-column>
-          <el-table-column prop="name" label="联系电话"></el-table-column>
+          <el-table-column prop="mobile" label="收件人" width="120" align="center"></el-table-column>
+          <el-table-column prop="name" label="联系电话" width="200" align="center"></el-table-column>
           <el-table-column label="操作" width="120" v-if="update">
             <template slot-scope="scope">
               <el-button @click="onAddressUpdate(scope.row)" type="text" size="small">修改</el-button>
@@ -85,10 +85,10 @@
         </header>
         <el-table :data="magaTable" border>
           <el-table-column prop="name" label="商品名称"></el-table-column>
-          <el-table-column prop="fee" label="商品价格"></el-table-column>
-          <el-table-column prop="quantity" label="数量"></el-table-column>
-          <el-table-column prop="totalCost" label="合计金额"></el-table-column>
-          <el-table-column prop="refundStatus" label="商品状态">
+          <el-table-column prop="fee" label="商品价格" width="100" align="center"></el-table-column>
+          <el-table-column prop="quantity" label="数量" width="100" align="center"></el-table-column>
+          <el-table-column prop="totalCost" label="合计金额" width="100" align="center"></el-table-column>
+          <el-table-column prop="refundStatus" label="商品状态" width="100" align="center">
             <template slot-scope="scope">
               <span v-if="scope.row.refundStatus === 0">正常</span>
               <span v-if="scope.row.refundStatus === 1">申请退款</span>
@@ -96,7 +96,7 @@
               <span v-if="scope.row.refundStatus === 3">同意退款</span>
             </template>
           </el-table-column>
-          <el-table-column label="操作" width="330" v-if="update">
+          <el-table-column label="操作" width="150" v-if="update">
             <template slot-scope="scope">
               <el-button @click="onApplyRefund(scope.row)" type="text" size="small" v-if="scope.row.refundStatus === 0">申请退款</el-button>
               <el-button @click="onCancelRefund(scope.row)" type="text" size="small" v-if="scope.row.refundStatus === 1">取消退款</el-button>
@@ -113,10 +113,10 @@
         </header>
         <el-table :data="bookTable" border>
           <el-table-column prop="name" label="商品名称"></el-table-column>
-          <el-table-column prop="fee" label="商品价格"></el-table-column>
-          <el-table-column prop="quantity" label="数量"></el-table-column>
-          <el-table-column prop="totalCost" label="合计金额"></el-table-column>
-          <el-table-column prop="refundStatus" label="商品状态">
+          <el-table-column prop="fee" label="商品价格" width="100" align="center"></el-table-column>
+          <el-table-column prop="quantity" label="数量" width="100" align="center"></el-table-column>
+          <el-table-column prop="totalCost" label="合计金额" width="100" align="center"></el-table-column>
+          <el-table-column prop="refundStatus" label="商品状态" width="100" align="center">
             <template slot-scope="scope">
               <span v-if="scope.row.refundStatus === 0">正常</span>
               <span v-if="scope.row.refundStatus === 1">申请退款</span>
@@ -124,9 +124,9 @@
               <span v-if="scope.row.refundStatus === 3">同意退款</span>
             </template>
           </el-table-column>
-          <el-table-column prop="refundReason" label="申请退款原因"></el-table-column>
-          <el-table-column prop="refundImgs" label="申请退款图片"></el-table-column>
-          <el-table-column label="操作" width="330" v-if="update">
+          <el-table-column prop="refundReason" label="申请退款原因" width="120" align="center"></el-table-column>
+          <el-table-column prop="refundImgs" label="申请退款图片" width="150" align="center"></el-table-column>
+          <el-table-column label="操作" width="150" v-if="update">
             <template slot-scope="scope">
               <el-button @click="onListUpdate(scope.row)" type="text" size="small">修改</el-button>
             </template>
@@ -139,10 +139,10 @@
         </header>
         <el-table :data="spypTable" border>
           <el-table-column prop="name" label="商品名称"></el-table-column>
-          <el-table-column prop="fee" label="商品价格"></el-table-column>
-          <el-table-column prop="quantity" label="数量"></el-table-column>
-          <el-table-column prop="totalCost" label="合计金额"></el-table-column>
-          <el-table-column prop="refundStatus" label="商品状态"></el-table-column>
+          <el-table-column prop="fee" label="商品价格" width="100" align="center"></el-table-column>
+          <el-table-column prop="quantity" label="数量" width="100" align="center"></el-table-column>
+          <el-table-column prop="totalCost" label="合计金额" width="100" align="center"></el-table-column>
+          <el-table-column prop="refundStatus" label="商品状态" width="100" align="center"></el-table-column>
         </el-table>
       </template>
     </main>
