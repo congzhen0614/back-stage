@@ -70,8 +70,8 @@
         <el-table :data="addressTable" border>
           <el-table-column prop="sendType" label="配送方式" width="100" align="center"></el-table-column>
           <el-table-column prop="addressStr" label="收件地址"></el-table-column>
-          <el-table-column prop="mobile" label="收件人" width="120" align="center"></el-table-column>
-          <el-table-column prop="name" label="联系电话" width="200" align="center"></el-table-column>
+          <el-table-column prop="name" label="收件人" width="120" align="center"></el-table-column>
+          <el-table-column prop="mobile" label="联系电话" width="200" align="center"></el-table-column>
           <el-table-column label="操作" width="120" v-if="update">
             <template slot-scope="scope">
               <el-button @click="onAddressUpdate(scope.row)" type="text" size="small">修改</el-button>

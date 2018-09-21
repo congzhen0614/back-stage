@@ -180,6 +180,16 @@ export default {
   },
   computed: {
     listParams () {
+      let startTime = ''
+      let endTime = ''
+      if (this.search.startTime) {
+        let date = new Date(this.search.startTime)
+        startTime = date.getFullYear() + '-' + (parseInt(date.getMonth()) + 1) + '-' + date.getDate() + ' 00:00:00'
+      }
+      if (this.search.endTime) {
+        let date = new Date(this.search.endTime)
+        endTime = date.getFullYear() + '-' + (parseInt(date.getMonth()) + 1) + '-' + date.getDate() + ' 23:59:59'
+      }
       let param = {
         pageNum: this.pages.pageNum,
         pageSize: this.pages.pageSize,
@@ -194,8 +204,8 @@ export default {
         classId: this.search.classId,
         childName: this.search.childName,
         tradeStatus: this.search.tradeStatus,
-        startTime: this.search.startTime,
-        endTime: this.search.endTime,
+        startTime: startTime,
+        endTime: endTime,
         cls: this.search.cls
       }
       return param
