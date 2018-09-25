@@ -15,18 +15,19 @@
       </el-row>
       <el-row>
         <el-col :span="3">
-          <el-select v-model="form.provinceId" placeholder="请选择省">
-            <el-option :label="item.name" :value="item.id" v-for="item in provincesList" :key="item.id"></el-option>
-          </el-select>
+          <!--<el-select v-model="form.provinceId" placeholder="请选择省" disabled>-->
+            <!--<el-option :label="item.name" :value="item.id" v-for="item in provincesList" :key="item.id"></el-option>-->
+          <!--</el-select>-->
+          <el-input type="text" v-model="provinceName" disabled></el-input>
         </el-col>
         <el-col :span="3">
           <el-select v-model="form.cityId" placeholder="请选择市">
-            <el-option :label="item.name" :value="item.id" v-for="item in citiesList" :key="item.id"></el-option>
+            <el-option :label="item.cityName" :value="item.cityId" v-for="item in citiesList" :key="item.cityId"></el-option>
           </el-select>
         </el-col>
         <el-col :span="3">
           <el-select v-model="form.regionId" placeholder="请选择区">
-            <el-option :label="item.name" :value="item.id" v-for="item in regionsList" :key="item.id"></el-option>
+            <el-option :label="item.regionName" :value="item.regionId" v-for="item in regionsList" :key="item.regionId"></el-option>
           </el-select>
         </el-col>
         <el-col :span="3">
@@ -63,6 +64,7 @@ export default {
   data () {
     return {
       provincesList: [],
+      provinceName: '',
       citiesList: [],
       regionsList: [],
       schoolList: [],
@@ -72,10 +74,10 @@ export default {
         tradeId: this.$route.query.tradeId,
         childMobile: JSON.parse(this.$route.query.item).mobile,
         childName: JSON.parse(this.$route.query.item).name,
-        provinceId: JSON.parse(this.$route.query.item).provinceId.toString(),
-        cityId: JSON.parse(this.$route.query.item).cityId.toString(),
-        regionId: JSON.parse(this.$route.query.item).regionId.toString(),
-        schoolId: JSON.parse(this.$route.query.item).schoolId.toString(),
+        provinceId: JSON.parse(this.$route.query.item).provinceId,
+        cityId: '',
+        regionId: JSON.parse(this.$route.query.item).regionId,
+        schoolId: JSON.parse(this.$route.query.item).schoolId,
         gradeId: JSON.parse(this.$route.query.item).gradeId.toString(),
         classId: JSON.parse(this.$route.query.item).classId.toString(),
         classNameDef: JSON.parse(this.$route.query.item).classNameDef
@@ -83,16 +85,17 @@ export default {
     }
   },
   created () {
-  },
-  mounted () {
-    this.loadProvince()
-    this.loadCities()
-    this.loadRegions()
+    // this.loadProvince()
+    // this.loadCities()
+    // this.loadRegions()
+    this.loadAccountArea()
     this.loadSchoolList()
     this.loadGradeList()
     this.loadClassList()
   },
-  computed: {},
+  mounted () {
+
+  },
   methods: {
     loadProvince () {
       this.$axios.province().then(res => {
@@ -126,6 +129,21 @@ export default {
           this.regionsList = res.data.data
         } else {
           this.$message.error(res.data.data.msg)
+        }
+      }, err => {
+        this.$message.error(err)
+      }).catch(err => {
+        this.$message.error(err)
+      })
+    },
+    loadAccountArea () {
+      this.$axios.accountArea({id: this.$route.query.adminId}).then(res => {
+        if (res.data.code === '0') {
+          this.citiesList = res.data.data.area.cities
+          this.provinceName = res.data.data.area.provinceName
+          this.form.cityId = JSON.parse(this.$route.query.item).cityId
+        } else {
+          this.$message.error(res.data.msg)
         }
       }, err => {
         this.$message.error(err)
@@ -191,7 +209,15 @@ export default {
       })
     }
   },
-  watch: {}
+  watch: {
+    'form.cityId' (val) {
+      this.citiesList.forEach(item => {
+        if (item.cityId === val) {
+          this.regionsList = item.regions
+        }
+      })
+    }
+  }
 }
 </script>
 

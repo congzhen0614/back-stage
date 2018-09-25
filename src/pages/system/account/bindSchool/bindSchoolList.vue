@@ -204,7 +204,7 @@ export default {
       this.selectIds.forEach(item => {
         ids.push(item.id)
       })
-      this.$axios.schoolShow({dis: flag, ids: ids}).then(res => {
+      this.$axios.schoolShow({adminId: this.$route.query.adminId, dis: flag, ids: ids}).then(res => {
         if (res.data.code === '0') {
           this.$message.success('操作成功')
           this.loadSchoolList()

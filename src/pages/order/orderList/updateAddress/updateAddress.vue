@@ -15,18 +15,19 @@
       </el-row>
       <el-row>
         <el-col :span="3">
-          <el-select v-model="form.addressProvinceId" placeholder="请选择省">
-            <el-option :label="item.name" :value="item.id" v-for="item in provincesList" :key="item.id"></el-option>
-          </el-select>
+          <!--<el-select v-model="form.addressProvinceId" placeholder="请选择省">-->
+            <!--<el-option :label="item.name" :value="item.id" v-for="item in provincesList" :key="item.id"></el-option>-->
+          <!--</el-select>-->
+          <el-input type="text" v-model="provinceName" disabled></el-input>
         </el-col>
         <el-col :span="3">
           <el-select v-model="form.addressCityId" placeholder="请选择市">
-            <el-option :label="item.name" :value="item.id" v-for="item in citiesList" :key="item.id"></el-option>
+            <el-option :label="item.cityName" :value="item.cityId" v-for="item in citiesList" :key="item.cityId"></el-option>
           </el-select>
         </el-col>
         <el-col :span="3">
           <el-select v-model="form.addressRegionId" placeholder="请选择区">
-            <el-option :label="item.name" :value="item.id" v-for="item in regionsList" :key="item.id"></el-option>
+            <el-option :label="item.regionName" :value="item.regionId" v-for="item in regionsList" :key="item.regionId"></el-option>
           </el-select>
         </el-col>
         <el-col :span="5">
@@ -44,10 +45,10 @@
 <script>
 export default {
   name: 'update-address',
-  components: {},
   data () {
     return {
       provincesList: [],
+      provinceName: '',
       citiesList: [],
       regionsList: [],
       sendType: JSON.parse(this.$route.query.item).sendType,
@@ -55,7 +56,7 @@ export default {
         cls: JSON.parse(this.$route.query.item).cls,
         tradeId: this.$route.query.tradeId,
         address: JSON.parse(this.$route.query.item).address,
-        addressCityId: JSON.parse(this.$route.query.item).cityId.toString(),
+        addressCityId: JSON.parse(this.$route.query.item).cityId,
         addressProvinceId: JSON.parse(this.$route.query.item).provinceId.toString(),
         addressRegionId: JSON.parse(this.$route.query.item).regionId.toString(),
         consigneeMobile: JSON.parse(this.$route.query.item).mobile,
@@ -64,13 +65,11 @@ export default {
     }
   },
   created () {
+    // this.loadProvince()
+    // this.loadCities()
+    // this.loadRegions()
+    this.loadAccountArea()
   },
-  mounted () {
-    this.loadProvince()
-    this.loadCities()
-    this.loadRegions()
-  },
-  computed: {},
   methods: {
     loadProvince () {
       this.$axios.province().then(res => {
@@ -111,6 +110,21 @@ export default {
         this.$message.error(err)
       })
     },
+    loadAccountArea () {
+      this.$axios.accountArea({id: this.$route.query.adminId}).then(res => {
+        if (res.data.code === '0') {
+          this.citiesList = res.data.data.area.cities
+          this.provinceName = res.data.data.area.provinceName
+          this.form.cityId = JSON.parse(this.$route.query.item).cityId
+        } else {
+          this.$message.error(res.data.msg)
+        }
+      }, err => {
+        this.$message.error(err)
+      }).catch(err => {
+        this.$message.error(err)
+      })
+    },
     onCancel () {
       this.$router.go(-1)
     },
@@ -130,13 +144,12 @@ export default {
     }
   },
   watch: {
-    'form.addressProvinceId' () {
-      this.loadCities()
-      this.form.addressCityId = ''
-    },
-    'form.addressCityId' () {
-      this.loadRegions()
-      this.form.addressRegionId = ''
+    'form.addressCityId' (val) {
+      this.citiesList.forEach(item => {
+        if (item.cityId === val) {
+          this.regionsList = item.regions
+        }
+      })
     }
   }
 }

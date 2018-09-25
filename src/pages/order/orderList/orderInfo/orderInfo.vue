@@ -88,12 +88,9 @@
           <el-table-column prop="fee" label="商品价格" width="100" align="center"></el-table-column>
           <el-table-column prop="quantity" label="数量" width="100" align="center"></el-table-column>
           <el-table-column prop="totalCost" label="合计金额" width="100" align="center"></el-table-column>
-          <el-table-column prop="refundStatus" label="商品状态" width="100" align="center">
+          <el-table-column label="商品状态" width="100" align="center">
             <template slot-scope="scope">
-              <span v-if="scope.row.refundStatus === 0">正常</span>
-              <span v-if="scope.row.refundStatus === 1">申请退款</span>
-              <span v-if="scope.row.refundStatus === 2">拒绝退款</span>
-              <span v-if="scope.row.refundStatus === 3">同意退款</span>
+              <span>{{ scope.row.refundStatus === 0 ? scope.row.tradeStatusName : scope.row.refundStatusName }}</span>
             </template>
           </el-table-column>
           <el-table-column label="操作" width="150" v-if="update">
@@ -168,10 +165,6 @@ export default {
     this.loadTradeDetail()
     this.loadTrade()
   },
-  mounted () {
-    console.log(this.update)
-  },
-  computed: {},
   methods: {
     loadTradeDetail () {
       this.$axios.tradeDetail(this.orderItem.id).then(res => {
@@ -188,10 +181,18 @@ export default {
         this.$message.error(err)
       })
     },
+    timeFormat (value) {
+      let date = new Date(value)
+      let year = date.getFullYear()
+      let month = date.getMonth() + 1
+      let day = date.getDate()
+      return year + '-' + month + '-' + day
+    },
     loadTrade () {
       this.$axios.trade(this.orderItem.id).then(res => {
         if (res.data.code === '0') {
           this.form = res.data.data
+          this.form.createdAt = this.timeFormat(this.form.createdAt)
           this.setAddress(this.form)
         } else {
           this.$message.error(res.data.data.msg)
@@ -206,7 +207,7 @@ export default {
       if (item.address !== null) {
         this.addressTable.push({
           cls: 2,
-          sendType: '寄送',
+          sendType: '图书寄送',
           addressStr: item.addressProvinceName + item.addressCityName + item.addressRegionName + item.address,
           address: item.address,
           provinceName: item.addressProvinceName,
@@ -222,7 +223,7 @@ export default {
       if (item.addressMagazine !== null && this.orderItem.sendType === 1) {
         this.addressTable.push({
           cls: 1,
-          sendType: '寄送',
+          sendType: '杂志寄送',
           addressStr: item.addressProvinceNameMagazine + item.addressCityNameMagazine + item.addressRegionNameMagazine + item.addressMagazine,
           address: item.addressMagazine,
           provinceName: item.addressProvinceNameMagazine,
@@ -238,7 +239,7 @@ export default {
       if (item.childId !== null && this.orderItem.sendType === 0) {
         this.addressTable.push({
           cls: 1,
-          sendType: '直送',
+          sendType: '杂志直送',
           addressStr: item.provinceName + item.cityName + item.regionName + item.schoolName + item.gradeName + (item.className ? item.className : item.classNameDef),
           provinceName: item.provinceName,
           provinceId: item.provinceId,
@@ -259,10 +260,11 @@ export default {
       }
     },
     onAddressUpdate (item) {
-      if (item.cls === 1 && item.sendType === '直送') {
+      if (item.cls === 1 && item.sendType === '杂志直送') {
         this.$router.push({
           path: '/updateChild',
           query: {
+            adminId: this.orderItem.adminId,
             item: JSON.stringify(item),
             tradeId: this.orderItem.id
           }
@@ -271,6 +273,7 @@ export default {
         this.$router.push({
           path: '/updateAddress',
           query: {
+            adminId: this.orderItem.adminId,
             item: JSON.stringify(item),
             tradeId: this.orderItem.id
           }
@@ -343,8 +346,7 @@ export default {
         }
       })
     }
-  },
-  watch: {}
+  }
 }
 </script>
 
