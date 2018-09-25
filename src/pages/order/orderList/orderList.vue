@@ -175,8 +175,6 @@ export default {
       }
     }
   },
-  created () {
-  },
   mounted () {
     this.loadData()
     this.loadSchoolList()
@@ -233,7 +231,7 @@ export default {
       })
     },
     loadSchoolList () {
-      this.$axios.schoolList().then(res => {
+      this.$axios.schoolFindByAdmin({adminId: JSON.parse(localStorage.getItem('user')).id}).then(res => {
         if (res.data.code === '0') {
           this.schoolList = res.data.data.list
         } else {
