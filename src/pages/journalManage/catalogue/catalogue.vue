@@ -26,7 +26,9 @@
           </el-col>
           <el-col :span="4">
             <el-form-item label="创建人:">
-              <el-input v-model="search.creator" placeholder="请输入"></el-input>
+              <el-select v-model="search.createUser">
+                <el-option :label="item.username" :value="item.id" v-for="item in accountList" :key="item.id"></el-option>
+              </el-select>
             </el-form-item>
           </el-col>
           <el-col :span="6">
@@ -112,6 +114,7 @@ export default {
       options: [],
       seleteIds: [],
       seleteItems: [],
+      accountList: [],
       tableList: [],
       pages: {
         total: 0,
@@ -121,6 +124,7 @@ export default {
     }
   },
   mounted () {
+    this.loadAdmingroupList()
     this.loadDate()
   },
   computed: {
@@ -131,12 +135,25 @@ export default {
         sub: this.search.sub,
         has: this.search.has,
         title: this.search.title,
-        creator: this.search.creator
+        createUser: this.search.createUser
       }
       return param
     }
   },
   methods: {
+    loadAdmingroupList () {
+      this.$axios.accountListCandidate({groupId: '', level: '', type: ''}).then(res => {
+        if (res.data.code === '0') {
+          this.accountList = res.data.data
+        } else {
+          this.$message.error(res.data.msg)
+        }
+      }, err => {
+        this.$message.error(err)
+      }).catch(err => {
+        this.$message.error(err)
+      })
+    },
     handleSelectionChange (val) { // 选中返回数据
       let ids = []
       let items = []
@@ -163,6 +180,7 @@ export default {
       this.loadDate()
     },
     loadDate () {
+      console.log(1)
       this.$axios.itempackList(this.listParams).then(res => {
         if (res.data.code === '0') {
           this.tableList = res.data.data.list

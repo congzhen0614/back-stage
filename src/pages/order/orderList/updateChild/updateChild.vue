@@ -32,7 +32,7 @@
         </el-col>
         <el-col :span="3">
           <el-select v-model="form.schoolId" placeholder="请选择学校">
-            <el-option :label="item.name" :value="item.id" v-for="item in schoolList" :key="item.id"></el-option>
+            <el-option :label="item.schoolName" :value="item.schoolId" v-for="item in schoolList" :key="item.schoolId"></el-option>
           </el-select>
         </el-col>
         <el-col :span="3">
@@ -152,9 +152,9 @@ export default {
       })
     },
     loadSchoolList () {
-      this.$axios.schoolList().then(res => {
+      this.$axios.seekSchoolList({regionId: this.form.regionId}).then(res => {
         if (res.data.code === '0') {
-          this.schoolList = res.data.data.list
+          this.schoolList = res.data.data
         } else {
           this.$message.error(res.data.data.msg)
         }

@@ -1,37 +1,37 @@
 <template>
   <div class="journal-Manage-catalogue-update">
     <header class="header">
-      <el-form ref="form" :model="form" label-width="100px">
+      <el-form ref="form" :model="form" label-width="100px" :rules="rules">
         <el-row>
           <el-col :span="8">
-            <el-form-item label="目录名称:">
+            <el-form-item label="目录名称:" prop="title">
               <el-input v-model="form.title"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="8">
-            <el-form-item label="联系人:">
+            <el-form-item label="联系人:" prop="linkman">
               <el-input v-model="form.linkman"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="8">
-            <el-form-item label="联系电话:">
+            <el-form-item label="联系电话:" prop="linkmobile">
               <el-input v-model="form.linkmobile"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
         <el-row>
           <el-col :span="8">
-            <el-form-item label="提示语:">
+            <el-form-item label="提示语:" prop="tip">
               <el-input v-model="form.tip"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="8">
-            <el-form-item label="备注:">
+            <el-form-item label="备注:" prop="remark">
               <el-input v-model="form.remark"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="8">
-            <el-form-item label="适合年龄:">
+            <el-form-item label="年级阶段:" prop="schoolLevel">
               <el-select v-model="form.schoolLevel">
                 <el-option label="幼儿园" :value="2"></el-option>
                 <el-option label="小学" :value="0"></el-option>
@@ -58,6 +58,7 @@
 import magaList from '@/components/magaList/magaList.vue'
 import bookList from '@/components/bookList/bookList.vue'
 import audioList from '@/components/audioList/audioList.vue'
+import rules from '@/common/rules.js'
 export default {
   name: 'journal-Manage-catalogue-update',
   components: {
@@ -67,6 +68,7 @@ export default {
   },
   data () {
     return {
+      rules: rules.ManageCatalogue,
       windowHeight: window.innerHeight - 500 + 'px',
       options: [],
       search: [],

@@ -29,19 +29,21 @@
         </el-col>
       </el-row>
     </el-form>
-    <el-form ref="form" :model="form" label-width="80px">
-      <el-row :gutter="20">
+    <el-form ref="form" :model="form" label-width="120px" :rules="rules">
+      <el-row :gutter="20" class="book">
         <el-col :span="6">
-          <el-input v-model="form.postageSumBook">
-            <template slot="prepend">商品金额未满:</template>
-            <template slot="append">元</template>
-          </el-input>
+          <el-form-item label="商品金额未满:" prop="postageSumBook">
+            <el-input v-model="form.postageSumBook">
+              <template slot="append">元</template>
+            </el-input>
+          </el-form-item>
         </el-col>
         <el-col :span="6">
-          <el-input v-model="form.postageBook">
-            <template slot="prepend">将收取运费:</template>
-            <template slot="append">元</template>
-          </el-input>
+          <el-form-item label="将收取运费:" prop="postageBook">
+            <el-input v-model="form.postageBook">
+              <template slot="append">元</template>
+            </el-input>
+          </el-form-item>
         </el-col>
       </el-row>
     </el-form>
@@ -74,6 +76,10 @@ export default {
   name: 'bookList',
   data () {
     return {
+      rules: {
+        postageSumBook: {required: true, message: '请输入未满金额', trigger: 'blur'},
+        postageBook: {required: true, message: '请输入运费', trigger: 'blur'}
+      },
       windowHeight: window.innerHeight - 596 + 'px',
       search: {
         typeId: '',
@@ -211,5 +217,8 @@ export default {
 <style>
   .bookList .el-table {
     margin-top: 20px;
+  }
+  .book .el-form-item {
+    margin-bottom: 0;
   }
 </style>

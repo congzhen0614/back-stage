@@ -256,6 +256,9 @@ export default {
     let param = qs.stringify(params)
     return axios.get(`/qrzd/sys/school/findByAdmin?${param}`)
   },
+  seekSchoolList (params) {
+    return axios.post('/qrzd/sys/school/list/candidate', params)
+  },
   delive (params) {
     return axios.post('/qrzd/trade/delive', params)
   },

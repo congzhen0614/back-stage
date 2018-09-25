@@ -31,7 +31,7 @@
             </el-form-item>
           </el-col>
           <el-col :span="8">
-            <el-form-item label="适合年龄:" prop="schoolLevel">
+            <el-form-item label="年级阶段:" prop="schoolLevel">
               <el-select v-model="form.schoolLevel">
                 <el-option label="幼儿园" value="2"></el-option>
                 <el-option label="小学" value="0"></el-option>

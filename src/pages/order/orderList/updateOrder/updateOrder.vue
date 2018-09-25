@@ -7,7 +7,7 @@
             <el-col :span="5">
               <el-form-item label="商品名称:">
                 <el-select v-model="form.id" placeholder="请选择商品名称">
-                  <el-option :label="item.name" :value="item.id" v-for="item in itemList" :key="item.id"></el-option>
+                  <el-option :label="item.name + ' ￥' + item.fee" :value="item.id" v-for="item in itemList" :key="item.id"></el-option>
                 </el-select>
               </el-form-item>
             </el-col>

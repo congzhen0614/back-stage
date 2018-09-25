@@ -43,9 +43,9 @@
           </el-col>
           <el-col :span="6">
             <el-form-item label="学校:">
-              <el-select v-model="search.schoolId" filterable placeholder="请选择">
+              <el-select v-model="search.schoolId" filterable placeholder="请选择" :disabled="search.regionId === ''">
                 <el-option label="全部" value=""></el-option>
-                <el-option v-for="item in schoolList" :key="item.value" :label="item.name" :value="item.id"></el-option>
+                <el-option v-for="item in schoolList" :key="item.schoolId" :label="item.schoolName" :value="item.schoolId"></el-option>
               </el-select>
             </el-form-item>
           </el-col>
@@ -177,7 +177,6 @@ export default {
   },
   mounted () {
     this.loadData()
-    this.loadSchoolList()
     this.loadGradeList()
     this.loadClassList()
     this.loadProvinceList()
@@ -231,9 +230,9 @@ export default {
       })
     },
     loadSchoolList () {
-      this.$axios.schoolFindByAdmin({adminId: JSON.parse(localStorage.getItem('user')).id}).then(res => {
+      this.$axios.seekSchoolList({regionId: this.search.regionId}).then(res => {
         if (res.data.code === '0') {
-          this.schoolList = res.data.data.list
+          this.schoolList = res.data.data
         } else {
           this.$message.error(res.data.data.msg)
         }
@@ -359,6 +358,12 @@ export default {
           id: item.id
         }
       })
+    }
+  },
+  watch: {
+    'search.regionId' (val) {
+      if (val === '') return
+      this.loadSchoolList()
     }
   }
 }

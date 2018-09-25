@@ -29,19 +29,21 @@
         </el-col>
       </el-row>
     </el-form>
-    <el-form ref="form" :model="form" label-width="90px" :rules="rules">
-      <el-row :gutter="20">
+    <el-form ref="form" :model="form" label-width="120px" :rules="rules">
+      <el-row :gutter="20" class="maga">
         <el-col :span="6">
-          <el-input v-model="form.postageSum">
-            <template slot="prepend">商品金额未满:</template>
-            <template slot="append">元</template>
-          </el-input>
+          <el-form-item label="商品金额未满:" prop="postageSum">
+            <el-input v-model="form.postageSum">
+              <template slot="append">元</template>
+            </el-input>
+          </el-form-item>
         </el-col>
         <el-col :span="6">
-          <el-input v-model="form.postage">
-            <template slot="prepend">将收取运费:</template>
-            <template slot="append">元</template>
-          </el-input>
+          <el-form-item label="将收取运费:" prop="postage">
+            <el-input v-model="form.postage">
+              <template slot="append">元</template>
+            </el-input>
+          </el-form-item>
         </el-col>
         <el-col :span="6">
           <el-form-item label="配送方式:" style="margin-bottom: 0; height: 40px" prop="sendType">
@@ -83,7 +85,9 @@ export default {
   data () {
     return {
       rules: {
-        sendType: [{required: true, message: '请选择配送方式', trigger: 'blur'}]
+        sendType: {required: true, message: '请选择配送方式', trigger: 'blur'},
+        postageSum: {required: true, message: '请输入未满金额', trigger: 'blur'},
+        postage: {required: true, message: '请输入运费', trigger: 'blur'}
       },
       windowHeight: window.innerHeight - 596 + 'px',
       search: {
@@ -93,7 +97,7 @@ export default {
         pageSize: 20
       },
       form: {
-        sendType: this.sendType,
+        sendType: this.sendType ? this.sendType : 0,
         postage: this.postage,
         postageSum: this.postageSum
       },
@@ -237,5 +241,8 @@ export default {
 <style>
   .magaList .el-table {
     margin-top: 20px;
+  }
+  .maga .el-form-item {
+    margin-bottom: 0;
   }
 </style>
