@@ -132,7 +132,7 @@
           <el-button @click="onChecke(scope.row)" type="text" size="small" v-if="havePermission('trade:list')">查看</el-button>
           <el-button @click="onUpdate(scope.row)" type="text" size="small" v-if="havePermission('trade:update')">修改</el-button>
           <el-button @click="onFlowed(scope.row)" type="text" size="small">流程</el-button>
-          <el-button @click="onDelive(scope.row)" type="text" size="small">发货物流</el-button>
+          <el-button @click="onDelive(scope.row)" type="text" size="small" v-if="havePermission('trade:delive')">发货物流</el-button>
         </template>
       </el-table-column>
     </el-table>

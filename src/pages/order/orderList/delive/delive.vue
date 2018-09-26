@@ -1,36 +1,45 @@
 <template>
   <div class="order-delive">
     <el-form ref="form" :model="form" label-width="120px">
-      <el-row :gutter="20" style="margin-bottom: 20px">
+      <el-row :gutter="20" v-if="deliverType === 0 || deliverType === 1">
         <el-col :span="3">
-          <el-input v-model="form.shipperCodeMagazine" placeholder="请输入杂志承运方"></el-input>
+          <el-select v-model="form.shipperCodeMagazine" placeholder="请选择杂志承运方">
+            <el-option value="YTO" label="圆通快递"></el-option>
+            <el-option value="YD" label="韵达快递"></el-option>
+            <el-option value="HHTT" label="天天快递"></el-option>
+            <el-option value="EMS" label="EMS"></el-option>
+            <el-option value="STO" label="申通快递"></el-option>
+            <el-option value="ZTO" label="中通速递"></el-option>
+            <el-option value="SF" label="顺丰速递"></el-option>
+          </el-select>
         </el-col>
         <el-col :span="5">
           <el-input v-model="form.logisticCodeMagazine" placeholder="请输入杂志发货单号"></el-input>
         </el-col>
-        <el-col :span="3">
-          <el-switch
-            v-model="form.selfDelivery"
-            :active-value="1"
-            :inactive-value="0"
-            active-text="自送"
-            inactive-text="寄送"
-            active-color="#13ce66"
-            inactive-color="#409EFF">
-          </el-switch>
+        <el-col :span="4">
+          <el-radio v-model="form.sendType" :label="0">直送</el-radio>
+          <el-radio v-model="form.sendType" :label="1">寄送</el-radio>
         </el-col>
       </el-row>
-      <el-row :gutter="20">
+      <el-row :gutter="20" v-if="deliverType === 0 || deliverType === 2">
         <el-col :span="3">
-          <el-input v-model="form.shipperCode" placeholder="请输入图书承运方"></el-input>
+          <el-select v-model="form.shipperCode" placeholder="请选择图书承运方">
+            <el-option value="YTO" label="圆通快递"></el-option>
+            <el-option value="YD" label="韵达快递"></el-option>
+            <el-option value="HHTT" label="天天快递"></el-option>
+            <el-option value="EMS" label="EMS"></el-option>
+            <el-option value="STO" label="申通快递"></el-option>
+            <el-option value="ZTO" label="中通速递"></el-option>
+            <el-option value="SF" label="顺丰速递"></el-option>
+          </el-select>
         </el-col>
         <el-col :span="5">
           <el-input v-model="form.logisticCode" placeholder="请输入图书发货单号"></el-input>
         </el-col>
       </el-row>
-      <el-row style="margin-top: 20px">
+      <el-row>
         <el-button @click="goback">取消</el-button>
-        <el-button @click="onSubmit" type="primary">保存提交</el-button>
+        <el-button @click="onSubmit" type="primary" v-if="hasSubmit">保存提交</el-button>
       </el-row>
     </el-form>
   </div>
@@ -41,12 +50,14 @@ export default {
   name: 'order-delive',
   data () {
     return {
+      deliverType: '',
+      hasSubmit: '',
       form: {
-        logisticCode: '',
-        logisticCodeMagazine: '',
-        selfDelivery: 0,
-        shipperCode: '',
-        shipperCodeMagazine: '',
+        sendType: 0, // 0发到学校,1发到家里
+        shipperCode: '', // 图书承运方
+        logisticCode: '', // 图书发货单号
+        shipperCodeMagazine: '', // 杂志承运方
+        logisticCodeMagazine: '', // 杂志发货单号
         tradeId: this.$route.query.id
       }
     }
@@ -58,7 +69,14 @@ export default {
     loadTradeDelive () {
       this.$axios.tradeDelive(this.$route.query.id).then(res => {
         if (res.data.code === '0') {
-          console.log(res)
+          console.log(res.data.data)
+          this.hasSubmit = res.data.data.hasSubmit
+          this.deliverType = res.data.data.deliverType
+          this.form.sendType = res.data.data.sendType
+          this.form.shipperCode = res.data.data.shipperCode
+          this.form.logisticCode = res.data.data.logisticCode
+          this.form.shipperCodeMagazine = res.data.data.shipperCodeMagazine
+          this.form.logisticCodeMagazine = res.data.data.logisticCodeMagazine
         } else {
           this.$message.error(res.data.msg)
         }
@@ -86,5 +104,8 @@ export default {
 <style>
   .order-delive {
     padding: 20px;
+  }
+  .order-delive .el-row {
+    margin-bottom: 20px;
   }
 </style>

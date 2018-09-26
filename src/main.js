@@ -45,14 +45,12 @@ router.beforeEach((to, from, next) => {
   next()
 })
 
-Vue.prototype.havePermission = function (value) {
-  let per = false
-  JSON.parse(localStorage.getItem('permission')).forEach(item => {
-    if (item.button === value) {
-      per = true
-    }
-  })
-  return per
+Vue.prototype.havePermission = value => {
+  if (localStorage.getItem('permission').indexOf(value) > -1) {
+    return true
+  } else {
+    return false
+  }
 }
 
 /* eslint-disable no-new */
