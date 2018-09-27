@@ -3,7 +3,7 @@
     <el-form ref="form" :model="form" label-width="120px">
       <el-row :gutter="20" v-if="deliverType === 0 || deliverType === 1">
         <el-col :span="3">
-          <el-select v-model="form.shipperCodeMagazine" placeholder="请选择杂志承运方">
+          <el-select v-model="form.shipperCodeMagazine" placeholder="请选择杂志承运方" :disabled="form.sendType === 0">
             <el-option value="YTO" label="圆通快递"></el-option>
             <el-option value="YD" label="韵达快递"></el-option>
             <el-option value="HHTT" label="天天快递"></el-option>
@@ -14,7 +14,7 @@
           </el-select>
         </el-col>
         <el-col :span="5">
-          <el-input v-model="form.logisticCodeMagazine" placeholder="请输入杂志发货单号"></el-input>
+          <el-input v-model="form.logisticCodeMagazine" placeholder="请输入杂志发货单号" :disabled="form.sendType === 0"></el-input>
         </el-col>
         <el-col :span="4">
           <el-radio v-model="form.sendType" :label="0">直送</el-radio>
@@ -96,6 +96,20 @@ export default {
     },
     goback () {
       this.$router.go(-1)
+    }
+  },
+  watch: {
+    'form.sendType' (val) {
+      let shipperCodeMagazine, logisticCodeMagazine
+      if (val === 0) {
+        shipperCodeMagazine = this.form.shipperCodeMagazine
+        logisticCodeMagazine = this.form.logisticCodeMagazine
+        this.form.shipperCodeMagazine = ''
+        this.form.logisticCodeMagazine = ''
+      } else {
+        this.form.shipperCodeMagazine = shipperCodeMagazine
+        this.form.logisticCodeMagazine = logisticCodeMagazine
+      }
     }
   }
 }
