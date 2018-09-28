@@ -63,7 +63,7 @@
       </el-form>
     </header>
     <main class="table-main">
-      <template>
+      <template v-if="addressTable.length > 0">
         <header class="table-title">
           <span>收货信息</span>
         </header>
@@ -115,10 +115,7 @@
           <el-table-column prop="totalCost" label="合计金额" width="100" align="center"></el-table-column>
           <el-table-column prop="refundStatus" label="商品状态" width="100" align="center">
             <template slot-scope="scope">
-              <span v-if="scope.row.refundStatus === 0">正常</span>
-              <span v-if="scope.row.refundStatus === 1">申请退款</span>
-              <span v-if="scope.row.refundStatus === 2">拒绝退款</span>
-              <span v-if="scope.row.refundStatus === 3">同意退款</span>
+              <span>{{ scope.row.refundStatus === 0 ? scope.row.tradeStatusName : scope.row.refundStatusName }}</span>
             </template>
           </el-table-column>
           <el-table-column prop="refundReason" label="申请退款原因" width="120" align="center"></el-table-column>
@@ -194,6 +191,7 @@ export default {
       this.$axios.trade(this.orderItem.id).then(res => {
         if (res.data.code === '0') {
           this.form = res.data.data
+          console.log(this.form)
           this.form.createdAt = this.timeFormat(this.form.createdAt)
           this.setAddress(this.form)
         } else {
