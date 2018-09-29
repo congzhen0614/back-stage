@@ -10,11 +10,11 @@ module.exports = {
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
     proxyTable: {
-      // '/qrzd': {
-      //   target: 'http://192.168.0.230:8081/qrzd',
-      //   changeOrigin: true,
-      //   pathRewrite: {'^/qrzd': ''}
-      // }
+      '/qrzd': {
+        target: 'https://qrapi.51weixiao.com/qrzd',
+        changeOrigin: true,
+        pathRewrite: {'^/qrzd': ''}
+      }
     },
 
     // Various Dev Server settings
@@ -55,7 +55,7 @@ module.exports = {
     // Paths
     assetsRoot: path.resolve(__dirname, '../dist'),
     assetsSubDirectory: 'static',
-    assetsPublicPath: '/',
+    assetsPublicPath: '',
 
     /**
      * Source Maps

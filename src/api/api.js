@@ -7,7 +7,11 @@ import qs from 'qs'
 import Vue from 'vue'
 import downloadHandler from '@/common/upload.js'
 let obj = new Vue()
-axios.defaults.baseURL = location.protocol + '//192.168.0.230:8081'
+
+// 测试: http://192.168.0.230:8081
+// 正式正式: https://qrapi.51weixiao.com/qrzd
+
+// axios.defaults.baseURL = 'http://192.168.0.230:8081'
 
 // 设置headers
 axios.interceptors.request.use(config => {
