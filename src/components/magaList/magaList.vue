@@ -110,6 +110,7 @@ export default {
   },
   props: ['sendType', 'postage', 'postageSum', 'magazineIds'],
   mounted () {
+    console.log(this.form)
     this.loadDate()
     this.loadItemtypeList()
   },

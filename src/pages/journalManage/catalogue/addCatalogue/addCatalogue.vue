@@ -82,7 +82,7 @@ export default {
         postage: '',
         postageSum: '',
         schoolLevel: '',
-        sendType: ''
+        sendType: 0
       },
       tableList: [],
       mageList: [],
@@ -111,6 +111,7 @@ export default {
       this.ypspList = val.items.length > 0 ? val.items : []
     },
     onSave () {
+      console.log(this.form)
       let haveBook = false
       this.form.items.forEach(item => {
         if (item.cls === 2) haveBook = true
