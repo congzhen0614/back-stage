@@ -10,8 +10,8 @@ module.exports = {
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
     proxyTable: {
-      '/qrzd': {
-        target: 'https://qrapi.51weixiao.com/qrzd',
+      '/qrzd': { // 测试: http://192.168.0.230:8081/qrzd // 正式正式: https://qrapi.51weixiao.com/qrzd
+        target: 'http://192.168.0.230:8081/qrzd',
         changeOrigin: true,
         pathRewrite: {'^/qrzd': ''}
       }
