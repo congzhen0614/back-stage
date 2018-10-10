@@ -394,7 +394,8 @@ export default {
       })
     },
     loadTemplate () {
-      window.location.href = location.protocol + '//' + window.location.host + 'static/file/杂志批量导入模板.xlsx'
+      // console.log(location.protocol + '//' + window.location.host + '/static/file/杂志批量导入模板.xlsx')
+      window.location.href = location.protocol + '//' + window.location.host + '/zdadmin/static/file/杂志批量导入模板.xlsx'
     }
   }
 }

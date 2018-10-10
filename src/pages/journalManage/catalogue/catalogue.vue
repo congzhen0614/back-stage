@@ -11,6 +11,7 @@
           <el-col :span="4">
             <el-form-item label="征订状态:">
               <el-select v-model="search.sub">
+                <el-option label="全部" :value="''"></el-option>
                 <el-option label="是" value="1"></el-option>
                 <el-option label="否" value="0"></el-option>
               </el-select>
@@ -19,6 +20,7 @@
           <el-col :span="4">
             <el-form-item label="生成条码:">
               <el-select v-model="search.has">
+                <el-option label="全部" :value="''"></el-option>
                 <el-option label="是" value="1"></el-option>
                 <el-option label="否" value="0"></el-option>
               </el-select>
@@ -27,6 +29,7 @@
           <el-col :span="4">
             <el-form-item label="创建人:">
               <el-select v-model="search.createUser">
+                <el-option label="全部" :value="''"></el-option>
                 <el-option :label="item.username" :value="item.id" v-for="item in accountList" :key="item.id"></el-option>
               </el-select>
             </el-form-item>
