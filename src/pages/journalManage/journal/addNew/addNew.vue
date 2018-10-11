@@ -25,7 +25,7 @@
       <el-form-item label="价格:" prop="fee">
         <el-input v-model="form.fee"></el-input>
       </el-form-item>
-      <el-form-item label="价格单位:">
+      <el-form-item label="价格单位:" prop="feeUnitNum">
         <el-row :gutter="10">
           <el-col :span="7">
             <el-select v-model="form.feeUnitType">
@@ -96,7 +96,9 @@ export default {
       form: {
         isSale: 1,
         typeId: [],
-        ageId: []
+        ageId: [],
+        feeUnit: '1',
+        feeUnitType: '0'
       },
       fileList2: []
     }

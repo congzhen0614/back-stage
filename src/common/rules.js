@@ -28,6 +28,7 @@ let magazineRules = {
   typeId: [{required: true, message: '请输入选择产品类别', trigger: 'blur'}],
   ageId: [{required: true, message: '请输入选择适读年龄', trigger: 'blur'}],
   fee: [{required: true, message: '请输入杂志价格', trigger: 'blur'}],
+  feeUnitNum: [{required: true, message: '请输入杂志价格单位', trigger: 'blur'}],
   content: [{required: true, message: '请输入杂志介绍', trigger: 'blur'}]
 }
 
