@@ -191,7 +191,6 @@ export default {
       this.$axios.trade(this.orderItem.id).then(res => {
         if (res.data.code === '0') {
           this.form = res.data.data
-          console.log(this.form)
           this.form.createdAt = this.timeFormat(this.form.createdAt)
           this.setAddress(this.form)
         } else {
