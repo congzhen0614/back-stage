@@ -138,7 +138,11 @@
           <el-table-column prop="fee" label="商品价格" width="100" align="center"></el-table-column>
           <el-table-column prop="quantity" label="数量" width="100" align="center"></el-table-column>
           <el-table-column prop="totalCost" label="合计金额" width="100" align="center"></el-table-column>
-          <el-table-column prop="refundStatus" label="商品状态" width="100" align="center"></el-table-column>
+          <el-table-column label="商品状态" width="100" align="center">
+            <template slot-scope="scope">
+              <span>{{ scope.row.refundStatus === 0 ? scope.row.tradeStatusName : scope.row.refundStatusName }}</span>
+            </template>
+          </el-table-column>
         </el-table>
       </template>
     </main>
