@@ -75,12 +75,13 @@
           <el-col :span="6">
             <el-form-item label="订单状态:">
               <el-select v-model="search.tradeStatus" placeholder="请选择">
+                <el-option label="全部" value=""></el-option>
                 <el-option label="待付款" value="1"></el-option>
                 <el-option label="已付款" value="2"></el-option>
                 <el-option label="已完成" value="14"></el-option>
                 <el-option label="已退款" value="7"></el-option>
-                <!--<el-option label="订单已失效" value="0"></el-option>-->
-                <!--<el-option label="订单已取消" value="0"></el-option>-->
+                <el-option label="订单已失效" value="-2"></el-option>
+                <el-option label="订单已取消" value="-1"></el-option>
               </el-select>
             </el-form-item>
           </el-col>
@@ -121,9 +122,9 @@
       <el-table-column prop="totalFee" label="订单总额" width="100" align="center"></el-table-column>
       <el-table-column prop="user" label="下单人" width="240" align="center"></el-table-column>
       <el-table-column prop="username" label="联系电话" width="150" align="center"></el-table-column>
-      <el-table-column prop="createdAt" label="下单时间" width="120" align="center">
+      <el-table-column prop="createdAt" label="下单时间" width="200" align="center">
         <template slot-scope="scope">
-          <span>{{ scope.row.createdAt | dateFormat }}</span>
+          <span>{{ scope.row.createdAt | timeFormat }}</span>
         </template>
       </el-table-column>
       <el-table-column prop="tradeStatusName" label="订单状态" width="120" align="center"></el-table-column>
