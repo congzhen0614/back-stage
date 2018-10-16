@@ -1,7 +1,7 @@
 <template>
   <div class="journal-manage-upLoad">
     <el-upload
-      action="http://192.168.0.231:8080/app-api/api/upload"
+      action="https://app.51weixiao.com/app-api/api/upload"
       list-type="picture-card"
       :multiple="multiple"
       :limit="limit"
