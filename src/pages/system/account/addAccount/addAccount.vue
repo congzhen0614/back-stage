@@ -73,12 +73,16 @@ export default {
         groupName: JSON.parse(localStorage.getItem('user')).groupName
       },
       groupType: JSON.parse(localStorage.getItem('user')).groupType,
+      roleLevel: JSON.parse(localStorage.getItem('user')).roleLevel,
       roles: [],
       groupList: [],
       belongList: []
     }
   },
   mounted () {
+    if (this.roleLevel === 6 || this.roleLevel === 4) {
+      this.form.userId = JSON.parse(localStorage.getItem('user')).id
+    }
     if (!this.isSuperAdmin) {
       this.loadRoleList()
     } else {
