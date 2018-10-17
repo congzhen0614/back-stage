@@ -99,7 +99,7 @@
               <el-button @click="onCancelRefund(scope.row)" type="text" size="small" v-if="scope.row.refundStatus === 1 && havePermission('trade:refundcancel')">取消退款</el-button>
               <el-button @click="onRepulseRefund(scope.row)" type="text" size="small" v-if="scope.row.refundStatus === 1 && havePermission('trade:refunded')">拒绝退款</el-button>
               <el-button @click="onRefund(scope.row)" type="text" size="small" v-if="scope.row.refundStatus === 1 && havePermission('trade:refunded')">同意退款</el-button>
-              <el-button @click="onListUpdate(scope.row)" type="text" size="small" v-if="havePermission('trade:updatemagazine')">修改</el-button>
+              <el-button @click="onListUpdate(scope.row)" type="text" size="small" v-if="scope.row.refundStatus === 0 && havePermission('trade:updatemagazine')">修改</el-button>
             </template>
           </el-table-column>
         </el-table>
@@ -124,7 +124,7 @@
             <template slot-scope="scope">
               <el-button @click="onRepulseRefund(scope.row)" type="text" size="small" v-if="scope.row.refundStatus === 1 && havePermission('trade:refunded')">拒绝退款</el-button>
               <el-button @click="onRefund(scope.row)" type="text" size="small" v-if="scope.row.refundStatus === 1 && havePermission('trade:refunded')">同意退款</el-button>
-              <el-button @click="onListUpdate(scope.row)" type="text" size="small" v-if="havePermission('trade:updatemagazine')">修改</el-button>
+              <el-button @click="onListUpdate(scope.row)" type="text" size="small" v-if="scope.row.refundStatus === 0 && havePermission('trade:updatemagazine')">修改</el-button>
             </template>
           </el-table-column>
         </el-table>
