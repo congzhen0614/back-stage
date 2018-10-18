@@ -83,7 +83,7 @@ export default {
       windowHeight: window.innerHeight - 596 + 'px',
       search: {
         typeId: '',
-        isSale: '',
+        isSale: 1,
         pageNum: 1,
         pageSize: 20
       },

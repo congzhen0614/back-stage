@@ -92,7 +92,7 @@ export default {
       windowHeight: window.innerHeight - 596 + 'px',
       search: {
         typeId: '',
-        isSale: '',
+        isSale: 1,
         pageNum: 1,
         pageSize: 20
       },
@@ -110,7 +110,6 @@ export default {
   },
   props: ['sendType', 'postage', 'postageSum', 'magazineIds'],
   mounted () {
-    console.log(this.form)
     this.loadDate()
     this.loadItemtypeList()
   },
