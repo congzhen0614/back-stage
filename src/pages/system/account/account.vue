@@ -50,7 +50,9 @@ export default {
   data () {
     return {
       windowHeight: window.innerHeight - 265 + 'px',
-      search: {},
+      search: {
+        name: ''
+      },
       options: [],
       tableList: [],
       pages: {
@@ -74,7 +76,13 @@ export default {
     }
   },
   methods: {
+    Trim (str) {
+      if (str !== '') {
+        return str.replace(/(^\s*)|(\s*$)/g, '')
+      }
+    },
     loadData () {
+      this.params.key = this.Trim(this.params.key)
       this.$axios.accountList(this.params).then(res => {
         this.tableList = res.data.data.list
         this.pages.total = res.data.data.total

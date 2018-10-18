@@ -152,6 +152,7 @@ export default {
       groupList: [],
       accountList: [],
       search: {
+        name: '',
         typeId: '',
         ageId: '',
         isSale: ''
@@ -188,6 +189,11 @@ export default {
     }
   },
   methods: {
+    Trim (str) {
+      if (str !== '') {
+        return str.replace(/(^\s*)|(\s*$)/g, '')
+      }
+    },
     loadItemageList () {
       this.$axios.itemageListCandidate().then(res => {
         if (res.data.code === '0') {
@@ -239,6 +245,7 @@ export default {
       })
     },
     loadDate () {
+      this.params.name = this.Trim(this.params.name)
       this.$axios.magazineList(this.params).then(res => {
         if (res.data.code === '0') {
           this.tableData = res.data.data.list

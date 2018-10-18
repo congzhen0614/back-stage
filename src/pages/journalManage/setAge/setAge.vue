@@ -80,7 +80,13 @@ export default {
     }
   },
   methods: {
+    Trim (str) {
+      if (str !== '') {
+        return str.replace(/(^\s*)|(\s*$)/g, '')
+      }
+    },
     loadDate () {
+      this.params.name = this.Trim(this.params.name)
       this.$axios.itemageList(this.params).then(res => {
         if (res.data.code) {
           this.tableList = res.data.data.list

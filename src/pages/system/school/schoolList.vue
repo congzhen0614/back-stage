@@ -127,6 +127,11 @@ export default {
     }
   },
   methods: {
+    Trim (str) {
+      if (str !== '') {
+        return str.replace(/(^\s*)|(\s*$)/g, '')
+      }
+    },
     loadProvince () {
       this.$axios.province().then(res => {
         if (res.data.code === '0') {
@@ -186,6 +191,7 @@ export default {
       })
     },
     loadSchoolList () {
+      this.params.name = this.Trim(this.params.name)
       this.$axios.sysSchoolList(this.params).then(res => {
         if (res.data.code === '0') {
           this.schoolList = res.data.data.list
