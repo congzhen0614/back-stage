@@ -216,6 +216,9 @@ export default {
           this.regionsList = item.regions
         }
       })
+    },
+    'form.regionId' () {
+      this.loadSchoolList()
     }
   }
 }
