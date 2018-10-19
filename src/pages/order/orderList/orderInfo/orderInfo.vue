@@ -82,7 +82,7 @@
       <template v-if="magaTable.length > 0">
         <header class="table-title">
           <span>杂志</span>
-          <span style="margin-left: 20px">杂志运费: {{ form.deliveryFee }}元</span>
+          <span style="margin-left: 20px">杂志运费: {{ form.deliveryFeeMagazine }}元</span>
         </header>
         <el-table :data="magaTable" border>
           <el-table-column prop="name" label="商品名称"></el-table-column>
