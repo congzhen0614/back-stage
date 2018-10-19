@@ -58,9 +58,9 @@
           </el-row>
         </div>
         <div class="header-button">
-          <el-button type="primary" icon="el-icon-plus" @click="clickAddNew" v-if="havePermission('magazine:add')">添加</el-button>
-          <el-button type="primary" icon="el-icon-upload2" @click="dialogVisible = true" v-if="havePermission('magazine:batch')">导入杂志</el-button>
-          <el-button type="primary" icon="el-icon-upload" @click="onUploadImages" v-if="havePermission('magazine:updatelogo')">上传封面图</el-button>
+          <el-button type="primary" @click="clickAddNew" v-if="havePermission('magazine:add')">添加</el-button>
+          <el-button type="primary" @click="dialogVisible = true" v-if="havePermission('magazine:batch')">导入杂志</el-button>
+          <el-button type="primary" @click="onUploadImages" v-if="havePermission('magazine:updatelogo')">上传封面图</el-button>
         </div>
       </el-form>
     </el-header>

@@ -171,6 +171,9 @@ export default {
     // return location.protocol + '//192.168.0.230:8081/qrzd/magazine/qrzditem/batch'
     return location.protocol + '//qrapi.51weixiao.com/qrzd/magazine/qrzditem/batch'
   },
+  schoolBatch () {
+    return location.protocol + '//qrapi.51weixiao.com/qrzd/sys/school/batch'
+  },
   magazineItemImgst (params) { // 杂志列表
     let param = qs.stringify(params)
     return axios.get(`/qrzd/magazine/itemimg/list?${param}`)

@@ -44,6 +44,7 @@
       </el-form>
       <el-button type="primary" @click="addSchool" v-if="havePermission('school:add')">添加</el-button>
       <el-button type="primary" @click="onOrder" v-if="havePermission('school:ord')">排序提交</el-button>
+      <el-button type="primary" @click="dialogVisible = true" v-if="havePermission('school:batch')">导入学校</el-button>
     </header>
     <el-table :data="schoolList" style="width: 100%" border :height="windowHeight" @selection-change="handleSelectionChange">
       <el-table-column type="selection" width="55" align="center"></el-table-column>
@@ -74,6 +75,21 @@
       layout="total, sizes, prev, pager, next, jumper"
       :total="pages.total">
     </el-pagination>
+    <el-dialog :visible.sync="dialogVisible" width="25%">
+      <el-upload
+        class="upload-demo"
+        drag
+        multiple
+        :action="upLoadUrl"
+        :headers="{Authorization: authorization}"
+        :on-success="upLoadSuccess"
+        :on-error="upLoadError"
+        :before-upload="beforeAvatarUpload">
+        <i class="el-icon-upload"></i>
+        <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
+        <div class="el-upload__tip" slot="tip" style="cursor: pointer" @click="loadTemplate">点击下载模板</div>
+      </el-upload>
+    </el-dialog>
   </div>
 </template>
 
@@ -82,7 +98,10 @@ export default {
   name: 'system-school',
   data () {
     return {
+      authorization: JSON.parse(localStorage.getItem('user')).authorization,
       windowHeight: window.innerHeight - 320 + 'px',
+      upLoadUrl: this.$axios.schoolBatch(),
+      dialogVisible: false,
       provinceList: [],
       citiesList: [],
       regionsList: [],
@@ -291,6 +310,30 @@ export default {
           message: '已取消删除'
         })
       })
+    },
+    beforeAvatarUpload (file) {
+      let xls = 'application/vnd.ms-excel'
+      let xlsx = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+      const isXlsx = file.type === xls || file.type === xlsx
+      if (!isXlsx) {
+        this.$message.error('只能上传Excel')
+      }
+      return isXlsx
+    },
+    upLoadSuccess (res) {
+      if (res.code === '0') {
+        this.$message.success('导入成功!')
+        this.dialogVisible = false
+        this.loadDate()
+      } else {
+        this.$message.error(res.msg)
+      }
+    },
+    upLoadError (res) {
+      this.$message.error(res.msg)
+    },
+    loadTemplate () {
+      window.location.href = location.protocol + '//' + window.location.host + '/zdadmin/static/file/学校批量导入模板.xls'
     }
   },
   watch: {
@@ -307,11 +350,15 @@ export default {
 </script>
 
 <style>
-.school-header {
-  padding: 20px;
-  background-color: #F2F6FC;
-}
-.school-region .el-select {
-  width: 32%;
-}
+  .school-header {
+    padding: 20px;
+    background-color: #F2F6FC;
+  }
+  .school-region .el-select {
+    width: 32%;
+  }
+  .system-school .el-upload,
+  .system-school .el-upload .el-upload-dragger {
+    width: 100%;
+  }
 </style>

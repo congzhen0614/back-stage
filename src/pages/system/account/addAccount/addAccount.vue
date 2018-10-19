@@ -27,12 +27,12 @@
         </el-select>
       </el-form-item>
       <el-form-item label="高级用户(组织):" prop="userId" v-if="groupType === 1 && form.roleLevel === 5">
-        <el-select v-model="form.userId" placeholder="请选择">
+        <el-select v-model="form.userId" placeholder="请选择" :disabled="roleLevel === 4">
           <el-option v-for="item in belongList" :key="item.id" :label="item.username" :value="item.id"></el-option>
         </el-select>
       </el-form-item>
       <el-form-item label="高级用户(个人):" prop="userId" v-if="groupType === 0 && form.roleLevel === 5">
-        <el-select v-model="form.userId" placeholder="请选择">
+        <el-select v-model="form.userId" placeholder="请选择" :disabled="roleLevel === 6">
           <el-option v-for="item in belongList" :key="item.id" :label="item.username" :value="item.id"></el-option>
         </el-select>
       </el-form-item>
