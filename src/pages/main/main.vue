@@ -46,7 +46,7 @@ export default {
         height: window.innerHeight - 120 + 'px'
       },
       routeList: [],
-      username: JSON.parse(localStorage.getItem('user')).realname ? JSON.parse(localStorage.getItem('user')).realname : ''
+      username: localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')).realname : ''
     }
   },
   created () {

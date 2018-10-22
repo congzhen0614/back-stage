@@ -93,9 +93,6 @@ export default {
   mounted () {
   },
   methods: {
-    handleSelectionChange (val) {
-      console.log(val)
-    },
     mageDate (val) {
       this.form.postage = val.postage === undefined ? '' : val.postage
       this.form.postageSum = val.postageSum === undefined ? '' : val.postageSum

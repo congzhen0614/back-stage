@@ -115,7 +115,6 @@ export default {
   },
   methods: {
     handleSelectionChange (val) {
-      console.log(val)
       let ids = []
       val.forEach(item => {
         ids.push({
