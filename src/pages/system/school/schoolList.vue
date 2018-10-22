@@ -99,7 +99,7 @@ export default {
   data () {
     return {
       authorization: JSON.parse(localStorage.getItem('user')).authorization,
-      windowHeight: window.innerHeight - 320 + 'px',
+      windowHeight: window.innerHeight - 260 + 'px',
       upLoadUrl: this.$axios.schoolBatch(),
       dialogVisible: false,
       provinceList: [],

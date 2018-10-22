@@ -1,6 +1,6 @@
 <template>
   <div class="system-permission">
-    <el-table ref="multipleTable" :data="tableList" tooltip-effect="dark" style="width: 100%" :height="windowHeight" border>
+    <el-table ref="multipleTable" :data="tableList" tooltip-effect="dark">
       <el-table-column type="index" width="55" label="序号" align="center"></el-table-column>
       <el-table-column prop="rolename" label="角色名称"></el-table-column>
       <el-table-column prop="intro" label="角色描述" show-overflow-tooltip></el-table-column>
@@ -19,11 +19,8 @@ export default {
   components: {},
   data () {
     return {
-      windowHeight: window.innerHeight - 140 + 'px',
       tableList: []
     }
-  },
-  created () {
   },
   mounted () {
     this.roleCandidate()

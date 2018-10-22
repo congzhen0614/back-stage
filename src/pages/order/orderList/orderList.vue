@@ -155,7 +155,7 @@ export default {
   components: {},
   data () {
     return {
-      windowHeight: window.innerHeight - 450 + 'px',
+      windowHeight: window.innerHeight - 390 + 'px',
       search: {
         provinceId: '',
         cityId: '',

@@ -49,7 +49,7 @@ export default {
   components: {},
   data () {
     return {
-      windowHeight: window.innerHeight - 265 + 'px',
+      windowHeight: window.innerHeight - 205 + 'px',
       search: {
         name: ''
       },

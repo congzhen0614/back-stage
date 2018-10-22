@@ -144,7 +144,7 @@ export default {
   components: {},
   data () {
     return {
-      windowHeight: window.innerHeight - 325 + 'px',
+      windowHeight: window.innerHeight - 265 + 'px',
       dialogVisible: false,
       authorization: JSON.parse(localStorage.getItem('user')).authorization,
       ageList: [],

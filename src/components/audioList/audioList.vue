@@ -44,7 +44,7 @@ export default {
   name: 'audioList',
   data () {
     return {
-      windowHeight: window.innerHeight - 531 + 'px',
+      windowHeight: window.innerHeight - 485 + 'px',
       search: {
         pageNum: 1,
         pageSize: 20

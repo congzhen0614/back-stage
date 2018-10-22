@@ -69,7 +69,6 @@ export default {
   data () {
     return {
       rules: rules.ManageCatalogue,
-      windowHeight: window.innerHeight - 500 + 'px',
       options: [],
       search: [],
       form: {

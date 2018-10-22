@@ -40,7 +40,7 @@ export default {
   name: 'system-organiza',
   data () {
     return {
-      windowHeight: window.innerHeight - 265 + 'px',
+      windowHeight: window.innerHeight - 205 + 'px',
       tableList: [],
       pages: {
         total: 0,

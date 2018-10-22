@@ -89,7 +89,8 @@ export default {
         postageSum: {required: true, message: '请输入未满金额', trigger: 'blur'},
         postage: {required: true, message: '请输入运费', trigger: 'blur'}
       },
-      windowHeight: window.innerHeight - 596 + 'px',
+      windowHeight: window.innerHeight - 546 + 'px',
+      pageNum: 1,
       search: {
         typeId: '',
         isSale: 1,
@@ -115,15 +116,14 @@ export default {
   },
   methods: {
     handleSelectionChange (val) {
-      let ids = []
+      this.selectIds = []
       val.forEach(item => {
-        ids.push({
+        this.selectIds.push({
           cls: 1,
           itemId: item.id,
           ord: parseInt(item.ord)
         })
       })
-      this.selectIds = ids
     },
     handleSizeChange (val) {
       this.search.pageSize = val

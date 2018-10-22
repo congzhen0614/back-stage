@@ -84,7 +84,7 @@ export default {
   name: 'account-bind-school',
   data () {
     return {
-      windowHeight: window.innerHeight - 250 + 'px',
+      windowHeight: window.innerHeight - 190 + 'px',
       provinceList: [],
       citiesList: [],
       regionsList: [],

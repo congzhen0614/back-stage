@@ -30,7 +30,7 @@ export default {
   components: {},
   data () {
     return {
-      windowHeight: window.innerHeight - 200 + 'px',
+      windowHeight: window.innerHeight - 140 + 'px',
       tableData: JSON.parse(this.$route.query.items),
       fileList: [],
       uploadId: 0

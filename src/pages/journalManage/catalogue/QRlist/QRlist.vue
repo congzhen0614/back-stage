@@ -63,7 +63,7 @@ export default {
   components: {},
   data () {
     return {
-      windowHeight: window.innerHeight - 320 + 'px',
+      windowHeight: window.innerHeight - 260 + 'px',
       search: {},
       pages: {
         total: 0,

@@ -25,7 +25,7 @@
           </keep-alive>
           <router-view v-if="!$route.meta.keepAlive"></router-view>
         </el-main>
-        <el-footer></el-footer>
+        <!--<el-footer></el-footer>-->
       </el-container>
     </el-container>
   </div>
@@ -40,10 +40,10 @@ export default {
   },
   data () {
     return {
-      windowHeight: window.innerHeight - 120 + 'px',
+      windowHeight: window.innerHeight - 60 + 'px',
       style: {
         backgroundImage: 'url(' + require('../../assets/index-backgroud.jpg') + ')',
-        height: window.innerHeight - 120 + 'px'
+        height: window.innerHeight - 60 + 'px'
       },
       routeList: [],
       username: localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')).realname : ''
@@ -110,7 +110,7 @@ export default {
   .el-footer {
     background-color: #F2F6FC;
     text-align: center;
-    line-height: 60px;
+    height: 60px;
   }
   .increase-menu, .el-menu {
     height: 100%;
