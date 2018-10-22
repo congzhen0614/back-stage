@@ -139,7 +139,7 @@ export default {
       this.$axios.itemageListCandidate().then(res => {
         if (res.data.code === '0') {
           this.ageList = res.data.data
-          res.data.data.list.forEach(item => {
+          res.data.data.forEach(item => {
             this.ageSelect.push(item.id)
           })
         } else {
@@ -155,7 +155,7 @@ export default {
       this.$axios.itemtypeListCandidate().then(res => {
         if (res.data.code === '0') {
           this.typeList = res.data.data
-          res.data.data.list.forEach(item => {
+          res.data.data.forEach(item => {
             this.typeSelect.push(item.id)
           })
         } else {
