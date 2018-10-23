@@ -1,9 +1,9 @@
 <template>
   <div class="increase-main">
     <el-container>
-      <el-aside style="width: 260px"><v-menu @routerPush="toPages"></v-menu></el-aside>
+      <el-aside style="width: 200px"><v-menu @routerPush="toPages"></v-menu></el-aside>
       <el-container>
-        <el-header style="height: auto; padding: 20px">
+        <el-header style="height: auto; padding: 10px">
           <div class="head-button">
             <el-row>
               <span class="head-username">{{ username }}</span>
@@ -12,7 +12,7 @@
             </el-row>
           </div>
           <el-breadcrumb separator="/">
-            <el-breadcrumb-item :to="{ path: item.path }" v-for="(item, index) in routeList" :key="index">{{ item.name }}</el-breadcrumb-item>
+            <el-breadcrumb-item style="font-size: 12px" :to="{ path: item.path }" v-for="(item, index) in routeList" :key="index">{{ item.name }}</el-breadcrumb-item>
           </el-breadcrumb>
         </el-header>
         <el-main class="main-background" v-if="routeList.length === 1" :style="style">
@@ -40,10 +40,10 @@ export default {
   },
   data () {
     return {
-      windowHeight: window.innerHeight - 60 + 'px',
+      windowHeight: window.innerHeight - 40 + 'px',
       style: {
         backgroundImage: 'url(' + require('../../assets/index-backgroud.jpg') + ')',
-        height: window.innerHeight - 60 + 'px'
+        height: window.innerHeight - 40 + 'px'
       },
       routeList: [],
       username: localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')).realname : ''

@@ -1,31 +1,31 @@
 <template>
   <div class="audioList">
-    <el-form ref="form" :model="search" label-width="80px">
+    <el-form ref="form" :model="search">
       <el-row :gutter="20">
         <el-col :span="5">
-          <el-form-item label="书名:">
+          <el-form-item label="包名称:" label-width="50px">
             <el-input v-model="search.name"></el-input>
           </el-form-item>
         </el-col>
-        <el-col :span="4">
-          <el-button type="primary" plain @click="loadDate">检索</el-button>
+        <el-col :span="4" style="margin-top: 7px">
+          <el-button size="mini" type="primary" plain @click="loadDate">检索</el-button>
         </el-col>
       </el-row>
     </el-form>
     <el-table border ref="multipleTable" tooltip-effect="dark" :data="tableList" :height="windowHeight" @selection-change="handleSelectionChange">
-      <el-table-column type="selection" width="55"></el-table-column>
-      <el-table-column prop="ord" type="index" label="排序" width="100" sortable>
+      <el-table-column type="selection" width="40" align="center"></el-table-column>
+      <el-table-column prop="ord" type="index" label="排序" width="100" sortable align="center">
         <template slot-scope="scope">
           <el-input size="small" v-model="scope.row.ord" @change="ordChange(scope.row)"></el-input>
         </template>
       </el-table-column>
-      <el-table-column prop="name" label="视听包名称"></el-table-column>
-      <el-table-column prop="logo" label="封面图" width="100">
+      <el-table-column prop="name" label="视听包名称" header-align="center"></el-table-column>
+      <el-table-column prop="logo" label="封面图" width="80" align="center">
         <template slot-scope="scope">
           <img :src="scope.row.logo" width="100%">
         </template>
       </el-table-column>
-      <el-table-column prop="fee" label="价格" width="100%" sortable></el-table-column>
+      <el-table-column prop="fee" label="价格" width="100" sortable align="center"></el-table-column>
     </el-table>
     <el-pagination
       @size-change="handleSizeChange"
@@ -44,7 +44,7 @@ export default {
   name: 'audioList',
   data () {
     return {
-      windowHeight: window.innerHeight - 485 + 'px',
+      windowHeight: window.innerHeight - 360 + 'px',
       search: {
         pageNum: 1,
         pageSize: 20

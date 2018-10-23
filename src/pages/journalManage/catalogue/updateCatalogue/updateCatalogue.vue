@@ -48,8 +48,8 @@
       </el-tabs>
     </header>
     <el-row style="margin-top: 20px; margin-left: 20px">
-      <el-button type="primary" @click="onSave">保存书单</el-button>
-      <el-button @click="goBack">返回</el-button>
+      <el-button size="mini" type="primary" @click="onSave">保存书单</el-button>
+      <el-button size="mini" @click="goBack">返回</el-button>
     </el-row>
   </div>
 </template>
@@ -159,7 +159,7 @@ export default {
 
 <style>
   .journal-Manage-catalogue-update header {
-    padding: 20px;
+    padding: 10px;
     background-color: #F2F6FC;
   }
   .journal-Manage-catalogue-update .el-tabs {

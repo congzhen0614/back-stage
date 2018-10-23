@@ -4,30 +4,30 @@
       <el-row :gutter="40">
         <el-col :span="4"><el-input v-model="search.name" placeholder="请输入名称筛选"></el-input></el-col>
         <el-col :span="8">
-          <el-button type="primary" @click="loadData">检索</el-button>
-          <el-button type="primary" @click="clickAddnew" v-if="havePermission('account:add')">添加</el-button>
+          <el-button size="mini" type="primary" @click="loadData">检索</el-button>
+          <el-button size="mini" type="primary" @click="clickAddnew" v-if="havePermission('account:add')">添加</el-button>
         </el-col>
       </el-row>
     </header>
     <el-table ref="multipleTable" :data="tableList" tooltip-effect="dark" style="width: 100%" :height="windowHeight" border>
       <el-table-column type="index" width="55" label="序号" align="center"></el-table-column>
       <el-table-column prop="groupName" label="所属组织" header-align="center"></el-table-column>
-      <el-table-column prop="username" label="用户名" header-align="center"></el-table-column>
-      <el-table-column prop="realname" label="真实姓名" header-align="center"></el-table-column>
-      <el-table-column prop="roleName" label="角色" header-align="center" width="120"></el-table-column>
+      <el-table-column prop="username" label="用户名" align="center" width="150"></el-table-column>
+      <el-table-column prop="realname" label="真实姓名" align="center" width="150"></el-table-column>
+      <el-table-column prop="roleName" label="角色" align="center" width="150"></el-table-column>
       <el-table-column prop="adminAccountStatusDesc" label="账号状态" align="center" width="120"></el-table-column>
       <el-table-column label="创建时间" align="center" width="120">
         <template slot-scope="scope">
           <span>{{ scope.row.createdAt | dateFormat }}</span>
         </template>
       </el-table-column>
-      <el-table-column fixed="right" label="操作" width="350">
+      <el-table-column fixed="right" label="操作" width="300" align="center">
         <template slot-scope="scope">
-          <el-button type="text" size="small" @click="checkBind(scope.row)" v-if="havePermission('school:findByAdmin')">查看绑定学校</el-button>
-          <el-button type="text" size="small" @click="clickBind(scope.row)" v-if="havePermission('school:bind')">绑定学校</el-button>
-          <el-button type="text" size="small" @click="clickUpdate(scope.row)" v-if="havePermission('account:update')">修改</el-button>
-          <el-button type="text" size="small" @click="resetPassword(scope.row)" v-if="havePermission('account:reset')">重置密码</el-button>
-          <el-button type="text" size="small" @click="clickAstatus(scope.row)" v-if="havePermission('account:disable')">{{ scope.row.adminAccountStatusDesc | accountStatus }}</el-button>
+          <el-button type="text" size="mini" @click="checkBind(scope.row)" v-if="havePermission('school:findByAdmin')">查看绑定学校</el-button>
+          <el-button type="text" size="mini" @click="clickBind(scope.row)" v-if="havePermission('school:bind')">绑定学校</el-button>
+          <el-button type="text" size="mini" @click="clickUpdate(scope.row)" v-if="havePermission('account:update')">修改</el-button>
+          <el-button type="text" size="mini" @click="resetPassword(scope.row)" v-if="havePermission('account:reset')">重置密码</el-button>
+          <el-button type="text" size="mini" @click="clickAstatus(scope.row)" v-if="havePermission('account:disable')">{{ scope.row.adminAccountStatusDesc | accountStatus }}</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -49,7 +49,7 @@ export default {
   components: {},
   data () {
     return {
-      windowHeight: window.innerHeight - 205 + 'px',
+      windowHeight: window.innerHeight - 149 + 'px',
       search: {
         name: ''
       },
@@ -179,7 +179,7 @@ export default {
 <style>
   .system-account .header {
     background-color: #F2F6FC;
-    padding: 20px;
+    padding: 10px;
   }
   .system-account .el-select {
     width: 100%;

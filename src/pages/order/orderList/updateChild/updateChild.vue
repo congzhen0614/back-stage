@@ -50,8 +50,8 @@
         </el-col>
       </el-row>
       <el-row style="margin-top: 20px">
-        <el-button @click="onCancel">取消</el-button>
-        <el-button @click="onSubmit" type="primary">保存提交</el-button>
+        <el-button size="mini" @click="onSubmit" type="primary">保存提交</el-button>
+        <el-button size="mini" @click="onCancel">取消</el-button>
       </el-row>
     </el-form>
   </div>

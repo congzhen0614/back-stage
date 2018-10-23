@@ -17,7 +17,7 @@
               </el-form-item>
             </el-col>
             <el-col :span="5">
-              <el-button type="primary" @click="onAddList">添加选中商品</el-button>
+              <el-button type="primary" size="mini" style="margin-top: 6px" @click="onAddList">添加选中商品</el-button>
             </el-col>
           </el-row>
         </el-form>
@@ -31,15 +31,15 @@
           <el-table-column prop="quantity" label="数量" width="100"></el-table-column>
           <el-table-column label="操作" width="100">
             <template slot-scope="scope">
-              <el-button @click="onDelete(scope.$index)" type="text" size="small">删除</el-button>
+              <el-button @click="onDelete(scope.$index)" type="text" size="mini">删除</el-button>
             </template>
           </el-table-column>
         </el-table>
       </template>
     </main>
     <el-row class="bottom-button">
-      <el-button @click="onCancel">取消</el-button>
-      <el-button type="primary" @click="onSubmit">保存提交</el-button>
+      <el-button size="mini" type="primary" @click="onSubmit">保存提交</el-button>
+      <el-button size="mini" @click="onCancel">取消</el-button>
     </el-row>
   </div>
 </template>
@@ -159,5 +159,8 @@ export default {
 }
 .bottom-button {
   padding: 20px;
+}
+.update-order .el-select {
+  width: 100%;
 }
 </style>

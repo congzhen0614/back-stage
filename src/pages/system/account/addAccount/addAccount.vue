@@ -46,8 +46,8 @@
         <el-account-area v-if="!serviceArea" @province="province" @cities="cities" @regions="regions" :userId="form.userId"></el-account-area>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" @click="onSubmit">立即创建</el-button>
-        <el-button @click="goBack">取消</el-button>
+        <el-button size="mini" type="primary" @click="onSubmit">立即创建</el-button>
+        <el-button size="mini" @click="goBack">取消</el-button>
       </el-form-item>
     </el-form>
   </div>

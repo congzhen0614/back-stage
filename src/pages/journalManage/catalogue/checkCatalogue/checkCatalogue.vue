@@ -41,6 +41,8 @@
           </el-col>
         </el-row>
       </el-form>
+    </header>
+    <div style="padding: 10px">
       <el-tabs type="border-card" v-if="magaIds.length > 0">
         <el-tab-pane label="杂志">
           <el-table :data="magaIds" style="width: 100%" border>
@@ -70,7 +72,7 @@
           </el-table>
         </el-tab-pane>
       </el-tabs>
-    </header>
+    </div>
   </div>
 </template>
 

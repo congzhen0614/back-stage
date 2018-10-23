@@ -1,12 +1,12 @@
 <template>
   <div class="system-permission">
-    <el-table ref="multipleTable" :data="tableList" tooltip-effect="dark">
-      <el-table-column type="index" width="55" label="序号" align="center"></el-table-column>
-      <el-table-column prop="rolename" label="角色名称"></el-table-column>
-      <el-table-column prop="intro" label="角色描述" show-overflow-tooltip></el-table-column>
-      <el-table-column fixed="right" label="操作" width="100">
+    <el-table ref="multipleTable" :data="tableList" tooltip-effect="dark" border>
+      <el-table-column type="index" width="50" label="序号" align="center"></el-table-column>
+      <el-table-column prop="rolename" label="角色名称" align="center"></el-table-column>
+      <el-table-column prop="intro" label="角色描述" align="center"></el-table-column>
+      <el-table-column fixed="right" label="操作" width="100" align="center">
         <template slot-scope="scope">
-          <el-button type="text" size="small" @click="bindPermission(scope.row)" v-if="havePermission('rolePermission:add')">绑定权限</el-button>
+          <el-button type="text" size="mini" @click="bindPermission(scope.row)" v-if="havePermission('rolePermission:add')">绑定权限</el-button>
         </template>
       </el-table-column>
     </el-table>

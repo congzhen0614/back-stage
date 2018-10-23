@@ -1,20 +1,20 @@
 <template>
   <div class="journal-Manage">
     <el-header class="journal-Manage-header" style="height: auto">
-      <el-form ref="form" :model="search" label-width="90px">
+      <el-form ref="form" :model="search" label-width="60px">
         <el-row :gutter="20">
           <el-col :span="4">
-            <el-form-item label="名称：" label-width="60px">
+            <el-form-item label="名称：" label-width="50px">
               <el-input v-model="search.name" placeholder="请输入名称筛选"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="4">
-            <el-form-item label="刊号:" label-width="60px">
+            <el-form-item label="刊号:" label-width="40px">
               <el-input v-model="search.issn" placeholder="请输入编号筛选"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="5">
-            <el-form-item label="类别:" label-width="60px">
+            <el-form-item label="类别:" label-width="40px">
               <el-select v-model="search.typeId" style="width: 50%; float: left; padding-right: 5px">
                 <el-option label="全部" :value="''"></el-option>
                 <el-option :label="item.name" :value="item.id" v-for="item in typeList" :key="item.id"></el-option>
@@ -42,7 +42,7 @@
             </el-form-item>
           </el-col>
           <el-col :span="4" v-if="havePermission('magazine:copy')">
-            <el-form-item label="复制给商家:">
+            <el-form-item label="复制给商家:" label-width="70px">
               <el-select v-model="search.merchants">
                 <el-option :label="item.username" :value="item.id" v-for="item in groupList" :key="item.id"></el-option>
               </el-select>
@@ -51,16 +51,16 @@
         </el-row>
         <div class="header-button-right">
           <el-row>
-            <el-button type="primary" plain @click="loadDate">检索</el-button>
-            <el-button type="primary" plain @click="copyToMagazine" v-if="havePermission('magazine:copy')">批量复制</el-button>
-            <el-button type="primary" plain @click="setMagazinePublish(1)" v-if="havePermission('magazine:publish')">批量上架</el-button>
-            <el-button type="primary" plain @click="setMagazinePublish(0)" v-if="havePermission('magazine:publish')">批量下架</el-button>
+            <el-button size="mini" type="primary" plain @click="copyToMagazine" v-if="havePermission('magazine:copy')">批量复制</el-button>
+            <el-button size="mini" type="primary" plain @click="loadDate">检索</el-button>
           </el-row>
         </div>
         <div class="header-button">
-          <el-button type="primary" @click="clickAddNew" v-if="havePermission('magazine:add')">添加</el-button>
-          <el-button type="primary" @click="dialogVisible = true" v-if="havePermission('magazine:batch')">导入杂志</el-button>
-          <el-button type="primary" @click="onUploadImages" v-if="havePermission('magazine:updatelogo')">上传封面图</el-button>
+          <el-button size="mini" type="primary" @click="clickAddNew" v-if="havePermission('magazine:add')">添加</el-button>
+          <el-button size="mini" type="primary" @click="dialogVisible = true" v-if="havePermission('magazine:batch')">导入杂志</el-button>
+          <el-button size="mini" type="primary" @click="onUploadImages" v-if="havePermission('magazine:updatelogo')">上传封面图</el-button>
+          <el-button size="mini" type="primary" @click="setMagazinePublish(1)" v-if="havePermission('magazine:publish')">批量上架</el-button>
+          <el-button size="mini" type="primary" @click="setMagazinePublish(0)" v-if="havePermission('magazine:publish')">批量下架</el-button>
         </div>
       </el-form>
     </el-header>
@@ -73,9 +73,9 @@
         tooltip-effect="dark"
         :height="windowHeight"
         @selection-change="handleSelectionChange">
-        <el-table-column type="selection" width="55" align="center"></el-table-column>
+        <el-table-column type="selection" width="50" align="center"></el-table-column>
         <el-table-column prop="name" label="名称" header-align="center" sortable></el-table-column>
-        <el-table-column label="封面图" width="100" header-align="center" show-overflow-tooltip>
+        <el-table-column label="封面图" width="80" header-align="center">
           <template slot-scope="scope">
             <img :src="scope.row.logo" width="100%">
           </template>
@@ -102,11 +102,11 @@
             <span>{{ scope.row.createdAt | dateFormat }}</span>
           </template>
         </el-table-column>
-        <el-table-column fixed="right" header-align="center" label="操作" width="200">
+        <el-table-column fixed="right" header-align="center" label="操作" width="200" align="center">
           <template slot-scope="scope">
-            <el-button @click="onUpdate(scope.row)" type="text" size="small" v-if="havePermission('magazine:update')">修改</el-button>
-            <el-button @click="onDelete(scope.row)" type="text" size="small" v-if="havePermission('magazine:delete')">删除</el-button>
-            <el-button @click="onUpload(scope.row)" type="text" size="small" v-if="havePermission('magazine:updatelogo') || havePermission('magazine:giftlogo') || havePermission('itemimg:save')">上传图片</el-button>
+            <el-button @click="onUpdate(scope.row)" type="text" size="mini" v-if="havePermission('magazine:update')">修改</el-button>
+            <el-button @click="onDelete(scope.row)" type="text" size="mini" v-if="havePermission('magazine:delete')">删除</el-button>
+            <el-button @click="onUpload(scope.row)" type="text" size="mini" v-if="havePermission('magazine:updatelogo') || havePermission('magazine:giftlogo') || havePermission('itemimg:save')">上传图片</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -144,7 +144,7 @@ export default {
   components: {},
   data () {
     return {
-      windowHeight: window.innerHeight - 265 + 'px',
+      windowHeight: window.innerHeight - 184 + 'px',
       dialogVisible: false,
       authorization: JSON.parse(localStorage.getItem('user')).authorization,
       ageList: [],
@@ -418,7 +418,7 @@ export default {
   .journal-Manage .journal-Manage-header {
     background-color: #F2F6FC;
     overflow: hidden;
-    padding: 20px;
+    padding: 10px;
   }
   .journal-Manage .header-button-right {
     float: right;

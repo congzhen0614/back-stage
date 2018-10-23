@@ -38,8 +38,8 @@
         </el-col>
       </el-row>
       <el-row>
-        <el-button @click="goback">取消</el-button>
-        <el-button @click="onSubmit" type="primary" v-if="hasSubmit">保存提交</el-button>
+        <el-button size="mini" @click="goback">取消</el-button>
+        <el-button size="mini" @click="onSubmit" type="primary" v-if="hasSubmit">保存提交</el-button>
       </el-row>
     </el-form>
   </div>

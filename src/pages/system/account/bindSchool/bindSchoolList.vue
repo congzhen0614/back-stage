@@ -37,11 +37,11 @@
               </el-select>
             </el-form-item>
           </el-col>
-          <el-col :span="6">
-            <el-button type="primary" plain @click="loadSchoolList">检索</el-button>
-            <el-button type="primary" @click="changeOrder" v-if="havePermission('school:ord')">排序</el-button>
-            <el-button type="primary" @click="clickIfShown(1)" v-if="havePermission('school:show')">显示</el-button>
-            <el-button type="primary" @click="clickIfShown(0)" v-if="havePermission('school:show')">隐藏</el-button>
+          <el-col :span="6" style="margin-top: 6px">
+            <el-button size="mini" type="primary" plain @click="loadSchoolList">检索</el-button>
+            <el-button size="mini" type="primary" @click="changeOrder" v-if="havePermission('school:ord')">排序</el-button>
+            <el-button size="mini" type="primary" @click="clickIfShown(1)" v-if="havePermission('school:show')">显示</el-button>
+            <el-button size="mini" type="primary" @click="clickIfShown(0)" v-if="havePermission('school:show')">隐藏</el-button>
           </el-col>
         </el-row>
       </el-form>
@@ -271,6 +271,6 @@ export default {
   }
   .account-bind-school .header {
     background-color: #F2F6FC;
-    padding: 20px;
+    padding: 10px;
   }
 </style>

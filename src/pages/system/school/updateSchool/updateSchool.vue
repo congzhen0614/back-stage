@@ -26,8 +26,8 @@
         </el-select>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" @click="onSubmit">立即创建</el-button>
-        <el-button @click="onCancel">返回</el-button>
+        <el-button size="mini" type="primary" @click="onSubmit">立即创建</el-button>
+        <el-button size="mini" @click="onCancel">返回</el-button>
       </el-form-item>
     </el-form>
   </div>

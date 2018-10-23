@@ -12,14 +12,14 @@
             :before-upload="beforeUpload"
             :on-success="upLoadSuccess"
             action="http://192.168.0.231:8080/app-api/api/upload">
-            <el-button slot="trigger" size="small" type="primary" @click="selectFile(scope.row.id)" style="float: left">上传logo</el-button>
+            <el-button slot="trigger" size="mini" type="primary" @click="selectFile(scope.row.id)" style="float: left">上传logo</el-button>
           </el-upload>
         </template>
       </el-table-column>
     </el-table>
     <el-row style="margin-top: 20px; margin-left: 20px">
-      <el-button type="primary" @click="onSubmit">保存提交</el-button>
-      <el-button @click="goBack">取消</el-button>
+      <el-button size="mini" type="primary" @click="onSubmit">保存提交</el-button>
+      <el-button size="mini" @click="goBack">取消</el-button>
     </el-row>
   </div>
 </template>
@@ -30,7 +30,7 @@ export default {
   components: {},
   data () {
     return {
-      windowHeight: window.innerHeight - 140 + 'px',
+      windowHeight: window.innerHeight - 109 + 'px',
       tableData: JSON.parse(this.$route.query.items),
       fileList: [],
       uploadId: 0

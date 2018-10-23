@@ -4,8 +4,8 @@
       <el-tree :data="treeList" show-checkbox node-key="id" @check="checkChange" :default-checked-keys="checkedList" :props="defaultProps"></el-tree>
     </el-row>
     <el-row style="margin-top: 20px; margin-left: 20px">
-      <el-button type="primary" @click="onSubmit">保存提交</el-button>
-      <el-button @click="goBack">取消</el-button>
+      <el-button size="mini" type="primary" @click="onSubmit">保存提交</el-button>
+      <el-button size="mini" @click="goBack">取消</el-button>
     </el-row>
   </div>
 </template>

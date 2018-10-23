@@ -37,15 +37,15 @@
               </el-select>
             </el-form-item>
           </el-col>
-          <el-col :span="2">
-            <el-button type="primary" plain @click="loadSchoolList">检索</el-button>
+          <el-col :span="2" style="margin-top: 6px">
+            <el-button size="mini" type="primary" plain @click="loadSchoolList">检索</el-button>
           </el-col>
         </el-row>
       </el-form>
       <el-row>
-        <el-button type="primary" @click="onBind(0)">批量绑定</el-button>
-        <el-button type="primary" @click="onBind(1)">批量取消绑定</el-button>
-        <el-button @click="goBack">返回</el-button>
+        <el-button size="mini" type="primary" @click="onBind(0)">批量绑定</el-button>
+        <el-button size="mini" type="primary" @click="onBind(1)">批量取消绑定</el-button>
+        <el-button size="mini" @click="goBack">返回</el-button>
       </el-row>
     </header>
     <el-table :data="schoolList" border :height="windowHeight" @selection-change="handleSelectionChange">

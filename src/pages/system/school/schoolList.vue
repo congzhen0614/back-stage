@@ -37,32 +37,30 @@
               </el-select>
             </el-form-item>
           </el-col>
-          <el-col :span="2">
-            <el-button type="primary" plain @click="loadSchoolList">检索</el-button>
-          </el-col>
         </el-row>
       </el-form>
-      <el-button type="primary" @click="addSchool" v-if="havePermission('school:add')">添加</el-button>
-      <el-button type="primary" @click="onOrder" v-if="havePermission('school:ord')">排序提交</el-button>
-      <el-button type="primary" @click="dialogVisible = true" v-if="havePermission('school:batch')">导入学校</el-button>
+      <el-button size="mini" type="primary" plain @click="loadSchoolList" style="float: right">检索</el-button>
+      <el-button size="mini" type="primary" @click="addSchool" v-if="havePermission('school:add')">添加</el-button>
+      <el-button size="mini" type="primary" @click="onOrder" v-if="havePermission('school:ord')">排序提交</el-button>
+      <el-button size="mini" type="primary" @click="dialogVisible = true" v-if="havePermission('school:batch')">导入学校</el-button>
     </header>
     <el-table :data="schoolList" style="width: 100%" border :height="windowHeight" @selection-change="handleSelectionChange">
-      <el-table-column type="selection" width="55" align="center"></el-table-column>
-      <el-table-column prop="ord" label="排序" width="100" sortable>
+      <el-table-column type="selection" width="40" align="center"></el-table-column>
+      <el-table-column prop="ord" label="排序" width="100" sortable align="center">
         <template slot-scope="scope">
           <el-input size="small" v-model="scope.row.ord" @change="ordChange(scope.row)"></el-input>
         </template>
       </el-table-column>
-      <el-table-column prop="name" label="学校名称"></el-table-column>
-      <el-table-column prop="provinceName" label="省份"></el-table-column>
-      <el-table-column prop="cityName" label="城市"></el-table-column>
-      <el-table-column prop="regionName" label="地区"></el-table-column>
-      <el-table-column prop="address" label="详细地址"></el-table-column>
-      <el-table-column label="操作">
+      <el-table-column prop="name" label="学校名称" align="center"></el-table-column>
+      <el-table-column prop="provinceName" label="省份" align="center"></el-table-column>
+      <el-table-column prop="cityName" label="城市" align="center"></el-table-column>
+      <el-table-column prop="regionName" label="地区" align="center"></el-table-column>
+      <el-table-column prop="address" label="详细地址" align="center"></el-table-column>
+      <el-table-column label="操作" align="center" width="200">
         <template slot-scope="scope">
-          <el-button @click="onChecke(scope.row)" type="text" size="small" v-if="havePermission('school:admingroup')">查看商家用户</el-button>
-          <el-button @click="onUpdate(scope.row)" type="text" size="small" v-if="havePermission('school:update')">修改</el-button>
-          <el-button @click="onDelete(scope.row)" type="text" size="small" v-if="havePermission('school:delete')">删除</el-button>
+          <el-button @click="onChecke(scope.row)" type="text" size="mini" v-if="havePermission('school:admingroup')">查看商家用户</el-button>
+          <el-button @click="onUpdate(scope.row)" type="text" size="mini" v-if="havePermission('school:update')">修改</el-button>
+          <el-button @click="onDelete(scope.row)" type="text" size="mini" v-if="havePermission('school:delete')">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -99,7 +97,7 @@ export default {
   data () {
     return {
       authorization: JSON.parse(localStorage.getItem('user')).authorization,
-      windowHeight: window.innerHeight - 260 + 'px',
+      windowHeight: window.innerHeight - 184 + 'px',
       upLoadUrl: this.$axios.schoolBatch(),
       dialogVisible: false,
       provinceList: [],
@@ -351,7 +349,7 @@ export default {
 
 <style>
   .school-header {
-    padding: 20px;
+    padding: 10px;
     background-color: #F2F6FC;
   }
   .school-region .el-select {

@@ -1,14 +1,14 @@
 <template>
   <div class="bookList">
-    <el-form ref="form" :model="search" label-width="80px">
+    <el-form ref="form" :model="search">
       <el-row :gutter="20">
         <el-col :span="5">
-          <el-form-item label="书名:">
+          <el-form-item label="书名:" label-width="40px">
             <el-input v-model="search.name"></el-input>
           </el-form-item>
         </el-col>
-        <el-col :span="5">
-          <el-form-item label="是否上架:">
+        <el-col :span="3">
+          <el-form-item label="是否上架:" label-width="60px">
             <el-select v-model="search.isSale">
               <el-option label="全部" :value="''"></el-option>
               <el-option label="是" :value="1"></el-option>
@@ -16,30 +16,30 @@
             </el-select>
           </el-form-item>
         </el-col>
-        <el-col :span="5">
-          <el-form-item label="类别:">
+        <el-col :span="3">
+          <el-form-item label="类别:" label-width="40px">
             <el-select v-model="search.typeId">
               <el-option label="全部" :value="''"></el-option>
               <el-option :label="item.name" :value="item.id" v-for="item in typeList" :key="item.id"></el-option>
             </el-select>
           </el-form-item>
         </el-col>
-        <el-col :span="4">
-          <el-button type="primary" plain @click="loadDate">检索</el-button>
+        <el-col :span="4" style="margin-top: 7px">
+          <el-button size="mini" type="primary" plain @click="loadDate">检索</el-button>
         </el-col>
       </el-row>
     </el-form>
-    <el-form ref="form" :model="form" label-width="120px" :rules="rules">
+    <el-form ref="form" :model="form" :rules="rules">
       <el-row :gutter="20" class="book">
-        <el-col :span="6">
-          <el-form-item label="商品金额未满:" prop="postageSumBook">
+        <el-col :span="4">
+          <el-form-item label="商品金额未满:" prop="postageSumBook" label-width="95px">
             <el-input v-model="form.postageSumBook">
               <template slot="append">元</template>
             </el-input>
           </el-form-item>
         </el-col>
-        <el-col :span="6">
-          <el-form-item label="将收取运费:" prop="postageBook">
+        <el-col :span="4">
+          <el-form-item label="将收取运费:" prop="postageBook" label-width="80px">
             <el-input v-model="form.postageBook">
               <template slot="append">元</template>
             </el-input>
@@ -48,16 +48,16 @@
       </el-row>
     </el-form>
     <el-table border ref="multipleTable" tooltip-effect="dark" :data="tableList" :height="windowHeight" @selection-change="handleSelectionChange">
-      <el-table-column type="selection" width="55"></el-table-column>
-      <el-table-column prop="ord" type="index" label="排序" width="100" sortable>
+      <el-table-column type="selection" width="40" align="center"></el-table-column>
+      <el-table-column prop="ord" label="排序" width="100" sortable align="center">
         <template slot-scope="scope">
           <el-input size="small" v-model="scope.row.ord" @change="ordChange(scope.row)"></el-input>
         </template>
       </el-table-column>
-      <el-table-column prop="name" label="名称"></el-table-column>
-      <el-table-column prop="typeName" label="类别"></el-table-column>
-      <el-table-column prop="ageName" label="适读年龄"></el-table-column>
-      <el-table-column prop="fee" label="价格"></el-table-column>
+      <el-table-column prop="name" label="名称" header-align="center"></el-table-column>
+      <el-table-column prop="typeName" label="类别" align="center" width="200"></el-table-column>
+      <el-table-column prop="ageName" label="适读年龄" align="center" width="200"></el-table-column>
+      <el-table-column prop="fee" label="价格" align="center" width="100"></el-table-column>
     </el-table>
     <el-pagination
       @size-change="handleSizeChange"
@@ -80,7 +80,7 @@ export default {
         postageSumBook: {required: true, message: '请输入未满金额', trigger: 'blur'},
         postageBook: {required: true, message: '请输入运费', trigger: 'blur'}
       },
-      windowHeight: window.innerHeight - 546 + 'px',
+      windowHeight: window.innerHeight - 420 + 'px',
       search: {
         typeId: '',
         isSale: 1,
@@ -216,7 +216,7 @@ export default {
 
 <style>
   .bookList .el-table {
-    margin-top: 20px;
+    margin-top: 10px;
   }
   .book .el-form-item {
     margin-bottom: 0;

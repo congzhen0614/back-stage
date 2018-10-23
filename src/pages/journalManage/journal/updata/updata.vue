@@ -67,8 +67,8 @@
         </el-radio-group>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" @click="onSubmit">保存提交</el-button>
-        <el-button @click="clickCancel">取消</el-button>
+        <el-button size="mini" type="primary" @click="onSubmit">保存提交</el-button>
+        <el-button size="mini" @click="clickCancel">取消</el-button>
       </el-form-item>
     </el-form>
   </div>

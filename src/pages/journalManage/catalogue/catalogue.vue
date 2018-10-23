@@ -1,10 +1,10 @@
 <template>
   <div class="journal-Manage-catalogue">
     <el-header class="journal-Manage-header" style="height: auto">
-      <el-form ref="form" :model="search" label-width="90px">
+      <el-form ref="form" :model="search" label-width="60px">
         <el-row :gutter="10">
           <el-col :span="4">
-            <el-form-item label="名称:">
+            <el-form-item label="名称:" label-width="40px">
               <el-input v-model="search.title" placeholder="请输入"></el-input>
             </el-form-item>
           </el-col>
@@ -27,7 +27,7 @@
             </el-form-item>
           </el-col>
           <el-col :span="4">
-            <el-form-item label="创建人:">
+            <el-form-item label="创建人:" label-width="50px">
               <el-select v-model="search.createUser">
                 <el-option label="全部" :value="''"></el-option>
                 <el-option :label="item.username" :value="item.id" v-for="item in accountList" :key="item.id"></el-option>
@@ -35,17 +35,19 @@
             </el-form-item>
           </el-col>
           <el-col :span="6">
-            <el-button type="primary" plain @click="loadDate">检索</el-button>
           </el-col>
         </el-row>
+        <div style="float: right">
+          <el-button size="mini" type="primary" plain @click="loadDate">检索</el-button>
+        </div>
         <div class="header-button">
-          <el-button type="primary" @click="onAdd" v-if="havePermission('itempack:save')">添加</el-button>
-          <el-button type="primary" @click="onSubmit" v-if="havePermission('itempack:submit')">提交审核</el-button>
-          <el-button type="primary" @click="onCheck(2)" v-if="havePermission('itempack:check')">审核通过</el-button>
-          <el-button type="primary" @click="onCheck(3)" v-if="havePermission('itempack:check')">审核不通过</el-button>
-          <el-button type="primary" @click="onCreate" v-if="havePermission('itempack:qrcode')" :class="{haveQr: haveQr}">批量生成</el-button>
-          <el-button type="primary" @click="onStar" v-if="havePermission('itempack:updatesub')">批量开启</el-button>
-          <el-button type="primary" @click="onStop" v-if="havePermission('itempack:updatesub')">批量关闭</el-button>
+          <el-button size="mini" type="primary" @click="onAdd" v-if="havePermission('itempack:save')">添加</el-button>
+          <el-button size="mini" type="primary" @click="onSubmit" v-if="havePermission('itempack:submit')">提交审核</el-button>
+          <el-button size="mini" type="primary" @click="onCheck(2)" v-if="havePermission('itempack:check')">审核通过</el-button>
+          <el-button size="mini" type="primary" @click="onCheck(3)" v-if="havePermission('itempack:check')">审核不通过</el-button>
+          <el-button size="mini" type="primary" @click="onCreate" v-if="havePermission('itempack:qrcode')" :class="{haveQr: haveQr}">批量生成</el-button>
+          <el-button size="mini" type="primary" @click="onStar" v-if="havePermission('itempack:updatesub')">批量开启</el-button>
+          <el-button size="mini" type="primary" @click="onStop" v-if="havePermission('itempack:updatesub')">批量关闭</el-button>
         </div>
       </el-form>
     </el-header>
@@ -85,11 +87,11 @@
           <span>{{ scope.row.sub | subType }}</span>
         </template>
       </el-table-column>
-      <el-table-column fixed="right" label="操作" width="200">
+      <el-table-column fixed="right" label="操作" width="200" align="center">
         <template slot-scope="scope">
-          <el-button type="text" size="small" @click="onChecke(scope.row)">查看</el-button>
-          <el-button type="text" size="small" @click="onUpdate(scope.row)" v-if="havePermission('itempack:update')">修改</el-button>
-          <el-button type="text" size="small" @click="onDelete(scope.row)" v-if="havePermission('itempack:del')">删除</el-button>
+          <el-button type="text" size="mini" @click="onChecke(scope.row)">查看</el-button>
+          <el-button type="text" size="mini" @click="onUpdate(scope.row)" v-if="havePermission('itempack:update')">修改</el-button>
+          <el-button type="text" size="mini" @click="onDelete(scope.row)" v-if="havePermission('itempack:del')">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -111,7 +113,7 @@ export default {
   components: {},
   data () {
     return {
-      windowHeight: window.innerHeight - 260 + 'px',
+      windowHeight: window.innerHeight - 184 + 'px',
       haveQr: false,
       search: {
         title: ''
@@ -335,7 +337,7 @@ export default {
 
 <style>
   .journal-Manage-catalogue header {
-    padding: 20px;
+    padding: 10px;
     background-color: #F2F6FC;
   }
   .journal-Manage-catalogue .haveQr {

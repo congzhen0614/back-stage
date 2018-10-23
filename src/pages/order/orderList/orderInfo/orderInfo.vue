@@ -1,61 +1,61 @@
 <template>
   <div class="order-info">
     <header class="order-info-heder">
-      <el-form ref="form" :model="form" label-width="120px">
+      <el-form ref="form" :model="form">
         <el-row>
           <el-col :span="8">
-            <el-form-item label="订单号:">
+            <el-form-item label="订单号:" label-width="50px">
               <el-input v-model="form.no" placeholder="请输入" disabled></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="8">
-            <el-form-item label="订单状态:">
+            <el-form-item label="订单状态:" label-width="60px">
               <el-input v-model="orderItem.tradeStatusName" placeholder="请输入" disabled></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="8">
-            <el-form-item label="业务员:">
+            <el-form-item label="业务员:" label-width="50px">
               <el-input v-model="orderItem.adminName" placeholder="请输入" disabled></el-input>
             </el-form-item>
           </el-col>
         </el-row>
         <el-row>
           <el-col :span="8">
-            <el-form-item label="订单金额:">
+            <el-form-item label="订单金额:" label-width="60px">
               <el-input v-model="form.receivables" placeholder="请输入" disabled></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="8">
-            <el-form-item label="实付金额:">
+            <el-form-item label="实付金额:" label-width="60px">
               <el-input v-model="form.receipt" placeholder="请输入" disabled></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="8">
-            <el-form-item label="运费:">
+            <el-form-item label="运费:" label-width="40px">
               <el-input v-model="form.deliveryFee" placeholder="请输入" disabled></el-input>
             </el-form-item>
           </el-col>
         </el-row>
         <el-row>
           <el-col :span="8">
-            <el-form-item label="商品数:">
+            <el-form-item label="商品数:" label-width="50px">
               <el-input v-model="form.itemQuantity" placeholder="请输入" disabled></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="8">
-            <el-form-item label="下单人:">
+            <el-form-item label="下单人:" label-width="50px">
               <el-input v-model="form.username" placeholder="请输入" disabled></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="8">
-            <el-form-item label="下单时间:">
+            <el-form-item label="下单时间:" label-width="60px">
               <el-input v-model="form.createdAt" placeholder="请输入" disabled></el-input>
             </el-form-item>
           </el-col>
         </el-row>
         <el-row>
-          <el-col :span="8">
-            <el-form-item label="留言:">
+          <el-col :span="24">
+            <el-form-item label="留言:" label-width="40px">
               <el-input v-model="form.userRemark" placeholder="请输入" disabled></el-input>
             </el-form-item>
           </el-col>
@@ -72,9 +72,9 @@
           <el-table-column prop="addressStr" label="收件地址"></el-table-column>
           <el-table-column prop="name" label="收件人" width="120" align="center"></el-table-column>
           <el-table-column prop="mobile" label="联系电话" width="200" align="center"></el-table-column>
-          <el-table-column label="操作" width="120" v-if="update">
+          <el-table-column label="操作" width="120" v-if="update" align="center">
             <template slot-scope="scope">
-              <el-button @click="onAddressUpdate(scope.row)" type="text" size="small">修改</el-button>
+              <el-button @click="onAddressUpdate(scope.row)" type="text" size="mini">修改</el-button>
             </template>
           </el-table-column>
         </el-table>
@@ -85,7 +85,7 @@
           <span style="margin-left: 20px">杂志运费: {{ form.deliveryFeeMagazine }}元</span>
         </header>
         <el-table :data="magaTable" border>
-          <el-table-column prop="name" label="商品名称"></el-table-column>
+          <el-table-column prop="name" label="商品名称" header-align="center"></el-table-column>
           <el-table-column prop="fee" label="商品价格" width="100" align="center"></el-table-column>
           <el-table-column prop="quantity" label="数量" width="100" align="center"></el-table-column>
           <el-table-column prop="totalCost" label="合计金额" width="100" align="center"></el-table-column>
@@ -94,13 +94,13 @@
               <span>{{ scope.row.refundStatus === 0 ? scope.row.tradeStatusName : scope.row.refundStatusName }}</span>
             </template>
           </el-table-column>
-          <el-table-column label="操作" width="260" v-if="update">
+          <el-table-column label="操作" width="260" v-if="update" align="center">
             <template slot-scope="scope">
-              <el-button @click="onApplyRefund(scope.row)" type="text" size="small" v-if="scope.row.refundStatus === 0 && havePermission('trade:refundapply')">申请退款</el-button>
-              <el-button @click="onCancelRefund(scope.row)" type="text" size="small" v-if="scope.row.refundStatus === 1 && havePermission('trade:refundcancel')">取消退款</el-button>
-              <el-button @click="onRepulseRefund(scope.row)" type="text" size="small" v-if="scope.row.refundStatus === 1 && havePermission('trade:refunded')">拒绝退款</el-button>
-              <el-button @click="onRefund(scope.row)" type="text" size="small" v-if="scope.row.refundStatus === 1 && havePermission('trade:refunded')">同意退款</el-button>
-              <el-button @click="onListUpdate(scope.row)" type="text" size="small" v-if="scope.row.refundStatus === 0 && havePermission('trade:updatemagazine')">修改</el-button>
+              <el-button @click="onApplyRefund(scope.row)" type="text" size="mini" v-if="scope.row.refundStatus === 0 && havePermission('trade:refundapply')">申请退款</el-button>
+              <el-button @click="onCancelRefund(scope.row)" type="text" size="mini" v-if="scope.row.refundStatus === 1 && havePermission('trade:refundcancel')">取消退款</el-button>
+              <el-button @click="onRepulseRefund(scope.row)" type="text" size="mini" v-if="scope.row.refundStatus === 1 && havePermission('trade:refunded')">拒绝退款</el-button>
+              <el-button @click="onRefund(scope.row)" type="text" size="mini" v-if="scope.row.refundStatus === 1 && havePermission('trade:refunded')">同意退款</el-button>
+              <el-button @click="onListUpdate(scope.row)" type="text" size="mini" v-if="scope.row.refundStatus === 0 && havePermission('trade:updatemagazine')">修改</el-button>
             </template>
           </el-table-column>
         </el-table>
@@ -111,7 +111,7 @@
           <span style="margin-left: 20px">图书运费: {{ form.deliveryFeeBook }}元</span>
         </header>
         <el-table :data="bookTable" border>
-          <el-table-column prop="name" label="商品名称"></el-table-column>
+          <el-table-column prop="name" label="商品名称" header-align="center"></el-table-column>
           <el-table-column prop="fee" label="商品价格" width="100" align="center"></el-table-column>
           <el-table-column prop="quantity" label="数量" width="100" align="center"></el-table-column>
           <el-table-column prop="totalCost" label="合计金额" width="100" align="center"></el-table-column>
@@ -122,11 +122,11 @@
           </el-table-column>
           <el-table-column prop="refundReason" label="申请退款原因" width="120" align="center"></el-table-column>
           <el-table-column prop="refundImgs" label="申请退款图片" width="150" align="center"></el-table-column>
-          <el-table-column label="操作" width="200" v-if="update">
+          <el-table-column label="操作" width="200" v-if="update" align="center">
             <template slot-scope="scope">
-              <el-button @click="onRepulseRefund(scope.row)" type="text" size="small" v-if="scope.row.refundStatus === 1 && havePermission('trade:refunded')">拒绝退款</el-button>
-              <el-button @click="onRefund(scope.row)" type="text" size="small" v-if="scope.row.refundStatus === 1 && havePermission('trade:refunded')">同意退款</el-button>
-              <el-button @click="onListUpdate(scope.row)" type="text" size="small" v-if="scope.row.refundStatus === 0 && havePermission('trade:updatemagazine')">修改</el-button>
+              <el-button @click="onRepulseRefund(scope.row)" type="text" size="mini" v-if="scope.row.refundStatus === 1 && havePermission('trade:refunded')">拒绝退款</el-button>
+              <el-button @click="onRefund(scope.row)" type="text" size="mini" v-if="scope.row.refundStatus === 1 && havePermission('trade:refunded')">同意退款</el-button>
+              <el-button @click="onListUpdate(scope.row)" type="text" size="mini" v-if="scope.row.refundStatus === 0 && havePermission('trade:updatemagazine')">修改</el-button>
             </template>
           </el-table-column>
         </el-table>
@@ -136,7 +136,7 @@
           <span>电子读物</span>
         </header>
         <el-table :data="spypTable" border>
-          <el-table-column prop="name" label="商品名称"></el-table-column>
+          <el-table-column prop="name" label="商品名称" header-align="center"></el-table-column>
           <el-table-column prop="fee" label="商品价格" width="100" align="center"></el-table-column>
           <el-table-column prop="quantity" label="数量" width="100" align="center"></el-table-column>
           <el-table-column prop="totalCost" label="合计金额" width="100" align="center"></el-table-column>
@@ -357,19 +357,23 @@ export default {
 
 <style>
   .order-info-heder {
-    padding: 20px;
+    padding: 10px;
     background-color: #F2F6FC;
   }
   .table-main {
-    padding: 20px;
+    padding: 10px;
     padding-top: 0;
   }
   .table-title {
-    font-size: 16px;
+    font-size: 14px;
+    font-size: 600;
     height: 50px;
     line-height: 50px;
     padding: 0 20px;
     background-color: #F2F6FC;
-    margin-top: 20px;
+    margin-top: 10px;
+  }
+  .order-info .el-form-item {
+    margin-bottom: 0px;
   }
 </style>

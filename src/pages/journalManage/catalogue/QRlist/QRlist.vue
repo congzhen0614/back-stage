@@ -4,12 +4,12 @@
       <el-row :gutter="40">
         <el-col :span="4"><el-input v-model="search.title" placeholder="请输入名称"></el-input></el-col>
         <el-col :span="4">
-          <el-button type="primary" plain @click="loadDate">检索</el-button>
+          <el-button type="primary" size="mini" plain @click="loadDate">检索</el-button>
         </el-col>
       </el-row>
-      <el-row style="margin-top: 20px">
-        <el-button type="primary" @click="clickDelete" v-if="havePermission('itempack:delqrcode')">批量删除</el-button>
-        <el-button type="primary" @click="clickUpload" v-if="havePermission('itempack:download')">批量下载</el-button>
+      <el-row style="margin-top: 10px">
+        <el-button type="primary" size="mini" @click="clickDelete" v-if="havePermission('itempack:delqrcode')">批量删除</el-button>
+        <el-button type="primary" size="mini" @click="clickUpload" v-if="havePermission('itempack:download')">批量下载</el-button>
       </el-row>
     </header>
     <el-table
@@ -19,11 +19,11 @@
       tooltip-effect="dark"
       :height="windowHeight"
       @selection-change="handleSelectionChange">
-      <el-table-column type="selection" width="55" align="center"></el-table-column>
+      <el-table-column type="selection" width="50" align="center"></el-table-column>
       <el-table-column type="index" width="55" label="序号" align="center"></el-table-column>
-      <el-table-column prop="title" label="名称"></el-table-column>
-      <el-table-column prop="qrurl" label="URL地址"></el-table-column>
-      <el-table-column prop="qrimg" label="二维码" width="100px">
+      <el-table-column prop="title" label="名称" header-align="center"></el-table-column>
+      <el-table-column prop="qrurl" label="URL地址" header-align="center"></el-table-column>
+      <el-table-column prop="qrimg" label="二维码" width="80" align="center">
         <template slot-scope="scope">
           <img :src="scope.row.qrimg" width="100%"/>
         </template>
@@ -38,10 +38,10 @@
           <span>{{ scope.row.sub | subType }}</span>
         </template>
       </el-table-column>
-      <el-table-column prop="remark" label="备注" width="100" align="center"></el-table-column>
+      <el-table-column prop="remark" label="备注" width="250" align="center"></el-table-column>
       <el-table-column fixed="right" label="操作" width="150">
         <template slot-scope="scope">
-          <el-button type="text" size="small" @click="uploadLogo(scope.row)" v-if="scope.row.qrlogo === '' || havePermission('itempack:qrcodelogo')">上传/修改logo</el-button>
+          <el-button type="text" size="mini" @click="uploadLogo(scope.row)" v-if="scope.row.qrlogo === '' || havePermission('itempack:qrcodelogo')">上传/修改logo</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -63,7 +63,7 @@ export default {
   components: {},
   data () {
     return {
-      windowHeight: window.innerHeight - 260 + 'px',
+      windowHeight: window.innerHeight - 184 + 'px',
       search: {},
       pages: {
         total: 0,
@@ -166,7 +166,7 @@ export default {
 
 <style>
   .journal-Manage-catalogue-QRlist header {
-    padding: 20px;
+    padding: 10px;
     background-color: #F2F6FC;
   }
 </style>

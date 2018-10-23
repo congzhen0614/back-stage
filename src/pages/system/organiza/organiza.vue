@@ -1,24 +1,24 @@
 <template>
   <div class="system-organiza">
     <header class="header" style="height: auto">
-      <el-button type="primary" @click="clickAddnew" v-if="havePermission('adminGroup:add')">添加</el-button>
+      <el-button size="mini" type="primary" @click="clickAddnew" v-if="havePermission('adminGroup:add')">添加</el-button>
   </header>
     <el-main>
       <el-table ref="multipleTable" :data="tableList" tooltip-effect="dark" style="width: 100%" :height="windowHeight" border>
         <el-table-column type="index" label="序号" width="55" align="center"></el-table-column>
-        <el-table-column prop="name" label="组织名称" sortable></el-table-column>
-        <el-table-column prop="typeName" label="组织形式"></el-table-column>
-        <el-table-column prop="linkman" label="联系人"></el-table-column>
-        <el-table-column prop="phone" label="联系电话"></el-table-column>
-        <el-table-column prop="contractTime" label="创建时间" sortable>
+        <el-table-column prop="name" label="组织名称" sortable align="center"></el-table-column>
+        <el-table-column prop="typeName" label="组织形式" align="center" width="100"></el-table-column>
+        <el-table-column prop="linkman" label="联系人" align="center" width="100"></el-table-column>
+        <el-table-column prop="phone" label="联系电话" align="center" width="150"></el-table-column>
+        <el-table-column prop="contractTime" label="创建时间" sortable align="center" width="100">
           <template slot-scope="scope">
             <span>{{ scope.row.contractTime | dateFormat }}</span>
           </template>
         </el-table-column>
-        <el-table-column fixed="right" label="操作" width="200">
+        <el-table-column fixed="right" label="操作" width="200" align="center">
           <template slot-scope="scope">
-            <el-button type="text" size="small" @click="clickChecke(scope.row)">查看</el-button>
-            <el-button type="text" size="small" @click="clickUpdate(scope.row)" v-if="havePermission('adminGroup:update')">修改</el-button>
+            <el-button type="text" size="mini" @click="clickChecke(scope.row)">查看</el-button>
+            <el-button type="text" size="mini" @click="clickUpdate(scope.row)" v-if="havePermission('adminGroup:update')">修改</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -40,7 +40,7 @@ export default {
   name: 'system-organiza',
   data () {
     return {
-      windowHeight: window.innerHeight - 205 + 'px',
+      windowHeight: window.innerHeight - 138 + 'px',
       tableList: [],
       pages: {
         total: 0,
@@ -140,7 +140,7 @@ export default {
 
 <style>
   .system-organiza header {
-    padding: 20px;
+    padding: 10px;
     background-color: #F2F6FC;
   }
   .system-organiza .el-main {

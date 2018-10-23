@@ -8,14 +8,23 @@
               <el-input v-model="form.title" placeholder="请输入目录名称"></el-input>
             </el-form-item>
           </el-col>
-          <el-col :span="8">
+          <el-col :span="3">
             <el-form-item label="联系人:" prop="linkman">
-              <el-input v-model="form.linkman" placeholder="请输入联系人"></el-input>
+              <el-input v-model="form.linkman" placeholder="请输入姓名"></el-input>
             </el-form-item>
           </el-col>
-          <el-col :span="8">
+          <el-col :span="4">
             <el-form-item label="联系电话:" prop="linkmobile">
               <el-input v-model="form.linkmobile" placeholder="请输入联系电话"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="3">
+            <el-form-item label="年级阶段:" prop="schoolLevel">
+              <el-select v-model="form.schoolLevel">
+                <el-option label="幼儿园" value="2"></el-option>
+                <el-option label="小学" value="0"></el-option>
+                <el-option label="初中" value="1"></el-option>
+              </el-select>
             </el-form-item>
           </el-col>
         </el-row>
@@ -30,26 +39,17 @@
               <el-input v-model="form.remark" placeholder="请输入备注"></el-input>
             </el-form-item>
           </el-col>
-          <el-col :span="8">
-            <el-form-item label="年级阶段:" prop="schoolLevel">
-              <el-select v-model="form.schoolLevel">
-                <el-option label="幼儿园" value="2"></el-option>
-                <el-option label="小学" value="0"></el-option>
-                <el-option label="初中" value="1"></el-option>
-              </el-select>
-            </el-form-item>
-          </el-col>
         </el-row>
       </el-form>
-      <el-tabs type="border-card">
+      <el-tabs type="border-card" style="margin-top: 10px">
         <el-tab-pane label="杂志"><el-magaList @mageDate="mageDate"></el-magaList></el-tab-pane>
         <el-tab-pane label="图书"><el-bookList @bookDate="bookDate"></el-bookList></el-tab-pane>
         <el-tab-pane label="视听"><el-audioList @ypspDate="ypspDate"></el-audioList></el-tab-pane>
       </el-tabs>
     </header>
-    <el-row style="margin-top: 20px; margin-left: 20px">
-      <el-button type="primary" @click="onSave">保存书单</el-button>
-      <el-button @click="goBack">取消</el-button>
+    <el-row style="margin-top: 10px; margin-left: 20px">
+      <el-button size="mini" type="primary" @click="onSave">保存书单</el-button>
+      <el-button size="mini" @click="goBack">取消</el-button>
     </el-row>
   </div>
 </template>
@@ -158,7 +158,7 @@ export default {
 
 <style>
   .journal-Manage-catalogue-add header {
-    padding: 20px;
+    padding: 10px;
     background-color: #F2F6FC;
   }
   .journal-Manage-catalogue-add .el-tabs {

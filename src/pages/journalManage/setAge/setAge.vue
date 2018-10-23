@@ -12,8 +12,8 @@
           <!--</el-select>-->
         <!--</el-col>-->
         <el-col :span="8">
-          <el-button type="primary" plain @click="loadDate">检索</el-button>
-          <el-button type="primary" @click="clickAdd" v-if="havePermission('age:saveOrUpdate')">添加</el-button>
+          <el-button size="mini" type="primary" plain @click="loadDate">检索</el-button>
+          <el-button size="mini" type="primary" @click="clickAdd" v-if="havePermission('age:saveOrUpdate')">添加</el-button>
         </el-col>
       </el-row>
     </header>
@@ -25,10 +25,10 @@
           <!--<span>{{ scope.row.cls | clsType }}</span>-->
         <!--</template>-->
       <!--</el-table-column>-->
-      <el-table-column fixed="right" label="操作" width="150">
+      <el-table-column fixed="right" label="操作" width="150" align="center">
         <template slot-scope="scope">
-          <el-button type="text" size="small" @click="clickUpdate(scope.row)" v-if="havePermission('age:saveOrUpdate')">修改</el-button>
-          <el-button type="text" size="small" @click="clickDelete(scope.row)" v-if="havePermission('age:delete')">删除</el-button>
+          <el-button type="text" size="mini" @click="clickUpdate(scope.row)" v-if="havePermission('age:saveOrUpdate')">修改</el-button>
+          <el-button type="text" size="mini" @click="clickDelete(scope.row)" v-if="havePermission('age:delete')">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -50,7 +50,7 @@ export default {
   components: {},
   data () {
     return {
-      windowHeight: window.innerHeight - 205 + 'px',
+      windowHeight: window.innerHeight - 139 + 'px',
       tableList: [],
       options: [],
       search: {
@@ -153,7 +153,7 @@ export default {
 
 <style>
   .system-setage header {
-    padding: 20px;
+    padding: 10px;
     background-color: #F2F6FC;
   }
 </style>
