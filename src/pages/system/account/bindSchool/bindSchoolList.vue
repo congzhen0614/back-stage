@@ -263,7 +263,7 @@ export default {
     width: 32%;
   }
   .account-bind-school .el-form-item {
-    margin-bottom: 0px;
+    /*margin-bottom: 0px;*/
   }
   .account-bind-school .el-pagination {
     padding: 0 5px;

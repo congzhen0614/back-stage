@@ -90,6 +90,7 @@ export default {
         postage: {required: true, message: '请输入运费', trigger: 'blur'}
       },
       windowHeight: window.innerHeight - 546 + 'px',
+      preselected: [],
       pageNum: 1,
       search: {
         typeId: '',
@@ -116,14 +117,20 @@ export default {
   },
   methods: {
     handleSelectionChange (val) {
-      this.selectIds = []
-      val.forEach(item => {
-        this.selectIds.push({
-          cls: 1,
-          itemId: item.id,
-          ord: parseInt(item.ord)
+      if (this.pageNum !== this.search.pageNum) {
+        this.preselected = this.preselected.catch(this.selectIds)
+        this.pageNum = this.pages.pageNum
+      } else {
+        this.selectIds = []
+        this.selectIds = this.preselected
+        val.forEach(item => {
+          this.selectIds.push({
+            cls: 1,
+            itemId: item.id,
+            ord: parseInt(item.ord)
+          })
         })
-      })
+      }
     },
     handleSizeChange (val) {
       this.search.pageSize = val
