@@ -1,26 +1,26 @@
 <template>
   <div class="journal-Manage-catalogue-add">
     <header class="header">
-      <el-form ref="form" :model="form" label-width="100px" :rules="rules">
+      <el-form ref="form" :model="form" :rules="rules">
         <el-row>
           <el-col :span="8">
-            <el-form-item label="目录名称:" prop="title">
+            <el-form-item label="目录名称:" prop="title" label-width="70px">
               <el-input v-model="form.title" placeholder="请输入目录名称"></el-input>
             </el-form-item>
           </el-col>
-          <el-col :span="3">
-            <el-form-item label="联系人:" prop="linkman">
+          <el-col :span="6">
+            <el-form-item label="联系人:" prop="linkman" label-width="60px">
               <el-input v-model="form.linkman" placeholder="请输入姓名"></el-input>
             </el-form-item>
           </el-col>
-          <el-col :span="4">
-            <el-form-item label="联系电话:" prop="linkmobile">
+          <el-col :span="6">
+            <el-form-item label="联系电话:" prop="linkmobile" label-width="70px">
               <el-input v-model="form.linkmobile" placeholder="请输入联系电话"></el-input>
             </el-form-item>
           </el-col>
-          <el-col :span="3">
-            <el-form-item label="年级阶段:" prop="schoolLevel">
-              <el-select v-model="form.schoolLevel">
+          <el-col :span="4">
+            <el-form-item label="年级阶段:" prop="schoolLevel" label-width="70px">
+              <el-select v-model="form.schoolLevel" style="width: 100%">
                 <el-option label="幼儿园" value="2"></el-option>
                 <el-option label="小学" value="0"></el-option>
                 <el-option label="初中" value="1"></el-option>
@@ -29,13 +29,13 @@
           </el-col>
         </el-row>
         <el-row>
-          <el-col :span="8">
-            <el-form-item label="提示语:" prop="tip">
+          <el-col :span="12">
+            <el-form-item label="提示语:" prop="tip" label-width="60px">
               <el-input v-model="form.tip" placeholder="请输入提示语"></el-input>
             </el-form-item>
           </el-col>
-          <el-col :span="8">
-            <el-form-item label="备注:" prop="remark">
+          <el-col :span="12">
+            <el-form-item label="备注:" prop="remark" label-width="50px">
               <el-input v-model="form.remark" placeholder="请输入备注"></el-input>
             </el-form-item>
           </el-col>

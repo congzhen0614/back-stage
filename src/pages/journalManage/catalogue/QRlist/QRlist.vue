@@ -2,44 +2,40 @@
   <div class="journal-Manage-catalogue-QRlist">
     <header class="header" style="height: auto">
       <el-row :gutter="40">
-        <el-col :span="4"><el-input v-model="search.title" placeholder="请输入名称"></el-input></el-col>
+        <el-col :span="4">
+          <el-input v-model="search.title" placeholder="请输入名称"></el-input>
+        </el-col>
         <el-col :span="4">
           <el-button type="primary" size="mini" plain @click="loadDate">检索</el-button>
         </el-col>
       </el-row>
       <el-row style="margin-top: 10px">
         <el-button type="primary" size="mini" @click="clickDelete" v-if="havePermission('itempack:delqrcode')">批量删除</el-button>
-        <el-button type="primary" size="mini" @click="clickUpload" v-if="havePermission('itempack:download')">批量下载</el-button>
+        <el-button type="primary" size="mini" @click="clickUpload" v-if="havePermission('itempack:download') ">批量下载</el-button>
       </el-row>
     </header>
-    <el-table
-      border
-      ref="multipleTable"
-      :data="tableList"
-      tooltip-effect="dark"
-      :height="windowHeight"
-      @selection-change="handleSelectionChange">
+    <el-table border :data="tableList" :height="windowHeight" @selection-change="handleSelectionChange">
       <el-table-column type="selection" width="50" align="center"></el-table-column>
-      <el-table-column type="index" width="55" label="序号" align="center"></el-table-column>
-      <el-table-column prop="title" label="名称" header-align="center"></el-table-column>
-      <el-table-column prop="qrurl" label="URL地址" header-align="center"></el-table-column>
-      <el-table-column prop="qrimg" label="二维码" width="80" align="center">
+      <el-table-column type="index" label="序号" align="center" width="55" ></el-table-column>
+      <el-table-column prop="title" label="名称" align="center"></el-table-column>
+      <el-table-column prop="qrurl" label="URL地址" align="center"></el-table-column>
+      <el-table-column prop="remark" label="备注" align="center" width="250"></el-table-column>
+      <el-table-column prop="qrimg" label="二维码" align="center" width="80">
         <template slot-scope="scope">
           <img :src="scope.row.qrimg" width="100%"/>
         </template>
       </el-table-column>
-      <el-table-column prop="roleName" label="审核状态" width="100" align="center">
+      <el-table-column prop="roleName" label="审核状态" align="center" width="100">
         <template slot-scope="scope">
           <span>{{ scope.row.checkStatus | checkType }}</span>
         </template>
       </el-table-column>
-      <el-table-column prop="roleName" label="征订状态" width="100" align="center">
+      <el-table-column prop="roleName" label="征订状态" align="center" width="100">
         <template slot-scope="scope">
           <span>{{ scope.row.sub | subType }}</span>
         </template>
       </el-table-column>
-      <el-table-column prop="remark" label="备注" width="250" align="center"></el-table-column>
-      <el-table-column fixed="right" label="操作" width="150">
+      <el-table-column fixed="right" label="操作" align="center" width="150">
         <template slot-scope="scope">
           <el-button type="text" size="mini" @click="uploadLogo(scope.row)" v-if="scope.row.qrlogo === '' || havePermission('itempack:qrcodelogo')">上传/修改logo</el-button>
         </template>
@@ -64,19 +60,17 @@ export default {
   data () {
     return {
       windowHeight: window.innerHeight - 184 + 'px',
+      tableList: [],
+      selectIds: [],
       search: {},
       pages: {
         total: 0,
         pageNum: 1,
         pageSize: 20
-      },
-      tableList: [],
-      selectIds: []
+      }
     }
   },
   created () {
-  },
-  mounted () {
     this.loadDate()
   },
   computed: {
@@ -93,18 +87,14 @@ export default {
   methods: {
     handleSelectionChange (val) {
       let ids = []
-      val.forEach(item => {
-        ids.push(item.id)
-      })
+      val.forEach(item => { ids.push(item.id) })
       this.selectIds = ids
     },
     loadDate () {
       this.$axios.itempackList(this.loadParams).then(res => {
         if (res.data.code === '0') {
-          this.$nextTick(() => {
-            this.tableList = res.data.data.list
-            this.pages.total = res.data.data.total
-          })
+          this.tableList = res.data.data.list
+          this.pages.total = res.data.data.total
         } else {
           this.$message.error(res.data.data.msg)
         }
@@ -144,14 +134,10 @@ export default {
           this.$message.error(err)
         })
       }).catch(() => {
-        this.$message({
-          type: 'info',
-          message: '已取消删除'
-        })
+        this.$message({type: 'info', message: '已取消删除'})
       })
     },
     uploadLogo (item) {
-      console.log(item)
       this.$router.push({
         path: '/QRenerat',
         query: {
@@ -159,8 +145,7 @@ export default {
         }
       })
     }
-  },
-  watch: {}
+  }
 }
 </script>
 
