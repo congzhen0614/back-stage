@@ -35,21 +35,21 @@
           </el-col>
           <el-col :span="4">
             <el-form-item>
-              <el-select v-model="search.cityId" placeholder="请选择市" @change="selectCity" :disabled="cities.length === 0" style="width: 100%">
+              <el-select v-model="search.cityId" placeholder="请选择市" @change="selectCity" style="width: 100%">
                 <el-option v-for="item in cities" :key="item.id" :label="item.name" :value="item.id"></el-option>
               </el-select>
             </el-form-item>
           </el-col>
           <el-col :span="4">
             <el-form-item>
-              <el-select v-model="search.regionId" placeholder="请选择区" :disabled="regions.length === 0" style="width: 100%">
+              <el-select v-model="search.regionId" placeholder="请选择区" style="width: 100%">
                 <el-option v-for="item in regions" :key="item.id" :label="item.name" :value="item.id"></el-option>
               </el-select>
             </el-form-item>
           </el-col>
           <el-col :span="4">
             <el-form-item label="学校:" label-width="45px">
-              <el-select v-model="search.schoolId" placeholder="请选择" :disabled="search.regionId === ''" style="width: 100%">
+              <el-select v-model="search.schoolId" placeholder="请选择" style="width: 100%">
                 <el-option label="全部" value=""></el-option>
                 <el-option v-for="item in schoolList" :key="item.schoolId" :label="item.schoolName" :value="item.schoolId"></el-option>
               </el-select>

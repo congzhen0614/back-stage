@@ -1,10 +1,10 @@
 <template>
   <div class="online-report">
     <header class="online-report-header">
-      <el-form ref="form" :model="search" label-width="80px">
-        <el-row :gutter="20">
-          <el-col :span="10">
-            <el-form-item label="省/市/区:">
+      <el-form ref="form" :model="search">
+        <el-row>
+          <el-col :span="12">
+            <el-form-item label="省/市/区:" label-width="60px">
               <el-select class="region-select" v-model="search.provinceId" placeholder="请选择省">
                 <el-option label="全部" value=""></el-option>
                 <el-option :label="item.name" :value="item.id" v-for="item in provinceList" :key="item.id"></el-option>
@@ -21,7 +21,7 @@
             </el-form-item>
           </el-col>
           <el-col :span="4">
-            <el-form-item label="销售员:">
+            <el-form-item label="销售员:" label-width="50px">
               <el-select v-model="search.salesman" placeholder="请选择销售员">
                 <el-option label="全部" value=""></el-option>
                 <el-option label="区域二" value="beijing"></el-option>
@@ -29,19 +29,17 @@
             </el-form-item>
           </el-col>
           <el-col :span="8">
-            <el-form-item label="订单时间:">
+            <el-form-item label="订单时间:" label-width="60px">
               <el-date-picker type="date" placeholder="选择开始日期" v-model="search.startDate" style="width: 45%;"></el-date-picker>
               <el-date-picker type="date" placeholder="选择结束日期" v-model="search.endDate" style="width: 45%;"></el-date-picker>
             </el-form-item>
           </el-col>
-          <el-col :span="2">
-            <el-button type="primary" plain @click="loadData">检索</el-button>
-          </el-col>
         </el-row>
         <el-row>
-          <el-button type="primary">导出</el-button>
-          <el-button type="primary">导出</el-button>
-          <el-button type="primary">导出</el-button>
+          <el-button size="mini" type="primary" plain @click="loadData" style="float: right">检索</el-button>
+          <el-button size="mini" type="primary">导出</el-button>
+          <el-button size="mini" type="primary">导出</el-button>
+          <el-button size="mini" type="primary">导出</el-button>
         </el-row>
       </el-form>
     </header>
@@ -51,11 +49,6 @@
       <el-table-column prop="date" label="日期" header-align="center"></el-table-column>
       <el-table-column prop="date" label="日期" header-align="center"></el-table-column>
       <el-table-column prop="date" label="日期" header-align="center"></el-table-column>
-      <el-table-column label="操作" header-align="center" width="80">
-        <template slot-scope="scope">
-          <el-button type="text" size="small">修改</el-button>
-        </template>
-      </el-table-column>
     </el-table>
     <el-pagination
       @size-change="handleSizeChange"

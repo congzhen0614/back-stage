@@ -1,54 +1,49 @@
 <template>
   <div class="user-manage">
     <header class="user-manage-header">
-      <el-form ref="form" :model="search" label-width="80px">
-        <el-row :gutter="20">
+      <el-form ref="form" :model="search">
+        <el-row>
           <el-col :span="4">
-            <el-form-item label="账号:">
+            <el-form-item label="账号:" label-width="40px">
               <el-input v-model="search.name" placeholder="请输入账号"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="4">
-            <el-form-item label="昵称:">
+            <el-form-item label="昵称:" label-width="40px">
               <el-input v-model="search.name" placeholder="请输入昵称"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="6">
-            <el-form-item label="订单时间:">
-              <el-date-picker type="date" placeholder="开始日期" v-model="search.startDate" style="width: 45%;"></el-date-picker>
-              <el-date-picker type="date" placeholder="结束日期" v-model="search.endDate" style="width: 45%;"></el-date-picker>
+            <el-form-item label="订单时间:" label-width="60px">
+              <el-date-picker type="date" placeholder="开始日期" v-model="search.startDate" style="width: 49%;"></el-date-picker>
+              <el-date-picker type="date" placeholder="结束日期" v-model="search.endDate" style="width: 49%;"></el-date-picker>
             </el-form-item>
           </el-col>
-          <el-col :span="10">
-            <el-form-item label="省/市/区:">
-              <el-select style="width: 20%" v-model="search.provinceId" placeholder="请选择省">
+          <el-col :span="7">
+            <el-form-item label="省/市/区:" label-width="60px">
+              <el-select style="width: 32%" v-model="search.provinceId" placeholder="请选择省">
                 <el-option label="全部" value=""></el-option>
                 <el-option :label="item.name" :value="item.id" v-for="item in provinceList" :key="item.id"></el-option>
               </el-select>
-              <el-select style="width: 20%" v-model="search.cityId" placeholder="请选择市">
+              <el-select style="width: 32%" v-model="search.cityId" placeholder="请选择市">
                 <el-option label="全部" value=""></el-option>
                 <el-option :label="item.name" :value="item.id" v-for="item in citiesList" :key="item.id"></el-option>
               </el-select>
-              <el-select style="width: 20%" v-model="search.regionId" placeholder="请选择区">
+              <el-select style="width: 32%" v-model="search.regionId" placeholder="请选择区">
                 <el-option label="全部" value=""></el-option>
                 <el-option :label="item.name" :value="item.id" v-for="item in regionList" :key="item.id"></el-option>
               </el-select>
-              <el-input style="width: 35%" v-model="search.address" placeholder="请输入详细地址"></el-input>
             </el-form-item>
           </el-col>
-        </el-row>
-        <el-row :gutter="20">
-          <el-col :span="4">
-            <el-form-item label="用户状态:" style="margin: 0">
-              <el-select v-model="search.region" placeholder="请选择用户状态:">
+          <el-col :span="3">
+            <el-form-item label="用户状态:" label-width="60px">
+              <el-select v-model="search.region" placeholder="请选择用户状态:" style="width: 100%">
                 <el-option label="区域一" value="shanghai"></el-option>
                 <el-option label="区域二" value="beijing"></el-option>
               </el-select>
             </el-form-item>
           </el-col>
-          <el-col :span="2">
-            <el-button type="primary" plain @click="loadData">检索</el-button>
-          </el-col>
+          <el-button size="mini" type="primary" plain @click="loadData" style="float: right">检索</el-button>
         </el-row>
       </el-form>
     </header>
@@ -183,7 +178,7 @@ export default {
 <style>
 .user-manage-header {
   width: 100%;
-  padding: 20px;
+  padding: 10px;
   background-color: #F2F6FC;
 }
 </style>

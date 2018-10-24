@@ -2,9 +2,11 @@
   <div class="account-area">
     <el-input class="input" type="text" v-model="provinceName" disabled></el-input>
     <el-select class="select" v-model="cities" multiple placeholder="请选择市" :disabled="isSelf">
+      <el-option label="全选" value="all"></el-option>
       <el-option v-for="item in cityList" :key="item.cityId" :label="item.cityName" :value="item.cityId"></el-option>
     </el-select>
     <el-select class="select" v-model="regions" multiple placeholder="请选择区" :disabled="isSelf">
+      <el-option label="全选" value="all"></el-option>
       <el-option v-for="item in regionList" :key="item.regionId" :label="item.regionName" :value="item.regionId"></el-option>
     </el-select>
   </div>
@@ -69,23 +71,41 @@ export default {
     }
   },
   watch: {
-    cities (value) {
-      if (value.length === 0) {
+    cities (val) {
+      if (val.length === 0) {
         this.regions = []
         this.regionList = []
       } else {
-        value.forEach(id => {
-          this.cityList.forEach(item => {
-            if (item.cityId === id) {
-              this.regionList = item.regions
-            }
-          })
+        val.forEach(id => {
+          if (id === 'all') {
+            this.cities = []
+            this.cityList.forEach(item => {
+              this.cities.push(item.cityId)
+              this.regionList = this.regionList.concat(item.regions)
+            })
+          } else {
+            this.cityList.forEach(item => {
+              if (item.cityId === id) {
+                this.regionList = item.regions
+              }
+            })
+          }
         })
       }
-      this.$emit('cities', value)
+      this.$emit('cities', val)
     },
     regions (val) {
-      this.$emit('regions', val)
+      if (val.length > 0) {
+        this.$emit('regions', val)
+        val.forEach(item => {
+          if (item === 'all') {
+            this.regions = []
+            this.regionList.forEach(items => {
+              this.regions.push(items.regionId)
+            })
+          }
+        })
+      }
     }
   }
 }
@@ -93,7 +113,7 @@ export default {
 
 <style>
 .account-area .el-input,
-.account-area .el-select{
+.account-area .el-select {
   vertical-align: top;
 }
 .account-area .input {

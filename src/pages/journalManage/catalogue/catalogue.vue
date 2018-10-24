@@ -115,14 +115,14 @@ export default {
     return {
       windowHeight: window.innerHeight - 184 + 'px',
       haveQr: false,
-      search: {
-        title: ''
-      },
       options: [],
       seleteIds: [],
       seleteItems: [],
       accountList: [],
       tableList: [],
+      search: {
+        title: ''
+      },
       pages: {
         total: 0,
         pageNum: 1,

@@ -1,47 +1,49 @@
 <template>
   <div class="school-report">
     <header class="school-report-header">
-      <el-form ref="form" :model="search" label-width="80px">
-        <el-row :gutter="20">
+      <el-form ref="form" :model="search">
+        <el-row>
           <el-col :span="10">
-            <el-form-item label="省/市/区:">
-              <el-select class="region-select" v-model="search.provinceId" placeholder="请选择省">
+            <el-form-item label="省/市/区:" label-width="60px">
+              <el-select class="region-select" v-model="search.provinceId" placeholder="请选择省" style="width: 32%">
                 <el-option label="全部" value=""></el-option>
                 <el-option :label="item.name" :value="item.id" v-for="item in provinceList" :key="item.id"></el-option>
               </el-select>
-              <el-select class="region-select" v-model="search.cityId" placeholder="请选择市">
+              <el-select class="region-select" v-model="search.cityId" placeholder="请选择市" style="width: 32%">
                 <el-option label="全部" value=""></el-option>
                 <el-option :label="item.name" :value="item.id" v-for="item in citiesList" :key="item.id"></el-option>
               </el-select>
-              <el-select class="region-select" v-model="search.regionId" placeholder="请选择区">
+              <el-select class="region-select" v-model="search.regionId" placeholder="请选择区" style="width: 32%">
                 <el-option label="全部" value=""></el-option>
                 <el-option :label="item.name" :value="item.id" v-for="item in regionList" :key="item.id"></el-option>
               </el-select>
-              <el-input class="region-input" v-model="search.address" placeholder="请输入详细地址"></el-input>
             </el-form-item>
           </el-col>
-          <el-col :span="4">
-            <el-form-item label="销售员:">
-              <el-select v-model="search.region" placeholder="请选择销售员">
-                <el-option label="区域一" value="shanghai"></el-option>
-                <el-option label="区域二" value="beijing"></el-option>
+          <el-col :span="3">
+            <el-form-item label="学校:" label-width="40px">
+              <el-select v-model="search.schoolId" placeholder="请选择学校">
+                <el-option label="全部" value=""></el-option>
+                <el-option :label="item.schoolName" :value="item.schoolId" v-for="item in schoolList" :key="item.id"></el-option>
               </el-select>
             </el-form-item>
           </el-col>
-          <el-col :span="8">
-            <el-form-item label="订单时间:">
+          <el-col :span="3">
+            <el-form-item label="销售员:" label-width="50px">
+              <el-select v-model="search.adminId" placeholder="请选择销售员">
+                <el-option :label="item.username" :value="item.id" v-for="item in accountList" :key="item.id"></el-option>
+              </el-select>
+            </el-form-item>
+          </el-col>
+          <el-col :span="6">
+            <el-form-item label="订单时间:" label-width="60px">
               <el-date-picker type="date" placeholder="选择开始日期" v-model="search.startDate" style="width: 45%;"></el-date-picker>
               <el-date-picker type="date" placeholder="选择结束日期" v-model="search.endDate" style="width: 45%;"></el-date-picker>
             </el-form-item>
           </el-col>
-          <el-col :span="2">
-            <el-button type="primary" plain @click="loadData">检索</el-button>
-          </el-col>
         </el-row>
         <el-row>
-          <el-button type="primary">导出</el-button>
-          <el-button type="primary">导出</el-button>
-          <el-button type="primary">导出</el-button>
+          <el-button size="mini" type="primary" plain @click="loadData" style="float: right">检索</el-button>
+          <el-button size="mini" type="primary" @click="loadMageReportExport">导出</el-button>
         </el-row>
       </el-form>
     </header>
@@ -75,16 +77,22 @@ export default {
   components: {},
   data () {
     return {
-      windowHeight: window.innerHeight - 317 + 'px',
-      search: {
-        provinceId: '',
-        cityId: '',
-        regionId: ''
-      },
+      windowHeight: window.innerHeight - 200 + 'px',
       provinceList: [],
       citiesList: [],
       regionList: [],
+      schoolList: [],
+      accountList: [],
       tableData: [],
+      search: {
+        provinceId: '',
+        cityId: '',
+        regionId: '',
+        schoolId: '',
+        adminId: '',
+        startDate: '',
+        endDate: ''
+      },
       pages: {
         total: 0,
         pageNum: 1,
@@ -97,7 +105,17 @@ export default {
   },
   methods: {
     loadData () {
-      console.log(this.search)
+      this.$axios.magaReportList(this.params).then(res => {
+        if (res.data.code === '0') {
+          this.tableData = res.data.data.list
+        } else {
+          this.$message.error(res.data.data.msg)
+        }
+      }, err => {
+        this.$message.error(err)
+      }).catch(err => {
+        this.$message.error(err)
+      })
     },
     loadProvince () {
       this.$axios.province().then(res => {
@@ -138,11 +156,50 @@ export default {
         this.$message.error(err)
       })
     },
+    loadSchool () {
+      this.$axios.seekSchoolList({regionId: this.search.regionId}).then(res => {
+        if (res.data.code === '0') {
+          this.schoolList = res.data.data
+        } else {
+          this.$message.error(res.data.data.msg)
+        }
+      }, err => {
+        this.$message.error(err)
+      }).catch(err => {
+        this.$message.error(err)
+      })
+    },
+    loadAccount () {
+      this.$axios.accountListCandidate({groupId: '', level: '', type: ''}).then(res => {
+        if (res.data.code === '0') {
+          this.accountList = res.data.data
+        } else {
+          this.$message.error(res.data.msg)
+        }
+      }, err => {
+        this.$message.error(err)
+      }).catch(err => {
+        this.$message.error(err)
+      })
+    },
+    loadMageReportExport () {
+      let _url = '/qrzd/trade/report/magazine/total/export'
+      window.location.href = window.location.protocol + '//' + window.location.host + _url
+      // this.$axios.mageReportExport(this.params).then(res => {
+      //   console.log(res)
+      // }, err => {
+      //   this.$message.error(err)
+      // }).catch(err => {
+      //   this.$message.error(err)
+      // })
+    },
     handleSizeChange (val) {
-      console.log(val)
+      this.pages.pageSize = val
+      this.loadData()
     },
     handleCurrentChange (val) {
-      console.log(val)
+      this.pages.pageNum = val
+      this.loadData()
     }
   },
   watch: {

@@ -1,20 +1,23 @@
 <template>
   <div class="login-content">
+    <img class="cloud-right" src="../../assets/login/cloud-right.png"/>
+    <img class="cloud-left" src="../../assets/login/cloud-left.png"/>
+    <img class="sunshine" src="../../assets/login/sunshine.png"/>
     <div class="login">
       <el-card class="box-card" shadow="always">
-        <el-form :rules="rules" ref="form" :model="login" label-width="60px">
-          <el-form-item label="账号:" prop="username">
-            <el-input v-model="login.username" placeholder="请输入账号" clearable></el-input>
-          </el-form-item>
-          <el-form-item label="密码:" prop="password">
-            <el-input type="password" v-model="login.password" placeholder="请输入密码" clearable></el-input>
-          </el-form-item>
-          <el-form-item>
-            <el-button type="primary" @click="clickLogin">登录</el-button>
-          </el-form-item>
-        </el-form>
+        <span class="box-card-header">二维码征订后台</span>
+        <div class="login-box">
+          <span>账号</span>
+          <input type="text" placeholder="请输入账号" v-model="login.username"/>
+        </div>
+        <div class="login-box">
+          <span>密码</span>
+          <input type="password" placeholder="请输入密码" v-model="login.password"/>
+        </div>
+        <span class="login-button" @click="clickLogin">登录</span>
       </el-card>
     </div>
+    <img class="footer" src="../../assets/login/footer.png"/>
   </div>
 </template>
 
@@ -70,18 +73,84 @@ export default {
 </script>
 
 <style>
-  .text {
-    font-size: 14px;
-  }
-
-  .item {
-    padding: 18px 0;
-  }
   .login-content {
-    padding-top: 200px;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background-color: #AEE6FF;
+  }
+  .cloud-right {
+    float: right;
+    width: 310px;
+    margin-top: 20px;
+    margin-right: 20px;
+  }
+  .cloud-left {
+    width: 154px;
+  }
+  .sunshine {
+    position: absolute;
+    height: 100%;
+    top: 0;
+    left: 0;
+  }
+  .footer {
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+    left: 0;
   }
   .box-card {
-    width: 480px;
-    margin: 0 auto;
+    position: absolute;
+    width: 420px;
+    left: 50%;
+    top: 50%;
+    margin-left: -210px;
+    margin-top: -300px;
+    padding: 20px 15px;
+  }
+  .box-card-header {
+    font-weight: 600;
+    font-size: 24px;
+    color: #333333;
+  }
+  .login-box {
+    width: 100%;
+    height: 60px;
+    padding: 0 20px;
+    margin-top: 20px;
+    line-height: 60px;
+    border-radius:10px;
+    background-color: #F2F3F3;
+    font-size: 14px;
+    color: #333333;
+  }
+  .login-box input {
+    background-color: #F2F3F3;
+    text-align: right;
+    font-size: 14px;
+    color: #9A9A9A;
+    width: 80%;
+    outline: 0;
+  }
+  .login-box input::-webkit-input-placeholder {
+    color: #9A9A9A;
+  }
+  .login-box span {
+    display: block;
+    float: left;
+    width: 20%;
+  }
+  .login-button {
+    display: block;
+    width: 100%;
+    height: 60px;
+    margin-top: 20px;
+    line-height: 60px;
+    text-align: center;
+    border-radius:10px;
+    background-color: #74AFF3;
+    font-size: 16px;
+    color: #ffffff;
   }
 </style>

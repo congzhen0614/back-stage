@@ -4,9 +4,6 @@
  */
 import axios from 'axios'
 import qs from 'qs'
-import Vue from 'vue'
-import downloadHandler from '@/common/upload.js'
-let obj = new Vue()
 
 // 测试: http://192.168.0.230:8081
 // 正式正式: https://qrapi.51weixiao.com/qrzd
@@ -25,13 +22,9 @@ axios.interceptors.request.use(config => {
 
 // 设置重定向
 axios.interceptors.response.use(response => {
-  if (typeof response.data === 'string') {
-    downloadHandler(response.data, 'zip')
-  } else if (response.data.code === '-6') {
+  if (response.data.code === '-6') {
     localStorage.clear()
     window.location.reload()
-  } else if (response.data.code < '0') {
-    obj.$message.error(response.data.msg)
   }
   return response
 }, err => {
@@ -327,5 +320,14 @@ export default {
   },
   accountArea (params) {
     return axios.post('/qrzd/agent/account/listarea/open', params)
+  },
+  // 报表
+  magaReportList (params) {
+    let param = qs.stringify(params)
+    return axios.get(`/qrzd/trade/report/magazine/total/list?${param}`)
+  },
+  mageReportExport (params) {
+    let param = qs.stringify(params)
+    return axios.get(`/qrzd/trade/report/magazine/total/export?${param}`)
   }
 }
