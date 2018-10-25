@@ -102,6 +102,7 @@ export default {
       this.form.postageSum = val.postageSum === undefined ? '' : val.postageSum
       this.form.sendType = val.sendType === undefined ? '' : val.sendType
       this.mageList = val.items.length > 0 ? val.items : []
+      console.log(this.mageList)
     },
     bookDate (val) {
       this.form.postageBook = val.postageBook === undefined ? '' : val.postageBook
@@ -112,18 +113,6 @@ export default {
       this.ypspList = val.items.length > 0 ? val.items : []
     },
     onSave () {
-      let haveBook = false
-      this.form.items.forEach(item => {
-        if (item.cls === 2) haveBook = true
-      })
-      if (haveBook && (this.form.postageSumBook === '' || this.form.postageBook === '')) {
-        this.$message.error('选中图书的时候图书未满金额和图书运费是必填的哦')
-        return
-      }
-      if (this.form.sendType === 1 && (this.form.postageSum === '' || this.form.postage === '')) {
-        this.$message.error('寄送的时候杂志未满金额和杂志运费是必填的哦')
-        return
-      }
       this.$axios.itempackUpdate(this.form).then(res => {
         if (res.data.code === '0') {
           this.$message.success('修改成功!')
@@ -131,7 +120,7 @@ export default {
             path: '/catalogue'
           })
         } else {
-          this.$message.error(res.data.data.msg)
+          this.$message.error(res.data.msg)
         }
       }, err => {
         this.$message.error(err)

@@ -326,8 +326,26 @@ export default {
     let param = qs.stringify(params)
     return axios.get(`/qrzd/trade/report/magazine/total/list?${param}`)
   },
-  mageReportExport (params) {
+  // 用户管理
+  userList (params) {
     let param = qs.stringify(params)
-    return axios.get(`/qrzd/trade/report/magazine/total/export?${param}`)
+    return axios.get(`/qrzd/sys/user/list?${param}`)
+  },
+  findChildByUid (params) {
+    return axios.post('/qrzd/sys/child/findbyuid', params)
+  },
+  userDelete (params) {
+    return axios.post('/qrzd/sys/user/delete', params)
+  },
+  // 孩子管理
+  childList (params) {
+    let param = qs.stringify(params)
+    return axios.get(`/qrzd/sys/child/list?${param}`)
+  },
+  childDelete (params) {
+    return axios.post('/qrzd/sys/child/delete', params)
+  },
+  childUpdate (params) {
+    return axios.post('/qrzd/sys/child/update', params)
   }
 }

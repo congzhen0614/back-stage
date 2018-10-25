@@ -53,6 +53,7 @@ import schoolReport from '@/pages/report/schoolReport/schoolReport.vue' // 按�
 import userManage from '@/pages/system/userManage/userManage.vue' // 用户管理
 import checkChild from '@/pages/system/userManage/checkChild/checkChild.vue' // 用户管理
 import childManage from '@/pages/system/childManage/childManage.vue' // 孩子管理
+import updateChildManage from '@/pages/system/childManage/updateChild/updateChild.vue' // 修改孩子
 
 Vue.use(Router)
 
@@ -265,6 +266,10 @@ export default new Router({
       path: '/childManage',
       name: '孩子管理',
       component: childManage
+    }, {
+      path: '/updateChildManage',
+      name: '修改孩子信息',
+      component: updateChildManage
     }]
   }]
 })

@@ -117,20 +117,14 @@ export default {
   },
   methods: {
     handleSelectionChange (val) {
-      if (this.pageNum !== this.search.pageNum) {
-        this.preselected = this.preselected.catch(this.selectIds)
-        this.pageNum = this.pages.pageNum
-      } else {
-        this.selectIds = []
-        this.selectIds = this.preselected
-        val.forEach(item => {
-          this.selectIds.push({
-            cls: 1,
-            itemId: item.id,
-            ord: parseInt(item.ord)
-          })
+      this.selectIds = []
+      val.forEach(item => {
+        this.selectIds.push({
+          cls: 1,
+          itemId: item.id,
+          ord: parseInt(item.ord)
         })
-      }
+      })
     },
     handleSizeChange (val) {
       this.search.pageSize = val

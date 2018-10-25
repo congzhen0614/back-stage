@@ -208,7 +208,6 @@ export default {
         postageSumBook: this.form.postageSumBook,
         items: val
       })
-      console.log(val)
     }
   }
 }

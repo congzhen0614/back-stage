@@ -3,6 +3,14 @@
     <header class="user-manage-header">
       <el-form ref="form" :model="search">
         <el-row>
+          <!-- name       -->
+          <!-- nickName   -->
+          <!-- beginTime  -->
+          <!-- endTime    -->
+          <!-- provinceId -->
+          <!-- cityId     -->
+          <!-- regionId   -->
+          <!-- status     -->
           <el-col :span="4">
             <el-form-item label="账号:" label-width="40px">
               <el-input v-model="search.name" placeholder="请输入账号"></el-input>
@@ -10,13 +18,13 @@
           </el-col>
           <el-col :span="4">
             <el-form-item label="昵称:" label-width="40px">
-              <el-input v-model="search.name" placeholder="请输入昵称"></el-input>
+              <el-input v-model="search.nickName" placeholder="请输入昵称"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="6">
             <el-form-item label="订单时间:" label-width="60px">
-              <el-date-picker type="date" placeholder="开始日期" v-model="search.startDate" style="width: 49%;"></el-date-picker>
-              <el-date-picker type="date" placeholder="结束日期" v-model="search.endDate" style="width: 49%;"></el-date-picker>
+              <el-date-picker type="date" placeholder="开始日期" v-model="search.beginTime" style="width: 49%;"></el-date-picker>
+              <el-date-picker type="date" placeholder="结束日期" v-model="search.endTime" style="width: 49%;"></el-date-picker>
             </el-form-item>
           </el-col>
           <el-col :span="7">
@@ -37,9 +45,10 @@
           </el-col>
           <el-col :span="3">
             <el-form-item label="用户状态:" label-width="60px">
-              <el-select v-model="search.region" placeholder="请选择用户状态:" style="width: 100%">
-                <el-option label="区域一" value="shanghai"></el-option>
-                <el-option label="区域二" value="beijing"></el-option>
+              <el-select v-model="search.status" placeholder="请选择用户状态:" style="width: 100%">
+                <el-option label="全部"   value=""></el-option>
+                <el-option label="正常"   :value="0"></el-option>
+                <el-option label="已注销" :value="1"></el-option>
               </el-select>
             </el-form-item>
           </el-col>
@@ -48,20 +57,20 @@
       </el-form>
     </header>
     <el-table :data="tableData" border :height="windowHeight">
-      <el-table-column prop="date" label="账号" header-align="center"></el-table-column>
-      <el-table-column prop="date" label="昵称" header-align="center"></el-table-column>
-      <el-table-column prop="date" label="平台" header-align="center"></el-table-column>
-      <el-table-column prop="date" label="省份" header-align="center"></el-table-column>
-      <el-table-column prop="date" label="城市" header-align="center"></el-table-column>
-      <el-table-column prop="date" label="地区" header-align="center"></el-table-column>
-      <el-table-column prop="date" label="操作平台" header-align="center"></el-table-column>
-      <el-table-column prop="date" label="版本号" header-align="center"></el-table-column>
-      <el-table-column prop="date" label="注册时间" header-align="center"></el-table-column>
-      <el-table-column prop="date" label="用户状态" header-align="center"></el-table-column>
-      <el-table-column label="操作" header-align="center" width="200">
+      <el-table-column prop="name"         label="账号"     align="center"></el-table-column>
+      <el-table-column prop="nickName"     label="昵称"     align="center"></el-table-column>
+      <el-table-column prop="platform"     label="平台"     align="center"></el-table-column>
+      <el-table-column prop="provinceName" label="省份"     align="center"></el-table-column>
+      <el-table-column prop="cityName"     label="城市"     align="center"></el-table-column>
+      <el-table-column prop="regionName"   label="地区"     align="center"></el-table-column>
+      <el-table-column prop="os"           label="操作平台" align="center"></el-table-column>
+      <el-table-column prop="version"      label="版本号"   align="center"></el-table-column>
+      <el-table-column prop="createdTime"  label="注册时间" align="center"></el-table-column>
+      <el-table-column prop="statusName"   label="用户状态" align="center"></el-table-column>
+      <el-table-column                     label="操作"     align="center" width="100">
         <template slot-scope="scope">
-          <el-button type="text" size="small">查看孩子</el-button>
-          <el-button type="text" size="small">注销</el-button>
+          <el-button type="text" size="mini" @click="cheakChild(scope.row)">查看孩子</el-button>
+          <el-button type="text" size="mini" @click="clickDelete(scope.row)">注销</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -83,16 +92,21 @@ export default {
   components: {},
   data () {
     return {
-      windowHeight: window.innerHeight - 190 + 'px',
-      search: {
-        provinceId: '',
-        cityId: '',
-        regionId: ''
-      },
+      windowHeight: window.innerHeight - 185 + 'px',
       provinceList: [],
       citiesList: [],
       regionList: [],
       tableData: [],
+      search: {
+        name: '',
+        nickName: '',
+        beginTime: '',
+        endTime: '',
+        provinceId: '',
+        cityId: '',
+        regionId: '',
+        status: ''
+      },
       pages: {
         total: 0,
         pageNum: 1,
@@ -101,13 +115,56 @@ export default {
     }
   },
   created () {
+    this.loadData()
     this.loadProvince()
   },
-  mounted () {
+  computed: {
+    params () {
+      let dateFormat = (value, type) => {
+        let date = new Date(value)
+        let year = date.getFullYear()
+        let month = date.getMonth() + 1
+        let day = date.getDate()
+        if (value === '') {
+          return ''
+        } else {
+          if (type === 0) {
+            return year + '-' + month + '-' + day + ' 00:00:00'
+          } else {
+            return year + '-' + month + '-' + day + ' 23:59:59'
+          }
+        }
+      }
+      let param = {
+        pageNum: this.pages.pageNum,
+        pageSize: this.pages.pageSize,
+        name: this.search.name,
+        nickName: this.search.nickName,
+        beginTime: dateFormat(this.search.beginTime, 0),
+        endTime: dateFormat(this.search.endTime, 1),
+        provinceId: this.search.provinceId,
+        cityId: this.search.cityId,
+        regionId: this.search.regionId,
+        status: this.search.status
+      }
+      return param
+    }
   },
-  computed: {},
   methods: {
-    loadData () {},
+    loadData () {
+      this.$axios.userList(this.params).then(res => {
+        if (res.data.code === '0') {
+          this.pages.total = res.data.data.total
+          this.tableData = res.data.data.list
+        } else {
+          this.$message.error(res.data.data.msg)
+        }
+      }, err => {
+        this.$message.error(err)
+      }).catch(err => {
+        this.$message.error(err)
+      })
+    },
     loadProvince () {
       this.$axios.province().then(res => {
         if (res.data.code === '0') {
@@ -147,11 +204,46 @@ export default {
         this.$message.error(err)
       })
     },
+    clickDelete (item) {
+      this.$confirm('此操作将永久删除该选项, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        this.$axios.userDelete({id: item.id}).then(res => {
+          if (res.data.code === '0') {
+            this.$message.success('操作成功')
+            this.loadData()
+          } else {
+            this.$message.error(res.data.data.msg)
+          }
+        }, err => {
+          this.$message.error(err)
+        }).catch(err => {
+          this.$message.error(err)
+        })
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '已取消删除'
+        })
+      })
+    },
     handleSizeChange (val) {
-      console.log(val)
+      this.pages.pageSize = val
+      this.loadData()
     },
     handleCurrentChange (val) {
-      console.log(val)
+      this.pages.pageNum = val
+      this.loadData()
+    },
+    cheakChild (item) {
+      this.$router.push({
+        path: '/checkChild',
+        query: {
+          id: item.id
+        }
+      })
     }
   },
   watch: {

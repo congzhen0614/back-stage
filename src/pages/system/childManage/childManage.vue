@@ -4,19 +4,19 @@
       <el-form ref="form" :model="search">
         <el-row>
           <el-col :span="4">
-            <el-form-item label="账号:" label-width="40px">
+            <el-form-item label="学生姓名:" label-width="60px">
               <el-input v-model="search.name" placeholder="请输入账号"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="4">
-            <el-form-item label="昵称:" label-width="40px">
-              <el-input v-model="search.name" placeholder="请输入昵称"></el-input>
+            <el-form-item label="手机号:" label-width="50px">
+              <el-input v-model="search.mobile" placeholder="请输入手机号"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="6">
-            <el-form-item label="订单时间:" label-width="60px">
-              <el-date-picker type="date" placeholder="开始日期" v-model="search.startDate" style="width: 49%;"></el-date-picker>
-              <el-date-picker type="date" placeholder="结束日期" v-model="search.endDate" style="width: 49%;"></el-date-picker>
+            <el-form-item label="添加时间:" label-width="60px">
+              <el-date-picker type="date" placeholder="开始日期" v-model="search.beginTime" style="width: 49%;"></el-date-picker>
+              <el-date-picker type="date" placeholder="结束日期" v-model="search.endTime" style="width: 49%;"></el-date-picker>
             </el-form-item>
           </el-col>
           <el-col :span="7">
@@ -40,21 +40,34 @@
       </el-form>
     </header>
     <el-table :data="tableData" border :height="windowHeight">
-      <el-table-column prop="date" label="账号" header-align="center"></el-table-column>
-      <el-table-column prop="date" label="孩子姓名" header-align="center"></el-table-column>
-      <el-table-column prop="date" label="性别" header-align="center"></el-table-column>
-      <el-table-column prop="date" label="省份" header-align="center"></el-table-column>
-      <el-table-column prop="date" label="城市" header-align="center"></el-table-column>
-      <el-table-column prop="date" label="地区" header-align="center"></el-table-column>
-      <el-table-column prop="date" label="学校" header-align="center"></el-table-column>
-      <el-table-column prop="date" label="年级" header-align="center"></el-table-column>
-      <el-table-column prop="date" label="班级" header-align="center"></el-table-column>
-      <el-table-column prop="date" label="入学年份" header-align="center"></el-table-column>
-      <el-table-column prop="date" label="是否消费" header-align="center"></el-table-column>
-      <el-table-column prop="date" label="添加日期" header-align="center"></el-table-column>
-      <el-table-column label="操作" header-align="center" width="200">
+      <el-table-column prop="parentAccount"         label="账号"     header-align="center"></el-table-column>
+      <el-table-column prop="name"         label="孩子姓名" align="center" width="100"></el-table-column>
+      <el-table-column prop="sex"          label="性别"     align="center" width="100">
         <template slot-scope="scope">
-          <el-button type="text" size="small">修改</el-button>
+          <span>{{ scope.row.sex === 0 ? '男' : '女' }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column prop="provinceName" label="省份"     align="center" width="100"></el-table-column>
+      <el-table-column prop="cityName"    label="城市"     align="center" width="100"></el-table-column>
+      <el-table-column prop="regionName"   label="地区"     align="center" width="100"></el-table-column>
+      <el-table-column prop="schoolName"   label="学校"     align="center" width="100"></el-table-column>
+      <el-table-column prop="gradeName"    label="年级"     align="center" width="100"></el-table-column>
+      <el-table-column prop="className"    label="班级"     align="center" width="100">
+        <template slot-scope="scope">
+          <span>{{ scope.row.className || scope.row.defaultClassName }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column prop="enrollment"   label="入学年份" align="center" width="100"></el-table-column>
+      <el-table-column prop="haveTrade"    label="是否消费" align="center" width="100">
+        <template slot-scope="scope">
+          <span>{{ scope.row.haveTrade === 0 ? '无订单' : '有订单' }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column prop="createdTime"  label="添加日期" align="center" width="150"></el-table-column>
+      <el-table-column label="操作" align="center" width="100">
+        <template slot-scope="scope">
+          <el-button type="text" size="mini" @click="clickUpdate(scope.row)">修改</el-button>
+          <el-button type="text" size="mini" @click="clickDelete(scope.row)">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -76,16 +89,20 @@ export default {
   components: {},
   data () {
     return {
-      windowHeight: window.innerHeight - 160 + 'px',
-      search: {
-        provinceId: '',
-        cityId: '',
-        regionId: ''
-      },
+      windowHeight: window.innerHeight - 149 + 'px',
       provinceList: [],
       citiesList: [],
       regionList: [],
       tableData: [],
+      search: {
+        name: '',
+        mobile: '',
+        beginTime: '',
+        endTime: '',
+        provinceId: '',
+        cityId: '',
+        regionId: ''
+      },
       pages: {
         total: 0,
         pageNum: 1,
@@ -94,13 +111,55 @@ export default {
     }
   },
   created () {
+    this.loadData()
     this.loadProvince()
   },
-  mounted () {
+  computed: {
+    params () {
+      let dateFormat = (value, type) => {
+        let date = new Date(value)
+        let year = date.getFullYear()
+        let month = date.getMonth() + 1
+        let day = date.getDate()
+        if (value === '') {
+          return ''
+        } else {
+          if (type === 0) {
+            return year + '-' + month + '-' + day + ' 00:00:00'
+          } else {
+            return year + '-' + month + '-' + day + ' 23:59:59'
+          }
+        }
+      }
+      let param = {
+        pageNum: this.pages.pageNum,
+        pageSize: this.pages.pageSize,
+        name: this.search.name,
+        mobile: this.search.mobile,
+        beginTime: dateFormat(this.search.beginTime, 0),
+        endTime: dateFormat(this.search.endTime, 1),
+        provinceId: this.search.provinceId,
+        cityId: this.search.cityId,
+        regionId: this.search.regionId
+      }
+      return param
+    }
   },
-  computed: {},
   methods: {
-    loadData () {},
+    loadData () {
+      this.$axios.childList(this.params).then(res => {
+        if (res.data.code === '0') {
+          this.pages.total = res.data.data.total
+          this.tableData = res.data.data.list
+        } else {
+          this.$message.error(res.data.data.msg)
+        }
+      }, err => {
+        this.$message.error(err)
+      }).catch(err => {
+        this.$message.error(err)
+      })
+    },
     loadProvince () {
       this.$axios.province().then(res => {
         if (res.data.code === '0') {
@@ -141,10 +200,46 @@ export default {
       })
     },
     handleSizeChange (val) {
-      console.log(val)
+      this.pages.pageSize = val
+      this.loadData()
     },
     handleCurrentChange (val) {
-      console.log(val)
+      this.pages.pageNum = val
+      this.loadData()
+    },
+    clickUpdate (item) {
+      this.$router.push({
+        path: '/updateChildManage',
+        query: {
+          id: item.id,
+          uid: item.uid
+        }
+      })
+    },
+    clickDelete (item) {
+      this.$confirm('此操作将永久删除该选项, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        this.$axios.childDelete({id: item.id}).then(res => {
+          if (res.data.code === '0') {
+            this.$message.success('删除成功!')
+            this.loadData()
+          } else {
+            this.$message.error(res.data.data.msg)
+          }
+        }, err => {
+          this.$message.error(err)
+        }).catch(err => {
+          this.$message.error(err)
+        })
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '已取消删除'
+        })
+      })
     }
   },
   watch: {
@@ -171,8 +266,8 @@ export default {
 <style>
 .child-manage-header {
   width: 100%;
-  padding: 20px;
-  padding-bottom: 5px;
+  padding: 10px;
+  padding-bottom: 0px;
   background-color: #F2F6FC;
 }
 </style>
