@@ -83,7 +83,7 @@ export default {
   components: {},
   data () {
     return {
-      windowHeight: window.innerHeight - 317 + 'px',
+      windowHeight: window.innerHeight - 190 + 'px',
       search: {
         provinceId: '',
         cityId: '',

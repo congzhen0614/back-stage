@@ -76,7 +76,7 @@ export default {
   components: {},
   data () {
     return {
-      windowHeight: window.innerHeight - 253 + 'px',
+      windowHeight: window.innerHeight - 160 + 'px',
       search: {
         provinceId: '',
         cityId: '',
@@ -172,6 +172,7 @@ export default {
 .child-manage-header {
   width: 100%;
   padding: 20px;
+  padding-bottom: 5px;
   background-color: #F2F6FC;
 }
 </style>
