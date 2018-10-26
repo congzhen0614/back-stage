@@ -67,7 +67,7 @@
       <el-table-column prop="version"      label="版本号"   align="center"></el-table-column>
       <el-table-column prop="createdTime"  label="注册时间" align="center"></el-table-column>
       <el-table-column prop="statusName"   label="用户状态" align="center"></el-table-column>
-      <el-table-column                     label="操作"     align="center" width="100">
+      <el-table-column                     label="操作"     align="center" width="150">
         <template slot-scope="scope">
           <el-button type="text" size="mini" @click="cheakChild(scope.row)">查看孩子</el-button>
           <el-button type="text" size="mini" @click="clickDelete(scope.row)">注销</el-button>

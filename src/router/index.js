@@ -49,6 +49,7 @@ import checkCatalogue from '@/pages/journalManage/catalogue/checkCatalogue/check
 import magaReport from '@/pages/report/magaReport/magaReport.vue' // 杂志销售统计
 import offlineReport from '@/pages/report/offlineReport/offlineReport.vue' // 线下刊物征订汇总
 import onLineReport from '@/pages/report/onLineReport/onLineReport.vue' // 线上刊物征订汇总
+import areaReport from '@/pages/report/areaReport/areaReport.vue' // 按学校汇总杂志订单
 import schoolReport from '@/pages/report/schoolReport/schoolReport.vue' // 按学校汇总杂志订单
 import userManage from '@/pages/system/userManage/userManage.vue' // 用户管理
 import checkChild from '@/pages/system/userManage/checkChild/checkChild.vue' // 用户管理
@@ -254,6 +255,10 @@ export default new Router({
       path: '/schoolReport',
       name: '按学校汇总杂志订单',
       component: schoolReport
+    }, {
+      path: '/areaReport',
+      name: '地区对账',
+      component: areaReport
     }, {
       path: '/userManage',
       name: '用户管理',

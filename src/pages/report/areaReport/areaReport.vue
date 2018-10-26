@@ -1,9 +1,9 @@
 <template>
-  <div class="school-report">
-    <header class="school-report-header">
+  <div class="area-report">
+    <header class="maga-report-header">
       <el-form ref="form" :model="search">
         <el-row>
-          <el-col :span="10">
+          <el-col :span="8">
             <el-form-item label="省/市/区:" label-width="60px">
               <el-select class="region-select" v-model="search.provinceId" placeholder="请选择省" style="width: 32%">
                 <el-option label="全部" value=""></el-option>
@@ -20,7 +20,7 @@
             </el-form-item>
           </el-col>
           <el-col :span="3">
-            <el-form-item label="学校:" label-width="40px">
+            <el-form-item label="学校:" label-width="50px">
               <el-select v-model="search.schoolId" placeholder="请选择学校">
                 <el-option label="全部" value=""></el-option>
                 <el-option :label="item.schoolName" :value="item.schoolId" v-for="item in schoolList" :key="item.id"></el-option>
@@ -28,7 +28,7 @@
             </el-form-item>
           </el-col>
           <el-col :span="3">
-            <el-form-item label="销售员:" label-width="50px">
+            <el-form-item label="销售员:" label-width="60px">
               <el-select v-model="search.adminId" placeholder="请选择销售员">
                 <el-option label="全部" value=""></el-option>
                 <el-option :label="item.username" :value="item.id" v-for="item in accountList" :key="item.id"></el-option>
@@ -36,27 +36,60 @@
             </el-form-item>
           </el-col>
           <el-col :span="6">
-            <el-form-item label="订单时间:" label-width="60px">
+            <el-form-item label="订单时间:" label-width="70px">
               <el-date-picker type="date" placeholder="选择开始日期" v-model="search.startDate" style="width: 45%;"></el-date-picker>
               <el-date-picker type="date" placeholder="选择结束日期" v-model="search.endDate" style="width: 45%;"></el-date-picker>
             </el-form-item>
           </el-col>
+          <el-col :span="3">
+            <el-form-item label="配送方式:" label-width="60px">
+              <el-select v-model="search.sendType">
+                <el-option label="全部" value=""></el-option>
+                <el-option label="直送" :value="0"></el-option>
+                <el-option label="寄送" :value="1"></el-option>
+              </el-select>
+            </el-form-item>
+          </el-col>
         </el-row>
         <el-row>
-          <el-button size="mini" type="primary" @click="loadSchoolExport">导出Excel</el-button>
-          <el-button size="mini" type="primary" @click="loadExportDsd">导出订书单按杂志Excel</el-button>
-          <el-button size="mini" type="primary" @click="loadExportDsdStudent">导出订书单按学生Excel</el-button>
-          <el-button size="mini" type="primary" @click="loadExportFsd">导出发书单Excel</el-button>
+          <el-button size="mini" type="primary" plain @click="loadData" style="float: right">检索</el-button>
+          <el-button size="mini" type="primary" @click="areaReportExport">导出地区对账EXCEL</el-button>
+          <el-button size="mini" type="primary" @click="areaReportExportByAdmin">导出业务员明细EXCEL</el-button>
         </el-row>
       </el-form>
     </header>
+    <el-table :data="tableData" border :height="windowHeight">
+      <el-table-column prop="name"         label="杂志名称" align="center"></el-table-column>
+      <el-table-column prop="no"           label="订单号"   align="center"></el-table-column>
+      <el-table-column prop="adminName"    label="业务员"   align="center" width="100"></el-table-column>
+      <el-table-column prop="quantity"     label="数量"     align="center" width="100"></el-table-column>
+      <el-table-column prop="fee"          label="价格"     align="center" width="100"></el-table-column>
+      <el-table-column prop="provinceName" label="省份"     align="center"></el-table-column>
+      <el-table-column prop="cityName"     label="城市"     align="center"></el-table-column>
+      <el-table-column prop="regionName"   label="地区"     align="center"></el-table-column>
+      <el-table-column prop="schoolName "  label="学校"     align="center" width="100"></el-table-column>
+      <el-table-column prop="gradeName"    label="年级"     align="center" width="100"></el-table-column>
+      <el-table-column prop="className"    label="班级"     align="center" width="100"></el-table-column>
+      <el-table-column prop="childName"    label="学生"     align="center" width="100"></el-table-column>
+      <el-table-column prop="createdAt"    label="交易时间" align="center" width="200"></el-table-column>
+      <el-table-column prop="tradeStatus"  label="订单状态" align="center" width="100"></el-table-column>
+    </el-table>
+    <el-pagination
+      @size-change="handleSizeChange"
+      @current-change="handleCurrentChange"
+      :current-page="pages.pageNum"
+      :page-size="pages.pageSize"
+      :page-sizes="[20, 50, 75, 100]"
+      layout="total, sizes, prev, pager, next, jumper"
+      :total="pages.total">
+    </el-pagination>
   </div>
 </template>
 
 <script>
 import qs from 'qs'
 export default {
-  name: 'school-report',
+  name: 'area-report',
   components: {},
   data () {
     return {
@@ -66,6 +99,7 @@ export default {
       regionList: [],
       schoolList: [],
       accountList: [],
+      tableData: [],
       search: {
         provinceId: '',
         cityId: '',
@@ -73,8 +107,30 @@ export default {
         schoolId: '',
         adminId: '',
         startDate: '',
-        endDate: ''
+        endDate: '',
+        sendType: ''
+      },
+      pages: {
+        total: 0,
+        pageNum: 1,
+        pageSize: 20
       }
+    }
+  },
+  computed: {
+    params () {
+      let param = {
+        provinceId: this.search.provinceId,
+        cityId: this.search.cityId,
+        regionId: this.search.regionId,
+        schoolId: this.search.schoolId,
+        adminId: this.search.adminId,
+        sendType: this.search.sendType,
+        startDate: this.search.startDate,
+        endDate: this.search.endDate,
+        cls: 1
+      }
+      return param
     }
   },
   created () {
@@ -82,6 +138,19 @@ export default {
     this.loadProvince()
   },
   methods: {
+    loadData () {
+      this.$axios.areaReportList(this.params).then(res => {
+        if (res.data.code === '0') {
+          this.tableData = res.data.data.list
+        } else {
+          this.$message.error(res.data.data.msg)
+        }
+      }, err => {
+        this.$message.error(err)
+      }).catch(err => {
+        this.$message.error(err)
+      })
+    },
     loadProvince () {
       this.$axios.province().then(res => {
         if (res.data.code === '0') {
@@ -147,25 +216,23 @@ export default {
         this.$message.error(err)
       })
     },
-    loadSchoolExport () {
-      let param = qs.stringify(this.search)
-      let _url = '/qrzd/trade/report/school/export'
+    areaReportExport () {
+      let param = qs.stringify(this.params)
+      let _url = '/qrzd/trade/report/area/export'
       window.location.href = window.location.protocol + '//' + window.location.host + _url + '?' + param
     },
-    loadExportDsd () {
-      let param = qs.stringify(this.search)
-      let _url = '/qrzd/trade/report/school/export/dsd'
+    areaReportExportByAdmin () {
+      let param = qs.stringify(this.params)
+      let _url = '/qrzd/trade/report/area/export/byadmin'
       window.location.href = window.location.protocol + '//' + window.location.host + _url + '?' + param
     },
-    loadExportDsdStudent () {
-      let param = qs.stringify(this.search)
-      let _url = '/qrzd/trade/report/school/export/dsd/student'
-      window.location.href = window.location.protocol + '//' + window.location.host + _url + '?' + param
+    handleSizeChange (val) {
+      this.pages.pageSize = val
+      this.loadData()
     },
-    loadExportFsd () {
-      let param = qs.stringify(this.search)
-      let _url = '/qrzd/trade/report/school/export/fsd'
-      window.location.href = window.location.protocol + '//' + window.location.host + _url + '?' + param
+    handleCurrentChange (val) {
+      this.pages.pageNum = val
+      this.loadData()
     }
   },
   watch: {
@@ -198,15 +265,8 @@ export default {
 </script>
 
 <style>
-.school-report-header {
-  width: 100%;
-  padding: 20px;
+.area-report header {
+  padding: 10px;
   background-color: #F2F6FC;
-}
-.region-select {
-  width: 20%;
-}
-.region-input {
-  width: 35%;
 }
 </style>

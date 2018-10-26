@@ -58,12 +58,15 @@
         <!--<el-menu-item index="/offlineReport">-->
           <!--<span slot="title">线下刊物征订汇总</span>-->
         <!--</el-menu-item>-->
-        <!--<el-menu-item index="/schoolReport">-->
-          <!--<span slot="title">按学校汇总杂志订单</span>-->
-        <!--</el-menu-item>-->
-        <!--<el-menu-item index="/magaReport">-->
-          <!--<span slot="title">杂志销售统计</span>-->
-        <!--</el-menu-item>-->
+        <el-menu-item index="/schoolReport">
+          <span slot="title">按学校汇总杂志订单</span>
+        </el-menu-item>
+        <el-menu-item index="/areaReport">
+          <span slot="title">地区对账</span>
+        </el-menu-item>
+        <el-menu-item index="/magaReport">
+          <span slot="title">杂志销售统计</span>
+        </el-menu-item>
       </el-submenu>
       <el-submenu index="5">
         <template slot="title">

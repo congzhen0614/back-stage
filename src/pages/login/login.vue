@@ -108,6 +108,7 @@ export default {
     margin-left: -210px;
     margin-top: -300px;
     padding: 20px 15px;
+    z-index: 9999;
   }
   .box-card-header {
     font-weight: 600;

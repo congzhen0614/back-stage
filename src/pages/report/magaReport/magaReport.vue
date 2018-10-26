@@ -30,6 +30,7 @@
           <el-col :span="3">
             <el-form-item label="销售员:" label-width="50px">
               <el-select v-model="search.adminId" placeholder="请选择销售员">
+                <el-option label="全部" value=""></el-option>
                 <el-option :label="item.username" :value="item.id" v-for="item in accountList" :key="item.id"></el-option>
               </el-select>
             </el-form-item>
@@ -48,10 +49,10 @@
       </el-form>
     </header>
     <el-table :data="tableData" border :height="windowHeight">
-      <el-table-column prop="name" label="商品名称" header-align="center"></el-table-column>
-      <el-table-column prop="fee" label="商品价格" header-align="center"></el-table-column>
-      <el-table-column prop="quantity" label="商品数量" header-align="center"></el-table-column>
-      <el-table-column prop="totalFee" label="商品价格" header-align="center"></el-table-column>
+      <el-table-column prop="name"     label="商品名称" header-align="center"></el-table-column>
+      <el-table-column prop="quantity" label="数量"     align="center" width="200"></el-table-column>
+      <el-table-column prop="fee"      label="单价"     align="center" width="200"></el-table-column>
+      <el-table-column prop="totalFee" label="总价"     align="center" width="200"></el-table-column>
     </el-table>
     <el-pagination
       @size-change="handleSizeChange"
@@ -66,6 +67,7 @@
 </template>
 
 <script>
+import qs from 'qs'
 export default {
   name: 'maga-report',
   components: {},
@@ -193,15 +195,9 @@ export default {
       })
     },
     loadMageReportExport () {
+      let param = qs.stringify(this.params)
       let _url = '/qrzd/trade/report/magazine/total/export'
-      window.location.href = window.location.protocol + '//' + window.location.host + _url
-      // this.$axios.mageReportExport(this.params).then(res => {
-      //   console.log(res)
-      // }, err => {
-      //   this.$message.error(err)
-      // }).catch(err => {
-      //   this.$message.error(err)
-      // })
+      window.location.href = window.location.protocol + '//' + window.location.host + _url + '?' + param
     },
     handleSizeChange (val) {
       this.pages.pageSize = val
