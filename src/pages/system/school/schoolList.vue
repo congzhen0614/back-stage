@@ -130,8 +130,13 @@ export default {
   },
   computed: {
     params () {
+      let Trim = str => {
+        if (str !== '') {
+          return str.replace(/(^\s*)|(\s*$)/g, '')
+        }
+      }
       let param = {
-        name: this.search.name,
+        name: Trim(this.search.name),
         adminId: this.search.adminId,
         provinceId: this.search.provinceId,
         cityIds: this.search.cityIds,

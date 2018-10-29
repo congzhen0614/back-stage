@@ -189,11 +189,11 @@ export default new Router({
       component: spypOrder
     }, {
       path: '/orderList',
-      name: '二维码目录订单',
+      name: '用户订单',
       component: orderList
     }, {
       path: '/orderInfo',
-      name: '目录订单修改',
+      name: '用户订单修改',
       component: orderInfo
     }, {
       path: '/delive',

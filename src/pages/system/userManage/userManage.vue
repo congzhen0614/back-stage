@@ -131,11 +131,16 @@ export default {
           }
         }
       }
+      let Trim = str => {
+        if (str !== '') {
+          return str.replace(/(^\s*)|(\s*$)/g, '')
+        }
+      }
       let param = {
         pageNum: this.pages.pageNum,
         pageSize: this.pages.pageSize,
-        name: this.search.name,
-        nickName: this.search.nickName,
+        name: Trim(this.search.name),
+        nickName: Trim(this.search.nickName),
         beginTime: dateFormat(this.search.beginTime, 0),
         endTime: dateFormat(this.search.endTime, 1),
         provinceId: this.search.provinceId,

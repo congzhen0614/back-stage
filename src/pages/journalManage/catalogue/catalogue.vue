@@ -136,23 +136,23 @@ export default {
   },
   computed: {
     listParams () {
+      let Trim = str => {
+        if (str !== '') {
+          return str.replace(/(^\s*)|(\s*$)/g, '')
+        }
+      }
       let param = {
         pageNum: this.pages.pageNum,
         pageSize: this.pages.pageSize,
         sub: this.search.sub,
         has: this.search.has,
-        title: this.search.title,
+        title: Trim(this.search.title),
         createUser: this.search.createUser
       }
       return param
     }
   },
   methods: {
-    Trim (str) {
-      if (str !== '') {
-        return str.replace(/(^\s*)|(\s*$)/g, '')
-      }
-    },
     loadAdmingroupList () {
       this.$axios.accountListCandidate({groupId: '', level: '', type: ''}).then(res => {
         if (res.data.code === '0') {
@@ -192,7 +192,6 @@ export default {
       this.loadDate()
     },
     loadDate () {
-      this.listParams.title = this.Trim(this.listParams.title)
       this.$axios.itempackList(this.listParams).then(res => {
         if (res.data.code === '0') {
           this.tableList = res.data.data.list

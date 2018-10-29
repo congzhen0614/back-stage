@@ -201,6 +201,11 @@ export default {
         let date = new Date(this.search.endTime)
         endTime = date.getFullYear() + '-' + (parseInt(date.getMonth()) + 1) + '-' + date.getDate() + ' 23:59:59'
       }
+      let Trim = str => {
+        if (str !== '') {
+          return str.replace(/(^\s*)|(\s*$)/g, '')
+        }
+      }
       let param = {
         pageNum: this.pages.pageNum,
         pageSize: this.pages.pageSize,
@@ -213,7 +218,7 @@ export default {
         schoolId: this.search.schoolId,
         gradeId: this.search.gradeId,
         classId: this.search.classId,
-        childName: this.search.childName,
+        childName: Trim(this.search.childName),
         tradeStatus: this.search.tradeStatus,
         startTime: startTime,
         endTime: endTime,
@@ -223,11 +228,6 @@ export default {
     }
   },
   methods: {
-    Trim (str) {
-      if (str !== '') {
-        return str.replace(/(^\s*)|(\s*$)/g, '')
-      }
-    },
     loadData () {
       this.listParams.childName = this.Trim(this.listParams.childName)
       this.$axios.tradeList(this.listParams).then(res => {

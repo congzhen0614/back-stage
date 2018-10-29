@@ -75,10 +75,15 @@ export default {
   },
   computed: {
     loadParams () {
+      let Trim = str => {
+        if (str !== '') {
+          return str.replace(/(^\s*)|(\s*$)/g, '')
+        }
+      }
       let param = {
         pageNum: this.pages.pageNum,
         pageSize: this.pages.pageSize,
-        title: this.search.title,
+        title: Trim(this.search.title),
         has: 1
       }
       return param
@@ -113,7 +118,7 @@ export default {
       this.loadDate()
     },
     clickUpload () {
-      window.location.href = location.protocol + `//192.168.0.230:8081/qrzd/itempack/qrcode/download/zip/open?ids=${this.selectIds.join(',')}`
+      window.location.href = location.protocol + `//qrapi.51weixiao.com/qrzd/itempack/qrcode/download/zip/open?ids=${this.selectIds.join(',')}`
     },
     clickDelete () {
       this.$confirm('此操作将永久删除该选项, 是否继续?', '提示', {

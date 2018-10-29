@@ -175,11 +175,16 @@ export default {
   },
   computed: {
     params () {
+      let Trim = str => {
+        if (str !== '') {
+          return str.replace(/(^\s*)|(\s*$)/g, '')
+        }
+      }
       let param = {
         pageNum: this.pages.pageNum,
         pageSize: this.pages.pageSize,
         issn: this.search.issn,
-        name: this.search.name,
+        name: Trim(this.search.name),
         typeId: this.search.typeId,
         ageId: this.search.ageId,
         isSale: this.search.isSale,
@@ -189,11 +194,6 @@ export default {
     }
   },
   methods: {
-    Trim (str) {
-      if (str !== '') {
-        return str.replace(/(^\s*)|(\s*$)/g, '')
-      }
-    },
     loadItemageList () {
       this.$axios.itemageListCandidate().then(res => {
         if (res.data.code === '0') {
@@ -245,7 +245,6 @@ export default {
       })
     },
     loadDate () {
-      this.params.name = this.Trim(this.params.name)
       this.$axios.magazineList(this.params).then(res => {
         if (res.data.code === '0') {
           this.tableData = res.data.data.list

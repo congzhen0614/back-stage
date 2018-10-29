@@ -70,8 +70,13 @@ export default {
   },
   computed: {
     params () {
+      let Trim = str => {
+        if (str !== '') {
+          return str.replace(/(^\s*)|(\s*$)/g, '')
+        }
+      }
       let param = {
-        name: this.search.name,
+        name: Trim(this.search.name),
         cls: this.search.cls,
         pageNum: this.pages.pageNum,
         pageSize: this.pages.pageSize
@@ -80,13 +85,7 @@ export default {
     }
   },
   methods: {
-    Trim (str) {
-      if (str !== '') {
-        return str.replace(/(^\s*)|(\s*$)/g, '')
-      }
-    },
     loadDate () {
-      this.params.name = this.Trim(this.params.name)
       this.$axios.itemageList(this.params).then(res => {
         if (res.data.code) {
           this.tableList = res.data.data.list

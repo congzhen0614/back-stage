@@ -67,22 +67,21 @@ export default {
   },
   computed: {
     params () {
+      let Trim = str => {
+        if (str !== '') {
+          return str.replace(/(^\s*)|(\s*$)/g, '')
+        }
+      }
       let data = {
         pageNum: this.pages.pageNum,
         pageSize: this.pages.pageSize,
-        key: this.search.name
+        key: Trim(this.search.name)
       }
       return data
     }
   },
   methods: {
-    Trim (str) {
-      if (str !== '') {
-        return str.replace(/(^\s*)|(\s*$)/g, '')
-      }
-    },
     loadData () {
-      this.params.key = this.Trim(this.params.key)
       this.$axios.accountList(this.params).then(res => {
         this.tableList = res.data.data.list
         this.pages.total = res.data.data.total

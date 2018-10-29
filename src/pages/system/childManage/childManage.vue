@@ -131,10 +131,15 @@ export default {
           }
         }
       }
+      let Trim = str => {
+        if (str !== '') {
+          return str.replace(/(^\s*)|(\s*$)/g, '')
+        }
+      }
       let param = {
         pageNum: this.pages.pageNum,
         pageSize: this.pages.pageSize,
-        name: this.search.name,
+        name: Trim(this.search.name),
         mobile: this.search.mobile,
         beginTime: dateFormat(this.search.beginTime, 0),
         endTime: dateFormat(this.search.endTime, 1),
