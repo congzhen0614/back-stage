@@ -49,16 +49,20 @@
       </el-form>
     </header>
     <el-table :data="tableData" border :height="windowHeight">
-      <el-table-column prop="name"         label="账号"     align="center"></el-table-column>
-      <el-table-column prop="nickName"     label="昵称"     align="center"></el-table-column>
-      <el-table-column prop="platform"     label="平台"     align="center"></el-table-column>
-      <el-table-column prop="provinceName" label="省份"     align="center"></el-table-column>
-      <el-table-column prop="cityName"     label="城市"     align="center"></el-table-column>
-      <el-table-column prop="regionName"   label="地区"     align="center"></el-table-column>
-      <el-table-column prop="os"           label="操作平台" align="center"></el-table-column>
-      <el-table-column prop="version"      label="版本号"   align="center"></el-table-column>
-      <el-table-column prop="createdTime"  label="注册时间" align="center"></el-table-column>
-      <el-table-column prop="statusName"   label="用户状态" align="center"></el-table-column>
+      <el-table-column prop="name"         label="账号"     header-align="center">
+        <template slot-scope="scope">
+          <span>{{ scope.row.name || scope.row.otherAccount }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column prop="nickName"     label="昵称"     align="center" width="150"></el-table-column>
+      <el-table-column prop="platform"     label="平台"     align="center" width="100"></el-table-column>
+      <el-table-column prop="provinceName" label="省份"     align="center" width="150"></el-table-column>
+      <el-table-column prop="cityName"     label="城市"     align="center" width="150"></el-table-column>
+      <el-table-column prop="regionName"   label="地区"     align="center" width="150"></el-table-column>
+      <el-table-column prop="os"           label="操作平台" align="center" width="100"></el-table-column>
+      <el-table-column prop="version"      label="版本号"   align="center" width="100"></el-table-column>
+      <el-table-column prop="createdTime"  label="注册时间" align="center" width="200"></el-table-column>
+      <el-table-column prop="statusName"   label="用户状态" align="center" width="100"></el-table-column>
       <el-table-column                     label="操作"     align="center" width="150">
         <template slot-scope="scope">
           <el-button type="text" size="mini" @click="cheakChild(scope.row)" v-if="havePermission('child:findbyuid')">查看孩子</el-button>

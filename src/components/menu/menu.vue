@@ -82,10 +82,10 @@
         <el-menu-item index="/permission" v-if="havePermission('rolePermission:add')">
           <span slot="title">角色权限</span>
         </el-menu-item>
-        <el-menu-item index="/userManage" v-if="havePermission('child:list')">
+        <el-menu-item index="/userManage" v-if="havePermission('user:list')">
           <span slot="title">用户管理</span>
         </el-menu-item>
-        <el-menu-item index="/childManage" v-if="havePermission('user:list')">
+        <el-menu-item index="/childManage" v-if="havePermission('child:list')">
           <span slot="title">孩子管理</span>
         </el-menu-item>
         <el-menu-item index="/schoolList" v-if="havePermission('school:list')">
