@@ -44,7 +44,7 @@
         </el-row>
         <el-row>
           <el-button size="mini" type="primary" plain @click="loadData" style="float: right">检索</el-button>
-          <el-button size="mini" type="primary" @click="loadMageReportExport">导出</el-button>
+          <el-button size="mini" type="primary" @click="loadMageReportExport" v-if="havePermission('report:magazinetotalexport')">导出</el-button>
         </el-row>
       </el-form>
     </header>
@@ -98,14 +98,29 @@ export default {
   },
   computed: {
     params () {
+      let dateFormat = (value, type) => {
+        let date = new Date(value)
+        let year = date.getFullYear()
+        let month = date.getMonth() + 1
+        let day = date.getDate()
+        if (value === '') {
+          return ''
+        } else {
+          if (type === 0) {
+            return year + '-' + month + '-' + day + ' 00:00:00'
+          } else {
+            return year + '-' + month + '-' + day + ' 23:59:59'
+          }
+        }
+      }
       let param = {
         provinceId: this.search.provinceId,
         cityId: this.search.cityId,
         regionId: this.search.regionId,
         schoolId: this.search.schoolId,
         adminId: this.search.adminId,
-        startDate: this.search.startDate,
-        endDate: this.search.endDate,
+        startDate: dateFormat(this.search.startDate, 0),
+        endDate: dateFormat(this.search.endDate, 1),
         cls: 1
       }
       return param

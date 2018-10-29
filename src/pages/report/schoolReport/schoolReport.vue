@@ -43,10 +43,10 @@
           </el-col>
         </el-row>
         <el-row>
-          <el-button size="mini" type="primary" @click="loadSchoolExport">导出Excel</el-button>
-          <el-button size="mini" type="primary" @click="loadExportDsd">导出订书单按杂志Excel</el-button>
-          <el-button size="mini" type="primary" @click="loadExportDsdStudent">导出订书单按学生Excel</el-button>
-          <el-button size="mini" type="primary" @click="loadExportFsd">导出发书单Excel</el-button>
+          <el-button size="mini" type="primary" @click="loadSchoolExport" v-if="havePermission('report:schoolexport')">导出Excel</el-button>
+          <el-button size="mini" type="primary" @click="loadExportDsd" v-if="havePermission('report:schoolmagazineexport')">导出订书单按杂志Excel</el-button>
+          <el-button size="mini" type="primary" @click="loadExportDsdStudent" v-if="havePermission('report:schoolstudentexport')">导出订书单按学生Excel</el-button>
+          <el-button size="mini" type="primary" @click="loadExportFsd" v-if="havePermission('report:schoolfsdexport')">导出发书单Excel</el-button>
         </el-row>
       </el-form>
     </header>
@@ -80,6 +80,35 @@ export default {
   created () {
     this.loadAccount()
     this.loadProvince()
+  },
+  computed: {
+    params () {
+      let dateFormat = (value, type) => {
+        let date = new Date(value)
+        let year = date.getFullYear()
+        let month = date.getMonth() + 1
+        let day = date.getDate()
+        if (value === '') {
+          return ''
+        } else {
+          if (type === 0) {
+            return year + '-' + month + '-' + day + ' 00:00:00'
+          } else {
+            return year + '-' + month + '-' + day + ' 23:59:59'
+          }
+        }
+      }
+      let param = {
+        provinceId: this.search.provinceId,
+        cityId: this.search.cityId,
+        regionId: this.search.regionId,
+        schoolId: this.search.schoolId,
+        adminId: this.search.adminId,
+        startDate: dateFormat(this.search.startDate, 0),
+        endDate: dateFormat(this.search.endDate, 1)
+      }
+      return param
+    }
   },
   methods: {
     loadProvince () {
@@ -148,24 +177,40 @@ export default {
       })
     },
     loadSchoolExport () {
-      let param = qs.stringify(this.search)
-      let _url = '/qrzd/trade/report/school/export'
-      window.location.href = window.location.protocol + '//' + window.location.host + _url + '?' + param
+      if (this.search.adminId === '') {
+        this.$message.warning('请选择销售员')
+      } else {
+        let param = qs.stringify(this.params)
+        let _url = '/qrzd/trade/report/school/export'
+        window.location.href = window.location.protocol + '//' + window.location.host + _url + '?' + param
+      }
     },
     loadExportDsd () {
-      let param = qs.stringify(this.search)
-      let _url = '/qrzd/trade/report/school/export/dsd'
-      window.location.href = window.location.protocol + '//' + window.location.host + _url + '?' + param
+      if (this.search.adminId === '') {
+        this.$message.warning('请选择销售员')
+      } else {
+        let param = qs.stringify(this.params)
+        let _url = '/qrzd/trade/report/school/export/dsd'
+        window.location.href = window.location.protocol + '//' + window.location.host + _url + '?' + param
+      }
     },
     loadExportDsdStudent () {
-      let param = qs.stringify(this.search)
-      let _url = '/qrzd/trade/report/school/export/dsd/student'
-      window.location.href = window.location.protocol + '//' + window.location.host + _url + '?' + param
+      if (this.search.adminId === '') {
+        this.$message.warning('请选择销售员')
+      } else {
+        let param = qs.stringify(this.params)
+        let _url = '/qrzd/trade/report/school/export/dsd/student'
+        window.location.href = window.location.protocol + '//' + window.location.host + _url + '?' + param
+      }
     },
     loadExportFsd () {
-      let param = qs.stringify(this.search)
-      let _url = '/qrzd/trade/report/school/export/fsd'
-      window.location.href = window.location.protocol + '//' + window.location.host + _url + '?' + param
+      if (this.search.adminId === '') {
+        this.$message.warning('请选择销售员')
+      } else {
+        let param = qs.stringify(this.params)
+        let _url = '/qrzd/trade/report/school/export/fsd'
+        window.location.href = window.location.protocol + '//' + window.location.host + _url + '?' + param
+      }
     }
   },
   watch: {

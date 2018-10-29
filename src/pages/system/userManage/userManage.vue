@@ -3,14 +3,6 @@
     <header class="user-manage-header">
       <el-form ref="form" :model="search">
         <el-row>
-          <!-- name       -->
-          <!-- nickName   -->
-          <!-- beginTime  -->
-          <!-- endTime    -->
-          <!-- provinceId -->
-          <!-- cityId     -->
-          <!-- regionId   -->
-          <!-- status     -->
           <el-col :span="4">
             <el-form-item label="账号:" label-width="40px">
               <el-input v-model="search.name" placeholder="请输入账号"></el-input>
@@ -22,7 +14,7 @@
             </el-form-item>
           </el-col>
           <el-col :span="6">
-            <el-form-item label="订单时间:" label-width="60px">
+            <el-form-item label="注册时间:" label-width="60px">
               <el-date-picker type="date" placeholder="开始日期" v-model="search.beginTime" style="width: 49%;"></el-date-picker>
               <el-date-picker type="date" placeholder="结束日期" v-model="search.endTime" style="width: 49%;"></el-date-picker>
             </el-form-item>
@@ -69,8 +61,8 @@
       <el-table-column prop="statusName"   label="用户状态" align="center"></el-table-column>
       <el-table-column                     label="操作"     align="center" width="150">
         <template slot-scope="scope">
-          <el-button type="text" size="mini" @click="cheakChild(scope.row)">查看孩子</el-button>
-          <el-button type="text" size="mini" @click="clickDelete(scope.row)">注销</el-button>
+          <el-button type="text" size="mini" @click="cheakChild(scope.row)" v-if="havePermission('child:findbyuid')">查看孩子</el-button>
+          <el-button type="text" size="mini" @click="clickDelete(scope.row)" v-if="havePermission('user:delete')">注销</el-button>
         </template>
       </el-table-column>
     </el-table>

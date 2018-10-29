@@ -53,8 +53,8 @@
         </el-row>
         <el-row>
           <el-button size="mini" type="primary" plain @click="loadData" style="float: right">检索</el-button>
-          <el-button size="mini" type="primary" @click="areaReportExport">导出地区对账EXCEL</el-button>
-          <el-button size="mini" type="primary" @click="areaReportExportByAdmin">导出业务员明细EXCEL</el-button>
+          <el-button size="mini" type="primary" @click="areaReportExport" v-if="havePermission('report:areaexport')">导出地区对账EXCEL</el-button>
+          <el-button size="mini" type="primary" @click="areaReportExportByAdmin" v-if="havePermission('report:byadminexport')">导出业务员明细EXCEL</el-button>
         </el-row>
       </el-form>
     </header>
@@ -119,15 +119,30 @@ export default {
   },
   computed: {
     params () {
+      let dateFormat = (value, type) => {
+        let date = new Date(value)
+        let year = date.getFullYear()
+        let month = date.getMonth() + 1
+        let day = date.getDate()
+        if (value === '') {
+          return ''
+        } else {
+          if (type === 0) {
+            return year + '-' + month + '-' + day + ' 00:00:00'
+          } else {
+            return year + '-' + month + '-' + day + ' 23:59:59'
+          }
+        }
+      }
       let param = {
         provinceId: this.search.provinceId,
         cityId: this.search.cityId,
         regionId: this.search.regionId,
         schoolId: this.search.schoolId,
         adminId: this.search.adminId,
-        sendType: this.search.sendType,
-        startDate: this.search.startDate,
-        endDate: this.search.endDate,
+        // sendType: this.search.sendType,
+        startDate: dateFormat(this.search.startDate, 0),
+        endDate: dateFormat(this.search.endDate, 1),
         cls: 1
       }
       return param
@@ -218,6 +233,7 @@ export default {
     },
     areaReportExport () {
       let param = qs.stringify(this.params)
+      console.log(param)
       let _url = '/qrzd/trade/report/area/export'
       window.location.href = window.location.protocol + '//' + window.location.host + _url + '?' + param
     },

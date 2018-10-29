@@ -66,8 +66,8 @@
       <el-table-column prop="createdTime"  label="添加日期" align="center" width="150"></el-table-column>
       <el-table-column label="操作" align="center" width="100">
         <template slot-scope="scope">
-          <el-button type="text" size="mini" @click="clickUpdate(scope.row)">修改</el-button>
-          <el-button type="text" size="mini" @click="clickDelete(scope.row)">删除</el-button>
+          <el-button type="text" size="mini" @click="clickUpdate(scope.row)" v-if="havePermission('child:update')">修改</el-button>
+          <el-button type="text" size="mini" @click="clickDelete(scope.row)" v-if="havePermission('child:delete')">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
