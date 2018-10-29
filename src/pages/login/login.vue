@@ -154,4 +154,8 @@ export default {
     font-size: 16px;
     color: #ffffff;
   }
+  .login-content .el-card.is-always-shadow {
+    box-shadow: 8px 8px 0 0 rgba(0, 0, 0, 0.2);
+    border: 1px solid #9dcbe0;
+  }
 </style>
