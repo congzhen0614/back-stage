@@ -100,7 +100,7 @@
               <el-button @click="onCancelRefund(scope.row)" type="text" size="mini" v-if="scope.row.refundStatus === 1 && havePermission('trade:refundcancel')">取消退款</el-button>
               <el-button @click="onRepulseRefund(scope.row)" type="text" size="mini" v-if="scope.row.refundStatus === 1 && havePermission('trade:refunded')">拒绝退款</el-button>
               <el-button @click="onRefund(scope.row)" type="text" size="mini" v-if="scope.row.refundStatus === 1 && havePermission('trade:refunded')">同意退款</el-button>
-              <el-button @click="onListUpdate(scope.row)" type="text" size="mini" v-if="scope.row.refundStatus === 0 && havePermission('trade:updatemagazine')">修改</el-button>
+              <el-button @click="onListUpdate(scope.row)" type="text" size="mini" v-if="scope.row.refundStatus !== 1 && scope.row.refundStatus !== 3 && havePermission('trade:updatemagazine')">修改</el-button>
             </template>
           </el-table-column>
         </el-table>
@@ -126,7 +126,7 @@
             <template slot-scope="scope">
               <el-button @click="onRepulseRefund(scope.row)" type="text" size="mini" v-if="scope.row.refundStatus === 1 && havePermission('trade:refunded')">拒绝退款</el-button>
               <el-button @click="onRefund(scope.row)" type="text" size="mini" v-if="scope.row.refundStatus === 1 && havePermission('trade:refunded')">同意退款</el-button>
-              <el-button @click="onListUpdate(scope.row)" type="text" size="mini" v-if="scope.row.refundStatus === 0 && havePermission('trade:updatemagazine')">修改</el-button>
+              <el-button @click="onListUpdate(scope.row)" type="text" size="mini" v-if="scope.row.refundStatus !== 1 && scope.row.refundStatus !== 3 && havePermission('trade:updatemagazine')">修改</el-button>
             </template>
           </el-table-column>
         </el-table>
@@ -178,7 +178,7 @@ export default {
           this.bookTable = res.data.data.booksDetails
           this.spypTable = res.data.data.packetsDetails
         } else {
-          this.$message.error(res.data.data.msg)
+          this.$message.error(res.data.msg)
         }
       }, err => {
         this.$message.error(err)
@@ -200,7 +200,7 @@ export default {
           this.form.createdAt = this.timeFormat(this.form.createdAt)
           this.setAddress(this.form)
         } else {
-          this.$message.error(res.data.data.msg)
+          this.$message.error(res.data.msg)
         }
       }, err => {
         this.$message.error(err)
@@ -291,7 +291,7 @@ export default {
           this.$message.success('操作成功')
           this.loadTradeDetail()
         } else {
-          this.$message.error(res.data.data.msg)
+          this.$message.error(res.data.msg)
         }
       }, err => {
         this.$message.error(err)
@@ -305,7 +305,7 @@ export default {
           this.$message.success('操作成功')
           this.loadTradeDetail()
         } else {
-          this.$message.error(res.data.data.msg)
+          this.$message.error(res.data.msg)
         }
       }, err => {
         this.$message.error(err)
@@ -319,7 +319,7 @@ export default {
           this.$message.success('操作成功')
           this.loadTradeDetail()
         } else {
-          this.$message.error(res.data.data.msg)
+          this.$message.error(res.data.msg)
         }
       }, err => {
         this.$message.error(err)
@@ -333,7 +333,7 @@ export default {
           this.$message.success('操作成功')
           this.loadTradeDetail()
         } else {
-          this.$message.error(res.data.data.msg)
+          this.$message.error(res.data.msg)
         }
       }, err => {
         this.$message.error(err)

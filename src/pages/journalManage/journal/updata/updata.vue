@@ -144,11 +144,11 @@ export default {
       this.$axios.itemageListCandidate().then(res => {
         if (res.data.code === '0') {
           this.ageList = res.data.data
-          res.data.data.list.forEach(item => {
+          res.data.data.forEach(item => {
             this.ageSelect.push(item.id)
           })
         } else {
-          this.$message.error(res.data.data.msg)
+          this.$message.error(res.data.msg)
         }
       }, err => {
         this.$message.error(err)
@@ -160,11 +160,11 @@ export default {
       this.$axios.itemtypeListCandidate().then(res => {
         if (res.data.code === '0') {
           this.typeList = res.data.data
-          res.data.data.list.forEach(item => {
+          res.data.data.forEach(item => {
             this.typeSelect.push(item.id)
           })
         } else {
-          this.$message.error(res.data.data.msg)
+          this.$message.error(res.data.msg)
         }
       }, err => {
         this.$message.error(err)
@@ -186,7 +186,7 @@ export default {
                 path: '/journalManage'
               })
             } else {
-              this.$message.error(res.data.data.msg)
+              this.$message.error(res.data.msg)
             }
           }, err => {
             this.$message.error(err)

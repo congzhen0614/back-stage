@@ -137,7 +137,7 @@ export default {
           this.schoolList = res.data.data.list
           this.pages.total = res.data.data.total
         } else {
-          this.$message.error(res.data.data.msg)
+          this.$message.error(res.data.msg)
         }
       }, err => {
         this.$message.error(err)
@@ -155,7 +155,7 @@ export default {
           })
           this.citiesList = JSON.parse(this.$route.query.citys)
         } else {
-          this.$message.error(res.data.data.msg)
+          this.$message.error(res.data.msg)
         }
       }, err => {
         this.$message.error(err)

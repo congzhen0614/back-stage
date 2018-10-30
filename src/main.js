@@ -46,11 +46,15 @@ router.beforeEach((to, from, next) => {
 })
 
 Vue.prototype.havePermission = value => {
-  if (localStorage.getItem('permission').indexOf(value) > -1) {
-    return true
-  } else {
-    return false
+  let flag = false
+  let permission = JSON.parse(localStorage.getItem('permission'))
+  for (let i = 0; i < permission.length; i++) {
+    if (permission[i].button === value) {
+      flag = true
+      break
+    }
   }
+  return flag
 }
 
 /* eslint-disable no-new */

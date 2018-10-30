@@ -143,7 +143,7 @@ export default {
             this.ageSelect.push(item.id)
           })
         } else {
-          this.$message.error(res.data.data.msg)
+          this.$message.error(res.data.msg)
         }
       }, err => {
         this.$message.error(err)
@@ -159,7 +159,7 @@ export default {
             this.typeSelect.push(item.id)
           })
         } else {
-          this.$message.error(res.data.data.msg)
+          this.$message.error(res.data.msg)
         }
       }, err => {
         this.$message.error(err)
@@ -177,7 +177,7 @@ export default {
                 path: '/journalManage'
               })
             } else {
-              this.$message.error(res.data.data.msg)
+              this.$message.error(res.data.msg)
             }
           }, err => {
             this.$message.error(err)

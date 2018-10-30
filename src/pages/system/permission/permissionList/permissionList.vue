@@ -37,7 +37,7 @@ export default {
         if (res.data.code === '0') {
           this.treeList = res.data.data
         } else {
-          this.$message.error(res.data.data.msg)
+          this.$message.error(res.data.msg)
         }
       }, err => {
         this.$message.error(err)
@@ -53,7 +53,7 @@ export default {
           })
           this.loadPermissionList()
         } else {
-          this.$message.error(res.data.data.msg)
+          this.$message.error(res.data.msg)
         }
       }, err => {
         this.$message.error(err)
@@ -81,7 +81,7 @@ export default {
           this.$axios.testClear()
           this.$router.go(-1)
         } else {
-          this.$message.error(res.data.data.msg)
+          this.$message.error(res.data.msg)
         }
       }, err => {
         this.$message.error(err)

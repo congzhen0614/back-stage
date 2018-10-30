@@ -31,7 +31,7 @@ export default {
         if (res.data.code === '0') {
           this.tableList = res.data.data
         } else {
-          this.$message.error(res.data.data.msg)
+          this.$message.error(res.data.msg)
         }
       }, err => {
         this.$message.error(err)

@@ -117,7 +117,7 @@ export default {
           this.form.parent = res.data.data[0].parent
           this.form.relation = res.data.data[0].relation
         } else {
-          this.$message.error(res.data.data.msg)
+          this.$message.error(res.data.msg)
         }
       }, err => {
         this.$message.error(err)
@@ -169,7 +169,7 @@ export default {
         if (res.data.code === '0') {
           this.schoolList = res.data.data
         } else {
-          this.$message.error(res.data.data.msg)
+          this.$message.error(res.data.msg)
         }
       }, err => {
         this.$message.error(err)
@@ -182,7 +182,7 @@ export default {
         if (res.data.code === '0') {
           this.gradeList = res.data.data
         } else {
-          this.$message.error(res.data.data.msg)
+          this.$message.error(res.data.msg)
         }
       }, err => {
         this.$message.error(err)
@@ -209,7 +209,7 @@ export default {
             path: '/childManage'
           })
         } else {
-          this.$message.error(res.data.data.msg)
+          this.$message.error(res.data.msg)
         }
       }, err => {
         this.$message.error(err)

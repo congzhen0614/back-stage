@@ -288,7 +288,7 @@ export default {
           this.form.gradeId = this.form.gradeId.toString()
           this.form.classId = this.form.classId.toString()
         } else {
-          this.$message.error(res.data.data.msg)
+          this.$message.error(res.data.msg)
         }
       }, err => {
         this.$message.error(err)
@@ -302,7 +302,7 @@ export default {
           this.tradeDetail = res.data.data.tradeDetailViews
           this.ordersType = res.data.data.tradeStatusName
         } else {
-          this.$message.error(res.data.data.msg)
+          this.$message.error(res.data.msg)
         }
       }, err => {
         this.$message.error(err)
@@ -315,7 +315,7 @@ export default {
         if (res.data.code === '0') {
           this.schoolList = res.data.data.list
         } else {
-          this.$message.error(res.data.data.msg)
+          this.$message.error(res.data.msg)
         }
       }, err => {
         this.$message.error(err)
@@ -328,7 +328,7 @@ export default {
         if (res.data.code === '0') {
           this.gradeList = res.data.data
         } else {
-          this.$message.error(res.data.data.msg)
+          this.$message.error(res.data.msg)
         }
       }, err => {
         this.$message.error(err)
@@ -364,7 +364,7 @@ export default {
         if (res.data.code === '0') {
           this.provinces = res.data.data
         } else {
-          this.$message.error(res.data.data.msg)
+          this.$message.error(res.data.msg)
         }
       }, err => {
         this.$message.error(err)
@@ -377,7 +377,7 @@ export default {
         if (res.data.code === '0') {
           this.cities = res.data.data
         } else {
-          this.$message.error(res.data.data.msg)
+          this.$message.error(res.data.msg)
         }
       }, err => {
         this.$message.error(err)
@@ -390,7 +390,7 @@ export default {
         if (res.data.code === '0') {
           this.regions = res.data.data
         } else {
-          this.$message.error(res.data.data.msg)
+          this.$message.error(res.data.msg)
         }
       }, err => {
         this.$message.error(err)
@@ -417,7 +417,7 @@ export default {
           this.$message.success('操作成功!')
           this.loadDetails()
         } else {
-          this.$message.error(res.data.data.msg)
+          this.$message.error(res.data.msg)
         }
       }, err => {
         this.$message.error(err)
@@ -431,7 +431,7 @@ export default {
           this.$message.success('操作成功!')
           this.loadDetails()
         } else {
-          this.$message.error(res.data.data.msg)
+          this.$message.error(res.data.msg)
         }
       }, err => {
         this.$message.error(err)
@@ -448,7 +448,7 @@ export default {
           this.$message.success('操作成功!')
           this.$router.go(-1)
         } else {
-          this.$message.error(res.data.data.msg)
+          this.$message.error(res.data.msg)
         }
       }, err => {
         this.$message.error(err)

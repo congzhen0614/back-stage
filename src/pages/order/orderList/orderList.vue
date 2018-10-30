@@ -126,7 +126,7 @@
       </el-table-column>
       <el-table-column prop="adminName" label="业务员" width="120" align="center"></el-table-column>
       <el-table-column prop="totalFee" label="订单总额" width="100" align="center"></el-table-column>
-      <el-table-column prop="user" label="下单人" width="240" align="center"></el-table-column>
+      <el-table-column prop="user" label="下单人" width="170" header-align="center"></el-table-column>
       <el-table-column prop="username" label="联系电话" width="150" align="center"></el-table-column>
       <el-table-column prop="createdAt" label="下单时间" width="200" align="center">
         <template slot-scope="scope">
@@ -236,7 +236,7 @@ export default {
           this.tableData = res.data.data.list
           this.pages.total = res.data.data.total
         } else {
-          this.$message.error(res.data.data.msg)
+          this.$message.error(res.data.msg)
         }
       }, err => {
         this.$message.error(err)
@@ -249,7 +249,7 @@ export default {
         if (res.data.code === '0') {
           this.schoolList = res.data.data
         } else {
-          this.$message.error(res.data.data.msg)
+          this.$message.error(res.data.msg)
         }
       }, err => {
         this.$message.error(err)
@@ -262,7 +262,7 @@ export default {
         if (res.data.code === '0') {
           this.gradeList = res.data.data
         } else {
-          this.$message.error(res.data.data.msg)
+          this.$message.error(res.data.msg)
         }
       }, err => {
         this.$message.error(err)
@@ -298,7 +298,7 @@ export default {
         if (res.data.code === '0') {
           this.provinces = res.data.data
         } else {
-          this.$message.error(res.data.data.msg)
+          this.$message.error(res.data.msg)
         }
       }, err => {
         this.$message.error(err)
@@ -311,7 +311,7 @@ export default {
         if (res.data.code === '0') {
           this.cities = res.data.data
         } else {
-          this.$message.error(res.data.data.msg)
+          this.$message.error(res.data.msg)
         }
       }, err => {
         this.$message.error(err)
@@ -324,7 +324,7 @@ export default {
         if (res.data.code === '0') {
           this.regions = res.data.data
         } else {
-          this.$message.error(res.data.data.msg)
+          this.$message.error(res.data.msg)
         }
       }, err => {
         this.$message.error(err)

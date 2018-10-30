@@ -133,7 +133,7 @@ export default {
           this.$message.success('操作成功!')
           this.password.newPassword = ''
         } else {
-          this.$message.error(res.data.data.msg)
+          this.$message.error(res.data.msg)
         }
       }, err => {
         this.$message.error(err)
@@ -152,7 +152,7 @@ export default {
           this.$message.success('操作成功!')
           this.loadData()
         } else {
-          this.$message.error(res.data.data.msg)
+          this.$message.error(res.data.msg)
         }
       }, err => {
         this.$message.error(err)

@@ -70,7 +70,7 @@ export default {
         if (res.data.code === '0') {
           this.provinceList = res.data.data
         } else {
-          this.$message.error(res.data.data.msg)
+          this.$message.error(res.data.msg)
         }
       }, err => {
         this.$message.error(err)
@@ -83,7 +83,7 @@ export default {
         if (res.data.code === '0') {
           this.citiesList = res.data.data
         } else {
-          this.$message.error(res.data.data.msg)
+          this.$message.error(res.data.msg)
         }
       }, err => {
         this.$message.error(err)
@@ -96,7 +96,7 @@ export default {
         if (res.data.code === '0') {
           this.regionsList = res.data.data
         } else {
-          this.$message.error(res.data.data.msg)
+          this.$message.error(res.data.msg)
         }
       }, err => {
         this.$message.error(err)
@@ -112,7 +112,7 @@ export default {
               this.$message.success('操作成功')
               this.$router.go(-1)
             } else {
-              this.$message.error(res.data.data.msg)
+              this.$message.error(res.data.msg)
             }
           }, err => {
             this.$message.error(err)

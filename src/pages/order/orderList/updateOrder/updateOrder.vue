@@ -78,7 +78,7 @@ export default {
         if (res.data.code === '0') {
           this.itemList = res.data.data.itemViews
         } else {
-          this.$message.error(res.data.data.code)
+          this.$message.error(res.data.code)
         }
       }, err => {
         this.$message.error(err)
@@ -139,7 +139,7 @@ export default {
           this.$message.success('操作成功')
           this.$router.go(-1)
         } else {
-          this.$message.error(res.data.data.msg)
+          this.$message.error(res.data.msg)
         }
       }, err => {
         this.$message.error(err)

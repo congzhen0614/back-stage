@@ -97,7 +97,7 @@ export default {
             path: '/account'
           })
         } else {
-          this.$message.error(res.data.data.msg)
+          this.$message.error(res.data.msg)
         }
       }, err => {
         this.$message.error(err)

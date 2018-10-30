@@ -1,6 +1,6 @@
 <template>
   <div class="increase-menu">
-    <el-menu :default-active="nowRouter" class="el-menu-vertical-demo" @select="selectMenu">
+    <el-menu :default-active="nowRouter" :unique-opened="true" class="el-menu-vertical-demo" @select="selectMenu">
       <el-menu-item index="/">首页</el-menu-item>
       <el-submenu index="1">
         <template slot="title">
