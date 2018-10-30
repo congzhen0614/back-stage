@@ -204,6 +204,8 @@ export default {
       let Trim = str => {
         if (str !== '') {
           return str.replace(/(^\s*)|(\s*$)/g, '')
+        } else {
+          return ''
         }
       }
       let param = {
@@ -229,7 +231,6 @@ export default {
   },
   methods: {
     loadData () {
-      this.listParams.childName = this.Trim(this.listParams.childName)
       this.$axios.tradeList(this.listParams).then(res => {
         if (res.data.code === '0') {
           this.tableData = res.data.data.list

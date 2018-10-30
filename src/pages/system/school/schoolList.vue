@@ -133,6 +133,8 @@ export default {
       let Trim = str => {
         if (str !== '') {
           return str.replace(/(^\s*)|(\s*$)/g, '')
+        } else {
+          return ''
         }
       }
       let param = {
@@ -152,6 +154,8 @@ export default {
     Trim (str) {
       if (str !== '') {
         return str.replace(/(^\s*)|(\s*$)/g, '')
+      } else {
+        return ''
       }
     },
     loadProvince () {

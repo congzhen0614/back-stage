@@ -62,7 +62,9 @@ export default {
       windowHeight: window.innerHeight - 184 + 'px',
       tableList: [],
       selectIds: [],
-      search: {},
+      search: {
+        title: ''
+      },
       pages: {
         total: 0,
         pageNum: 1,
@@ -78,6 +80,8 @@ export default {
       let Trim = str => {
         if (str !== '') {
           return str.replace(/(^\s*)|(\s*$)/g, '')
+        } else {
+          return ''
         }
       }
       let param = {
