@@ -2,7 +2,7 @@
   <div class="editor">
     <el-upload
       class="avatar-uploader"
-      action="http://192.168.0.231:8080/app-api/api/upload"
+      action="https://app.51weixiao.com/app-api/api/upload"
       :show-file-list="false"
       :on-success="uploadSuccess"
       :on-error="uploadError">

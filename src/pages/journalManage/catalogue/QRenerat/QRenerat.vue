@@ -11,7 +11,7 @@
             :multiple="false"
             :before-upload="beforeUpload"
             :on-success="upLoadSuccess"
-            action="http://192.168.0.231:8080/app-api/api/upload">
+            action="https://app.51weixiao.com/app-api/api/upload">
             <el-button slot="trigger" size="mini" type="primary" @click="selectFile(scope.row.id)" style="float: left">上传logo</el-button>
           </el-upload>
         </template>

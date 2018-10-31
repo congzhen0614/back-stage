@@ -1,19 +1,19 @@
 <template>
   <div class="account-bind-school">
     <header class="header" style="height: auto">
-      <el-form ref="form" :model="search" label-width="100px">
+      <el-form ref="form" :model="search" label-width="70px">
         <el-row>
-          <el-col :span="4">
+          <el-col :span="3">
             <el-form-item label="商家用户:">
               <el-input v-model="search.username" disabled></el-input>
             </el-form-item>
           </el-col>
-          <el-col :span="4">
+          <el-col :span="3">
             <el-form-item label="学校名称:">
               <el-input v-model="search.name" placeholder="请输入"></el-input>
             </el-form-item>
           </el-col>
-          <el-col :span="4">
+          <el-col :span="3">
             <el-form-item label="年级阶段:">
               <el-select v-model="search.schoolLevel">
                 <el-option label="全部" value=""></el-option>
@@ -23,7 +23,7 @@
               </el-select>
             </el-form-item>
           </el-col>
-          <el-col :span="10">
+          <el-col :span="8">
             <el-form-item label="省/市/区:" class="region">
               <el-select v-model="search.provinceId" disabled>
                 <el-option :label="item.name" :value="item.id" v-for="item in provinceList" :key="item.id"></el-option>
@@ -33,11 +33,12 @@
                 <el-option :label="item.name" :value="item.id" v-for="item in citiesList" :key="item.id"></el-option>
               </el-select>
               <el-select v-model="search.regionIds">
+                <el-option label="全部" value=""></el-option>
                 <el-option :label="item.name" :value="item.id" v-for="item in regionsList" :key="item.id"></el-option>
               </el-select>
             </el-form-item>
           </el-col>
-          <el-col :span="2" style="margin-top: 6px">
+          <el-col :span="2" style="margin-top: 7px">
             <el-button size="mini" type="primary" plain @click="loadSchoolList">检索</el-button>
           </el-col>
         </el-row>
@@ -57,9 +58,9 @@
       <el-table-column prop="address" label="地址" show-overflow-tooltip width="500px"></el-table-column>
       <el-table-column prop="isHighGrade" label="年级阶段">
         <template slot-scope="scope">
-          <span v-if="scope.row.isHighGrade === 2">幼儿园</span>
           <span v-if="scope.row.isHighGrade === 0">小学</span>
           <span v-if="scope.row.isHighGrade === 1">初中</span>
+          <span v-if="scope.row.isHighGrade === 2">幼儿园</span>
         </template>
       </el-table-column>
       <el-table-column prop="bindStatus" label="绑定状态"></el-table-column>
@@ -83,7 +84,7 @@ export default {
     return {
       isBind: false,
       notBind: false,
-      windowHeight: window.innerHeight - 260 + 'px',
+      windowHeight: window.innerHeight - 200 + 'px',
       cityIds: [],
       regionIds: [],
       search: {

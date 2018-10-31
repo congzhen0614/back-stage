@@ -102,7 +102,6 @@ export default {
       this.form.postageSum = val.postageSum === undefined ? '' : val.postageSum
       this.form.sendType = val.sendType === undefined ? '' : val.sendType
       this.mageList = val.items.length > 0 ? val.items : []
-      console.log(this.mageList)
     },
     bookDate (val) {
       this.form.postageBook = val.postageBook === undefined ? '' : val.postageBook

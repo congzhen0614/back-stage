@@ -55,7 +55,7 @@
         </el-col>
       </el-row>
     </el-form>
-    <el-table border ref="multipleTable" tooltip-effect="dark" :data="tableList" :height="windowHeight" @selection-change="handleSelectionChange">
+    <el-table border ref="multipleTable" tooltip-effect="dark" :data="tableList" :height="windowHeight" @selection-change="handleSelectionChange" @select="select">
       <el-table-column type="selection" width="40" align="center"></el-table-column>
       <el-table-column prop="ord" label="排序" width="100" sortable align="center">
         <template slot-scope="scope">
@@ -116,6 +116,9 @@ export default {
     this.loadItemtypeList()
   },
   methods: {
+    select (val) {
+      console.log(val)
+    },
     handleSelectionChange (val) {
       this.selectIds = []
       val.forEach(item => {
