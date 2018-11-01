@@ -55,7 +55,14 @@
         </el-col>
       </el-row>
     </el-form>
-    <el-table border ref="multipleTable" tooltip-effect="dark" :data="tableList" :height="windowHeight" @selection-change="handleSelectionChange">
+    <el-table
+      border
+      ref="multipleTable"
+      tooltip-effect="dark"
+      :data="tableList"
+      :height="windowHeight"
+      @select="handleSelection"
+      @select-all="handleSelection">
       <el-table-column type="selection" width="40" align="center"></el-table-column>
       <el-table-column prop="ord" label="排序" width="100" sortable align="center">
         <template slot-scope="scope">
@@ -116,65 +123,13 @@ export default {
     this.loadItemtypeList()
   },
   methods: {
-    handleSelectionChange (val) {
-      this.selectIds = []
-      val.forEach(item => {
-        this.selectIds.push({
-          cls: 1,
-          itemId: item.id,
-          ord: parseInt(item.ord)
-        })
-      })
-    },
-    handleSizeChange (val) {
-      this.search.pageSize = val
-      this.loadDate()
-    },
-    handleCurrentChange (val) {
-      this.search.pageNum = val
-      this.loadDate()
-    },
     loadDate () {
       this.$axios.magazineList(this.search).then(res => {
         if (res.data.code === '0') {
           this.tableList = res.data.data.list
           this.total = res.data.data.total
-          this.tableList.forEach(item => {
-            item.ord = 9999
-          })
-          if (typeof this.magazineIds === 'undefined') return false
-          this.$nextTick(() => {
-            this.tableList.forEach(item => {
-              this.magazineIds.forEach(select => {
-                if (item.id === select.id) {
-                  item.ord = select.ord
-                  this.$refs.multipleTable.toggleRowSelection(item, true)
-                }
-              })
-            })
-          })
-        } else {
-          this.$message.error(res.data.data.msg)
-        }
-      }, err => {
-        this.$message.error(err)
-      }).catch(err => {
-        this.$message.error(err)
-      })
-    },
-    ordChange (obj) {
-      if (this.selectIds.length > 0) {
-        this.selectIds.forEach(item => {
-          if (item.itemId === obj.id) {
-            item.ord = parseInt(obj.ord)
-          }
-        })
-      }
-    },
-    loadItemageList () {
-      this.$axios.itemageList().then(res => {
-        if (res.data.code === '0') {
-          this.ageList = res.data.data.list
+          this.tableList.forEach(item => { item.ord = 9999 })
+          this.setSelect()
         } else {
           this.$message.error(res.data.data.msg)
         }
@@ -196,6 +151,48 @@ export default {
       }).catch(err => {
         this.$message.error(err)
       })
+    },
+    setSelect () {
+      if (typeof this.magazineIds !== 'undefined') {
+        this.$nextTick(() => {
+          this.tableList.forEach(item => {
+            this.magazineIds.forEach(select => {
+              if (item.id === select.id) {
+                item.ord = select.ord
+                this.$refs.multipleTable.toggleRowSelection(item, true)
+              }
+            })
+          })
+        })
+      }
+    },
+    handleSelection (val) {
+      this.selectIds = []
+      val.forEach(item => {
+        this.selectIds.push({
+          cls: 1,
+          itemId: item.id,
+          ord: parseInt(item.ord)
+        })
+      })
+      this.handleSelectionChange()
+    },
+    ordChange (obj) {
+      if (this.selectIds.length > 0) {
+        this.selectIds.forEach(item => {
+          if (item.itemId === obj.id) {
+            item.ord = parseInt(obj.ord)
+          }
+        })
+      }
+    },
+    handleSizeChange (val) {
+      this.search.pageSize = val
+      this.loadDate()
+    },
+    handleCurrentChange (val) {
+      this.search.pageNum = val
+      this.loadDate()
     }
   },
   watch: {
