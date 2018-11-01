@@ -140,7 +140,7 @@
 
 <script>
 export default {
-  name: '',
+  name: 'increase-menu',
   data () {
     return {
       nowRouter: ''
@@ -157,9 +157,6 @@ export default {
     },
     selectMenu (val) {
       this.$emit('routerPush', val)
-    },
-    noRouter () {
-      this.$message.error('功能待开发!')
     }
   }
 }

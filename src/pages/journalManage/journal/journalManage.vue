@@ -198,7 +198,6 @@ export default {
   methods: {
     loadItemageList () {
       this.$axios.itemageListCandidate().then(res => {
-        console.log(res)
         if (res.data.code === '0') {
           this.ageList = res.data.data
         } else {
@@ -403,7 +402,6 @@ export default {
       })
     },
     loadTemplate () {
-      // console.log(location.protocol + '//' + window.location.host + '/static/file/杂志批量导入模板.xlsx')
       window.location.href = location.protocol + '//' + window.location.host + '/zdadmin/static/file/杂志批量导入模板.xlsx'
     }
   }
