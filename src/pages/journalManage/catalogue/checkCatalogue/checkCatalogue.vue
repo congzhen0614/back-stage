@@ -43,8 +43,8 @@
       </el-form>
     </header>
     <div style="padding: 10px">
-      <el-tabs type="border-card" v-if="magaIds.length > 0">
-        <el-tab-pane label="杂志">
+      <el-tabs type="border-card">
+        <el-tab-pane label="杂志" v-if="magaIds.length > 0">
           <el-table :data="magaIds" style="width: 100%" border>
             <el-table-column prop="ord" label="排序" width="60" align="center"></el-table-column>
             <el-table-column prop="name" label="名称" header-align="center"></el-table-column>
@@ -79,7 +79,6 @@
 <script>
 export default {
   name: 'check-catalogue',
-  components: {},
   data () {
     return {
       magaIds: JSON.parse(this.$route.query.item).magazineIds,
@@ -102,16 +101,9 @@ export default {
       }
     }
   },
-  created () {
-  },
   mounted () {
-    console.log(this.magaIds)
-    console.log(this.bookIds)
-    console.log(this.spypIds)
-  },
-  computed: {},
-  methods: {},
-  watch: {}
+    console.log(this.bookIds.length)
+  }
 }
 </script>
 

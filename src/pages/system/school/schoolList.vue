@@ -45,17 +45,17 @@
       <el-button size="mini" type="primary" @click="dialogVisible = true" v-if="havePermission('school:batch')">导入学校</el-button>
     </header>
     <el-table :data="schoolList" style="width: 100%" border :height="windowHeight" @selection-change="handleSelectionChange">
-      <el-table-column type="selection" width="40" align="center"></el-table-column>
+      <el-table-column type="selection" width="45" align="center"></el-table-column>
       <el-table-column prop="ord" label="排序" width="100" sortable align="center">
         <template slot-scope="scope">
           <el-input size="small" v-model="scope.row.ord" @change="ordChange(scope.row)"></el-input>
         </template>
       </el-table-column>
-      <el-table-column prop="name" label="学校名称" align="center"></el-table-column>
-      <el-table-column prop="provinceName" label="省份" align="center"></el-table-column>
-      <el-table-column prop="cityName" label="城市" align="center"></el-table-column>
-      <el-table-column prop="regionName" label="地区" align="center"></el-table-column>
-      <el-table-column prop="address" label="详细地址" align="center"></el-table-column>
+      <el-table-column prop="name"         label="学校名称" align="center"></el-table-column>
+      <el-table-column prop="provinceName" label="省份"     align="center"></el-table-column>
+      <el-table-column prop="cityName"     label="城市"     align="center"></el-table-column>
+      <el-table-column prop="regionName"   label="地区"     align="center"></el-table-column>
+      <el-table-column prop="address"      label="详细地址" align="center"></el-table-column>
       <el-table-column label="操作" align="center" width="200">
         <template slot-scope="scope">
           <el-button @click="onChecke(scope.row)" type="text" size="mini" v-if="havePermission('school:admingroup')">查看商家用户</el-button>

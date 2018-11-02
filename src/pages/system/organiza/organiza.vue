@@ -10,7 +10,7 @@
         <el-table-column prop="typeName" label="组织形式" align="center" width="100"></el-table-column>
         <el-table-column prop="linkman" label="联系人" align="center" width="100"></el-table-column>
         <el-table-column prop="phone" label="联系电话" align="center" width="150"></el-table-column>
-        <el-table-column prop="contractTime" label="创建时间" sortable align="center" width="100">
+        <el-table-column prop="contractTime" label="创建时间" sortable align="center" width="200">
           <template slot-scope="scope">
             <span>{{ scope.row.contractTime | dateFormat }}</span>
           </template>

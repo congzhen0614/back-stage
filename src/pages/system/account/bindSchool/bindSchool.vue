@@ -23,6 +23,15 @@
               </el-select>
             </el-form-item>
           </el-col>
+          <el-col :span="3">
+            <el-form-item label="绑定状态:">
+              <el-select v-model="search.bindStatusCode">
+                <el-option label="全部" value=""></el-option>
+                <el-option label="已绑定" value="1"></el-option>
+                <el-option label="未绑定" value="0"></el-option>
+              </el-select>
+            </el-form-item>
+          </el-col>
           <el-col :span="8">
             <el-form-item label="省/市/区:" class="region">
               <el-select v-model="search.provinceId" disabled>
@@ -50,13 +59,13 @@
       </el-row>
     </header>
     <el-table :data="schoolList" border :height="windowHeight" @selection-change="handleSelectionChange">
-      <el-table-column type="selection" width="55"></el-table-column>
-      <el-table-column prop="name" label="名称" show-overflow-tooltip width="300px"></el-table-column>
+      <el-table-column type="selection" width="45" align="center"></el-table-column>
+      <el-table-column prop="name"         label="名称" width="300px"></el-table-column>
       <el-table-column prop="provinceName" label="省份"></el-table-column>
-      <el-table-column prop="cityName" label="城市"></el-table-column>
-      <el-table-column prop="regionName" label="地区"></el-table-column>
-      <el-table-column prop="address" label="地址" show-overflow-tooltip width="500px"></el-table-column>
-      <el-table-column prop="isHighGrade" label="年级阶段">
+      <el-table-column prop="cityName"     label="城市"></el-table-column>
+      <el-table-column prop="regionName"   label="地区"></el-table-column>
+      <el-table-column prop="address"      label="地址" width="500px"></el-table-column>
+      <el-table-column prop="isHighGrade"  label="年级阶段">
         <template slot-scope="scope">
           <span v-if="scope.row.isHighGrade === 0">小学</span>
           <span v-if="scope.row.isHighGrade === 1">初中</span>
@@ -84,7 +93,7 @@ export default {
     return {
       isBind: false,
       notBind: false,
-      windowHeight: window.innerHeight - 200 + 'px',
+      windowHeight: window.innerHeight - 238 + 'px',
       cityIds: [],
       regionIds: [],
       search: {
@@ -93,7 +102,8 @@ export default {
         username: JSON.parse(this.$route.query.item).username,
         provinceId: JSON.parse(this.$route.query.item).provinceId.toString(),
         cityIds: [],
-        regionIds: []
+        regionIds: [],
+        bindStatusCode: ''
       },
       schoolList: [],
       provinceList: [],
@@ -117,7 +127,8 @@ export default {
         cityIds: this.search.cityIds.length > 0 ? this.search.cityIds : this.cityIds,
         regionIds: this.search.regionIds.length > 0 ? this.search.regionIds : this.regionIds,
         adminId: JSON.parse(this.$route.query.item).id,
-        schoolLevel: this.search.schoolLevel
+        schoolLevel: this.search.schoolLevel,
+        bindStatusCode: this.search.bindStatusCode
       }
       return param
     }

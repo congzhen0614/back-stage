@@ -164,7 +164,7 @@ input {
   padding: 0 5px 0 0;
 }
 .app .el-table th {
-  padding: 0;
+  padding: 5px;
 }
 .app .el-table td {
   padding: 5px;
@@ -179,14 +179,8 @@ input {
   font-size: 12px;
   line-height: 26px;
 }
-.app .el-table .cell, .el-table th div, .el-table--border td:first-child .cell, .el-table--border th:first-child .cell {
-  padding-left: 0;
-}
 .app .el-button+.el-button {
   margin-left: 5px;
-}
-.app .cell {
-  padding: 0!important;
 }
 .app .el-pagination .el-input__inner {
   height: 26px;
