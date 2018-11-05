@@ -117,18 +117,18 @@
       </el-row>
     </el-header>
     <el-table :data="tableData" style="width: 100%" border :height="windowHeight">
-      <el-table-column type="selection" width="40" align="center"></el-table-column>
-      <el-table-column prop="no" label="订单号" width="200" header-align="center"></el-table-column>
-      <el-table-column prop="tradeDetailViewList" label="订单明细" header-align="center">
+      <el-table-column type="selection" width="45" align="center"></el-table-column>
+      <el-table-column prop="no"         label="订单号"  width="200" align="center"></el-table-column>
+      <el-table-column prop="tradeDetailViewList" label="订单明细" align="center">
         <template slot-scope="scope">
           <p class="detail-list" v-for="item in scope.row.tradeDetailViewList" :key="item.id">{{item.name}} (杂志类型:{{item.clsName}},数量:{{item.quantity}})</p>
         </template>
       </el-table-column>
-      <el-table-column prop="adminName" label="业务员" width="120" align="center"></el-table-column>
-      <el-table-column prop="totalFee" label="订单总额" width="100" align="center"></el-table-column>
-      <el-table-column prop="user" label="下单人" width="170" header-align="center"></el-table-column>
-      <el-table-column prop="username" label="联系电话" width="150" align="center"></el-table-column>
-      <el-table-column prop="createdAt" label="下单时间" width="200" align="center">
+      <el-table-column prop="adminName"  label="业务员"   width="120" align="center"></el-table-column>
+      <el-table-column prop="totalFee"   label="订单总额" width="100" align="center"></el-table-column>
+      <el-table-column prop="user"       label="下单人"   width="170" align="center"></el-table-column>
+      <el-table-column prop="username"   label="联系电话" width="150" align="center"></el-table-column>
+      <el-table-column prop="createdAt"  label="下单时间" width="200" align="center">
         <template slot-scope="scope">
           <span>{{ scope.row.createdAt | timeFormat }}</span>
         </template>

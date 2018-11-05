@@ -150,6 +150,9 @@ input {
   margin-top: 10px;
 }
 
+.app .el-table .cell {
+  padding: 0!important;
+}
 .app .el-input__inner {
   font-size: 12px;
   height: 30px;
@@ -193,4 +196,7 @@ input {
 }
 .app .el-tabs--border-card>.el-tabs__content {
   padding: 5px 15px;
+}
+.app .el-form-item__error {
+  padding-top: 0;
 }

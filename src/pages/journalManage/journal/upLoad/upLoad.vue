@@ -32,18 +32,10 @@ export default {
   computed: {},
   methods: {
     beforeUpload (file) {
-      let k100 = 1024 * 100
       let k300 = 1024 * 300
-      if (this.$route.query.type === 1) {
-        if (file.size > k100) {
-          this.$message.warning('图片大小不能超出100kb')
-          return false
-        }
-      } else {
-        if (file.size > k300) {
-          this.$message.warning('图片大小不能超出300kb')
-          return false
-        }
+      if (file.size > k300) {
+        this.$message.warning('图片大小不能超出300kb')
+        return false
       }
     },
     handleSuccess (res) {
@@ -111,6 +103,7 @@ export default {
       this.$axios.magazineItemImgSave(param).then(res => {
         if (res.data.code === '0') {
           this.$message.success('操作成功!')
+          this.$router.go(-1)
         } else {
           this.$message.error(res.data.msg)
         }

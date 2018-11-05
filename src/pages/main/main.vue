@@ -7,7 +7,7 @@
           <div class="head-button">
             <el-row>
               <span class="head-username">{{ username }}</span>
-              <span class="head-username" @click="changePassword">修改密码</span>
+              <span class="head-username" style="cursor: pointer" @click="changePassword">修改密码</span>
               <span style="cursor: pointer" @click="clickLogout">退出</span>
             </el-row>
           </div>
@@ -92,7 +92,9 @@ export default {
 <style>
   .main-background {
     /*background-image: url("../../assets/index-backgroud.jpg");*/
+    background-position-y: bottom;
     background-repeat: no-repeat;
+    background-color: #81a5d5;
     background-size: 100%;
     color: #ffffff;
   }

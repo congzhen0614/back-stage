@@ -59,30 +59,30 @@
       :height="windowHeight"
       @selection-change="handleSelectionChange">
       <el-table-column type="selection" width="55" align="center"></el-table-column>
-      <el-table-column prop="title" label="名称" header-align="center"></el-table-column>
+      <el-table-column prop="title" label="名称" align="center"></el-table-column>
       <el-table-column prop="itemQuantity" label="商品数" width="80" align="center"></el-table-column>
       <el-table-column prop="createdAt" label="创建时间" width="170" align="center">
         <template slot-scope="scope">
           <span>{{ scope.row.createdAt | timeFormat }}</span>
         </template>
       </el-table-column>
-      <el-table-column prop="updatedAt" label="修改时间" width="170" align="center">
+      <el-table-column prop="updatedAt" label="修改时间" width="200" align="center">
         <template slot-scope="scope">
           <span>{{ scope.row.updatedAt | timeFormat }}</span>
         </template>
       </el-table-column>
-      <el-table-column prop="createUserName" label="创建人" width="120" align="center"></el-table-column>
-      <el-table-column prop="qrimg" label="是否生成条码" width="130" align="center">
+      <el-table-column prop="createUserName" label="创建人" width="150" align="center"></el-table-column>
+      <el-table-column prop="qrimg" label="是否生成条码" width="150" align="center">
         <template slot-scope="scope">
           <span>{{ scope.row.has === 0 ? '否' : '是' }}</span>
         </template>
       </el-table-column>
-      <el-table-column prop="checkStatus" label="审核状态" width="100" align="center">
+      <el-table-column prop="checkStatus" label="审核状态" width="150" align="center">
         <template slot-scope="scope">
           <span>{{ scope.row.checkStatus | checkType }}</span>
         </template>
       </el-table-column>
-      <el-table-column prop="sub" label="征订状态" width="100" align="center">
+      <el-table-column prop="sub" label="征订状态" width="150" align="center">
         <template slot-scope="scope">
           <span>{{ scope.row.sub | subType }}</span>
         </template>

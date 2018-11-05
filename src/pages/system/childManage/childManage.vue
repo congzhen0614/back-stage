@@ -40,7 +40,7 @@
       </el-form>
     </header>
     <el-table :data="tableData" border :height="windowHeight">
-      <el-table-column prop="parentAccount"         label="账号"     header-align="center"></el-table-column>
+      <el-table-column prop="parentAccount" label="账号"    align="center"></el-table-column>
       <el-table-column prop="name"         label="孩子姓名" align="center" width="100"></el-table-column>
       <el-table-column prop="sex"          label="性别"     align="center" width="100">
         <template slot-scope="scope">
@@ -48,9 +48,9 @@
         </template>
       </el-table-column>
       <el-table-column prop="provinceName" label="省份"     align="center" width="100"></el-table-column>
-      <el-table-column prop="cityName"    label="城市"      align="center" width="100"></el-table-column>
+      <el-table-column prop="cityName"     label="城市"     align="center" width="100"></el-table-column>
       <el-table-column prop="regionName"   label="地区"     align="center" width="100"></el-table-column>
-      <el-table-column prop="schoolName"   label="学校"     header-align="center"></el-table-column>
+      <el-table-column prop="schoolName"   label="学校"     align="center"            ></el-table-column>
       <el-table-column prop="gradeName"    label="年级"     align="center" width="100"></el-table-column>
       <el-table-column prop="className"    label="班级"     align="center" width="100">
         <template slot-scope="scope">

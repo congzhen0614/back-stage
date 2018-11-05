@@ -1,10 +1,10 @@
 <template>
   <div class="update-child">
-    <el-form ref="form" :model="form" label-width="120px" style="width: 500px">
-      <el-form-item label="姓名:">
+    <el-form ref="form" :model="form" :rules="rules" label-width="120px" style="width: 500px">
+      <el-form-item label="姓名:" prop="name">
         <el-input v-model="form.name" placeholder="请输入姓名"></el-input>
       </el-form-item>
-      <el-form-item label="省/市/区:">
+      <el-form-item label="省/市/区:" prop="regionId">
         <el-select v-model="form.provinceId" placeholder="请选择省" style="width: 32%">
           <el-option label="全部" value=""></el-option>
           <el-option :label="item.name" :value="item.id" v-for="item in provinceList" :key="item.id"></el-option>
@@ -18,13 +18,19 @@
           <el-option :label="item.name" :value="item.id" v-for="item in regionList" :key="item.id"></el-option>
         </el-select>
       </el-form-item>
-      <el-form-item label="学校:">
+      <el-form-item label="入学年份:" prop="enrollment">
+        <el-select v-model="form.enrollment" placeholder="请选择入学年份">
+          <el-option label="全部" value=""></el-option>
+          <el-option :label="item" :value="item" v-for="item in enrollmentList" :key="item"></el-option>
+        </el-select>
+      </el-form-item>
+      <el-form-item label="学校:" prop="schoolId">
         <el-select v-model="form.schoolId" placeholder="请选择学校">
           <el-option label="全部" value=""></el-option>
           <el-option :label="item.schoolName" :value="item.schoolId" v-for="item in schoolList" :key="item.schoolId"></el-option>
         </el-select>
       </el-form-item>
-      <el-form-item label="年级/班级:">
+      <el-form-item label="年级/班级:" prop="gradeId">
         <el-select v-model="form.gradeId" placeholder="请选择年级" style="width: 49%">
           <el-option label="全部" value=""></el-option>
           <el-option :label="item.name" :value="item.id" v-for="item in gradeList" :key="item.id"></el-option>
@@ -51,6 +57,15 @@ export default {
   components: {},
   data () {
     return {
+      rules: {
+        name: {required: true, message: '请输入孩子姓名'},
+        provinceId: {required: true, message: '请输入省'},
+        cityId: {required: true, message: '请输入市'},
+        regionId: {required: true, message: '请输入省市区'},
+        enrollment: {required: true, message: '请选择入学年份'},
+        schoolId: {required: true, message: '请选择学校'},
+        gradeId: {required: true, message: '请选择年级'}
+      },
       provinceList: [],
       citiesList: [],
       regionList: [],
@@ -98,6 +113,14 @@ export default {
         uid: this.$route.query.uid // 所属用户
       }
       return param
+    },
+    enrollmentList () {
+      let enrollment = []
+      let thisYear = new Date().getFullYear()
+      for (let i = 2000; i <= thisYear; i++) {
+        enrollment.unshift(i)
+      }
+      return enrollment
     }
   },
   methods: {

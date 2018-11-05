@@ -74,35 +74,35 @@
         :height="windowHeight"
         @selection-change="handleSelectionChange">
         <el-table-column type="selection" width="50" align="center"></el-table-column>
-        <el-table-column prop="name" label="名称" header-align="center" sortable></el-table-column>
-        <el-table-column label="封面图" width="80" header-align="center">
+        <el-table-column prop="name"       label="名称"   align="center" sortable></el-table-column>
+        <el-table-column                   label="封面图" align="center" width="80">
           <template slot-scope="scope">
             <img :src="scope.row.logo" width="100%">
           </template>
         </el-table-column>
-        <el-table-column prop="typeName" header-align="center" align="center" width="100" label="类别"></el-table-column>
-        <el-table-column prop="ageName" header-align="center" label="年级"></el-table-column>
-        <el-table-column prop="fee" header-align="center" align="center" width="100" label="价格" sortable></el-table-column>
-        <el-table-column prop="feeUnitNum" header-align="center" align="center" width="100" label="单位">
+        <el-table-column prop="typeName"   label="类别"  align="center" width="100"></el-table-column>
+        <el-table-column prop="ageName"    label="年级"></el-table-column>
+        <el-table-column prop="fee"        label="价格"   align="center" width="100"  sortable></el-table-column>
+        <el-table-column prop="feeUnitNum" label="单位"   align="center" width="100" >
           <template slot-scope="scope">
             <span>{{ scope.row.feeUnitTypeName }}</span>
             <span>{{ scope.row.feeUnitNum }}</span>
             <span>{{ scope.row.feeUnitName }}</span>
           </template>
         </el-table-column>
-        <el-table-column prop="giftName" header-align="center" label="礼品"></el-table-column>
-        <el-table-column prop="isSale" header-align="center" align="center" width="100" label="是否上架">
+        <el-table-column prop="giftName"   label="礼品"     align="center" ></el-table-column>
+        <el-table-column prop="isSale"     label="是否上架" align="center" width="100" >
           <template slot-scope="scope">
             <span v-if="scope.row.isSale === 1">是</span>
             <span v-if="scope.row.isSale === 0">否</span>
           </template>
         </el-table-column>
-        <el-table-column prop="createdAt" header-align="center" align="center" width="120" label="创建日期" sortable>
+        <el-table-column prop="createdAt"  label="创建日期" align="center" width="120" sortable>
           <template slot-scope="scope">
             <span>{{ scope.row.createdAt | dateFormat }}</span>
           </template>
         </el-table-column>
-        <el-table-column fixed="right" header-align="center" label="操作" width="200" align="center">
+        <el-table-column fixed="right"     label="操作"     align="center"  width="200">
           <template slot-scope="scope">
             <el-button @click="onUpdate(scope.row)" type="text" size="mini" v-if="havePermission('magazine:update')">修改</el-button>
             <el-button @click="onDelete(scope.row)" type="text" size="mini" v-if="havePermission('magazine:delete')">删除</el-button>

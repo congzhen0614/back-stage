@@ -217,7 +217,7 @@ export default new Router({
       component: updateChild
     }, {
       path: '/schoolList',
-      name: '学校列表',
+      name: '学校管理',
       component: schoolList
     }, {
       path: '/addSchool',
