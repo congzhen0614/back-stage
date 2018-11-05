@@ -61,8 +61,7 @@
       tooltip-effect="dark"
       :data="tableList"
       :height="windowHeight"
-      @select="handleSelection"
-      @select-all="handleSelection">
+      @selection-change="handleSelection">
       <el-table-column type="selection" width="40" align="center"></el-table-column>
       <el-table-column prop="ord" label="排序" width="100" sortable align="center">
         <template slot-scope="scope">
