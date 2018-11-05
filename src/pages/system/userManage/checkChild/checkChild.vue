@@ -15,6 +15,9 @@
       <el-table-column prop="saleName" label="业务员" header-align="center"></el-table-column>
       <el-table-column prop="createdTime" label="添加日期" header-align="center"></el-table-column>
     </el-table>
+    <footer class="footer-button">
+      <el-button size="mini" @click="$router.go(-1)">返回</el-button>
+    </footer>
   </div>
 </template>
 

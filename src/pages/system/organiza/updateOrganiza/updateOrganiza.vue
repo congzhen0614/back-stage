@@ -23,13 +23,13 @@
         <el-form-item label="联系电话:">
           <el-input v-model="form.phone"></el-input>
         </el-form-item>
-        <el-form-item>
-          <el-button size="mini" type="primary" @click="onSubmit" v-if="update">修改</el-button>
-          <el-button size="mini" @click="goBack" v-if="update">取消</el-button>
-          <el-button size="mini" @click="goBack" v-if="!update">返回</el-button>
-        </el-form-item>
       </el-form>
     </div>
+    <footer class="footer-button">
+      <el-button size="mini" type="primary" @click="onSubmit" v-if="update">保存提交</el-button>
+      <el-button size="mini" @click="goBack" v-if="update">取消</el-button>
+      <el-button size="mini" @click="goBack" v-if="!update">返回</el-button>
+    </footer>
   </div>
 </template>
 

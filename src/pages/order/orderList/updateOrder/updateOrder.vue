@@ -25,7 +25,7 @@
     </header>
     <main style="padding: 0 20px">
       <template>
-        <el-table :data="tableData" border :style="{height: windowHeight}">
+        <el-table :data="tableData" border>
           <el-table-column prop="name" label="商品名称"></el-table-column>
           <el-table-column prop="fee" label="商品价格" width="100"></el-table-column>
           <el-table-column prop="quantity" label="数量" width="100"></el-table-column>
@@ -37,10 +37,10 @@
         </el-table>
       </template>
     </main>
-    <el-row class="bottom-button">
+    <footer class="footer-button">
       <el-button size="mini" type="primary" @click="onSubmit">保存提交</el-button>
       <el-button size="mini" @click="onCancel">取消</el-button>
-    </el-row>
+    </footer>
   </div>
 </template>
 
@@ -50,7 +50,7 @@ export default {
   components: {},
   data () {
     return {
-      windowHeight: window.innerHeight - 285 + 'px',
+      // windowHeight: window.innerHeight - 100 + 'px',
       orderItem: JSON.parse(this.$route.query.item),
       formItem: JSON.parse(this.$route.query.form),
       form: {
@@ -162,5 +162,8 @@ export default {
 }
 .update-order .el-select {
   width: 100%;
+}
+.update-order {
+  margin-bottom: 50px;
 }
 </style>

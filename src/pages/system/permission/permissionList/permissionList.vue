@@ -1,12 +1,10 @@
 <template>
   <div class="system-permission-list">
-    <el-row :style="{height: windowHeight, overflow: 'auto', borderBottom: '1px solid #ebeef5'}">
-      <el-tree :data="treeList" show-checkbox node-key="id" @check="checkChange" :default-checked-keys="checkedList" :props="defaultProps"></el-tree>
-    </el-row>
-    <el-row style="margin-top: 20px; margin-left: 20px">
+    <el-tree accordion show-checkbox node-key="id" style="margin-bottom: 50px" :data="treeList" :default-checked-keys="checkedList" :props="defaultProps" @check="checkChange"></el-tree>
+    <footer class="footer-button">
       <el-button size="mini" type="primary" @click="onSubmit">保存提交</el-button>
       <el-button size="mini" @click="goBack">取消</el-button>
-    </el-row>
+    </footer>
   </div>
 </template>
 

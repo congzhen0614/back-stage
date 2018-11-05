@@ -47,7 +47,7 @@
               </el-select>
             </el-form-item>
           </el-col>
-          <el-col :span="2" style="margin-top: 7px">
+          <el-col :span="4" style="margin-top: 7px">
             <el-button size="mini" type="primary" plain @click="loadSchoolList">检索</el-button>
           </el-col>
         </el-row>
@@ -55,7 +55,7 @@
       <el-row>
         <el-button size="mini" type="primary" @click="onBind(0)">批量绑定</el-button>
         <el-button size="mini" type="primary" @click="onBind(1)">批量取消绑定</el-button>
-        <el-button size="mini" @click="goBack">返回</el-button>
+        <el-button size="mini" @click="$router.go(-1)" style="float: right">返回</el-button>
       </el-row>
     </header>
     <el-table :data="schoolList" border :height="windowHeight" @selection-change="handleSelectionChange">
@@ -247,9 +247,6 @@ export default {
       }).catch(err => {
         this.$message.error(err)
       })
-    },
-    goBack () {
-      this.$router.go(-1)
     }
   },
   watch: {

@@ -1,6 +1,5 @@
 <template>
   <div class="order-flowed">
-    <el-button size="mini" @click="goBack" style="margin-bottom: 20px">返回</el-button>
     <el-table :data="tableData" border>
       <el-table-column prop="no" label="订单号"></el-table-column>
       <el-table-column prop="adminName" label="业务员"></el-table-column>
@@ -13,6 +12,9 @@
         </template>
       </el-table-column>
     </el-table>
+    <footer class="footer-button">
+      <el-button size="mini" @click="$router.go(-1)">返回</el-button>
+    </footer>
   </div>
 </template>
 

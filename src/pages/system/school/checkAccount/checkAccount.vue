@@ -1,9 +1,12 @@
 <template>
   <div class="check-account">
-    <el-table :data="tableList" border :height="windowHeight">
+    <el-table :data="tableList" border>
       <el-table-column prop="adminName" label="商家名称"></el-table-column>
       <el-table-column prop="groupName" label="组织名称"></el-table-column>
     </el-table>
+    <footer class="footer-button">
+      <el-button size="mini" @click="$router.go(-1)">返回</el-button>
+    </footer>
   </div>
 </template>
 
@@ -12,7 +15,6 @@ export default {
   name: 'check-account',
   data () {
     return {
-      windowHeight: window.innerHeight - 320 + 'px',
       tableList: []
     }
   },

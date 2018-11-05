@@ -31,7 +31,7 @@
           </el-select>
         </el-col>
         <el-col :span="3">
-          <el-select v-model="form.schoolId" placeholder="请选择学校">
+          <el-select v-model="form.schoolId" placeholder="请选择学校" filterable>
             <el-option :label="item.schoolName" :value="item.schoolId" v-for="item in schoolList" :key="item.schoolId"></el-option>
           </el-select>
         </el-col>
@@ -49,11 +49,11 @@
           <el-input v-model="form.classNameDef" placeholder="请收入自定义班级名称"></el-input>
         </el-col>
       </el-row>
-      <el-row style="margin-top: 20px">
-        <el-button size="mini" @click="onSubmit" type="primary">保存提交</el-button>
-        <el-button size="mini" @click="onCancel">取消</el-button>
-      </el-row>
     </el-form>
+    <footer class="footer-button">
+      <el-button size="mini" @click="onSubmit" type="primary">保存提交</el-button>
+      <el-button size="mini" @click="onCancel">取消</el-button>
+    </footer>
   </div>
 </template>
 

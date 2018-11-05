@@ -148,6 +148,9 @@
         </el-table>
       </template>
     </main>
+    <footer class="footer-button">
+      <el-button size="mini" @click="$router.go(-1)">取消</el-button>
+    </footer>
   </div>
 </template>
 
@@ -356,6 +359,9 @@ export default {
 </script>
 
 <style>
+  .order-info {
+    margin-bottom: 50px;
+  }
   .order-info-heder {
     padding: 10px;
     background-color: #F2F6FC;

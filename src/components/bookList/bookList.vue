@@ -80,7 +80,7 @@ export default {
         postageSumBook: {required: true, message: '请输入未满金额', trigger: 'blur'},
         postageBook: {required: true, message: '请输入运费', trigger: 'blur'}
       },
-      windowHeight: window.innerHeight - 420 + 'px',
+      windowHeight: window.innerHeight - 410 + 'px',
       search: {
         typeId: '',
         isSale: 1,

@@ -73,6 +73,9 @@
         </el-tab-pane>
       </el-tabs>
     </div>
+    <footer class="footer-button">
+      <el-button size="mini" @click="$router.go(-1)">取消</el-button>
+    </footer>
   </div>
 </template>
 
@@ -108,6 +111,9 @@ export default {
 </script>
 
 <style>
+.check-catalogue {
+  margin-bottom: 50px;
+}
 .check-catalogue header {
   padding: 20px;
   background-color: #F2F6FC;

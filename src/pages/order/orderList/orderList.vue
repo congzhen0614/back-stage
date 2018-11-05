@@ -49,7 +49,7 @@
           </el-col>
           <el-col :span="4">
             <el-form-item label="学校:" label-width="45px">
-              <el-select v-model="search.schoolId" placeholder="请选择" style="width: 100%">
+              <el-select v-model="search.schoolId" placeholder="请选择" filterable style="width: 100%">
                 <el-option label="全部" value=""></el-option>
                 <el-option v-for="item in schoolList" :key="item.schoolId" :label="item.schoolName" :value="item.schoolId"></el-option>
               </el-select>

@@ -13,11 +13,11 @@
       <el-form-item label="排序:">
         <el-input v-model="form.ord" prop="type"></el-input>
       </el-form-item>
-      <el-form-item>
-        <el-button size="mini" type="primary" @click="onSubmit">立即创建</el-button>
-        <el-button size="mini" @click="goBack">取消</el-button>
-      </el-form-item>
     </el-form>
+    <footer class="footer-button">
+      <el-button size="mini" type="primary" @click="onSubmit">保存提交</el-button>
+      <el-button size="mini" @click="goBack">取消</el-button>
+    </footer>
   </div>
 </template>
 

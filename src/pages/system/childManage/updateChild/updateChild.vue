@@ -43,11 +43,11 @@
       <el-form-item label="自定义班级:">
         <el-input v-model="form.className" placeholder="请输入自定义班级"></el-input>
       </el-form-item>
-      <el-form-item>
-        <el-button size="mini" type="primary" @click="onSubmit">保存提交</el-button>
-        <el-button size="mini" @click="onCancel">取消</el-button>
-      </el-form-item>
     </el-form>
+    <footer class="footer-button">
+      <el-button size="mini" type="primary" @click="onSubmit">保存提交</el-button>
+      <el-button size="mini" @click="onCancel">取消</el-button>
+    </footer>
   </div>
 </template>
 

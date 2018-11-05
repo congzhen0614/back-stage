@@ -42,6 +42,7 @@
             <el-button size="mini" type="primary" @click="changeOrder" v-if="havePermission('school:ord')">排序</el-button>
             <el-button size="mini" type="primary" @click="clickIfShown(1)" v-if="havePermission('school:show')">显示</el-button>
             <el-button size="mini" type="primary" @click="clickIfShown(0)" v-if="havePermission('school:show')">隐藏</el-button>
+            <el-button size="mini" @click="$router.go(-1)" style="float: right">返回</el-button>
           </el-col>
         </el-row>
       </el-form>
@@ -53,12 +54,12 @@
           <el-input size="small" v-model="scope.row.ord" style="text-align: right" @change="ordChange(scope.row)"></el-input>
         </template>
       </el-table-column>
-      <el-table-column prop="name" label="名称" width="300px" show-overflow-tooltip header-align="center"></el-table-column>
-      <el-table-column prop="provinceName" label="省份" align="center"></el-table-column>
-      <el-table-column prop="cityName" label="城市" align="center"></el-table-column>
-      <el-table-column prop="regionName" label="地区" align="center"></el-table-column>
-      <el-table-column prop="address" label="地址" show-overflow-tooltip width="500px" header-align="center"></el-table-column>
-      <el-table-column prop="isHighGrade" label="年级阶段" align="center">
+      <el-table-column prop="name"         label="名称"     align="center" width="300px" show-overflow-tooltip></el-table-column>
+      <el-table-column prop="provinceName" label="省份"     align="center"></el-table-column>
+      <el-table-column prop="cityName"     label="城市"     align="center"></el-table-column>
+      <el-table-column prop="regionName"   label="地区"     align="center"></el-table-column>
+      <el-table-column prop="address"      label="地址"     align="center" width="500px" show-overflow-tooltip></el-table-column>
+      <el-table-column prop="isHighGrade"  label="年级阶段" align="center">
         <template slot-scope="scope">
           <span v-if="scope.row.isHighGrade === 2">幼儿园</span>
           <span v-if="scope.row.isHighGrade === 0">小学</span>
