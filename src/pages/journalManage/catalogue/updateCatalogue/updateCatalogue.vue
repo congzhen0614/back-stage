@@ -49,7 +49,7 @@
     </header>
     <el-row style="margin-top: 20px; margin-left: 20px">
       <el-button size="mini" type="primary" @click="onSave">保存书单</el-button>
-      <el-button size="mini" @click="goBack">返回</el-button>
+      <el-button size="mini" @click="goBack">取消</el-button>
     </el-row>
   </div>
 </template>

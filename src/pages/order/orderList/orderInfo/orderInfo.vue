@@ -149,7 +149,7 @@
       </template>
     </main>
     <footer class="footer-button">
-      <el-button size="mini" @click="$router.go(-1)">取消</el-button>
+      <el-button size="mini" @click="$router.go(-1)">返回</el-button>
     </footer>
   </div>
 </template>

@@ -43,7 +43,7 @@
           </el-col>
           <el-col :span="4" v-if="havePermission('magazine:copy')">
             <el-form-item label="复制给商家:" label-width="70px">
-              <el-select v-model="search.merchants">
+              <el-select v-model="search.merchants" :disabled="roleLevel === 3 || roleLevel === 6">
                 <el-option :label="item.username" :value="item.id" v-for="item in groupList" :key="item.id"></el-option>
               </el-select>
             </el-form-item>
@@ -147,6 +147,7 @@ export default {
       windowHeight: window.innerHeight - 184 + 'px',
       dialogVisible: false,
       authorization: JSON.parse(localStorage.getItem('user')).authorization,
+      roleLevel: JSON.parse(localStorage.getItem('user')).roleLevel,
       ageList: [],
       typeList: [],
       groupList: [],
@@ -167,12 +168,13 @@ export default {
       }
     }
   },
-  mounted () {
+  created () {
     this.loadDate()
     this.loadItemageList()
     this.loadItemtypeList()
     this.loadAdmingroupList()
   },
+  mounted () {},
   computed: {
     params () {
       let Trim = str => {
@@ -239,6 +241,9 @@ export default {
           } else {
             this.groupList = res.data.data
           }
+        }
+        if (this.roleLevel === 3 || this.roleLevel === 6) {
+          this.search.merchants = this.groupList[0].id
         }
       }, err => {
         this.$message.error(err)
