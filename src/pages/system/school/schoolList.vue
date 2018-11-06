@@ -333,7 +333,18 @@ export default {
         this.dialogVisible = false
         this.loadDate()
       } else {
-        this.$message.error(res.msg)
+        let str = ''
+        res.data.forEach(item => {
+          str += '第' + item.id + '行'
+          item.list.forEach((list, index) => {
+            if (index + 1 === item.list.length) {
+              str += list.msg + '。'
+            } else {
+              str += list.msg + '，'
+            }
+          })
+        })
+        this.$message.error(str)
       }
     },
     upLoadError (res) {
