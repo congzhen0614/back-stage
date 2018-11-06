@@ -89,7 +89,7 @@ export default {
   components: {},
   data () {
     return {
-      windowHeight: window.innerHeight - 149 + 'px',
+      windowHeight: window.innerHeight - 139 + 'px',
       provinceList: [],
       citiesList: [],
       regionList: [],

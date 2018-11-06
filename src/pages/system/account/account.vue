@@ -1,13 +1,44 @@
 <template>
   <div class="system-account">
-    <header class="header" style="height: auto">
-      <el-row :gutter="40">
-        <el-col :span="4"><el-input v-model="search.name" placeholder="请输入名称筛选"></el-input></el-col>
-        <el-col :span="8">
-          <el-button size="mini" type="primary" @click="loadData">检索</el-button>
-          <el-button size="mini" type="primary" @click="clickAddnew" v-if="havePermission('account:add')">添加</el-button>
-        </el-col>
-      </el-row>
+    <header class="header">
+      <el-form :model="search" label-width="60px">
+        <el-row :gutter="10">
+          <el-col :span="4">
+            <el-form-item label="用户名" prop="name">
+              <el-input v-model="search.name" placeholder="请输入用户名筛选"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="4" v-if="roleLevel === 1">
+            <el-form-item label="所属组织" prop="name">
+              <el-select v-model="search.groupId" placeholder="请选择所属组织">
+                <el-option label="全部" value=""></el-option>
+                <el-option :label="item.name" :value="item.id" v-for="item in groupList" :key="item.id"></el-option>
+              </el-select>
+            </el-form-item>
+          </el-col>
+          <el-col :span="4" v-if="roleLevel !== 2 && roleLevel !== 5">
+            <el-form-item label="账号角色" prop="name">
+              <el-select v-model="search.roleLevel" placeholder="请选择账号角色">
+                <el-option label="全部" value=""></el-option>
+                <el-option :label="item.name" :value="item.id" v-for="item in roleList" :key="item.id"></el-option>
+              </el-select>
+            </el-form-item>
+          </el-col>
+          <el-col :span="4">
+            <el-form-item label="账号状态" prop="name">
+              <el-select v-model="search.adminAccountStatus" placeholder="请选择账号状态">
+                <el-option label="全部" value=""></el-option>
+                <el-option label="正常" value="1"></el-option>
+                <el-option label="禁用" value="2"></el-option>
+              </el-select>
+            </el-form-item>
+          </el-col>
+          <el-col :span="4" style="margin-top: 7px">
+            <el-button size="mini" type="primary" @click="loadData" plain>检索</el-button>
+            <el-button size="mini" type="primary" @click="clickAddnew" v-if="havePermission('account:add')">添加</el-button>
+          </el-col>
+        </el-row>
+      </el-form>
     </header>
     <el-table ref="multipleTable" :data="tableList" tooltip-effect="dark" style="width: 100%" :height="windowHeight" border>
       <el-table-column type="index" width="55" label="序号" align="center"></el-table-column>
@@ -18,7 +49,7 @@
       <el-table-column prop="adminAccountStatusDesc" label="账号状态" align="center" width="200"></el-table-column>
       <el-table-column label="创建时间"                               align="center" width="200">
         <template slot-scope="scope">
-          <span>{{ scope.row.createdAt | dateFormat }}</span>
+          <span>{{ scope.row.createdAt | timeFormat }}</span>
         </template>
       </el-table-column>
       <el-table-column fixed="right"                 label="操作"    align="center" width="300">
@@ -44,17 +75,23 @@
 </template>
 
 <script>
+import role from '../../../../static/data/role.json'
 export default {
   name: 'system-account',
   components: {},
   data () {
     return {
       windowHeight: window.innerHeight - 139 + 'px',
+      roleLevel: JSON.parse(localStorage.getItem('user')).roleLevel,
       search: {
-        name: ''
+        name: '',
+        groupId: '',
+        roleLevel: '',
+        adminAccountStatus: ''
       },
       options: [],
       tableList: [],
+      groupList: [],
       pages: {
         total: 0,
         pageNum: 1,
@@ -64,6 +101,7 @@ export default {
   },
   mounted () {
     this.loadData()
+    this.loadAdmingroupList()
   },
   computed: {
     params () {
@@ -77,9 +115,44 @@ export default {
       let data = {
         pageNum: this.pages.pageNum,
         pageSize: this.pages.pageSize,
-        key: Trim(this.search.name)
+        key: Trim(this.search.name),
+        groupId: this.search.groupId,
+        roleLevel: this.search.roleLevel,
+        adminAccountStatus: this.search.adminAccountStatus
       }
       return data
+    },
+    roleList () {
+      if (this.roleLevel === 1) {
+        return role.data
+      } else if (this.roleLevel === 3) {
+        return [{
+          'id': 3,
+          'name': '高级VIP用户'
+        }, {
+          'id': 4,
+          'name': '高级用户'
+        }, {
+          'id': 5,
+          'name': '普通用户'
+        }]
+      } else if (this.roleLevel === 4) {
+        return [{
+          'id': 4,
+          'name': '高级用户'
+        }, {
+          'id': 5,
+          'name': '普通用户'
+        }]
+      } else if (this.roleLevel === 6) {
+        return [{
+          'id': 6,
+          'name': '个人高级用户'
+        }, {
+          'id': 5,
+          'name': '普通用户'
+        }]
+      }
     }
   },
   methods: {
@@ -88,6 +161,19 @@ export default {
         this.tableList = res.data.data.list
         this.pages.total = res.data.data.total
         this.pages.currentPage = res.data.data.pageNum
+      }, err => {
+        this.$message.error(err)
+      }).catch(err => {
+        this.$message.error(err)
+      })
+    },
+    loadAdmingroupList () {
+      this.$axios.admingroupListCandidate().then(res => {
+        if (res.data.code === '0') {
+          this.groupList = res.data.data
+        } else {
+          this.$message.error(res.data.msg)
+        }
       }, err => {
         this.$message.error(err)
       }).catch(err => {
@@ -184,5 +270,8 @@ export default {
   }
   .system-account .el-select {
     width: 100%;
+  }
+  .system-account .el-form-item {
+    margin-bottom: 0px;
   }
 </style>

@@ -16,9 +16,9 @@ let timeFormat = value => {
   let year = date.getFullYear()
   let month = doubleNumber(date.getMonth() + 1)
   let day = doubleNumber(date.getDate())
-  let hour = date.getHours()
-  let minu = date.getMinutes()
-  let seco = date.getSeconds()
+  let hour = doubleNumber(date.getHours())
+  let minu = doubleNumber(date.getMinutes())
+  let seco = doubleNumber(date.getSeconds())
   return year + '-' + month + '-' + day + ' ' + hour + ':' + minu + ':' + seco
 }
 

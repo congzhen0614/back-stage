@@ -3,7 +3,7 @@
     <header class="school-report-header">
       <el-form ref="form" :model="search">
         <el-row>
-          <el-col :span="10">
+          <el-col :span="8">
             <el-form-item label="省/市/区:" label-width="60px">
               <el-select class="region-select" v-model="search.provinceId" placeholder="请选择省" style="width: 32%">
                 <el-option label="全部" value=""></el-option>
@@ -32,6 +32,15 @@
               <el-select v-model="search.adminId" placeholder="请选择销售员">
                 <el-option label="全部" value=""></el-option>
                 <el-option :label="item.username" :value="item.id" v-for="item in accountList" :key="item.id"></el-option>
+              </el-select>
+            </el-form-item>
+          </el-col>
+          <el-col :span="4">
+            <el-form-item label="是否升年级:" label-width="80px">
+              <el-select v-model="search.upgrade" placeholder="请选择销售员">
+                <el-option label="全部" value=""></el-option>
+                <el-option label="是" value="1"></el-option>
+                <el-option label="否" value="0"></el-option>
               </el-select>
             </el-form-item>
           </el-col>
@@ -72,6 +81,7 @@ export default {
         regionId: '',
         schoolId: '',
         adminId: '',
+        upgrade: '',
         startDate: '',
         endDate: ''
       }
@@ -104,6 +114,7 @@ export default {
         regionId: this.search.regionId,
         schoolId: this.search.schoolId,
         adminId: this.search.adminId,
+        upgrade: this.search.upgrade,
         startDate: dateFormat(this.search.startDate, 0),
         endDate: dateFormat(this.search.endDate, 1)
       }

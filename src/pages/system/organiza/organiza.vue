@@ -12,7 +12,7 @@
         <el-table-column prop="phone"        label="联系电话"          align="center" width="200"></el-table-column>
         <el-table-column prop="contractTime" label="创建时间" sortable align="center" width="200">
           <template slot-scope="scope">
-            <span>{{ scope.row.contractTime | dateFormat }}</span>
+            <span>{{ scope.row.contractTime | timeFormat }}</span>
           </template>
         </el-table-column>
         <el-table-column fixed="right"       label="操作"              align="center" width="150">
@@ -40,7 +40,7 @@ export default {
   name: 'system-organiza',
   data () {
     return {
-      windowHeight: window.innerHeight - 138 + 'px',
+      windowHeight: window.innerHeight - 128 + 'px',
       tableList: [],
       pages: {
         total: 0,

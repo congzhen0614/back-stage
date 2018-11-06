@@ -97,9 +97,9 @@
             <span v-if="scope.row.isSale === 0">否</span>
           </template>
         </el-table-column>
-        <el-table-column prop="createdAt"  label="创建日期" align="center" width="120" sortable>
+        <el-table-column prop="createdAt"  label="创建日期" align="center" width="200" sortable>
           <template slot-scope="scope">
-            <span>{{ scope.row.createdAt | dateFormat }}</span>
+            <span>{{ scope.row.createdAt | timeFormat }}</span>
           </template>
         </el-table-column>
         <el-table-column fixed="right"     label="操作"     align="center"  width="200">
