@@ -113,7 +113,7 @@ export default new Router({
       component: QRlist
     }, {
       path: '/account',
-      name: '账号列表',
+      name: '账号设置',
       component: account
     }, {
       path: '/addAccount',

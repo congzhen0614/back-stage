@@ -1,18 +1,18 @@
 <template>
   <div class="change-pssword">
-    <el-form ref="form" :model="form" label-width="80px">
-      <el-form-item label="原始密码:">
+    <el-form ref="form" :model="form" :rules="rules" label-width="80px">
+      <el-form-item label="原始密码:" prop="old">
         <el-input v-model="form.old"></el-input>
       </el-form-item>
-      <el-form-item label="新密码:">
+      <el-form-item label="新密码:" prop="now">
         <el-input v-model="form.now"></el-input>
       </el-form-item>
-      <el-form-item label="确认密码:">
-        <el-input v-model="repeat"></el-input>
+      <el-form-item label="确认密码:" prop="repeat">
+        <el-input v-model="form.repeat"></el-input>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" @click="onSubmit">保存提交</el-button>
-        <el-button @click="goBack">取消</el-button>
+        <el-button size="mini" type="primary" @click="onSubmit">保存提交</el-button>
+        <el-button size="mini" @click="goBack">取消</el-button>
       </el-form-item>
     </el-form>
   </div>
@@ -24,8 +24,21 @@ export default {
   components: {},
   data () {
     return {
-      repeat: '',
-      form: {}
+      rules: {
+        old: [
+          {required: true, message: '请输入原始密码', trigger: 'blur'}
+        ],
+        now: [
+          {required: true, message: '请输入新密码', trigger: 'blur'},
+          {min: 6, message: '密码长度最小为6', trigger: 'blur'}
+        ],
+        repeat: [
+          {required: true, message: '请输入确认密码', trigger: 'blur'}
+        ]
+      },
+      form: {
+        repeat: ''
+      }
     }
   },
   created () {
@@ -35,7 +48,7 @@ export default {
   computed: {},
   methods: {
     onSubmit () {
-      if (this.repeat !== this.form.now) {
+      if (this.form.repeat !== this.form.now) {
         this.$message.error('两次密码不一致')
         return
       }

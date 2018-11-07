@@ -54,7 +54,6 @@ export default {
       tableList: []
     }
   },
-  props: ['videoIds'],
   mounted () {
     this.loadDate()
   },
@@ -85,17 +84,6 @@ export default {
           this.total = res.data.data.total
           this.tableList.forEach(item => {
             item.ord = 9999
-          })
-          if (typeof this.videoIds === 'undefined') return false
-          this.$nextTick(() => {
-            this.tableList.forEach(item => {
-              this.videoIds.forEach(select => {
-                if (item.id === select.id) {
-                  item.ord = select.ord
-                  this.$refs.multipleTable.toggleRowSelection(item, true)
-                }
-              })
-            })
           })
         } else {
           this.$message.error(res.data.data.msg)

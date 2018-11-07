@@ -218,8 +218,7 @@ export default {
       this.$router.push({
         path: '/updateChildManage',
         query: {
-          id: item.id,
-          uid: item.uid
+          item: JSON.stringify(item)
         }
       })
     },

@@ -34,6 +34,14 @@ export default {
       }
     }
   },
+  mounted () {
+    document.onkeydown = event => {
+      var e = event || window.event
+      if (e && e.keyCode === 13) {
+        this.clickLogin()
+      }
+    }
+  },
   methods: {
     clickLogin () {
       this.$axios.login(this.login).then(res => {

@@ -98,7 +98,6 @@ export default {
       selectIds: []
     }
   },
-  props: ['postageBook', 'postageSumBook', 'bookIds'],
   mounted () {
     this.loadDate()
     this.loadItemtypeList()
@@ -130,17 +129,6 @@ export default {
           this.total = res.data.data.total
           this.tableList.forEach(item => {
             item.ord = 9999
-          })
-          if (typeof this.bookIds === 'undefined') return false
-          this.$nextTick(() => {
-            this.tableList.forEach(item => {
-              this.bookIds.forEach(select => {
-                if (item.id === select.id) {
-                  item.ord = select.ord
-                  this.$refs.multipleTable.toggleRowSelection(item, true)
-                }
-              })
-            })
           })
         } else {
           this.$message.error(res.data.data.msg)

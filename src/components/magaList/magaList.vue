@@ -116,7 +116,6 @@ export default {
       selectIds: []
     }
   },
-  props: ['sendType', 'postage', 'postageSum', 'magazineIds'],
   mounted () {
     this.loadDate()
     this.loadItemtypeList()
@@ -128,7 +127,6 @@ export default {
           this.tableList = res.data.data.list
           this.total = res.data.data.total
           this.tableList.forEach(item => { item.ord = 9999 })
-          this.setSelect()
         } else {
           this.$message.error(res.data.data.msg)
         }
@@ -151,20 +149,6 @@ export default {
         this.$message.error(err)
       })
     },
-    setSelect () {
-      if (typeof this.magazineIds !== 'undefined') {
-        this.$nextTick(() => {
-          this.tableList.forEach(item => {
-            this.magazineIds.forEach(select => {
-              if (item.id === select.id) {
-                item.ord = select.ord
-                this.$refs.multipleTable.toggleRowSelection(item, true)
-              }
-            })
-          })
-        })
-      }
-    },
     handleSelection (val) {
       this.selectIds = []
       val.forEach(item => {
@@ -174,7 +158,6 @@ export default {
           ord: parseInt(item.ord)
         })
       })
-      this.handleSelectionChange()
     },
     ordChange (obj) {
       if (this.selectIds.length > 0) {

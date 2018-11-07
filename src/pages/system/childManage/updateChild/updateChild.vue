@@ -72,27 +72,29 @@ export default {
       schoolList: [],
       gradeList: [],
       classList: [],
-      form: {
-        name: '', // 姓名
-        provinceId: '', // 省
-        cityId: '', // 市
-        regionId: '', // 区
-        schoolId: '', // 学校id
-        gradeId: '', // 年级id
-        classId: '', // 班级id
-        className: '', // 自定义班级名称
-        enrollment: '', // 入学年月
-        mobile: '', // 手机号
-        parent: '', // 家长姓名
-        relation: '' // 关系
-      }
+      form: {}
     }
   },
   created () {
-    this.loadChild()
     this.loadProvince()
     this.loadGradeList()
     this.loadClassList()
+  },
+  mounted () {
+    this.form = {
+      name: JSON.parse(this.$route.query.item).name, // 姓名
+      provinceId: JSON.parse(this.$route.query.item).provinceId.toString(), // 省
+      cityId: JSON.parse(this.$route.query.item).cityId.toString(), // 市
+      regionId: JSON.parse(this.$route.query.item).regionId.toString(), // 区
+      schoolId: JSON.parse(this.$route.query.item).schoolId, // 学校id
+      gradeId: JSON.parse(this.$route.query.item).gradeId.toString(), // 年级id
+      classId: JSON.parse(this.$route.query.item).classId.toString(), // 班级id
+      className: JSON.parse(this.$route.query.item).className, // 自定义班级名称
+      enrollment: JSON.parse(this.$route.query.item).enrollment, // 入学年月
+      mobile: JSON.parse(this.$route.query.item).mobile, // 手机号
+      parent: JSON.parse(this.$route.query.item).parent, // 家长姓名
+      relation: JSON.parse(this.$route.query.item).relation // 关系
+    }
   },
   computed: {
     params () {
@@ -124,30 +126,6 @@ export default {
     }
   },
   methods: {
-    loadChild () {
-      this.$axios.findChildByUid({uid: this.$route.query.uid}).then(res => {
-        if (res.data.code === '0') {
-          this.form.name = res.data.data[0].name
-          this.form.provinceId = res.data.data[0].provinceId.toString()
-          this.form.cityId = res.data.data[0].cityId.toString()
-          this.form.regionId = res.data.data[0].regionId.toString()
-          this.form.schoolId = res.data.data[0].schoolId
-          this.form.gradeId = res.data.data[0].gradeId.toString()
-          this.form.classId = res.data.data[0].classId.toString()
-          this.form.className = res.data.data[0].className
-          this.form.enrollment = res.data.data[0].enrollment
-          this.form.mobile = res.data.data[0].mobile
-          this.form.parent = res.data.data[0].parent
-          this.form.relation = res.data.data[0].relation
-        } else {
-          this.$message.error(res.data.msg)
-        }
-      }, err => {
-        this.$message.error(err)
-      }).catch(err => {
-        this.$message.error(err)
-      })
-    },
     loadProvince () {
       this.$axios.province().then(res => {
         if (res.data.code === '0') {

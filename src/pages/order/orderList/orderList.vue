@@ -124,7 +124,6 @@
           <p class="detail-list" v-for="item in scope.row.tradeDetailViewList" :key="item.id">{{item.name}} (杂志类型:{{item.clsName}},数量:{{item.quantity}})</p>
         </template>
       </el-table-column>
-      <el-table-column prop="adminName"  label="业务员"   width="120" align="center"></el-table-column>
       <el-table-column prop="totalFee"   label="订单总额" width="100" align="center"></el-table-column>
       <el-table-column prop="user"       label="下单人"   width="170" align="center"></el-table-column>
       <el-table-column prop="username"   label="联系电话" width="150" align="center"></el-table-column>
@@ -134,6 +133,7 @@
         </template>
       </el-table-column>
       <el-table-column prop="tradeStatusName" label="订单状态" width="120" align="center"></el-table-column>
+      <el-table-column prop="adminName"  label="业务员"   width="120" align="center"></el-table-column>
       <el-table-column label="操作" width="200px" align="center">
         <template slot-scope="scope">
           <el-button @click="onChecke(scope.row)" type="text" size="mini" v-if="havePermission('trade:list')">查看</el-button>

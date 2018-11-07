@@ -162,7 +162,7 @@ export default {
   },
   magazineBatch () { // 导入杂志地址 正式 //qrapi.51weixiao.com/qrzd 测试 //192.168.0.230:8081/qrzd
     // return location.protocol + '//192.168.0.230:8081/qrzd/magazine/qrzditem/batch'
-    return location.protocol + '//' + window.location.host + 'qrzd/magazine/qrzditem/batch'
+    return location.protocol + '//' + window.location.host + '/qrzd/magazine/qrzditem/batch'
   },
   schoolBatch () {
     return location.protocol + '//' + window.location.host + '/qrzd/sys/school/batch'
