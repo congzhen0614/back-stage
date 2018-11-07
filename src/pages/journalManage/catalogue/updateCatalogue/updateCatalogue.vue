@@ -42,9 +42,15 @@
         </el-row>
       </el-form>
       <el-tabs type="border-card">
-        <el-tab-pane label="杂志"><el-magaList @mageDate="mageDate" :postage="form.postage" :postageSum="form.postageSum" :sendType="form.sendType" :magazineIds="magazineIds"></el-magaList></el-tab-pane>
-        <el-tab-pane label="图书"><el-bookList @bookDate="bookDate" :postageBook="form.postageBook" :postageSumBook="form.postageSumBook" :bookIds="bookIds"></el-bookList></el-tab-pane>
-        <el-tab-pane label="视听"><el-audioList @ypspDate="ypspDate" :videoIds="videoIds"></el-audioList></el-tab-pane>
+        <el-tab-pane label="杂志">
+          <el-magaList @mageDate="mageDate" :postage="form.postage" :postageSum="form.postageSum" :sendType="form.sendType" :id="form.id"></el-magaList>
+        </el-tab-pane>
+        <el-tab-pane label="图书">
+          <el-bookList @bookDate="bookDate" :postageBook="form.postageBook" :postageSumBook="form.postageSumBook" :id="form.id"></el-bookList>
+        </el-tab-pane>
+        <el-tab-pane label="视听">
+          <el-audioList @ypspDate="ypspDate" :id="form.id"></el-audioList>
+        </el-tab-pane>
       </el-tabs>
     </header>
     <el-row style="margin-top: 20px; margin-left: 20px">
@@ -55,9 +61,9 @@
 </template>
 
 <script>
-import magaList from '@/components/magaList/magaList.vue'
-import bookList from '@/components/bookList/bookList.vue'
-import audioList from '@/components/audioList/audioList.vue'
+import magaList from './magaList/magaList.vue'
+import bookList from './bookList/bookList.vue'
+import audioList from './audioList/audioList.vue'
 import rules from '@/common/rules.js'
 export default {
   name: 'journal-Manage-catalogue-update',

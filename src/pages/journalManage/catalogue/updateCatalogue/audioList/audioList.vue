@@ -46,6 +46,8 @@ export default {
     return {
       windowHeight: window.innerHeight - 360 + 'px',
       search: {
+        id: this.id,
+        cls: 54,
         pageNum: 1,
         pageSize: 20
       },
@@ -55,48 +57,17 @@ export default {
       historyData: []
     }
   },
+  props: ['id'],
   mounted () {
     this.loadDate()
   },
   methods: {
-    handleSelection (val) {
-      this.historyData[this.search.pageNum] = val
-      this.selectIds = []
-      this.historyData.forEach(list => {
-        list.forEach(select => {
-          this.selectIds.push({
-            cls: 2,
-            itemId: select.id,
-            ord: parseInt(select.ord)
-          })
-        })
-      })
-    },
-    handleSizeChange (val) {
-      this.search.pageSize = val
-      this.loadDate()
-    },
-    handleCurrentChange (val) {
-      this.search.pageNum = val
-      this.loadDate()
-    },
     loadDate () {
-      this.$axios.spyppacketList(this.search).then(res => {
+      this.$axios.itempackUpdatelist(this.search).then(res => {
         if (res.data.code === '0') {
           this.tableList = res.data.data.list
           this.total = res.data.data.total
-          this.tableList.forEach(item => { item.ord = 9999 })
-          this.$nextTick(() => {
-            if (this.historyData[this.search.pageNum] !== undefined) {
-              this.tableList.forEach(list => {
-                this.historyData[this.search.pageNum].forEach(select => {
-                  if (list.id === select.id) {
-                    this.$refs.multipleTable.toggleRowSelection(list, true)
-                  }
-                })
-              })
-            }
-          })
+          this.selectList()
         } else {
           this.$message.error(res.data.data.msg)
         }
@@ -104,6 +75,42 @@ export default {
         this.$message.error(err)
       }).catch(err => {
         this.$message.error(err)
+      })
+    },
+    selectList () {
+      this.$nextTick(() => {
+        let historyData = []
+        this.tableList.forEach(item => {
+          if (item.selected === 1) {
+            this.$refs.multipleTable.toggleRowSelection(item, true)
+            historyData.push(item)
+          } else {
+            item.ord = 9999
+          }
+        })
+        this.handleSelection(historyData)
+        if (this.historyData[this.search.pageNum] !== undefined) {
+          this.tableList.forEach(list => {
+            this.historyData[this.search.pageNum].forEach(select => {
+              if (list.id === select.id) {
+                this.$refs.multipleTable.toggleRowSelection(list, true)
+              }
+            })
+          })
+        }
+      })
+    },
+    handleSelection (val) {
+      this.historyData[this.search.pageNum] = val
+      this.selectIds = []
+      this.historyData.forEach(list => {
+        list.forEach(select => {
+          this.selectIds.push({
+            cls: 54,
+            itemId: select.id,
+            ord: parseInt(select.ord)
+          })
+        })
       })
     },
     ordChange (obj) {
@@ -114,6 +121,14 @@ export default {
           }
         })
       }
+    },
+    handleSizeChange (val) {
+      this.search.pageSize = val
+      this.loadDate()
+    },
+    handleCurrentChange (val) {
+      this.search.pageNum = val
+      this.loadDate()
     }
   },
   watch: {

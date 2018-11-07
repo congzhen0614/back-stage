@@ -351,5 +351,9 @@ export default {
   },
   childUpdate (params) {
     return axios.post('/qrzd/sys/child/update', params)
+  },
+  itempackUpdatelist (params) {
+    let param = qs.stringify(params)
+    return axios.get(`/qrzd/itempack/updatelist?${param}`)
   }
 }

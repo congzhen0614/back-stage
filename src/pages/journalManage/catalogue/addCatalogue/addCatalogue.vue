@@ -119,6 +119,7 @@ export default {
         this.$message.error('寄送的时候杂志未满金额和杂志运费是必填的哦')
         return
       }
+      console.log(this.form)
       this.$refs.form.validate(valid => {
         if (valid) {
           this.$axios.itempackSave(this.form).then(res => {
