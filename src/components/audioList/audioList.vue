@@ -19,7 +19,7 @@
           <el-input size="small" v-model="scope.row.ord" @change="ordChange(scope.row)"></el-input>
         </template>
       </el-table-column>
-      <el-table-column prop="name" label="视听包名称" header-align="center"></el-table-column>
+      <el-table-column prop="name" label="视听包名称" align="center"></el-table-column>
       <el-table-column prop="logo" label="封面图" width="80" align="center">
         <template slot-scope="scope">
           <img :src="scope.row.logo" width="100%">

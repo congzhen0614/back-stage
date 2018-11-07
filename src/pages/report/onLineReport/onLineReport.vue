@@ -44,11 +44,11 @@
       </el-form>
     </header>
     <el-table :data="tableData" border :height="windowHeight">
-      <el-table-column prop="date" label="日期" header-align="center"></el-table-column>
-      <el-table-column prop="date" label="日期" header-align="center"></el-table-column>
-      <el-table-column prop="date" label="日期" header-align="center"></el-table-column>
-      <el-table-column prop="date" label="日期" header-align="center"></el-table-column>
-      <el-table-column prop="date" label="日期" header-align="center"></el-table-column>
+      <el-table-column prop="date" label="日期" align="center"></el-table-column>
+      <el-table-column prop="date" label="日期" align="center"></el-table-column>
+      <el-table-column prop="date" label="日期" align="center"></el-table-column>
+      <el-table-column prop="date" label="日期" align="center"></el-table-column>
+      <el-table-column prop="date" label="日期" align="center"></el-table-column>
     </el-table>
     <el-pagination
       @size-change="handleSizeChange"

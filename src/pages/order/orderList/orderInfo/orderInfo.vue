@@ -85,7 +85,7 @@
           <span style="margin-left: 20px">杂志运费: {{ form.deliveryFeeMagazine }}元</span>
         </header>
         <el-table :data="magaTable" border>
-          <el-table-column prop="name" label="商品名称" header-align="center"></el-table-column>
+          <el-table-column prop="name" label="商品名称" align="center"></el-table-column>
           <el-table-column prop="fee" label="商品价格" width="100" align="center"></el-table-column>
           <el-table-column prop="quantity" label="数量" width="100" align="center"></el-table-column>
           <el-table-column prop="totalCost" label="合计金额" width="100" align="center"></el-table-column>
@@ -111,7 +111,7 @@
           <span style="margin-left: 20px">图书运费: {{ form.deliveryFeeBook }}元</span>
         </header>
         <el-table :data="bookTable" border>
-          <el-table-column prop="name" label="商品名称" header-align="center"></el-table-column>
+          <el-table-column prop="name" label="商品名称" align="center"></el-table-column>
           <el-table-column prop="fee" label="商品价格" width="100" align="center"></el-table-column>
           <el-table-column prop="quantity" label="数量" width="100" align="center"></el-table-column>
           <el-table-column prop="totalCost" label="合计金额" width="100" align="center"></el-table-column>
@@ -136,7 +136,7 @@
           <span>电子读物</span>
         </header>
         <el-table :data="spypTable" border>
-          <el-table-column prop="name" label="商品名称" header-align="center"></el-table-column>
+          <el-table-column prop="name" label="商品名称" align="center"></el-table-column>
           <el-table-column prop="fee" label="商品价格" width="100" align="center"></el-table-column>
           <el-table-column prop="quantity" label="数量" width="100" align="center"></el-table-column>
           <el-table-column prop="totalCost" label="合计金额" width="100" align="center"></el-table-column>

@@ -80,8 +80,8 @@
             <img :src="scope.row.logo" width="100%">
           </template>
         </el-table-column>
-        <el-table-column prop="typeName"   label="类别"  align="center" width="100"></el-table-column>
-        <el-table-column prop="ageName"    label="年级"></el-table-column>
+        <el-table-column prop="typeName"   label="类别"   align="center" width="100"></el-table-column>
+        <el-table-column prop="ageName"    label="年级"   align="center"></el-table-column>
         <el-table-column prop="fee"        label="价格"   align="center" width="100"  sortable></el-table-column>
         <el-table-column prop="feeUnitNum" label="单位"   align="center" width="100" >
           <template slot-scope="scope">

@@ -69,7 +69,7 @@
           <el-input size="small" v-model="scope.row.ord" @change="ordChange(scope.row)"></el-input>
         </template>
       </el-table-column>
-      <el-table-column prop="name" label="名称" header-align="center"></el-table-column>
+      <el-table-column prop="name" label="名称" align="center"></el-table-column>
       <el-table-column prop="typeName" label="类别" align="center" width="200"></el-table-column>
       <el-table-column prop="ageName" label="适读年龄" align="center" width="300"></el-table-column>
       <el-table-column prop="fee" label="价格" align="center" width="100"></el-table-column>
