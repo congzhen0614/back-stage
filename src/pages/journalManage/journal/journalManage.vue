@@ -43,7 +43,7 @@
           </el-col>
           <el-col :span="4" v-if="havePermission('magazine:copy')">
             <el-form-item label="复制给商家:" label-width="70px">
-              <el-select v-model="search.merchants" :disabled="roleLevel === 3 || roleLevel === 6">
+              <el-select v-model="search.merchants" :disabled="roleLevel === 3 || roleLevel === 4">
                 <el-option :label="item.username" :value="item.id" v-for="item in groupList" :key="item.id"></el-option>
               </el-select>
             </el-form-item>
@@ -51,7 +51,6 @@
         </el-row>
         <div class="header-button-right">
           <el-row>
-            <el-button size="mini" type="primary" plain @click="copyToMagazine" v-if="havePermission('magazine:copy')">批量复制</el-button>
             <el-button size="mini" type="primary" plain @click="loadDate">检索</el-button>
           </el-row>
         </div>
@@ -61,6 +60,7 @@
           <el-button size="mini" type="primary" @click="onUploadImages" v-if="havePermission('magazine:updatelogo')">上传封面图</el-button>
           <el-button size="mini" type="primary" @click="setMagazinePublish(1)" v-if="havePermission('magazine:publish')">批量上架</el-button>
           <el-button size="mini" type="primary" @click="setMagazinePublish(0)" v-if="havePermission('magazine:publish')">批量下架</el-button>
+          <el-button size="mini" type="primary" @click="copyToMagazine" v-if="havePermission('magazine:copy')">批量复制</el-button>
         </div>
       </el-form>
     </el-header>
@@ -242,7 +242,7 @@ export default {
             this.groupList = res.data.data
           }
         }
-        if (this.roleLevel === 3 || this.roleLevel === 6) {
+        if (this.roleLevel === 3 || this.roleLevel === 4) {
           this.search.merchants = this.groupList[0].id
         }
       }, err => {
