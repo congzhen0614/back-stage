@@ -1,6 +1,6 @@
 <template>
-  <div class="system-account-add">
-    <el-form ref="form" :model="form" label-width="150px" :rules="rules">
+  <div class="system-account-add" >
+    <el-form ref="form" :model="form" label-width="150px" :rules="rules" style="width: 700px">
       <el-form-item label="用户名:">
         <el-input v-model="form.username" prop="name" disabled></el-input>
       </el-form-item>
@@ -112,6 +112,9 @@ export default {
 </script>
 
 <style>
+  .system-account-add {
+    margin-bottom: 50px;
+  }
   .system-account-add .el-tag {
     margin-right: 10px;
   }

@@ -7,15 +7,15 @@
             <el-input v-model="search.name"></el-input>
           </el-form-item>
         </el-col>
-        <el-col :span="3">
-          <el-form-item label="是否上架:" label-width="60px">
-            <el-select v-model="search.isSale">
-              <el-option label="全部" :value="''"></el-option>
-              <el-option label="是" :value="1"></el-option>
-              <el-option label="否" :value="0"></el-option>
-            </el-select>
-          </el-form-item>
-        </el-col>
+        <!--<el-col :span="3">-->
+          <!--<el-form-item label="是否上架:" label-width="60px">-->
+            <!--<el-select v-model="search.isSale">-->
+              <!--<el-option label="全部" :value="''"></el-option>-->
+              <!--<el-option label="是" :value="1"></el-option>-->
+              <!--<el-option label="否" :value="0"></el-option>-->
+            <!--</el-select>-->
+          <!--</el-form-item>-->
+        <!--</el-col>-->
         <el-col :span="3">
           <el-form-item label="类别:" label-width="40px">
             <el-select v-model="search.typeId">

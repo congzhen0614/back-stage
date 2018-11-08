@@ -60,7 +60,7 @@
       <el-table-column prop="enrollment"   label="入学年份" align="center" width="100"></el-table-column>
       <el-table-column prop="haveTrade"    label="是否消费" align="center" width="100">
         <template slot-scope="scope">
-          <span>{{ scope.row.haveTrade === 0 ? '无订单' : '有订单' }}</span>
+          <span>{{ scope.row.consumed === 0 ? '否' : '是' }}</span>
         </template>
       </el-table-column>
       <el-table-column prop="createdTime"  label="添加日期" align="center" width="150"></el-table-column>
