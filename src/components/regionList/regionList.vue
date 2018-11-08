@@ -3,14 +3,16 @@
     <el-select v-model="province" placeholder="请选择省">
       <el-option v-for="item in provinceList" :key="item.id" :label="item.name" :value="item.id"></el-option>
     </el-select>
-    <el-select v-model="cities" multiple placeholder="请选择市" :disabled="cityList.length === 0" @remove-tag="onCloseCity">
-      <el-option label="全选" value="all"></el-option>
-      <el-option v-for="item in cityList" :key="item.id" :label="item.name" :value="item.id"></el-option>
-    </el-select>
-    <el-select v-model="regions" multiple placeholder="请选择区" :disabled="regionList.length === 0">
-      <el-option label="全选" value="all"></el-option>
-      <el-option v-for="(item, index) in regionList" :key="index" :label="item.name" :value="item.id"></el-option>
-    </el-select>
+    <!--<el-select v-model="cities" multiple placeholder="请选择市" :disabled="cityList.length === 0" @remove-tag="onCloseCity">-->
+      <!--<el-option label="全选" value="all"></el-option>-->
+      <!--<el-option v-for="item in cityList" :key="item.id" :label="item.name" :value="item.id"></el-option>-->
+    <!--</el-select>-->
+    <!--<el-select v-model="regions" multiple placeholder="请选择区" :disabled="regionList.length === 0">-->
+      <!--<el-option label="全选" value="all"></el-option>-->
+      <!--<el-option v-for="(item, index) in regionList" :key="index" :label="item.name" :value="item.id"></el-option>-->
+    <!--</el-select>-->
+    <el-transfer style="margin-top: 10px" v-model="cities"  :data="cityList"   :titles="['待选城市', '选中城市']"></el-transfer>
+    <el-transfer style="margin-top: 10px" v-model="regions" :data="regionList" :titles="['待选地区', '选中地区']"></el-transfer>
   </div>
 </template>
 
@@ -66,7 +68,13 @@ export default {
     loadCities (id) {
       this.$axios.cities({id: id}).then(res => {
         if (res.data.code === '0') {
-          this.cityList = res.data.data
+          this.cityList = []
+          res.data.data.forEach(item => {
+            this.cityList.push({
+              label: item.name,
+              key: item.id
+            })
+          })
         } else {
           this.$message.error(res.data.msg)
         }
@@ -80,7 +88,10 @@ export default {
       this.$axios.regions({id: id}).then(res => {
         if (res.data.code === '0') {
           res.data.data.forEach(item => {
-            this.regionList.push(item)
+            this.regionList.push({
+              label: item.name,
+              key: item.id
+            })
           })
         } else {
           this.$message.error(res.data.msg)

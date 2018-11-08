@@ -1,6 +1,6 @@
 <template>
   <div class="system-account-add">
-    <el-form ref="form" :model="form" label-width="150px" :rules="rules" style="width: 650px">
+    <el-form ref="form" :model="form" label-width="150px" :rules="rules">
       <el-form-item label="用户名:">
         <el-input v-model="form.username" prop="name" disabled></el-input>
       </el-form-item>
@@ -31,7 +31,7 @@
       </el-form-item>
     </el-form>
     <footer class="footer-button">
-      <el-button size="mini" type="primary" @click="onSubmit">立即修改</el-button>
+      <el-button size="mini" type="primary" @click="onSubmit">保存提交</el-button>
       <el-button size="mini" @click="goBack">取消</el-button>
     </footer>
   </div>
@@ -72,7 +72,6 @@ export default {
       }
     }
   },
-  mounted () {},
   methods: {
     province (val) {
       this.form.provinceId = parseInt(val)

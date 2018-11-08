@@ -70,7 +70,10 @@ export default new Router({
     children: [{
       path: '/journalManage',
       name: '杂志管理',
-      component: journalManage
+      component: journalManage,
+      meta: {
+        keepAlive: false
+      }
     }, {
       path: '/addNewJournal',
       name: '添加杂志',
