@@ -5,17 +5,17 @@
   </header>
     <el-main>
       <el-table ref="multipleTable" :data="tableList" tooltip-effect="dark" style="width: 100%" :height="windowHeight" border>
-        <el-table-column type="index"        label="序号"              align="center" width="55"></el-table-column>
-        <el-table-column prop="name"         label="组织名称" sortable align="center"            ></el-table-column>
-        <el-table-column prop="typeName"     label="组织形式"          align="center" width="200"></el-table-column>
-        <el-table-column prop="linkman"      label="联系人"            align="center" width="200"></el-table-column>
-        <el-table-column prop="phone"        label="联系电话"          align="center" width="200"></el-table-column>
-        <el-table-column prop="contractTime" label="创建时间" sortable align="center" width="200">
+        <el-table-column type="index"        label="序号"               width="55"></el-table-column>
+        <el-table-column prop="name"         label="组织名称" sortable             ></el-table-column>
+        <el-table-column prop="typeName"     label="组织形式"           width="200"></el-table-column>
+        <el-table-column prop="linkman"      label="联系人"             width="200"></el-table-column>
+        <el-table-column prop="phone"        label="联系电话"           width="200"></el-table-column>
+        <el-table-column prop="contractTime" label="创建时间" sortable  width="200">
           <template slot-scope="scope">
             <span>{{ scope.row.contractTime | timeFormat }}</span>
           </template>
         </el-table-column>
-        <el-table-column fixed="right"       label="操作"              align="center" width="150">
+        <el-table-column fixed="right"       label="操作"               width="150">
           <template slot-scope="scope">
             <el-button type="text" size="mini" @click="clickChecke(scope.row)">查看</el-button>
             <el-button type="text" size="mini" @click="clickUpdate(scope.row)" v-if="havePermission('adminGroup:update')">修改</el-button>

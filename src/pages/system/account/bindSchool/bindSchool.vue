@@ -59,7 +59,7 @@
       </el-row>
     </header>
     <el-table :data="schoolList" border :height="windowHeight" @selection-change="handleSelectionChange">
-      <el-table-column type="selection" width="45" align="center"></el-table-column>
+      <el-table-column type="selection" width="45" ></el-table-column>
       <el-table-column prop="name"         label="名称" width="300px"></el-table-column>
       <el-table-column prop="provinceName" label="省份"></el-table-column>
       <el-table-column prop="cityName"     label="城市"></el-table-column>

@@ -68,11 +68,11 @@
           <span>收货信息</span>
         </header>
         <el-table :data="addressTable" border>
-          <el-table-column prop="sendType" label="配送方式" width="100" align="center"></el-table-column>
+          <el-table-column prop="sendType" label="配送方式" width="100" ></el-table-column>
           <el-table-column prop="addressStr" label="收件地址"></el-table-column>
-          <el-table-column prop="name" label="收件人" width="120" align="center"></el-table-column>
-          <el-table-column prop="mobile" label="联系电话" width="200" align="center"></el-table-column>
-          <el-table-column label="操作" width="120" v-if="update" align="center">
+          <el-table-column prop="name" label="收件人" width="120" ></el-table-column>
+          <el-table-column prop="mobile" label="联系电话" width="200" ></el-table-column>
+          <el-table-column label="操作" width="120" v-if="update" >
             <template slot-scope="scope">
               <el-button @click="onAddressUpdate(scope.row)" type="text" size="mini">修改</el-button>
             </template>
@@ -85,16 +85,16 @@
           <span style="margin-left: 20px">杂志运费: {{ form.deliveryFeeMagazine }}元</span>
         </header>
         <el-table :data="magaTable" border>
-          <el-table-column prop="name" label="商品名称" align="center"></el-table-column>
-          <el-table-column prop="fee" label="商品价格" width="100" align="center"></el-table-column>
-          <el-table-column prop="quantity" label="数量" width="100" align="center"></el-table-column>
-          <el-table-column prop="totalCost" label="合计金额" width="100" align="center"></el-table-column>
-          <el-table-column label="商品状态" width="100" align="center">
+          <el-table-column prop="name" label="商品名称" ></el-table-column>
+          <el-table-column prop="fee" label="商品价格" width="100" ></el-table-column>
+          <el-table-column prop="quantity" label="数量" width="100" ></el-table-column>
+          <el-table-column prop="totalCost" label="合计金额" width="100" ></el-table-column>
+          <el-table-column label="商品状态" width="100" >
             <template slot-scope="scope">
               <span>{{ scope.row.refundStatus === 0 ? scope.row.tradeStatusName : scope.row.refundStatusName }}</span>
             </template>
           </el-table-column>
-          <el-table-column label="操作" width="260" v-if="update" align="center">
+          <el-table-column label="操作" width="260" v-if="update" >
             <template slot-scope="scope">
               <el-button @click="onApplyRefund(scope.row)" type="text" size="mini" v-if="scope.row.refundStatus === 0 && havePermission('trade:refundapply')">申请退款</el-button>
               <el-button @click="onCancelRefund(scope.row)" type="text" size="mini" v-if="scope.row.refundStatus === 1 && havePermission('trade:refundcancel')">取消退款</el-button>
@@ -111,18 +111,18 @@
           <span style="margin-left: 20px">图书运费: {{ form.deliveryFeeBook }}元</span>
         </header>
         <el-table :data="bookTable" border>
-          <el-table-column prop="name" label="商品名称" align="center"></el-table-column>
-          <el-table-column prop="fee" label="商品价格" width="100" align="center"></el-table-column>
-          <el-table-column prop="quantity" label="数量" width="100" align="center"></el-table-column>
-          <el-table-column prop="totalCost" label="合计金额" width="100" align="center"></el-table-column>
-          <el-table-column prop="refundStatus" label="商品状态" width="100" align="center">
+          <el-table-column prop="name" label="商品名称" ></el-table-column>
+          <el-table-column prop="fee" label="商品价格" width="100" ></el-table-column>
+          <el-table-column prop="quantity" label="数量" width="100" ></el-table-column>
+          <el-table-column prop="totalCost" label="合计金额" width="100" ></el-table-column>
+          <el-table-column prop="refundStatus" label="商品状态" width="100" >
             <template slot-scope="scope">
               <span>{{ scope.row.refundStatus === 0 ? scope.row.tradeStatusName : scope.row.refundStatusName }}</span>
             </template>
           </el-table-column>
-          <el-table-column prop="refundReason" label="申请退款原因" width="120" align="center"></el-table-column>
-          <el-table-column prop="refundImgs" label="申请退款图片" width="150" align="center"></el-table-column>
-          <el-table-column label="操作" width="200" v-if="update" align="center">
+          <el-table-column prop="refundReason" label="申请退款原因" width="120" ></el-table-column>
+          <el-table-column prop="refundImgs" label="申请退款图片" width="150" ></el-table-column>
+          <el-table-column label="操作" width="200" v-if="update" >
             <template slot-scope="scope">
               <el-button @click="onRepulseRefund(scope.row)" type="text" size="mini" v-if="scope.row.refundStatus === 1 && havePermission('trade:refunded')">拒绝退款</el-button>
               <el-button @click="onRefund(scope.row)" type="text" size="mini" v-if="scope.row.refundStatus === 1 && havePermission('trade:refunded')">同意退款</el-button>
@@ -136,11 +136,11 @@
           <span>电子读物</span>
         </header>
         <el-table :data="spypTable" border>
-          <el-table-column prop="name" label="商品名称" align="center"></el-table-column>
-          <el-table-column prop="fee" label="商品价格" width="100" align="center"></el-table-column>
-          <el-table-column prop="quantity" label="数量" width="100" align="center"></el-table-column>
-          <el-table-column prop="totalCost" label="合计金额" width="100" align="center"></el-table-column>
-          <el-table-column label="商品状态" width="100" align="center">
+          <el-table-column prop="name" label="商品名称" ></el-table-column>
+          <el-table-column prop="fee" label="商品价格" width="100" ></el-table-column>
+          <el-table-column prop="quantity" label="数量" width="100" ></el-table-column>
+          <el-table-column prop="totalCost" label="合计金额" width="100" ></el-table-column>
+          <el-table-column label="商品状态" width="100" >
             <template slot-scope="scope">
               <span>{{ scope.row.refundStatus === 0 ? scope.row.tradeStatusName : scope.row.refundStatusName }}</span>
             </template>

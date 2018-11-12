@@ -46,35 +46,35 @@
       <el-tabs type="border-card">
         <el-tab-pane label="杂志" v-if="magaIds.length > 0">
           <el-table :data="magaIds" style="width: 100%" border>
-            <el-table-column prop="ord" label="排序" width="60" align="center"></el-table-column>
-            <el-table-column prop="name" label="名称" align="center"></el-table-column>
-            <el-table-column prop="typeNames" label="类别" align="center"></el-table-column>
-            <el-table-column prop="ageNames" label="适读年龄" align="center"></el-table-column>
-            <el-table-column label="价格单位" align="center">
+            <el-table-column prop="ord" label="排序" width="60" ></el-table-column>
+            <el-table-column prop="name" label="名称" ></el-table-column>
+            <el-table-column prop="typeNames" label="类别" ></el-table-column>
+            <el-table-column prop="ageNames" label="适读年龄" ></el-table-column>
+            <el-table-column label="价格单位" >
               <template slot-scope="scope">
                 <span>{{ scope.row.feeUnitType }}{{ scope.row.feeUnitNum }}{{ scope.row.feeUnit }}</span>
               </template>
             </el-table-column>
-            <el-table-column prop="giftName" label="礼品" align="center"></el-table-column>
-            <el-table-column prop="fee" label="价格" width="120" align="center"></el-table-column>
+            <el-table-column prop="giftName" label="礼品" ></el-table-column>
+            <el-table-column prop="fee" label="价格" width="120" ></el-table-column>
           </el-table>
         </el-tab-pane>
         <el-tab-pane label="图书" v-if="bookIds.length > 0">
           <el-table :data="bookIds" style="width: 100%" border>
-            <el-table-column prop="ord" label="排序" width="60" align="center"></el-table-column>
-            <el-table-column prop="name" label="名称" align="center"></el-table-column>
-            <el-table-column prop="typeNames" label="类别" align="center"></el-table-column>
-            <el-table-column prop="ageNames" label="适读年龄" align="center"></el-table-column>
-            <el-table-column prop="fee" label="价格" width="120" align="center"></el-table-column>
+            <el-table-column prop="ord" label="排序" width="60" ></el-table-column>
+            <el-table-column prop="name" label="名称" ></el-table-column>
+            <el-table-column prop="typeNames" label="类别" ></el-table-column>
+            <el-table-column prop="ageNames" label="适读年龄" ></el-table-column>
+            <el-table-column prop="fee" label="价格" width="120" ></el-table-column>
           </el-table>
         </el-tab-pane>
         <el-tab-pane label="视听" v-if="spypIds.length > 0">
           <el-table :data="spypIds" style="width: 100%" border>
-            <el-table-column prop="ord" label="排序" width="60" align="center"></el-table-column>
-            <el-table-column prop="name" label="名称" align="center"></el-table-column>
-            <el-table-column prop="typeNames" label="类别" align="center"></el-table-column>
-            <el-table-column prop="ageNames" label="适读年龄" align="center"></el-table-column>
-            <el-table-column prop="fee" label="价格" width="120" align="center"></el-table-column>
+            <el-table-column prop="ord" label="排序" width="60" ></el-table-column>
+            <el-table-column prop="name" label="名称" ></el-table-column>
+            <el-table-column prop="typeNames" label="类别" ></el-table-column>
+            <el-table-column prop="ageNames" label="适读年龄" ></el-table-column>
+            <el-table-column prop="fee" label="价格" width="120" ></el-table-column>
           </el-table>
         </el-tab-pane>
       </el-tabs>

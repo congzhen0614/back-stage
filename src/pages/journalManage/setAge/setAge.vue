@@ -12,9 +12,9 @@
       </el-row>
     </header>
     <el-table :data="tableList" style="width: 100%" :height="windowHeight" border>
-      <el-table-column prop="ord" width="80" align="center" label="排序"></el-table-column>
+      <el-table-column prop="ord" width="80"  label="排序"></el-table-column>
       <el-table-column prop="name" label="名称"></el-table-column>
-      <el-table-column fixed="right" label="操作" width="150" align="center">
+      <el-table-column fixed="right" label="操作" width="150" >
         <template slot-scope="scope">
           <el-button type="text" size="mini" @click="clickUpdate(scope.row)" v-if="havePermission('age:saveOrUpdate')">修改</el-button>
           <el-button type="text" size="mini" @click="clickDelete(scope.row)" v-if="havePermission('age:delete')">删除</el-button>

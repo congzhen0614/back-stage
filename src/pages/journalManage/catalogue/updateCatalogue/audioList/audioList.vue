@@ -13,19 +13,19 @@
       </el-row>
     </el-form>
     <el-table border ref="multipleTable" tooltip-effect="dark" :data="tableList" :height="windowHeight" @select="handleSelection" @select-all="handleSelection">
-      <el-table-column type="selection" width="40" align="center"></el-table-column>
-      <el-table-column prop="ord" type="index" label="排序" width="100" sortable align="center">
+      <el-table-column type="selection" width="40" ></el-table-column>
+      <el-table-column prop="ord" type="index" label="排序" width="100" sortable >
         <template slot-scope="scope">
           <el-input size="small" v-model="scope.row.ord" @change="ordChange(scope.row)"></el-input>
         </template>
       </el-table-column>
-      <el-table-column prop="name" label="视听包名称" align="center"></el-table-column>
-      <el-table-column prop="logo" label="封面图" width="80" align="center">
+      <el-table-column prop="name" label="视听包名称" ></el-table-column>
+      <el-table-column prop="logo" label="封面图" width="80" >
         <template slot-scope="scope">
           <img :src="scope.row.logo" width="100%">
         </template>
       </el-table-column>
-      <el-table-column prop="fee" label="价格" width="100" sortable align="center"></el-table-column>
+      <el-table-column prop="fee" label="价格" width="100" sortable ></el-table-column>
     </el-table>
     <el-pagination
       @size-change="handleSizeChange"

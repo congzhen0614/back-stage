@@ -41,18 +41,18 @@
       </el-form>
     </header>
     <el-table ref="multipleTable" :data="tableList" tooltip-effect="dark" style="width: 100%" :height="windowHeight" border>
-      <el-table-column type="index" width="55" label="序号" align="center"></el-table-column>
-      <el-table-column prop="groupName"              label="所属组织" align="center"></el-table-column>
-      <el-table-column prop="username"               label="用户名"   align="center" width="200"></el-table-column>
-      <el-table-column prop="realname"               label="真实姓名" align="center" width="200"></el-table-column>
-      <el-table-column prop="roleName"               label="角色"     align="center" width="200"></el-table-column>
-      <el-table-column prop="adminAccountStatusDesc" label="账号状态" align="center" width="200"></el-table-column>
-      <el-table-column label="创建时间"                               align="center" width="200">
+      <el-table-column type="index" width="55" label="序号" ></el-table-column>
+      <el-table-column prop="groupName"              label="所属组织" ></el-table-column>
+      <el-table-column prop="username"               label="用户名"    width="200"></el-table-column>
+      <el-table-column prop="realname"               label="真实姓名"  width="200"></el-table-column>
+      <el-table-column prop="roleName"               label="角色"      width="200"></el-table-column>
+      <el-table-column prop="adminAccountStatusDesc" label="账号状态"  width="200"></el-table-column>
+      <el-table-column label="创建时间"                                width="200">
         <template slot-scope="scope">
           <span>{{ scope.row.createdAt | timeFormat }}</span>
         </template>
       </el-table-column>
-      <el-table-column fixed="right"                 label="操作"    align="center" width="300">
+      <el-table-column fixed="right"                 label="操作"     width="300">
         <template slot-scope="scope">
           <el-button type="text" size="mini" @click="checkBind(scope.row)" v-if="havePermission('school:findByAdmin')">查看绑定学校</el-button>
           <el-button type="text" size="mini" @click="clickBind(scope.row)" v-if="havePermission('school:bind')">绑定学校</el-button>

@@ -40,31 +40,31 @@
       </el-form>
     </header>
     <el-table :data="tableData" border :height="windowHeight">
-      <el-table-column prop="parentAccount" label="账号"    align="center"></el-table-column>
-      <el-table-column prop="name"         label="孩子姓名" align="center" width="100"></el-table-column>
-      <el-table-column prop="sex"          label="性别"     align="center" width="100">
+      <el-table-column prop="parentAccount" label="账号"    ></el-table-column>
+      <el-table-column prop="name"         label="孩子姓名"  width="100"></el-table-column>
+      <el-table-column prop="sex"          label="性别"      width="100">
         <template slot-scope="scope">
           <span>{{ scope.row.sex === 0 ? '男' : '女' }}</span>
         </template>
       </el-table-column>
-      <el-table-column prop="provinceName" label="省份"     align="center" width="100"></el-table-column>
-      <el-table-column prop="cityName"     label="城市"     align="center" width="100"></el-table-column>
-      <el-table-column prop="regionName"   label="地区"     align="center" width="100"></el-table-column>
-      <el-table-column prop="schoolName"   label="学校"     align="center"            ></el-table-column>
-      <el-table-column prop="gradeName"    label="年级"     align="center" width="100"></el-table-column>
-      <el-table-column prop="className"    label="班级"     align="center" width="100">
+      <el-table-column prop="provinceName" label="省份"      width="100"></el-table-column>
+      <el-table-column prop="cityName"     label="城市"      width="100"></el-table-column>
+      <el-table-column prop="regionName"   label="地区"      width="100"></el-table-column>
+      <el-table-column prop="schoolName"   label="学校"                 ></el-table-column>
+      <el-table-column prop="gradeName"    label="年级"      width="100"></el-table-column>
+      <el-table-column prop="className"    label="班级"      width="100">
         <template slot-scope="scope">
           <span>{{ scope.row.className || scope.row.defaultClassName }}</span>
         </template>
       </el-table-column>
-      <el-table-column prop="enrollment"   label="入学年份" align="center" width="100"></el-table-column>
-      <el-table-column prop="haveTrade"    label="是否消费" align="center" width="100">
+      <el-table-column prop="enrollment"   label="入学年份"  width="100"></el-table-column>
+      <el-table-column prop="haveTrade"    label="是否消费"  width="100">
         <template slot-scope="scope">
           <span>{{ scope.row.consumed === 0 ? '否' : '是' }}</span>
         </template>
       </el-table-column>
-      <el-table-column prop="createdTime"  label="添加日期" align="center" width="150"></el-table-column>
-      <el-table-column label="操作" align="center" width="100">
+      <el-table-column prop="createdTime"  label="添加日期"  width="150"></el-table-column>
+      <el-table-column label="操作"  width="100">
         <template slot-scope="scope">
           <el-button type="text" size="mini" @click="clickUpdate(scope.row)" v-if="havePermission('child:update')">修改</el-button>
           <el-button type="text" size="mini" @click="clickDelete(scope.row)" v-if="havePermission('child:delete')">删除</el-button>

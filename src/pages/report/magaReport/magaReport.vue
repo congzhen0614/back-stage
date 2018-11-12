@@ -49,10 +49,10 @@
       </el-form>
     </header>
     <el-table :data="tableData" border :height="windowHeight">
-      <el-table-column prop="name"     label="商品名称" align="center"></el-table-column>
-      <el-table-column prop="quantity" label="数量"     align="center" width="200"></el-table-column>
-      <el-table-column prop="fee"      label="单价"     align="center" width="200"></el-table-column>
-      <el-table-column prop="totalFee" label="总价"     align="center" width="200"></el-table-column>
+      <el-table-column prop="name"     label="商品名称" ></el-table-column>
+      <el-table-column prop="quantity" label="数量"      width="200"></el-table-column>
+      <el-table-column prop="fee"      label="单价"      width="200"></el-table-column>
+      <el-table-column prop="totalFee" label="总价"      width="200"></el-table-column>
     </el-table>
     <el-pagination
       @size-change="handleSizeChange"

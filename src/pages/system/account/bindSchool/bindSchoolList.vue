@@ -48,25 +48,25 @@
       </el-form>
     </header>
     <el-table :data="schoolList" border :height="windowHeight" @selection-change="handleSelectionChange">
-      <el-table-column type="selection" width="55" align="center"></el-table-column>
-      <el-table-column prop="ord" label="排序" width="100" align="center">
+      <el-table-column type="selection" width="55" ></el-table-column>
+      <el-table-column prop="ord" label="排序" width="100" >
         <template slot-scope="scope">
           <el-input size="small" v-model="scope.row.ord" style="text-align: right" @change="ordChange(scope.row)"></el-input>
         </template>
       </el-table-column>
-      <el-table-column prop="name"         label="名称"     align="center" width="300px" show-overflow-tooltip></el-table-column>
-      <el-table-column prop="provinceName" label="省份"     align="center"></el-table-column>
-      <el-table-column prop="cityName"     label="城市"     align="center"></el-table-column>
-      <el-table-column prop="regionName"   label="地区"     align="center"></el-table-column>
-      <el-table-column prop="address"      label="地址"     align="center" width="500px" show-overflow-tooltip></el-table-column>
-      <el-table-column prop="isHighGrade"  label="年级阶段" align="center">
+      <el-table-column prop="name"         label="名称"      width="300px" show-overflow-tooltip></el-table-column>
+      <el-table-column prop="provinceName" label="省份"     ></el-table-column>
+      <el-table-column prop="cityName"     label="城市"     ></el-table-column>
+      <el-table-column prop="regionName"   label="地区"     ></el-table-column>
+      <el-table-column prop="address"      label="地址"      width="500px" show-overflow-tooltip></el-table-column>
+      <el-table-column prop="isHighGrade"  label="年级阶段" >
         <template slot-scope="scope">
           <span v-if="scope.row.isHighGrade === 2">幼儿园</span>
           <span v-if="scope.row.isHighGrade === 0">小学</span>
           <span v-if="scope.row.isHighGrade === 1">初中</span>
         </template>
       </el-table-column>
-      <el-table-column prop="disName" label="是否显示" align="center"></el-table-column>
+      <el-table-column prop="disName" label="是否显示" ></el-table-column>
     </el-table>
     <el-pagination
       @size-change="handleSizeChange"

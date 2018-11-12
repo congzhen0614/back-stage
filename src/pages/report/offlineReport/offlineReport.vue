@@ -46,12 +46,12 @@
       </el-form>
     </header>
     <el-table :data="tableData" border :height="windowHeight">
-      <el-table-column prop="date" label="日期" align="center"></el-table-column>
-      <el-table-column prop="date" label="日期" align="center"></el-table-column>
-      <el-table-column prop="date" label="日期" align="center"></el-table-column>
-      <el-table-column prop="date" label="日期" align="center"></el-table-column>
-      <el-table-column prop="date" label="日期" align="center"></el-table-column>
-      <el-table-column label="操作" align="center" width="80">
+      <el-table-column prop="date" label="日期" ></el-table-column>
+      <el-table-column prop="date" label="日期" ></el-table-column>
+      <el-table-column prop="date" label="日期" ></el-table-column>
+      <el-table-column prop="date" label="日期" ></el-table-column>
+      <el-table-column prop="date" label="日期" ></el-table-column>
+      <el-table-column label="操作"  width="80">
         <template slot-scope="scope">
           <el-button type="text" size="small">修改</el-button>
         </template>

@@ -63,16 +63,16 @@
       :height="windowHeight"
       @select="handleSelection"
       @select-all="handleSelection">
-      <el-table-column type="selection" width="40" align="center"></el-table-column>
-      <el-table-column prop="ord" label="排序" width="100" sortable align="center">
+      <el-table-column type="selection" width="40" ></el-table-column>
+      <el-table-column prop="ord" label="排序" width="100" sortable >
         <template slot-scope="scope">
           <el-input size="small" v-model="scope.row.ord" @change="ordChange(scope.row)"></el-input>
         </template>
       </el-table-column>
-      <el-table-column prop="name" label="名称" align="center"></el-table-column>
-      <el-table-column prop="typeName" label="类别" align="center" width="200"></el-table-column>
-      <el-table-column prop="ageName" label="适读年龄" align="center" width="300"></el-table-column>
-      <el-table-column prop="fee" label="价格" align="center" width="100"></el-table-column>
+      <el-table-column prop="name" label="名称" ></el-table-column>
+      <el-table-column prop="typeName" label="类别"  width="200"></el-table-column>
+      <el-table-column prop="ageName" label="适读年龄"  width="300"></el-table-column>
+      <el-table-column prop="fee" label="价格"  width="100"></el-table-column>
     </el-table>
     <el-pagination
       @size-change="handleSizeChange"
