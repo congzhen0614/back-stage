@@ -4,17 +4,17 @@
       <el-form ref="form" :model="search" label-width="60px">
         <el-row :gutter="20">
           <el-col :span="4">
-            <el-form-item label="名称：" label-width="50px">
+            <el-form-item label="名称：" label-width="60px">
               <el-input v-model="search.name" placeholder="请输入名称筛选"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="4">
-            <el-form-item label="刊号:" label-width="40px">
+            <el-form-item label="刊号:" label-width="50px">
               <el-input v-model="search.issn" placeholder="请输入编号筛选"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="5">
-            <el-form-item label="类别:" label-width="40px">
+            <el-form-item label="类别:" label-width="50px">
               <el-select v-model="search.typeId" style="width: 50%; float: left; padding-right: 5px">
                 <el-option label="全部" :value="''"></el-option>
                 <el-option :label="item.name" :value="item.id" v-for="item in typeList" :key="item.id"></el-option>
@@ -26,7 +26,7 @@
             </el-form-item>
           </el-col>
           <el-col :span="3">
-            <el-form-item label="是否上架:">
+            <el-form-item label="是否上架:" label-width="70px">
               <el-select v-model="search.isSale">
                 <el-option label="全部" :value="''"></el-option>
                 <el-option label="是" value="1"></el-option>
@@ -35,14 +35,14 @@
             </el-form-item>
           </el-col>
           <el-col :span="4">
-            <el-form-item label="商家账号:">
+            <el-form-item label="商家账号:" label-width="70px">
               <el-select v-model="search.createUser">
                 <el-option :label="item.username" :value="item.id" v-for="item in accountList" :key="item.id"></el-option>
               </el-select>
             </el-form-item>
           </el-col>
           <el-col :span="4" v-if="havePermission('magazine:copy')">
-            <el-form-item label="复制给商家:" label-width="70px">
+            <el-form-item label="复制给商家:" label-width="80px">
               <el-select v-model="search.merchants" :disabled="roleLevel === 4 || roleLevel === 6">
                 <el-option :label="item.username" :value="item.id" v-for="item in groupList" :key="item.id"></el-option>
               </el-select>

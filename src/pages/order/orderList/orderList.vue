@@ -4,22 +4,22 @@
       <el-form ref="form" :model="search">
         <el-row>
           <el-col :span="6">
-            <el-form-item label="订单号:" label-width="50px">
+            <el-form-item label="订单号:" label-width="60px">
               <el-input v-model="search.no" placeholder="请输入"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="6">
-            <el-form-item label="收货人电话:" label-width="80px">
+            <el-form-item label="收货人电话:" label-width="90px">
               <el-input v-model="search.mobile" placeholder="请输入"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="6">
-            <el-form-item label="订单时间(开始):" label-width="100px">
+            <el-form-item label="订单时间(开始):" label-width="110px">
               <el-date-picker style="width: 100%" v-model="search.startTime" type="date" placeholder="选择日期"></el-date-picker>
             </el-form-item>
           </el-col>
           <el-col :span="6">
-            <el-form-item label="订单时间(结束):" label-width="100px">
+            <el-form-item label="订单时间(结束):" label-width="110px">
               <el-date-picker style="width: 100%" v-model="search.endTime" type="date" placeholder="选择日期"></el-date-picker>
             </el-form-item>
           </el-col>
@@ -48,7 +48,7 @@
             </el-form-item>
           </el-col>
           <el-col :span="4">
-            <el-form-item label="学校:" label-width="45px">
+            <el-form-item label="学校:" label-width="55px">
               <el-select v-model="search.schoolId" placeholder="请选择" filterable style="width: 100%">
                 <el-option label="全部" value=""></el-option>
                 <el-option v-for="item in schoolList" :key="item.schoolId" :label="item.schoolName" :value="item.schoolId"></el-option>
@@ -56,7 +56,7 @@
             </el-form-item>
           </el-col>
           <el-col :span="4">
-            <el-form-item label="年级:" label-width="45px">
+            <el-form-item label="年级:" label-width="55px">
               <el-select v-model="search.gradeId" placeholder="请选择" style="width: 100%">
                 <el-option label="全部" value=""></el-option>
                 <el-option v-for="item in gradeList" :key="item.value" :label="item.name" :value="item.id"></el-option>
@@ -64,7 +64,7 @@
             </el-form-item>
           </el-col>
           <el-col :span="4">
-            <el-form-item label="班级:" label-width="45px">
+            <el-form-item label="班级:" label-width="55px">
               <el-select v-model="search.classId" placeholder="请选择" style="width: 100%">
                 <el-option label="全部" value=""></el-option>
                 <el-option v-for="item in classList" :key="item.value" :label="item.name" :value="item.id"></el-option>
@@ -74,12 +74,12 @@
         </el-row>
         <el-row>
           <el-col :span="6">
-            <el-form-item label="姓名:" label-width="40px">
+            <el-form-item label="姓名:" label-width="50px">
               <el-input v-model="search.childName" placeholder="请输入"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="6">
-            <el-form-item label="订单状态:" label-width="70px">
+            <el-form-item label="订单状态:" label-width="80px">
               <el-select v-model="search.tradeStatus" placeholder="请选择" style="width: 100%">
                 <el-option label="全部" value=""></el-option>
                 <el-option label="待付款" value="1"></el-option>
@@ -92,7 +92,7 @@
             </el-form-item>
           </el-col>
           <el-col :span="6">
-            <el-form-item label="配送方式:" label-width="70px">
+            <el-form-item label="配送方式:" label-width="80px">
               <el-select v-model="search.sendType" placeholder="请选择" style="width: 100%">
                 <el-option label="直送" value="0"></el-option>
                 <el-option label="寄送" value="1"></el-option>
@@ -100,7 +100,7 @@
             </el-form-item>
           </el-col>
           <el-col :span="6">
-            <el-form-item label="产品类型:" label-width="70px">
+            <el-form-item label="产品类型:" label-width="80px">
               <el-select v-model="search.cls" placeholder="请选择" style="width: 100%">
                 <el-option label="全部" value=""></el-option>
                 <el-option label="杂志" value="1"></el-option>
@@ -112,7 +112,7 @@
         </el-row>
         <el-row>
           <el-col :span="6">
-            <el-form-item label="业务员:" label-width="50px">
+            <el-form-item label="业务员:" label-width="60px">
               <el-select v-model="search.adminId" placeholder="请选择">
                 <el-option label="全部" value=""></el-option>
                 <el-option :label="item.realname" :value="item.id" v-for="item in accountList" :key="item.id"></el-option>

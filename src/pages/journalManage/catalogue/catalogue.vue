@@ -1,10 +1,10 @@
 <template>
   <div class="journal-Manage-catalogue">
     <el-header class="journal-Manage-header" style="height: auto">
-      <el-form ref="form" :model="search" label-width="60px">
+      <el-form ref="form" :model="search" label-width="70px">
         <el-row :gutter="10">
           <el-col :span="4">
-            <el-form-item label="名称:" label-width="40px">
+            <el-form-item label="名称:" label-width="50px">
               <el-input v-model="search.title" placeholder="请输入"></el-input>
             </el-form-item>
           </el-col>
@@ -258,15 +258,31 @@ export default {
     onCreate () {
       if (this.seleteIds.length === 0) {
         this.$message.warning('请选择最少一个目录!')
-        return false
-      }
-      if (this.haveQr) return false
-      this.$router.push({
-        path: '/QRenerat',
-        query: {
-          items: JSON.stringify(this.seleteItems)
+      } else {
+        if (!this.haveQr) {
+          this.$axios.itempackUpdateQrcode({ids: this.seleteIds}).then(res => {
+            if (res.data.code === '0') {
+              this.$message.success('操作成功')
+              this.$router.push({
+                path: '/QRlist'
+              })
+              this.loadDate()
+            } else {
+              this.$message.error(res.data.msg)
+            }
+          }, err => {
+            this.$message.error(err)
+          }).catch(err => {
+            this.$message.error(err)
+          })
         }
-      })
+      }
+      // this.$router.push({
+      //   path: '/QRenerat',
+      //   query: {
+      //     items: JSON.stringify(this.seleteItems)
+      //   }
+      // })
     },
     onStar () {
       let param = {
