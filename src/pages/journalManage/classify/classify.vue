@@ -5,14 +5,8 @@
         <el-col :span="4">
           <el-input v-model="search.name" placeholder="请输入名称筛选"></el-input>
         </el-col>
-        <!--<el-col :span="4">-->
-          <!--<el-select v-model="search.cls" placeholder="请选择类别">-->
-            <!--<el-option label="杂志" value="1"></el-option>-->
-            <!--<el-option label="图书" value="2"></el-option>-->
-          <!--</el-select>-->
-        <!--</el-col>-->
         <el-col :span="8">
-          <el-button size="mini" type="primary" plain @click="loadDate">检索</el-button>
+          <el-button size="mini" type="primary" plain @click="clickSearch">检索</el-button>
           <el-button size="mini" type="primary" @click="clickAdd" v-if="havePermission('itemType:add')">添加</el-button>
         </el-col>
       </el-row>
@@ -20,11 +14,6 @@
     <el-table :data="tableList" style="width: 100%" :height="windowHeight" border>
       <el-table-column prop="ord" width="80" align="center" label="排序"></el-table-column>
       <el-table-column prop="name" label="名称"></el-table-column>
-      <!--<el-table-column prop="cls" label="类型">-->
-        <!--<template slot-scope="scope">-->
-          <!--<span>{{ scope.row.cls | clsType }}</span>-->
-        <!--</template>-->
-      <!--</el-table-column>-->
       <el-table-column fixed="right" label="操作" width="150" align="center">
         <template slot-scope="scope">
           <el-button type="text" size="mini" @click="clickUpdate(scope.row)" v-if="havePermission('itemType:update')">修改</el-button>
@@ -35,7 +24,7 @@
     <el-pagination
       @size-change="handleSizeChange"
       @current-change="handleCurrentChange"
-      :current-page="pages.currentPage"
+      :current-page.sync="pages.currentPage"
       :page-size="pages.pageSize"
       :page-sizes="[20, 50, 75, 100]"
       layout="total, sizes, prev, pager, next, jumper"
@@ -45,6 +34,7 @@
 </template>
 
 <script>
+import pages from '@/store/pages/classifyPages.js'
 export default {
   name: 'system-setage',
   components: {},
@@ -54,12 +44,12 @@ export default {
       tableList: [],
       options: [],
       search: {
-        name: ''
+        name: pages.name
       },
       pages: {
         total: 0,
-        pageNum: 1,
-        pageSize: 20
+        pageNum: pages.pageNum,
+        pageSize: pages.pageSize
       }
     }
   },
@@ -87,13 +77,17 @@ export default {
     }
   },
   methods: {
+    clickSearch () {
+      pages.name = this.search.name
+      this.loadDate()
+    },
     loadDate () {
       this.$axios.itemtypeList(this.params).then(res => {
         if (res.data.code === '0') {
           this.tableList = res.data.data.list
           this.pages.total = res.data.data.total
-          this.pages.pageNum = res.data.data.pageNum
-          this.pages.pageSize = res.data.data.pageSize
+          this.pages.pageNum = pages.pageNum
+          this.pages.pageSize = pages.pageSize
         } else {
           this.$message.error(res.data.msg)
         }
@@ -105,10 +99,12 @@ export default {
     },
     handleCurrentChange (val) {
       this.pages.pageNum = val
+      pages.pageNum = val
       this.loadDate()
     },
     handleSizeChange (val) {
       this.pages.pageSize = val
+      pages.pageSize = val
       this.loadDate()
     },
     clickUpdate (item) {

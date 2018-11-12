@@ -44,7 +44,7 @@
               </el-select>
             </el-form-item>
           </el-col>
-          <el-button size="mini" type="primary" plain @click="loadData" style="float: right">检索</el-button>
+          <el-button size="mini" type="primary" plain @click="clickSearch" style="float: right">检索</el-button>
         </el-row>
       </el-form>
     </header>
@@ -73,7 +73,7 @@
     <el-pagination
       @size-change="handleSizeChange"
       @current-change="handleCurrentChange"
-      :current-page="pages.pageNum"
+      :current-page.sync="pages.pageNum"
       :page-size="pages.pageSize"
       :page-sizes="[20, 50, 75, 100]"
       layout="total, sizes, prev, pager, next, jumper"
@@ -83,6 +83,7 @@
 </template>
 
 <script>
+import pages from '@/store/pages/userPages.js'
 export default {
   name: 'user-manage',
   components: {},
@@ -94,19 +95,19 @@ export default {
       regionList: [],
       tableData: [],
       search: {
-        name: '',
-        nickName: '',
-        beginTime: '',
-        endTime: '',
-        provinceId: '',
-        cityId: '',
-        regionId: '',
-        status: ''
+        name: pages.name,
+        nickName: pages.nickName,
+        beginTime: pages.beginTime,
+        endTime: pages.endTime,
+        provinceId: pages.provinceId,
+        cityId: pages.cityId,
+        regionId: pages.regionId,
+        status: pages.status
       },
       pages: {
         total: 0,
-        pageNum: 1,
-        pageSize: 20
+        pageNum: pages.pageNum,
+        pageSize: pages.pageSize
       }
     }
   },
@@ -154,11 +155,24 @@ export default {
     }
   },
   methods: {
+    clickSearch () {
+      pages.name = this.search.name
+      pages.nickName = this.search.nickName
+      pages.beginTime = this.search.beginTime
+      pages.endTime = this.search.endTime
+      pages.provinceId = this.search.provinceId
+      pages.cityId = this.search.cityId
+      pages.regionId = this.search.regionId
+      pages.status = this.search.status
+      this.loadData()
+    },
     loadData () {
       this.$axios.userList(this.params).then(res => {
         if (res.data.code === '0') {
           this.pages.total = res.data.data.total
           this.tableData = res.data.data.list
+          this.pages.pageNum = res.data.data.pageNum
+          this.pages.pageSize = res.data.data.pageSize
         } else {
           this.$message.error(res.data.msg)
         }
@@ -234,10 +248,12 @@ export default {
     },
     handleSizeChange (val) {
       this.pages.pageSize = val
+      pages.pageSize = val
       this.loadData()
     },
     handleCurrentChange (val) {
       this.pages.pageNum = val
+      pages.pageNum = val
       this.loadData()
     },
     cheakChild (item) {

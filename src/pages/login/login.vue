@@ -35,12 +35,12 @@ export default {
     }
   },
   mounted () {
-    document.onkeydown = event => {
-      var e = event || window.event
-      if (e && e.keyCode === 13) {
-        this.clickLogin()
-      }
-    }
+    // document.onkeydown = event => {
+    //   var e = event || window.event
+    //   if (e && e.keyCode === 13) {
+    //     this.clickLogin()
+    //   }
+    // }
   },
   methods: {
     clickLogin () {

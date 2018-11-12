@@ -111,8 +111,8 @@ export default {
         mobile: this.form.mobile, // 手机号
         parent: this.form.parent, // 家长姓名
         relation: this.form.relation, // 关系
-        id: this.$route.query.id, // 孩子id
-        uid: this.$route.query.uid // 所属用户
+        id: JSON.parse(this.$route.query.item).id, // 孩子id
+        uid: JSON.parse(this.$route.query.item).uid // 所属用户
       }
       return param
     },

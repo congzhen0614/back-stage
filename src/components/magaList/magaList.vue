@@ -168,7 +168,7 @@ export default {
       this.historyData.forEach(list => {
         list.forEach(select => {
           this.selectIds.push({
-            cls: 2,
+            cls: 1,
             itemId: select.id,
             ord: parseInt(select.ord)
           })

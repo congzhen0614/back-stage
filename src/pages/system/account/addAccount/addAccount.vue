@@ -164,6 +164,7 @@ export default {
       })
     },
     onSubmit () {
+      console.log(this.form)
       this.$refs.form.validate(valid => {
         if (valid) {
           this.$axios.accountSave(this.form).then(res => {

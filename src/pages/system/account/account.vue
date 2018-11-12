@@ -34,7 +34,7 @@
             </el-form-item>
           </el-col>
           <el-col :span="4" style="margin-top: 7px">
-            <el-button size="mini" type="primary" @click="loadData" plain>检索</el-button>
+            <el-button size="mini" type="primary" @click="clickSearch" plain>检索</el-button>
             <el-button size="mini" type="primary" @click="clickAddnew" v-if="havePermission('account:add')">添加</el-button>
           </el-col>
         </el-row>
@@ -65,8 +65,8 @@
     <el-pagination
       @size-change="handleSizeChange"
       @current-change="handleCurrentChange"
-      :current-page="pages.pageNum"
-      :page-size="pages.pageSize"
+      :current-page.sync="pages.pageNum"
+      :page-size.sync="pages.pageSize"
       :page-sizes="[20, 50, 75, 100]"
       layout="total, sizes, prev, pager, next, jumper"
       :total="pages.total">
@@ -76,6 +76,7 @@
 
 <script>
 import role from '../../../../static/data/role.json'
+import pages from '@/store/pages/accountPages.js'
 export default {
   name: 'system-account',
   components: {},
@@ -84,10 +85,10 @@ export default {
       windowHeight: window.innerHeight - 139 + 'px',
       roleLevel: JSON.parse(localStorage.getItem('user')).roleLevel,
       search: {
-        name: '',
-        groupId: '',
-        roleLevel: '',
-        adminAccountStatus: ''
+        name: pages.name,
+        groupId: pages.groupId,
+        roleLevel: pages.roleLevel,
+        adminAccountStatus: pages.adminAccountStatus
       },
       options: [],
       tableList: [],
@@ -156,11 +157,19 @@ export default {
     }
   },
   methods: {
+    clickSearch () {
+      pages.name = this.search.name
+      pages.groupId = this.search.groupId
+      pages.roleLevel = this.search.roleLevel
+      pages.adminAccountStatus = this.search.adminAccountStatus
+      this.loadData()
+    },
     loadData () {
       this.$axios.accountList(this.params).then(res => {
         this.tableList = res.data.data.list
         this.pages.total = res.data.data.total
-        this.pages.currentPage = res.data.data.pageNum
+        this.pages.pageNum = pages.pageNum
+        this.pages.pageSize = pages.pageSize
       }, err => {
         this.$message.error(err)
       }).catch(err => {
@@ -182,10 +191,12 @@ export default {
     },
     handleCurrentChange (size) {
       this.pages.pageNum = size
+      pages.pageNum = size
       this.loadData()
     },
     handleSizeChange (size) {
       this.pages.pageSize = size
+      pages.pageSize = size
       this.loadData()
     },
     clickAddnew () {

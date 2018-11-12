@@ -43,7 +43,7 @@
           </el-col>
           <el-col :span="4" v-if="havePermission('magazine:copy')">
             <el-form-item label="复制给商家:" label-width="70px">
-              <el-select v-model="search.merchants" :disabled="roleLevel === 3 || roleLevel === 4">
+              <el-select v-model="search.merchants" :disabled="roleLevel === 4 || roleLevel === 6">
                 <el-option :label="item.username" :value="item.id" v-for="item in groupList" :key="item.id"></el-option>
               </el-select>
             </el-form-item>
@@ -51,7 +51,7 @@
         </el-row>
         <div class="header-button-right">
           <el-row>
-            <el-button size="mini" type="primary" plain @click="loadDate">检索</el-button>
+            <el-button size="mini" type="primary" plain @click="clickSearch">检索</el-button>
           </el-row>
         </div>
         <div class="header-button">
@@ -139,6 +139,7 @@
 </template>
 
 <script>
+import pages from '@/store/pages/managePages.js'
 export default {
   name: 'journal-Manage',
   components: {},
@@ -153,18 +154,20 @@ export default {
       groupList: [],
       accountList: [],
       search: {
-        name: '',
-        typeId: '',
-        ageId: '',
-        isSale: ''
+        name: pages.name,
+        issn: pages.issn,
+        ageId: pages.ageId,
+        typeId: pages.typeId,
+        isSale: pages.isSale,
+        createUser: pages.createUser
       },
       tableData: [],
       selectIds: [],
       upLoadUrl: this.$axios.magazineBatch(),
       pages: {
         total: 0,
-        pageNum: 1,
-        pageSize: 20
+        pageNum: pages.pageNum,
+        pageSize: pages.pageSize
       }
     }
   },
@@ -174,7 +177,6 @@ export default {
     this.loadItemtypeList()
     this.loadAdmingroupList()
   },
-  mounted () {},
   computed: {
     params () {
       let Trim = str => {
@@ -198,6 +200,15 @@ export default {
     }
   },
   methods: {
+    clickSearch () {
+      pages.name = this.search.name
+      pages.issn = this.search.issn
+      pages.ageId = this.search.ageId
+      pages.typeId = this.search.typeId
+      pages.isSale = this.search.isSale
+      pages.createUser = this.search.createUser
+      this.loadDate()
+    },
     loadItemageList () {
       this.$axios.itemageListCandidate().then(res => {
         if (res.data.code === '0') {
@@ -242,7 +253,7 @@ export default {
             this.groupList = res.data.data
           }
         }
-        if (this.roleLevel === 3 || this.roleLevel === 4) {
+        if (this.roleLevel === 4 || this.roleLevel === 6) {
           this.search.merchants = this.groupList[0].id
         }
       }, err => {
@@ -256,6 +267,8 @@ export default {
         if (res.data.code === '0') {
           this.tableData = res.data.data.list
           this.pages.total = res.data.data.total
+          this.pages.pageNum = pages.pageNum
+          this.pages.pageSize = pages.pageSize
         } else {
           this.$message.error(res.data.msg)
         }
@@ -267,13 +280,14 @@ export default {
     },
     // 选择每页条数
     handleSizeChange (val) {
+      pages.pageSize = val
       this.pages.pageSize = val
       this.loadDate()
     },
     // 选择第几页
     handleCurrentChange (val) {
+      pages.pageNum = val
       this.pages.pageNum = val
-      localStorage.setItem('pageNum', val)
       this.loadDate()
     },
     // 选择的项目

@@ -110,11 +110,18 @@
             </el-form-item>
           </el-col>
         </el-row>
+        <el-row>
+          <el-col :span="6">
+            <el-form-item label="业务员:" label-width="50px">
+              <el-select v-model="search.adminId" placeholder="请选择">
+                <el-option label="全部" value=""></el-option>
+                <el-option :label="item.realname" :value="item.id" v-for="item in accountList" :key="item.id"></el-option>
+              </el-select>
+            </el-form-item>
+          </el-col>
+          <el-button size="mini" type="primary" plain @click="clickSearch" style="float: right; margin-top: 7px">检索</el-button>
+        </el-row>
       </el-form>
-      <el-row>
-        <el-button size="mini" type="primary" plain @click="loadData" :style="{float: 'right'}">检索</el-button>
-        <!--<el-button type="primary">导出Excel</el-button>-->
-      </el-row>
     </el-header>
     <el-table :data="tableData" style="width: 100%" border :height="windowHeight">
       <el-table-column type="selection" width="45" align="center"></el-table-column>
@@ -124,7 +131,7 @@
           <p class="detail-list" v-for="item in scope.row.tradeDetailViewList" :key="item.id">{{item.name}} (杂志类型:{{item.clsName}},数量:{{item.quantity}})</p>
         </template>
       </el-table-column>
-      <el-table-column prop="totalFee"   label="订单总额" width="100" align="center"></el-table-column>
+      <el-table-column prop="receivables"   label="订单总额" width="100" align="center"></el-table-column>
       <el-table-column prop="user"       label="下单人"   width="170" align="center"></el-table-column>
       <el-table-column prop="username"   label="联系电话" width="150" align="center"></el-table-column>
       <el-table-column prop="createdAt"  label="下单时间" width="200" align="center">
@@ -145,8 +152,8 @@
     </el-table>
     <el-pagination
       :total="pages.total"
-      :page-size="pages.pageSize"
-      :current-page="pages.pageNum"
+      :page-size.sync="pages.pageSize"
+      :current-page.sync="pages.pageNum"
       :page-sizes="[20, 50, 75, 100]"
       layout="total, sizes, prev, pager, next, jumper"
       @size-change="handleSizeChange"
@@ -156,17 +163,29 @@
 </template>
 
 <script>
+import pages from '@/store/pages/orderPages.js'
 export default {
   name: 'order-list',
   components: {},
   data () {
     return {
-      windowHeight: window.innerHeight - 255 + 'px',
+      windowHeight: window.innerHeight - 265 + 'px',
       search: {
-        provinceId: '',
-        cityId: '',
-        regionId: '',
-        childName: ''
+        no: pages.no,
+        mobile: pages.mobile,
+        startTime: pages.startTime,
+        endTime: pages.endTime,
+        provinceId: pages.provinceId,
+        cityId: pages.cityId,
+        regionId: pages.regionId,
+        schoolId: pages.schoolId,
+        gradeId: pages.gradeId,
+        classId: pages.classId,
+        childName: pages.childName,
+        tradeStatus: pages.tradeStatus,
+        sendType: pages.sendType,
+        cls: pages.cls,
+        adminId: pages.adminId
       },
       options: [],
       provinces: [],
@@ -176,10 +195,11 @@ export default {
       gradeList: [],
       classList: [],
       tableData: [],
+      accountList: [],
       pages: {
         total: 0,
-        pageNum: 1,
-        pageSize: 20
+        pageNum: pages.pageNum,
+        pageSize: pages.pageSize
       }
     }
   },
@@ -188,6 +208,7 @@ export default {
     this.loadGradeList()
     this.loadClassList()
     this.loadProvinceList()
+    this.loadAdminList()
   },
   computed: {
     listParams () {
@@ -220,6 +241,7 @@ export default {
         schoolId: this.search.schoolId,
         gradeId: this.search.gradeId,
         classId: this.search.classId,
+        adminId: this.search.adminId,
         childName: Trim(this.search.childName),
         tradeStatus: this.search.tradeStatus,
         startTime: startTime,
@@ -230,11 +252,31 @@ export default {
     }
   },
   methods: {
+    clickSearch () {
+      pages.no = this.search.no
+      pages.mobile = this.search.mobile
+      pages.startTime = this.search.startTime
+      pages.endTime = this.search.endTime
+      pages.provinceId = this.search.provinceId
+      pages.cityId = this.search.cityId
+      pages.regionId = this.search.regionId
+      pages.schoolId = this.search.schoolId
+      pages.gradeId = this.search.gradeId
+      pages.classId = this.search.classId
+      pages.childName = this.search.childName
+      pages.tradeStatus = this.search.tradeStatus
+      pages.sendType = this.search.sendType
+      pages.cls = this.search.cls
+      pages.adminId = this.search.adminId
+      this.loadData()
+    },
     loadData () {
       this.$axios.tradeList(this.listParams).then(res => {
         if (res.data.code === '0') {
           this.tableData = res.data.data.list
           this.pages.total = res.data.data.total
+          this.pages.pageNum = pages.pageNum
+          this.pages.pageSize = pages.pageSize
         } else {
           this.$message.error(res.data.msg)
         }
@@ -332,12 +374,23 @@ export default {
         this.$message.error(err)
       })
     },
+    loadAdminList () {
+      this.$axios.accountListCandidate({groupId: '', level: '', type: ''}).then(res => {
+        this.accountList = res.data.data
+      }, err => {
+        this.$message.error(err)
+      }).catch(err => {
+        this.$message.error(err)
+      })
+    },
     handleCurrentChange (val) {
       this.pages.pageNum = val
+      pages.pageNum = val
       this.loadData()
     },
     handleSizeChange (val) {
       this.pages.pageSize = val
+      pages.pageSize = val
       this.loadData()
     },
     onChecke (item) {

@@ -6,7 +6,7 @@
           <el-input v-model="search.title" placeholder="请输入名称"></el-input>
         </el-col>
         <el-col :span="4">
-          <el-button type="primary" size="mini" plain @click="loadDate">检索</el-button>
+          <el-button type="primary" size="mini" plain @click="clickSearch">检索</el-button>
         </el-col>
       </el-row>
       <el-row style="margin-top: 10px">
@@ -44,7 +44,7 @@
     <el-pagination
       @size-change="handleSizeChange"
       @current-change="handleCurrentChange"
-      :current-page="pages.pageNum"
+      :current-page.sync="pages.pageNum"
       :page-size="pages.pageSize"
       :page-sizes="[20, 50, 75, 100]"
       layout="total, sizes, prev, pager, next, jumper"
@@ -54,6 +54,7 @@
 </template>
 
 <script>
+import pages from '@/store/pages/qrPages.js'
 export default {
   name: 'journal-Manage-catalogue-QRlist',
   components: {},
@@ -63,12 +64,12 @@ export default {
       tableList: [],
       selectIds: [],
       search: {
-        title: ''
+        title: pages.title
       },
       pages: {
         total: 0,
-        pageNum: 1,
-        pageSize: 20
+        pageNum: pages.pageNum,
+        pageSize: pages.pageSize
       }
     }
   },
@@ -94,6 +95,10 @@ export default {
     }
   },
   methods: {
+    clickSearch () {
+      pages.title = this.search.title
+      this.loadDate()
+    },
     handleSelectionChange (val) {
       let ids = []
       val.forEach(item => { ids.push(item.id) })
@@ -104,6 +109,8 @@ export default {
         if (res.data.code === '0') {
           this.tableList = res.data.data.list
           this.pages.total = res.data.data.total
+          this.pages.pageNum = pages.pageNum
+          this.pages.pageSize = pages.pageSize
         } else {
           this.$message.error(res.data.data.msg)
         }
@@ -115,10 +122,12 @@ export default {
     },
     handleCurrentChange (val) {
       this.pages.pageNum = val
+      pages.pageNum = val
       this.loadDate()
     },
     handleSizeChange (val) {
       this.pages.pageSize = val
+      pages.pageSize = val
       this.loadDate()
     },
     clickUpload () {

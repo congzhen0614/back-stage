@@ -227,14 +227,6 @@ export default {
         schoolIds: this.selectIds,
         code: code
       }
-      if (code === 0 && this.isBind) {
-        this.$message.warning('学校已绑定')
-        return
-      }
-      if (code === 1 && this.notBind) {
-        this.$message.warning('学校未绑定')
-        return
-      }
       this.$axios.schoolBind(bindParam).then(res => {
         if (res.data.code === '0') {
           this.$message.success('操作成功!')

@@ -39,7 +39,7 @@
           </el-col>
         </el-row>
       </el-form>
-      <el-button size="mini" type="primary" plain @click="loadSchoolList" style="float: right">检索</el-button>
+      <el-button size="mini" type="primary" plain @click="clickSearch" style="float: right">检索</el-button>
       <el-button size="mini" type="primary" @click="addSchool" v-if="havePermission('school:add')">添加</el-button>
       <el-button size="mini" type="primary" @click="onOrder" v-if="havePermission('school:ord')">排序提交</el-button>
       <el-button size="mini" type="primary" @click="dialogVisible = true" v-if="havePermission('school:batch')">导入学校</el-button>
@@ -92,6 +92,7 @@
 </template>
 
 <script>
+import pages from '@/store/pages/childPages.js'
 export default {
   name: 'system-school',
   data () {
@@ -107,17 +108,17 @@ export default {
       schoolList: [],
       selectIds: [],
       search: {
-        name: '',
-        provinceId: '',
-        cityIds: '',
-        regionIds: '',
-        schoolLevel: '',
-        adminId: ''
+        name: pages.name,
+        provinceId: pages.provinceId,
+        cityIds: pages.cityIds,
+        regionIds: pages.regionIds,
+        schoolLevel: pages.schoolLevel,
+        adminId: pages.adminId
       },
       pages: {
         total: 0,
-        pageNum: 1,
-        pageSize: 20
+        pageNum: pages.pageNum,
+        pageSize: pages.pageSize
       }
     }
   },
@@ -151,6 +152,15 @@ export default {
     }
   },
   methods: {
+    clickSearch () {
+      pages.name = this.search.name
+      pages.provinceId = this.search.provinceId
+      pages.cityIds = this.search.cityIds
+      pages.regionIds = this.search.regionIds
+      pages.schoolLevel = this.search.schoolLevel
+      pages.adminId = this.search.adminId
+      this.loadSchoolList()
+    },
     Trim (str) {
       if (str !== '') {
         return str.replace(/(^\s*)|(\s*$)/g, '')
@@ -222,6 +232,8 @@ export default {
         if (res.data.code === '0') {
           this.schoolList = res.data.data.list
           this.pages.total = res.data.data.total
+          this.pages.pageNum = pages.pageNum
+          this.pages.pageSize = pages.pageSize
         } else {
           this.$message.error(res.data.msg)
         }
@@ -233,10 +245,12 @@ export default {
     },
     handleSizeChange (val) {
       this.pages.pageSize = val
+      pages.pageSize = val
       this.loadSchoolList()
     },
     handleCurrentChange (val) {
       this.pages.pageNum = val
+      pages.pageNum = val
       this.loadSchoolList()
     },
     handleSelectionChange (val) {
@@ -334,16 +348,20 @@ export default {
         this.loadDate()
       } else {
         let str = ''
-        res.data.forEach(item => {
-          str += '第' + item.id + '行'
-          item.list.forEach((list, index) => {
-            if (index + 1 === item.list.length) {
-              str += list.msg + '。'
-            } else {
-              str += list.msg + '，'
-            }
+        if (res.data !== null) {
+          res.data.forEach(item => {
+            str += '第' + item.id + '行'
+            item.list.forEach((list, index) => {
+              if (index + 1 === item.list.length) {
+                str += list.msg + '。'
+              } else {
+                str += list.msg + '，'
+              }
+            })
           })
-        })
+        } else {
+          str = '操作失败!'
+        }
         this.$message.error(str)
       }
     },

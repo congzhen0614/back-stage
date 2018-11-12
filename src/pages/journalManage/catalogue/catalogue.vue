@@ -38,7 +38,7 @@
           </el-col>
         </el-row>
         <div style="float: right">
-          <el-button size="mini" type="primary" plain @click="loadDate">检索</el-button>
+          <el-button size="mini" type="primary" plain @click="clickSearch">检索</el-button>
         </div>
         <div class="header-button">
           <el-button size="mini" type="primary" @click="onAdd" v-if="havePermission('itempack:save')">添加</el-button>
@@ -98,7 +98,7 @@
     <el-pagination
       @size-change="handleSizeChange"
       @current-change="handleCurrentChange"
-      :current-page="pages.pageNum"
+      :current-page.sync="pages.pageNum"
       :page-size="pages.pageSize"
       :page-sizes="[20, 50, 75, 100]"
       layout="total, sizes, prev, pager, next, jumper"
@@ -108,6 +108,7 @@
 </template>
 
 <script>
+import pages from '@/store/pages/cataloguePages.js'
 export default {
   name: 'journal-Manage-catalogue',
   components: {},
@@ -121,12 +122,15 @@ export default {
       accountList: [],
       tableList: [],
       search: {
-        title: ''
+        sub: pages.sub,
+        has: pages.has,
+        title: pages.title,
+        createUser: pages.createUser
       },
       pages: {
         total: 0,
-        pageNum: 1,
-        pageSize: 20
+        pageNum: pages.pageNum,
+        pageSize: pages.pageSize
       }
     }
   },
@@ -155,6 +159,13 @@ export default {
     }
   },
   methods: {
+    clickSearch () {
+      pages.sub = this.search.sub
+      pages.has = this.search.has
+      pages.title = this.search.title
+      pages.createUser = this.search.createUser
+      this.loadDate()
+    },
     loadAdmingroupList () {
       this.$axios.accountListCandidate({groupId: '', level: '', type: ''}).then(res => {
         if (res.data.code === '0') {
@@ -187,10 +198,12 @@ export default {
     },
     handleCurrentChange (val) {
       this.pages.pageNum = val
+      pages.pageNum = val
       this.loadDate()
     },
     handleSizeChange (val) {
       this.pages.pageSize = val
+      pages.pageSize = val
       this.loadDate()
     },
     loadDate () {
@@ -198,6 +211,8 @@ export default {
         if (res.data.code === '0') {
           this.tableList = res.data.data.list
           this.pages.total = res.data.data.total
+          this.pages.pageNum = pages.pageNum
+          this.pages.pageSize = pages.pageSize
         } else {
           this.$message.error(res.data.msg)
         }

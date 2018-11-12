@@ -101,6 +101,7 @@ export default {
       this.$emit('cities', val)
     },
     regions (val) {
+      console.log(val)
       if (val.length > 0) {
         this.$emit('regions', val)
       }

@@ -26,8 +26,8 @@
     <el-pagination
       @size-change="handleSizeChange"
       @current-change="handleCurrentChange"
-      :current-page="pages.pageNum"
-      :page-size="pages.pageSize"
+      :current-page.sync="pages.pageNum"
+      :page-size.sync="pages.pageSize"
       :page-sizes="[20, 50, 75, 100]"
       layout="total, sizes, prev, pager, next, jumper"
       :total="pages.total">
@@ -36,6 +36,7 @@
 </template>
 
 <script>
+import pages from '@/store/pages/organizaPages.js'
 export default {
   name: 'system-organiza',
   data () {
@@ -44,8 +45,8 @@ export default {
       tableList: [],
       pages: {
         total: 0,
-        pageNum: 1,
-        pageSize: 20
+        pageNum: pages.pageNum,
+        pageSize: pages.pageSize
       },
       deleParams: {
         code: '',
@@ -79,6 +80,8 @@ export default {
         if (res.data.code === '0') {
           this.tableList = res.data.data.list
           this.pages.total = res.data.data.total
+          this.pages.pageNum = pages.pageNum
+          this.pages.pageSize = pages.pageSize
         } else {
           this.$message.error(res.data.msg)
         }
@@ -89,11 +92,13 @@ export default {
       })
     },
     handleCurrentChange (size) {
-      this.pages.currentPage = size
+      this.pages.pageNum = size
+      pages.pageNum = size
       this.loadData()
     },
     handleSizeChange (size) {
       this.pages.pageSize = size
+      pages.pageSize = size
       this.loadData()
     },
     clickAddnew () {
