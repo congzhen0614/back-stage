@@ -73,7 +73,7 @@ export default {
       }
     }
   },
-  mounted () {
+  created () {
     this.loadDate()
   },
   computed: {

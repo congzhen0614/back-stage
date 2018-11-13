@@ -95,12 +95,13 @@ export default {
       groupList: [],
       pages: {
         total: 0,
-        pageNum: 1,
-        pageSize: 20
+        pageNum: pages.pageNum,
+        pageSize: pages.pageSize
       }
     }
   },
-  mounted () {
+  created () {
+    console.log(pages.pageNum)
     this.loadData()
     this.loadAdmingroupList()
   },

@@ -93,7 +93,7 @@ export default {
     return {
       isBind: false,
       notBind: false,
-      windowHeight: window.innerHeight - 238 + 'px',
+      windowHeight: window.innerHeight - 208 + 'px',
       cityIds: [],
       regionIds: [],
       search: {
