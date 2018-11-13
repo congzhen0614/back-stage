@@ -149,6 +149,9 @@ input {
   font-size: 12px;
   height: 30px;
 }
+.app .el-input--suffix .el-input__inner {
+  padding-right: 0px;
+}
 .app .el-form-item {
   margin-bottom: 10px;
 }

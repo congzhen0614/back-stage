@@ -2,7 +2,7 @@
   <div class="journal-Manage">
     <el-header class="journal-Manage-header" style="height: auto">
       <el-form ref="form" :model="search" label-width="60px">
-        <el-row :gutter="20">
+        <el-row>
           <el-col :span="4">
             <el-form-item label="名称：" label-width="60px">
               <el-input v-model="search.name" placeholder="请输入名称筛选"></el-input>

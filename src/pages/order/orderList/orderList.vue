@@ -15,12 +15,12 @@
           </el-col>
           <el-col :span="6">
             <el-form-item label="订单时间(开始):" label-width="110px">
-              <el-date-picker style="width: 100%" v-model="search.startTime" type="date" placeholder="选择日期"></el-date-picker>
+              <el-date-picker style="width: 100%" v-model="search.startTime" type="date" placeholder="开始日期"></el-date-picker>
             </el-form-item>
           </el-col>
           <el-col :span="6">
             <el-form-item label="订单时间(结束):" label-width="110px">
-              <el-date-picker style="width: 100%" v-model="search.endTime" type="date" placeholder="选择日期"></el-date-picker>
+              <el-date-picker style="width: 100%" v-model="search.endTime" type="date" placeholder="结束日期"></el-date-picker>
             </el-form-item>
           </el-col>
         </el-row>
@@ -36,6 +36,7 @@
           <el-col :span="4">
             <el-form-item>
               <el-select v-model="search.cityId" placeholder="请选择市" @change="selectCity" style="width: 100%">
+                <el-option label="全部" value=""></el-option>
                 <el-option v-for="item in cities" :key="item.id" :label="item.name" :value="item.id"></el-option>
               </el-select>
             </el-form-item>
@@ -43,6 +44,7 @@
           <el-col :span="4">
             <el-form-item>
               <el-select v-model="search.regionId" placeholder="请选择区" style="width: 100%">
+                <el-option label="全部" value=""></el-option>
                 <el-option v-for="item in regions" :key="item.id" :label="item.name" :value="item.id"></el-option>
               </el-select>
             </el-form-item>

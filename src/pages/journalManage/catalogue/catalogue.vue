@@ -2,13 +2,13 @@
   <div class="journal-Manage-catalogue">
     <el-header class="journal-Manage-header" style="height: auto">
       <el-form ref="form" :model="search" label-width="70px">
-        <el-row :gutter="10">
-          <el-col :span="4">
+        <el-row>
+          <el-col :span="6">
             <el-form-item label="名称:" label-width="50px">
               <el-input v-model="search.title" placeholder="请输入"></el-input>
             </el-form-item>
           </el-col>
-          <el-col :span="4">
+          <el-col :span="6">
             <el-form-item label="征订状态:">
               <el-select v-model="search.sub">
                 <el-option label="全部" :value="''"></el-option>
@@ -17,7 +17,7 @@
               </el-select>
             </el-form-item>
           </el-col>
-          <el-col :span="4">
+          <el-col :span="6">
             <el-form-item label="生成条码:">
               <el-select v-model="search.has">
                 <el-option label="全部" :value="''"></el-option>
@@ -26,15 +26,13 @@
               </el-select>
             </el-form-item>
           </el-col>
-          <el-col :span="4">
+          <el-col :span="6">
             <el-form-item label="创建人:" label-width="50px">
               <el-select v-model="search.createUser">
                 <el-option label="全部" :value="''"></el-option>
                 <el-option :label="item.username" :value="item.id" v-for="item in accountList" :key="item.id"></el-option>
               </el-select>
             </el-form-item>
-          </el-col>
-          <el-col :span="6">
           </el-col>
         </el-row>
         <div style="float: right">
@@ -376,5 +374,8 @@ export default {
     color: #ffffff;
     border-color: #dedede;
     background-color: #dedede;
+  }
+  .journal-Manage-catalogue .el-select {
+    width: 100%;
   }
 </style>
