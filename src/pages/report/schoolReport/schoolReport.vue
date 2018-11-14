@@ -296,7 +296,7 @@ export default {
 <style>
 .school-report-header {
   width: 100%;
-  padding: 20px;
+  padding: 10px;
   background-color: #F2F6FC;
 }
 .region-select {
