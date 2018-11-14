@@ -1,10 +1,10 @@
 <template>
   <div class="journal-Manage">
     <el-header class="journal-Manage-header" style="height: auto">
-      <el-form ref="form" :model="search" label-width="60px">
+      <el-form ref="form" :model="search">
         <el-row>
           <el-col :span="4">
-            <el-form-item label="名称：" label-width="60px">
+            <el-form-item label="名称：" label-width="50px">
               <el-input v-model="search.name" placeholder="请输入名称筛选"></el-input>
             </el-form-item>
           </el-col>
