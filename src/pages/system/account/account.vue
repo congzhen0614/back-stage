@@ -42,7 +42,7 @@
     </header>
     <el-table ref="multipleTable" :data="tableList" tooltip-effect="dark" style="width: 100%" :height="windowHeight" border>
       <el-table-column type="index" width="55" label="序号" ></el-table-column>
-      <el-table-column prop="groupName"              label="所属组织" ></el-table-column>
+      <el-table-column prop="groupName"              label="所属组织"  min-width="150"></el-table-column>
       <el-table-column prop="username"               label="用户名"    width="200"></el-table-column>
       <el-table-column prop="realname"               label="真实姓名"  width="200"></el-table-column>
       <el-table-column prop="roleName"               label="角色"      width="200"></el-table-column>

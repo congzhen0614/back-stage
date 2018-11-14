@@ -13,8 +13,8 @@
               <el-input v-model="search.issn" placeholder="请输入编号筛选"></el-input>
             </el-form-item>
           </el-col>
-          <el-col :span="5">
-            <el-form-item label="类别:" label-width="50px">
+          <el-col :span="4">
+            <el-form-item label="类别:" label-width="40px">
               <el-select v-model="search.typeId" style="width: 50%; float: left; padding-right: 5px">
                 <el-option label="全部" :value="''"></el-option>
                 <el-option :label="item.name" :value="item.id" v-for="item in typeList" :key="item.id"></el-option>
@@ -25,7 +25,7 @@
               </el-select>
             </el-form-item>
           </el-col>
-          <el-col :span="3">
+          <el-col :span="4">
             <el-form-item label="是否上架:" label-width="70px">
               <el-select v-model="search.isSale">
                 <el-option label="全部" :value="''"></el-option>
@@ -75,14 +75,14 @@
         :height="windowHeight"
         @selection-change="handleSelectionChange">
         <el-table-column type="selection" width="50" ></el-table-column>
-        <el-table-column prop="name"       label="名称"    sortable></el-table-column>
+        <el-table-column prop="name"       label="名称"    sortable min-width="150"></el-table-column>
         <el-table-column                   label="封面图"  width="80">
           <template slot-scope="scope">
             <img :src="scope.row.logo" width="100%">
           </template>
         </el-table-column>
         <el-table-column prop="typeName"   label="类别"    width="100"></el-table-column>
-        <el-table-column prop="ageName"    label="年级"   ></el-table-column>
+        <el-table-column prop="ageName"    label="年级"    min-width="250"></el-table-column>
         <el-table-column prop="fee"        label="价格"    width="100"  sortable></el-table-column>
         <el-table-column prop="feeUnitNum" label="单位"    width="100" >
           <template slot-scope="scope">
@@ -91,7 +91,7 @@
             <span>{{ scope.row.feeUnitName }}</span>
           </template>
         </el-table-column>
-        <el-table-column prop="giftName"   label="礼品"      ></el-table-column>
+        <el-table-column prop="giftName"   label="礼品"      min-width="250"></el-table-column>
         <el-table-column prop="isSale"     label="是否上架"  width="100" >
           <template slot-scope="scope">
             <span v-if="scope.row.isSale === 1">是</span>

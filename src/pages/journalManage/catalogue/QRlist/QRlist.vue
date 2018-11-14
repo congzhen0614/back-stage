@@ -1,7 +1,7 @@
 <template>
   <div class="journal-Manage-catalogue-QRlist">
     <header class="header" style="height: auto">
-      <el-row :gutter="40">
+      <el-row>
         <el-col :span="4">
           <el-input v-model="search.title" placeholder="请输入名称"></el-input>
         </el-col>
@@ -60,7 +60,7 @@ export default {
   components: {},
   data () {
     return {
-      windowHeight: window.innerHeight - 184 + 'px',
+      windowHeight: window.innerHeight - 173 + 'px',
       tableList: [],
       selectIds: [],
       search: {

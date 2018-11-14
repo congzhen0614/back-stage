@@ -40,7 +40,7 @@
       </el-form>
     </header>
     <el-table :data="tableData" border :height="windowHeight">
-      <el-table-column prop="parentAccount" label="账号"    ></el-table-column>
+      <el-table-column prop="parentAccount" label="账号"     min-width="200"></el-table-column>
       <el-table-column prop="name"         label="孩子姓名"  width="100"></el-table-column>
       <el-table-column prop="sex"          label="性别"      width="100">
         <template slot-scope="scope">
@@ -50,7 +50,7 @@
       <el-table-column prop="provinceName" label="省份"      width="100"></el-table-column>
       <el-table-column prop="cityName"     label="城市"      width="100"></el-table-column>
       <el-table-column prop="regionName"   label="地区"      width="100"></el-table-column>
-      <el-table-column prop="schoolName"   label="学校"                 ></el-table-column>
+      <el-table-column prop="schoolName"   label="学校"      min-width="200"></el-table-column>
       <el-table-column prop="gradeName"    label="年级"      width="100"></el-table-column>
       <el-table-column prop="className"    label="班级"      width="100">
         <template slot-scope="scope">
@@ -90,7 +90,7 @@ export default {
   components: {},
   data () {
     return {
-      windowHeight: window.innerHeight - 139 + 'px',
+      windowHeight: window.innerHeight - 145 + 'px',
       provinceList: [],
       citiesList: [],
       regionList: [],

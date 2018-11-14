@@ -1,7 +1,7 @@
 <template>
   <div class="system-classify">
     <header>
-      <el-row :gutter="40">
+      <el-row>
         <el-col :span="4">
           <el-input v-model="search.name" placeholder="请输入名称筛选"></el-input>
         </el-col>
@@ -11,7 +11,7 @@
         </el-col>
       </el-row>
     </header>
-    <el-table :data="tableList" style="width: 100%" :height="windowHeight" border>
+    <el-table border :data="tableList" :height="windowHeight">
       <el-table-column prop="ord" width="80"  label="排序"></el-table-column>
       <el-table-column prop="name" label="名称"></el-table-column>
       <el-table-column fixed="right" label="操作" width="150" >

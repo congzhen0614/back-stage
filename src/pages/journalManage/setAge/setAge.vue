@@ -1,7 +1,7 @@
 <template>
   <div class="system-setage">
     <header>
-      <el-row :gutter="40">
+      <el-row>
         <el-col :span="4">
           <el-input v-model="search.name" placeholder="请输入名称筛选"></el-input>
         </el-col>

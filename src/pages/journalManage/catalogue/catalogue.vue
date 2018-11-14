@@ -57,7 +57,7 @@
       :height="windowHeight"
       @selection-change="handleSelectionChange">
       <el-table-column type="selection" width="55" ></el-table-column>
-      <el-table-column prop="title" label="名称" ></el-table-column>
+      <el-table-column prop="title" label="名称" min-width="150"></el-table-column>
       <el-table-column prop="itemQuantity" label="商品数" width="80" ></el-table-column>
       <el-table-column prop="createdAt" label="创建时间" width="170" >
         <template slot-scope="scope">
