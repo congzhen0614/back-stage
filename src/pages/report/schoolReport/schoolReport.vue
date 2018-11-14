@@ -35,6 +35,12 @@
               </el-select>
             </el-form-item>
           </el-col>
+          <el-col :span="6">
+            <el-form-item label="订单时间:" label-width="60px">
+              <el-date-picker type="date" placeholder="开始日期" v-model="search.startDate" style="width: 49%;"></el-date-picker>
+              <el-date-picker type="date" placeholder="结束日期" v-model="search.endDate" style="width: 49%;"></el-date-picker>
+            </el-form-item>
+          </el-col>
           <el-col :span="4">
             <el-form-item label="是否升年级:" label-width="80px">
               <el-select v-model="search.upgrade" placeholder="请选择销售员">
@@ -42,12 +48,6 @@
                 <el-option label="是" value="1"></el-option>
                 <el-option label="否" value="0"></el-option>
               </el-select>
-            </el-form-item>
-          </el-col>
-          <el-col :span="6">
-            <el-form-item label="订单时间:" label-width="60px">
-              <el-date-picker type="date" placeholder="开始日期" v-model="search.startDate" style="width: 45%;"></el-date-picker>
-              <el-date-picker type="date" placeholder="结束日期" v-model="search.endDate" style="width: 45%;"></el-date-picker>
             </el-form-item>
           </el-col>
         </el-row>

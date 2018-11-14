@@ -25,25 +25,17 @@
           </el-col>
         </el-row>
         <el-row>
-          <el-col :span="4">
-            <el-form-item>
-              <el-select v-model="search.provinceId" placeholder="请选择省" @change="selectProvince" style="width: 100%">
+          <el-col :span="8">
+            <el-form-item label="省/市/区" label-width="60px">
+              <el-select v-model="search.provinceId" placeholder="请选择省" @change="selectProvince" style="width: 32%">
                 <el-option label="全部" value=""></el-option>
                 <el-option v-for="item in provinces" :key="item.id" :label="item.name" :value="item.id"></el-option>
               </el-select>
-            </el-form-item>
-          </el-col>
-          <el-col :span="4">
-            <el-form-item>
-              <el-select v-model="search.cityId" placeholder="请选择市" @change="selectCity" style="width: 100%">
+              <el-select v-model="search.cityId" placeholder="请选择市" @change="selectCity" style="width: 32%">
                 <el-option label="全部" value=""></el-option>
                 <el-option v-for="item in cities" :key="item.id" :label="item.name" :value="item.id"></el-option>
               </el-select>
-            </el-form-item>
-          </el-col>
-          <el-col :span="4">
-            <el-form-item>
-              <el-select v-model="search.regionId" placeholder="请选择区" style="width: 100%">
+              <el-select v-model="search.regionId" placeholder="请选择区" style="width: 32%">
                 <el-option label="全部" value=""></el-option>
                 <el-option v-for="item in regions" :key="item.id" :label="item.name" :value="item.id"></el-option>
               </el-select>
@@ -70,6 +62,14 @@
               <el-select v-model="search.classId" placeholder="请选择" style="width: 100%">
                 <el-option label="全部" value=""></el-option>
                 <el-option v-for="item in classList" :key="item.value" :label="item.name" :value="item.id"></el-option>
+              </el-select>
+            </el-form-item>
+          </el-col>
+          <el-col :span="4">
+            <el-form-item label="业务员:" label-width="60px">
+              <el-select v-model="search.adminId" placeholder="请选择" style="width: 100%">
+                <el-option label="全部" value=""></el-option>
+                <el-option :label="item.realname" :value="item.id" v-for="item in accountList" :key="item.id"></el-option>
               </el-select>
             </el-form-item>
           </el-col>
@@ -113,14 +113,6 @@
           </el-col>
         </el-row>
         <el-row>
-          <el-col :span="6">
-            <el-form-item label="业务员:" label-width="60px">
-              <el-select v-model="search.adminId" placeholder="请选择">
-                <el-option label="全部" value=""></el-option>
-                <el-option :label="item.realname" :value="item.id" v-for="item in accountList" :key="item.id"></el-option>
-              </el-select>
-            </el-form-item>
-          </el-col>
           <el-button size="mini" type="primary" plain @click="clickSearch" style="float: right; margin-top: 7px">检索</el-button>
         </el-row>
       </el-form>

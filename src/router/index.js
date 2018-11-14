@@ -120,7 +120,7 @@ export default new Router({
       component: account
     }, {
       path: '/addAccount',
-      name: '新增账号',
+      name: '创建账号',
       component: addAccount
     }, {
       path: '/updateAccount',

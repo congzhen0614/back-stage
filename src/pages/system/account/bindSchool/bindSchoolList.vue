@@ -3,9 +3,18 @@
     <header class="header">
       <el-form ref="form" :model="search" label-width="75px">
         <el-row :gutter="20">
-          <el-col :span="4">
-            <el-form-item label="商家用户:">
-              <el-input v-model="search.username" disabled placeholder="请输入"></el-input>
+          <el-col :span="6">
+            <el-form-item label="省/市/区:" class="region">
+              <el-select v-model="search.provinceId" disabled>
+                <el-option :label="item.name" :value="item.id" v-for="item in provinceList" :key="item.id"></el-option>
+              </el-select>
+              <el-select v-model="search.cityIds">
+                <el-option label="全部" value=""></el-option>
+                <el-option :label="item.name" :value="item.id" v-for="item in citiesList" :key="item.id"></el-option>
+              </el-select>
+              <el-select v-model="search.regionIds">
+                <el-option :label="item.name" :value="item.id" v-for="item in regionsList" :key="item.id"></el-option>
+              </el-select>
             </el-form-item>
           </el-col>
           <el-col :span="4">
@@ -23,18 +32,9 @@
               </el-select>
             </el-form-item>
           </el-col>
-          <el-col :span="6">
-            <el-form-item label="省/市/区:" class="region">
-              <el-select v-model="search.provinceId" disabled>
-                <el-option :label="item.name" :value="item.id" v-for="item in provinceList" :key="item.id"></el-option>
-              </el-select>
-              <el-select v-model="search.cityIds">
-                <el-option label="全部" value=""></el-option>
-                <el-option :label="item.name" :value="item.id" v-for="item in citiesList" :key="item.id"></el-option>
-              </el-select>
-              <el-select v-model="search.regionIds">
-                <el-option :label="item.name" :value="item.id" v-for="item in regionsList" :key="item.id"></el-option>
-              </el-select>
+          <el-col :span="4">
+            <el-form-item label="商家用户:">
+              <el-input v-model="search.username" disabled placeholder="请输入"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="6" style="margin-top: 6px">
