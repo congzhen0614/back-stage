@@ -37,6 +37,7 @@
           <el-col :span="4">
             <el-form-item label="商家账号:" label-width="70px">
               <el-select v-model="search.createUser">
+                <el-option label="全部" :value="''"></el-option>
                 <el-option :label="item.username" :value="item.id" v-for="item in accountList" :key="item.id"></el-option>
               </el-select>
             </el-form-item>

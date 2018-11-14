@@ -86,8 +86,9 @@
                 <el-option label="全部" value=""></el-option>
                 <el-option label="待付款" value="1"></el-option>
                 <el-option label="已付款" value="2"></el-option>
-                <el-option label="已完成" value="14"></el-option>
+                <el-option label="退款中" value="5"></el-option>
                 <el-option label="已退款" value="7"></el-option>
+                <el-option label="已完成" value="14"></el-option>
                 <el-option label="订单已失效" value="-2"></el-option>
                 <el-option label="订单已取消" value="-1"></el-option>
               </el-select>
@@ -117,7 +118,7 @@
         </el-row>
       </el-form>
     </el-header>
-    <el-table :data="tableData" style="width: 100%" border :height="windowHeight">
+    <el-table border :data="tableData" style="width: 100%" :height="windowHeight">
       <el-table-column type="selection" width="45" ></el-table-column>
       <el-table-column prop="no"         label="订单号"  width="200" ></el-table-column>
       <el-table-column prop="tradeDetailViewList" label="订单明细" >
@@ -135,7 +136,7 @@
       </el-table-column>
       <el-table-column prop="tradeStatusName" label="订单状态" width="120" ></el-table-column>
       <el-table-column prop="adminName"  label="业务员"   width="120" ></el-table-column>
-      <el-table-column label="操作" width="200px" >
+      <el-table-column fixed="right" label="操作" width="200px" >
         <template slot-scope="scope">
           <el-button @click="onChecke(scope.row)" type="text" size="mini" v-if="havePermission('trade:list')">查看</el-button>
           <el-button @click="onUpdate(scope.row)" type="text" size="mini" v-if="havePermission('trade:update')">修改</el-button>

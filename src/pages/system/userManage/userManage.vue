@@ -49,7 +49,7 @@
       </el-form>
     </header>
     <el-table :data="tableData" border :height="windowHeight">
-      <el-table-column prop="name"         label="账号"     >
+      <el-table-column prop="name"         label="账号"       width="300">
         <template slot-scope="scope">
           <span>{{ scope.row.name || scope.row.otherAccount }}</span>
         </template>
@@ -63,7 +63,7 @@
       <el-table-column prop="version"      label="版本号"    width="100"></el-table-column>
       <el-table-column prop="createdTime"  label="注册时间"  width="200"></el-table-column>
       <el-table-column prop="statusName"   label="用户状态"  width="100"></el-table-column>
-      <el-table-column                     label="操作"      width="150">
+      <el-table-column fixed="right"       label="操作"      width="150">
         <template slot-scope="scope">
           <el-button type="text" size="mini" @click="cheakChild(scope.row)" v-if="havePermission('child:findbyuid')">查看孩子</el-button>
           <el-button type="text" size="mini" @click="clickDelete(scope.row)" v-if="havePermission('user:delete')">注销</el-button>

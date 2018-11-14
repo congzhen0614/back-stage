@@ -56,7 +56,7 @@
       <el-table-column prop="cityName"     label="城市"     ></el-table-column>
       <el-table-column prop="regionName"   label="地区"     ></el-table-column>
       <el-table-column prop="address"      label="详细地址" ></el-table-column>
-      <el-table-column label="操作"  width="200">
+      <el-table-column fixed="right" label="操作"  width="200">
         <template slot-scope="scope">
           <el-button @click="onChecke(scope.row)" type="text" size="mini" v-if="havePermission('school:admingroup')">查看商家用户</el-button>
           <el-button @click="onUpdate(scope.row)" type="text" size="mini" v-if="havePermission('school:update')">修改</el-button>
