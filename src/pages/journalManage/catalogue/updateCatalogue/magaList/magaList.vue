@@ -31,21 +31,21 @@
     </el-form>
     <el-form ref="form" :model="form" :rules="rules">
       <el-row :gutter="20" class="maga">
-        <el-col :span="4">
+        <el-col :span="6">
           <el-form-item label="商品金额未满:" prop="postageSum" label-width="95px">
-            <el-input v-model="form.postageSum">
+            <el-input v-model="form.postageSum" type="number">
+              <template slot="append">元</template>
+            </el-input>
+          </el-form-item>
+        </el-col>
+        <el-col :span="6">
+          <el-form-item label="将收取运费:" prop="postage" label-width="80px">
+            <el-input v-model="form.postage" type="number">
               <template slot="append">元</template>
             </el-input>
           </el-form-item>
         </el-col>
         <el-col :span="4">
-          <el-form-item label="将收取运费:" prop="postage" label-width="80px">
-            <el-input v-model="form.postage">
-              <template slot="append">元</template>
-            </el-input>
-          </el-form-item>
-        </el-col>
-        <el-col :span="3">
           <el-form-item label="配送方式:" style="margin-bottom: 0; height: 40px" prop="sendType" label-width="80px">
             <el-select v-model="form.sendType">
               <el-option label="直送" :value="0"></el-option>

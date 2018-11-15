@@ -107,7 +107,7 @@ export default {
     width: 650px;
     margin: 0 auto;
     font-size: 32px;
-    margin-top: 280px;
+    margin-top: 15%;
   }
   .el-footer {
     background-color: #F2F6FC;

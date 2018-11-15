@@ -31,16 +31,16 @@
     </el-form>
     <el-form ref="form" :model="form" :rules="rules">
       <el-row :gutter="20" class="book">
-        <el-col :span="4">
+        <el-col :span="6">
           <el-form-item label="商品金额未满:" prop="postageSumBook" label-width="95px">
-            <el-input v-model="form.postageSumBook">
+            <el-input v-model="form.postageSumBook" type="number">
               <template slot="append">元</template>
             </el-input>
           </el-form-item>
         </el-col>
-        <el-col :span="4">
+        <el-col :span="6">
           <el-form-item label="将收取运费:" prop="postageBook" label-width="80px">
-            <el-input v-model="form.postageBook">
+            <el-input v-model="form.postageBook" type="number">
               <template slot="append">元</template>
             </el-input>
           </el-form-item>

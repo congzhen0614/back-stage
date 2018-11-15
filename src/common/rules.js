@@ -12,6 +12,15 @@ let phone = (rule, value, callback) => {
   }
 }
 
+let mPhone = (rule, value, callback) => {
+  let phone = /^(13[0-9]|14[579]|15[0-3,5-9]|16[6]|17[0135678]|18[0-9]|19[89])\d{8}$/
+  if (!phone.test(value)) {
+    callback(new Error('请输入正确手机号'))
+  } else {
+    callback()
+  }
+}
+
 let letterNumber = (rule, value, callback) => {
   let username = /^[0-9a-zA-Z_]{1,}$/
   if (!username.test(value)) {
@@ -65,7 +74,7 @@ let accountRules = {
   realname: [{required: true, message: '请输入真实姓名', trigger: 'blur'}],
   phone: [
     {required: true, message: '请输入联系电话', trigger: 'blur'},
-    {validator: phone, trigger: 'blur'}
+    {validator: mPhone, trigger: 'blur'}
   ],
   roleId: [{required: true, message: '请选择角色', trigger: 'blur'}],
   userId: [{required: true, message: '请选择高级用户', trigger: 'blur'}],
@@ -76,7 +85,10 @@ let ManageCatalogue = {
   title: [{required: true, message: '请输入目录名称', trigger: 'blur'}],
   schoolLevel: [{required: true, message: '请选择学校类型', trigger: 'blur'}],
   linkman: [{required: true, message: '请输入联系人', trigger: 'blur'}],
-  linkmobile: [{required: true, message: '请输入联系电话', trigger: 'blur'}],
+  linkmobile: [
+    {required: true, message: '请输入联系电话', trigger: 'blur'},
+    {validator: mPhone, trigger: 'blur'}
+  ],
   tip: [{required: true, message: '请输入提示语', trigger: 'blur'}, {max: 60, message: '提示语最大长度为60'}],
   remark: [{required: true, message: '请输入备注', trigger: 'blur'}]
 }
