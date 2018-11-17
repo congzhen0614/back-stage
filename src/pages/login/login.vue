@@ -5,7 +5,7 @@
     <img class="sunshine" src="../../assets/login/sunshine.png"/>
     <div class="login">
       <el-card class="box-card" shadow="always">
-        <span class="box-card-header">二维码征订后台</span>
+        <span class="box-card-header">微校网商家服务平台</span>
         <div class="login-box">
           <span>账号</span>
           <input type="text" placeholder="请输入账号" v-model="login.username"/>

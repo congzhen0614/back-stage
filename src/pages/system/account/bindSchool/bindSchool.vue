@@ -5,20 +5,20 @@
         <el-row>
           <el-col :span="8">
             <el-form-item label="省/市/区:" class="region">
-              <el-select v-model="search.provinceId" disabled>
+              <el-select v-model="search.provinceId" disabled style="width: 32%">
                 <el-option :label="item.name" :value="item.id" v-for="item in provinceList" :key="item.id"></el-option>
               </el-select>
-              <el-select v-model="search.cityIds">
+              <el-select v-model="search.cityIds" style="width: 32%">
                 <el-option label="全部" value=""></el-option>
                 <el-option :label="item.name" :value="item.id" v-for="item in citiesList" :key="item.id"></el-option>
               </el-select>
-              <el-select v-model="search.regionIds">
+              <el-select v-model="search.regionIds" style="width: 32%">
                 <el-option label="全部" value=""></el-option>
                 <el-option :label="item.name" :value="item.id" v-for="item in regionsList" :key="item.id"></el-option>
               </el-select>
             </el-form-item>
           </el-col>
-          <el-col :span="3">
+          <el-col :span="5">
             <el-form-item label="学校名称:">
               <el-input v-model="search.name" placeholder="请输入"></el-input>
             </el-form-item>
@@ -47,7 +47,7 @@
               <el-input v-model="search.username" disabled></el-input>
             </el-form-item>
           </el-col>
-          <el-col :span="4" style="margin-top: 7px">
+          <el-col :span="2" style="margin-top: 7px">
             <el-button size="mini" type="primary" plain @click="loadSchoolList">检索</el-button>
           </el-col>
         </el-row>

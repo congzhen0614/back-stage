@@ -35,7 +35,7 @@
           </el-col>
           <el-col :span="4" style="margin-top: 7px">
             <el-button size="mini" type="primary" @click="clickSearch" plain>检索</el-button>
-            <el-button size="mini" type="primary" @click="clickAddnew" v-if="havePermission('account:add')">添加</el-button>
+            <el-button size="mini" type="primary" @click="clickAddnew" v-if="havePermission('account:add')">创建账号</el-button>
           </el-col>
         </el-row>
       </el-form>

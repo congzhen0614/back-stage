@@ -25,6 +25,7 @@
           <img :src="scope.row.qrimg" width="100%"/>
         </template>
       </el-table-column>
+      <el-table-column prop="createUserName" label="创建者账号"  width="100"></el-table-column>
       <el-table-column prop="roleName" label="审核状态"  width="100">
         <template slot-scope="scope">
           <span>{{ scope.row.checkStatus | checkType }}</span>

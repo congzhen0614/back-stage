@@ -16,7 +16,7 @@
           </el-breadcrumb>
         </el-header>
         <el-main class="main-background" v-if="routeList.length === 1" :style="style">
-          <h2>二维码征订后台欢迎您,</h2>
+          <h2>微校网商家服务平台欢迎您,</h2>
           <h1>{{ username }}</h1>
         </el-main>
         <el-main  v-if="routeList.length > 1" :style="{height: windowHeight}">

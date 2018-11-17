@@ -24,7 +24,7 @@
           <el-input v-model="form.phone"></el-input>
         </el-form-item>
         <el-form-item>
-          <el-button size="mini" type="primary" @click="onSubmit">立即创建</el-button>
+          <el-button size="mini" type="primary" @click="onSubmit">保存提交</el-button>
           <el-button size="mini" @click="goBack">取消</el-button>
         </el-form-item>
       </el-form>
@@ -60,7 +60,7 @@ export default {
                 path: '/organiza'
               })
             } else {
-              this.$message.error(res.data.data.msg)
+              this.$message.error(res.data.msg)
             }
           }, err => {
             this.$message.error(err)
