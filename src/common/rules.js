@@ -30,10 +30,24 @@ let letterNumber = (rule, value, callback) => {
   }
 }
 
+let ISSN = (rule, value, callback) => {
+  let username = /^[0-9a-zA-Z_]{1,}$/
+  if (!username.test(value)) {
+    callback(new Error('请输入正确刊号'))
+  } else {
+    callback()
+  }
+}
+
 // 杂志
 let magazineRules = {
-  name: [{required: true, message: '请输入杂志名称', trigger: 'blur'}],
-  issn: [{required: true, message: '请输入杂志刊号', trigger: 'blur'}],
+  name: [
+    {required: true, message: '请输入杂志名称', trigger: 'blur'}
+  ],
+  issn: [
+    {required: true, message: '请输入杂志刊号', trigger: 'blur'},
+    {validator: ISSN, trigger: 'blur'}
+  ],
   typeId: [{required: true, message: '请输入选择产品类别', trigger: 'blur'}],
   ageId: [{required: true, message: '请输入选择适读年龄', trigger: 'blur'}],
   fee: [{required: true, message: '请输入杂志价格', trigger: 'blur'}],

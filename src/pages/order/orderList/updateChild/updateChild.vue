@@ -9,7 +9,7 @@
         </el-col>
         <el-col :span="8">
           <el-form-item label="联系电话:">
-            <el-input v-model="form.childMobile" placeholder="请收入联系电话"></el-input>
+            <el-input v-model="form.childMobile" placeholder="请收入联系电话" type="tel"></el-input>
           </el-form-item>
         </el-col>
       </el-row>

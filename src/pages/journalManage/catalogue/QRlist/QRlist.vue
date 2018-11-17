@@ -132,29 +132,37 @@ export default {
       this.loadDate()
     },
     clickUpload () {
-      window.location.href = location.protocol + `//qrapi.51weixiao.com/qrzd/itempack/qrcode/download/zip/open?ids=${this.selectIds.join(',')}`
+      if (this.selectIds.length === 0) {
+        this.$message.warning('请选择条码')
+      } else {
+        window.location.href = location.protocol + `//qrapi.51weixiao.com/qrzd/itempack/qrcode/download/zip/open?ids=${this.selectIds.join(',')}`
+      }
     },
     clickDelete () {
-      this.$confirm('此操作将永久删除该选项, 是否继续?', '提示', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning'
-      }).then(() => {
-        this.$axios.updateQrcode({ids: this.selectIds}).then(res => {
-          if (res.data.code === '0') {
-            this.$message.success('删除成功!')
-            this.loadDate()
-          } else {
-            this.$message.error(res.data.data.msg)
-          }
-        }, err => {
-          this.$message.error(err)
-        }).catch(err => {
-          this.$message.error(err)
+      if (this.selectIds.length === 0) {
+        this.$message.warning('请选择条码')
+      } else {
+        this.$confirm('此操作将永久删除该选项, 是否继续?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          this.$axios.updateQrcode({ids: this.selectIds}).then(res => {
+            if (res.data.code === '0') {
+              this.$message.success('删除成功!')
+              this.loadDate()
+            } else {
+              this.$message.error(res.data.data.msg)
+            }
+          }, err => {
+            this.$message.error(err)
+          }).catch(err => {
+            this.$message.error(err)
+          })
+        }).catch(() => {
+          this.$message({type: 'info', message: '已取消删除'})
         })
-      }).catch(() => {
-        this.$message({type: 'info', message: '已取消删除'})
-      })
+      }
     },
     uploadLogo (item) {
       this.$router.push({

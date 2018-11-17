@@ -13,7 +13,7 @@
             </el-col>
             <el-col :span="5">
               <el-form-item label="数量:">
-                <el-input v-model="form.quantity" placeholder="请输入数量"></el-input>
+                <el-input v-model="form.quantity" placeholder="请输入数量" type="number"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="5">

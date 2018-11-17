@@ -35,7 +35,7 @@
             </el-select>
           </el-col>
           <el-col :span="7">
-            <el-input v-model="form.feeUnitNum"></el-input>
+            <el-input v-model="form.feeUnitNum" placeholder="数量"></el-input>
           </el-col>
           <el-col :span="7">
             <el-select v-model="form.feeUnit">
@@ -234,6 +234,12 @@ export default {
   }
   .journal-manage-add {
     width: 1000px;
+  }
+  .journal-manage-add strong {
+    font-weight: 600;
+  }
+  .journal-manage-add .ql-snow .ql-tooltip {
+    z-index: 999;
   }
   .journal-manage-add .el-checkbox.el-checkbox {
     width: 170px;

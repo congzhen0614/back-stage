@@ -1,7 +1,7 @@
 <template>
   <div class="system-organiza-add">
     <div class="system-account-add">
-      <el-form ref="form" :model="form" label-width="80px" :rules="rules">
+      <el-form ref="ruleForm" :model="form" label-width="80px" :rules="rules">
         <el-form-item label="组织名称:" prop="name">
           <el-input v-model="form.name" prop="name"></el-input>
         </el-form-item>
@@ -48,24 +48,27 @@ export default {
   created () {
   },
   mounted () {
-    console.log(this.$route.query)
   },
   computed: {},
   methods: {
     onSubmit () {
-      this.$axios.admingroupUpdate(this.form).then(res => {
-        if (res.data.code === '0') {
-          this.$message.success('修改成功')
-          this.$router.push({
-            path: '/organiza'
+      this.$refs.ruleForm.validate(valid => {
+        if (valid) {
+          this.$axios.admingroupUpdate(this.form).then(res => {
+            if (res.data.code === '0') {
+              this.$message.success('修改成功')
+              this.$router.push({
+                path: '/organiza'
+              })
+            } else {
+              this.$message.error(res.data.msg)
+            }
+          }, err => {
+            this.$message.error(err)
+          }).catch(err => {
+            this.$message.error(err)
           })
-        } else {
-          this.$message.error(res.data.msg)
         }
-      }, err => {
-        this.$message.error(err)
-      }).catch(err => {
-        this.$message.error(err)
       })
     },
     goBack () {

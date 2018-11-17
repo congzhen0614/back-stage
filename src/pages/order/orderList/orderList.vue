@@ -13,18 +13,22 @@
               <el-input v-model="search.mobile" placeholder="请输入"></el-input>
             </el-form-item>
           </el-col>
-          <el-col :span="6">
-            <el-form-item label="订单时间(开始):" label-width="110px">
+          <el-col :span="4">
+            <el-form-item label="订单时间:" label-width="70px">
               <el-date-picker style="width: 100%" v-model="search.startTime" type="date" placeholder="开始日期"></el-date-picker>
             </el-form-item>
           </el-col>
-          <el-col :span="6">
-            <el-form-item label="订单时间(结束):" label-width="110px">
+          <el-col :span="3">
+            <el-form-item label="-" label-width="15px">
               <el-date-picker style="width: 100%" v-model="search.endTime" type="date" placeholder="结束日期"></el-date-picker>
             </el-form-item>
           </el-col>
+          <el-col :span="4">
+            <el-button size="mini" type="primary" plain @click="showAll = !showAll" style="margin-top: 7px">{{ showAll ? '收起' : '展开' }}</el-button>
+            <el-button size="mini" type="primary" plain @click="clickSearch" style="margin-top: 7px">检索</el-button>
+          </el-col>
         </el-row>
-        <el-row>
+        <el-row v-if="showAll">
           <el-col :span="8">
             <el-form-item label="省/市/区" label-width="60px">
               <el-select v-model="search.provinceId" placeholder="请选择省" @change="selectProvince" style="width: 32%">
@@ -74,7 +78,7 @@
             </el-form-item>
           </el-col>
         </el-row>
-        <el-row>
+        <el-row v-if="showAll">
           <el-col :span="6">
             <el-form-item label="姓名:" label-width="50px">
               <el-input v-model="search.childName" placeholder="请输入"></el-input>
@@ -113,12 +117,9 @@
             </el-form-item>
           </el-col>
         </el-row>
-        <el-row>
-          <el-button size="mini" type="primary" plain @click="clickSearch" style="float: right; margin-top: 7px">检索</el-button>
-        </el-row>
       </el-form>
     </el-header>
-    <el-table border :data="tableData" style="width: 100%" :height="windowHeight">
+    <el-table border :data="tableData" style="width: 100%" :height="showAll ? showWindowHeight : hideWindowHeight">
       <el-table-column type="selection" width="45" ></el-table-column>
       <el-table-column prop="no"         label="订单号"  width="200" ></el-table-column>
       <el-table-column prop="tradeDetailViewList" label="订单明细" min-width="200" >
@@ -164,7 +165,18 @@ export default {
   components: {},
   data () {
     return {
-      windowHeight: window.innerHeight - 265 + 'px',
+      showWindowHeight: window.innerHeight - 227 + 'px',
+      hideWindowHeight: window.innerHeight - 145 + 'px',
+      showAll: false,
+      options: [],
+      provinces: [],
+      cities: [],
+      regions: [],
+      schoolList: [],
+      gradeList: [],
+      classList: [],
+      tableData: [],
+      accountList: [],
       search: {
         no: pages.no,
         mobile: pages.mobile,
@@ -182,15 +194,6 @@ export default {
         cls: pages.cls,
         adminId: pages.adminId
       },
-      options: [],
-      provinces: [],
-      cities: [],
-      regions: [],
-      schoolList: [],
-      gradeList: [],
-      classList: [],
-      tableData: [],
-      accountList: [],
       pages: {
         total: 0,
         pageNum: pages.pageNum,

@@ -118,19 +118,23 @@ export default {
       this.ypspList = val.items.length > 0 ? val.items : []
     },
     onSave () {
-      this.$axios.itempackUpdate(this.form).then(res => {
-        if (res.data.code === '0') {
-          this.$message.success('修改成功!')
-          this.$router.push({
-            path: '/catalogue'
+      this.$refs.form.validate(valid => {
+        if (valid) {
+          this.$axios.itempackUpdate(this.form).then(res => {
+            if (res.data.code === '0') {
+              this.$message.success('修改成功!')
+              this.$router.push({
+                path: '/catalogue'
+              })
+            } else {
+              this.$message.error(res.data.msg)
+            }
+          }, err => {
+            this.$message.error(err)
+          }).catch(err => {
+            this.$message.error(err)
           })
-        } else {
-          this.$message.error(res.data.msg)
         }
-      }, err => {
-        this.$message.error(err)
-      }).catch(err => {
-        this.$message.error(err)
       })
     },
     goBack () {

@@ -10,17 +10,17 @@
           </el-col>
           <el-col :span="4">
             <el-form-item label="刊号:" label-width="50px">
-              <el-input v-model="search.issn" placeholder="请输入编号筛选"></el-input>
+              <el-input v-model="search.issn" placeholder="请输入刊号筛选"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="4">
             <el-form-item label="类别:" label-width="40px">
               <el-select v-model="search.typeId" style="width: 50%; float: left; padding-right: 5px">
-                <el-option label="全部" :value="''"></el-option>
+                <el-option label="全部类别" :value="''"></el-option>
                 <el-option :label="item.name" :value="item.id" v-for="item in typeList" :key="item.id"></el-option>
               </el-select>
               <el-select v-model="search.ageId" style="width: 50%; float: left; padding-left: 5px">
-                <el-option label="全部" :value="''"></el-option>
+                <el-option label="全部年级" :value="''"></el-option>
                 <el-option :label="item.name" :value="item.id" v-for="item in ageList" :key="item.id"></el-option>
               </el-select>
             </el-form-item>
@@ -76,7 +76,8 @@
         @selection-change="handleSelectionChange">
         <el-table-column type="selection" width="50" ></el-table-column>
         <el-table-column prop="name"       label="名称"    sortable min-width="150"></el-table-column>
-        <el-table-column                   label="封面图"  width="80">
+        <el-table-column prop="issn"       label="刊号"             min-width="150"></el-table-column>
+        <el-table-column                   label="封面图"  width="60">
           <template slot-scope="scope">
             <img :src="scope.row.logo" width="100%">
           </template>

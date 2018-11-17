@@ -3,13 +3,14 @@
     <el-upload
       class="avatar-uploader"
       action="https://app.51weixiao.com/app-api/api/upload"
+      :multiple="true"
       :show-file-list="false"
       :on-success="uploadSuccess"
       :on-error="uploadError">
     </el-upload>
     <quill-editor
-      v-model="content"
       ref="myQuillEditor"
+      v-model="content"
       :options="editorOption"
       @change="onEditorChange($event)"
     >

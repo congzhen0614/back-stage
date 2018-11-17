@@ -12,7 +12,7 @@
         <el-table-column prop="phone"        label="联系电话"           width="200"></el-table-column>
         <el-table-column prop="contractTime" label="创建时间" sortable  width="200">
           <template slot-scope="scope">
-            <span>{{ scope.row.contractTime | timeFormat }}</span>
+            <span>{{ scope.row.createdAt | timeFormat }}</span>
           </template>
         </el-table-column>
         <el-table-column fixed="right"       label="操作"               width="150">

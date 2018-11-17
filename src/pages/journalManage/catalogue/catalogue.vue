@@ -255,7 +255,7 @@ export default {
     },
     onCreate () {
       if (this.seleteIds.length === 0) {
-        this.$message.warning('请选择最少一个目录!')
+        this.$message.warning('请选择书单!')
       } else {
         if (!this.haveQr) {
           this.$axios.itempackUpdateQrcode({ids: this.seleteIds}).then(res => {
@@ -283,40 +283,48 @@ export default {
       // })
     },
     onStar () {
-      let param = {
-        sub: 1,
-        ids: this.seleteIds
-      }
-      this.$axios.itempackUpdatesub(param).then(res => {
-        if (res.data.code === '0') {
-          this.$message.success('操作成功!')
-          this.loadDate()
-        } else {
-          this.$message.error(res.data.msg)
+      if (this.seleteIds.length === 0) {
+        this.$message.warning('请选择书单')
+      } else {
+        let param = {
+          sub: 1,
+          ids: this.seleteIds
         }
-      }, err => {
-        this.$message.error(err)
-      }).catch(err => {
-        this.$message.error(err)
-      })
+        this.$axios.itempackUpdatesub(param).then(res => {
+          if (res.data.code === '0') {
+            this.$message.success('操作成功!')
+            this.loadDate()
+          } else {
+            this.$message.error(res.data.msg)
+          }
+        }, err => {
+          this.$message.error(err)
+        }).catch(err => {
+          this.$message.error(err)
+        })
+      }
     },
     onStop () {
-      let param = {
-        sub: 0,
-        ids: this.seleteIds
-      }
-      this.$axios.itempackUpdatesub(param).then(res => {
-        if (res.data.code === '0') {
-          this.$message.success('操作成功!')
-          this.loadDate()
-        } else {
-          this.$message.error(res.data.msg)
+      if (this.seleteIds.length === 0) {
+        this.$message.warning('请选择书单')
+      } else {
+        let param = {
+          sub: 0,
+          ids: this.seleteIds
         }
-      }, err => {
-        this.$message.error(err)
-      }).catch(err => {
-        this.$message.error(err)
-      })
+        this.$axios.itempackUpdatesub(param).then(res => {
+          if (res.data.code === '0') {
+            this.$message.success('操作成功!')
+            this.loadDate()
+          } else {
+            this.$message.error(res.data.msg)
+          }
+        }, err => {
+          this.$message.error(err)
+        }).catch(err => {
+          this.$message.error(err)
+        })
+      }
     },
     onChecke (item) {
       this.$router.push({
