@@ -1,8 +1,8 @@
 <template>
   <div class="system-serAge-update">
     <el-form ref="form" :model="form" label-width="80px" :rules="rules">
-      <el-form-item label="名称:">
-        <el-input v-model="form.name" prop="name"></el-input>
+      <el-form-item label="名称:" prop="name">
+        <el-input v-model="form.name"></el-input>
       </el-form-item>
       <!--<el-form-item label="类型:">-->
         <!--<el-select v-model="form.cls" placeholder="请选择">-->
@@ -31,7 +31,7 @@ export default {
   data () {
     return {
       form: this.$route.query,
-      rules: rules
+      rules: rules.ageRules
     }
   },
   created () {},

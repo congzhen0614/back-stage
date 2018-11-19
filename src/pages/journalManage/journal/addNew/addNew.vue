@@ -51,7 +51,7 @@
       <el-form-item label="出版时间:">
         <el-input v-model="form.pubdate"></el-input>
       </el-form-item>
-      <el-form-item label="杂志介绍：（必填）" prop="content">
+      <el-form-item label="杂志介绍：（必填）" prop="content" style="margin-bottom: 20px">
         <v-editor @content="content"></v-editor>
       </el-form-item>
       <el-form-item label="杂志亮点:">
@@ -168,6 +168,15 @@ export default {
       })
     },
     onSubmit () {
+      // this.form.name = this.Trim(this.form.name)
+      // this.form.nameShort = this.Trim(this.form.nameShort)
+      // this.form.issn = this.Trim(this.form.issn)
+      // this.form.feeUnitNum = this.Trim(this.form.feeUnitNum)
+      // this.form.press = this.Trim(this.form.press)
+      // this.form.pubdate = this.Trim(this.form.pubdate)
+      // this.form.content = this.Trim(this.form.content)
+      // this.form.memo = this.Trim(this.form.memo)
+      // this.form.giftName = this.Trim(this.form.giftName)
       this.$refs.ruleForm.validate(valid => {
         if (valid) {
           this.$axios.magazineSave(this.params).then(res => {

@@ -87,4 +87,7 @@ export default {
 </script>
 
 <style>
+  .avatar-uploader {
+    display: none;
+  }
 </style>

@@ -19,13 +19,13 @@
         </el-select>
       </el-form-item>
       <el-form-item label="入学年份:" prop="enrollment">
-        <el-select v-model="form.enrollment" placeholder="请选择入学年份">
+        <el-select v-model="form.enrollment" placeholder="请选择入学年份" style="width: 100%">
           <el-option label="全部" value=""></el-option>
           <el-option :label="item" :value="item" v-for="item in enrollmentList" :key="item"></el-option>
         </el-select>
       </el-form-item>
       <el-form-item label="学校:" prop="schoolId">
-        <el-select v-model="form.schoolId" placeholder="请选择学校">
+        <el-select v-model="form.schoolId" placeholder="请选择学校" style="width: 100%">
           <el-option label="全部" value=""></el-option>
           <el-option :label="item.schoolName" :value="item.schoolId" v-for="item in schoolList" :key="item.schoolId"></el-option>
         </el-select>
@@ -58,7 +58,18 @@ export default {
   data () {
     return {
       rules: {
-        name: {required: true, message: '请输入孩子姓名'},
+        name: [
+          {required: true, message: '请输入孩子姓名'},
+          {validator: (rule, value, callback) => {
+            let isNull = /^[ ]+$/
+            if (isNull.test(value)) {
+              callback(new Error('必填项不能全部为空格'))
+            } else {
+              callback()
+            }
+          },
+          trigger: 'blur'}
+        ],
         provinceId: {required: true, message: '请输入省'},
         cityId: {required: true, message: '请输入市'},
         regionId: {required: true, message: '请输入省市区'},

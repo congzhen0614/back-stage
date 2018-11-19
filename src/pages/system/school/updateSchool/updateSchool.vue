@@ -1,10 +1,10 @@
 <template>
   <div class="system-update-school">
-    <el-form ref="form" :model="form" label-width="80px">
-      <el-form-item label="学校名称:">
+    <el-form ref="form" :model="form" label-width="80px" :rules="rules">
+      <el-form-item label="学校名称:" prop="name">
         <el-input v-model="form.name" placeholder="学校名称"></el-input>
       </el-form-item>
-      <el-form-item label="省/市/区:">
+      <el-form-item label="省/市/区:" prop="regionId">
         <el-select v-model="form.provinceId" placeholder="请选择省">
           <el-option :label="item.name" :value="item.id" v-for="item in provinceList" :key="item.id"></el-option>
         </el-select>
@@ -15,10 +15,10 @@
           <el-option :label="item.name" :value="item.id" v-for="item in regionsList" :key="item.id"></el-option>
         </el-select>
       </el-form-item>
-      <el-form-item label="详细地址:">
+      <el-form-item label="详细地址:" prop="address">
         <el-input v-model="form.address" placeholder="请输入详细地址"></el-input>
       </el-form-item>
-      <el-form-item label="学校类别:">
+      <el-form-item label="学校类别:" prop="name">
         <el-select v-model="form.schoolLevel" placeholder="请选择学校类别">
           <el-option label="幼儿园" :value="2"></el-option>
           <el-option label="小学" :value="0"></el-option>
@@ -42,6 +42,36 @@ export default {
       provinceList: [],
       citiesList: [],
       regionsList: [],
+      rules: {
+        name: [
+          {required: true, message: '请输入孩子姓名'},
+          {validator: (rule, value, callback) => {
+            let isNull = /^[ ]+$/
+            if (isNull.test(value)) {
+              callback(new Error('必填项不能全部为空格'))
+            } else {
+              callback()
+            }
+          },
+          trigger: 'blur'}
+        ],
+        provinceId: {required: true, message: '请输入省'},
+        cityId: {required: true, message: '请输入市'},
+        regionId: {required: true, message: '请输入省市区'},
+        address: [
+          {required: true, message: '请输入详细地址'},
+          {validator: (rule, value, callback) => {
+            let isNull = /^[ ]+$/
+            if (isNull.test(value)) {
+              callback(new Error('必填项不能全部为空格'))
+            } else {
+              callback()
+            }
+          },
+          trigger: 'blur'}
+        ],
+        schoolLevel: {required: true, message: '请选择学校类别'}
+      },
       form: {
         id: JSON.parse(this.$route.query.item).id,
         name: JSON.parse(this.$route.query.item).name,

@@ -23,7 +23,7 @@
         </el-checkbox-group>
       </el-form-item>
       <el-form-item label="价格:" prop="fee">
-        <el-input v-model="form.fee"></el-input>
+        <el-input v-model="form.fee" type="number"></el-input>
       </el-form-item>
       <el-form-item label="价格单位:" prop="feeUnitNum">
         <el-row :gutter="10">
@@ -35,7 +35,7 @@
             </el-select>
           </el-col>
           <el-col :span="7">
-            <el-input v-model="form.feeUnitNum"></el-input>
+            <el-input v-model="form.feeUnitNum" type="number"></el-input>
           </el-col>
           <el-col :span="7">
             <el-select v-model="form.feeUnit">
@@ -173,12 +173,12 @@ export default {
       })
     },
     onSubmit () {
-      let ageId = this.form.ageId
-      let typeId = this.form.typeId
-      this.form.ageId = ageId.join(',')
-      this.form.typeId = typeId.join(',')
       this.$refs.ruleForm.validate(valid => {
         if (valid) {
+          let ageId = this.form.ageId
+          let typeId = this.form.typeId
+          this.form.ageId = ageId.join(',')
+          this.form.typeId = typeId.join(',')
           this.$axios.magazineUpdate(this.form).then(res => {
             if (res.data.code === '0') {
               this.$message.success('修改成功!')

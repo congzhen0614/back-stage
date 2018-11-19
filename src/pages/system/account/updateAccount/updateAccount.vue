@@ -1,13 +1,13 @@
 <template>
   <div class="system-account-add" >
     <el-form ref="form" :model="form" label-width="150px" :rules="rules" style="width: 700px">
-      <el-form-item label="用户名:">
-        <el-input v-model="form.username" prop="name" disabled></el-input>
+      <el-form-item label="用户名:" prop="username">
+        <el-input v-model="form.username" disabled></el-input>
       </el-form-item>
-      <el-form-item label="真实姓名:">
+      <el-form-item label="真实姓名:" prop="realname">
         <el-input v-model="form.realname"></el-input>
       </el-form-item>
-      <el-form-item label="联系电话:">
+      <el-form-item label="联系电话:" prop="phone">
         <el-input v-model="form.phone"></el-input>
       </el-form-item>
       <el-form-item label="业务范围:">
@@ -51,7 +51,7 @@ export default {
     return {
       isSuperAdmin: JSON.parse(localStorage.getItem('user')).roleLevel === 1,
       isSelf: JSON.parse(this.$route.query.param).id === JSON.parse(localStorage.getItem('user')).id,
-      rules: rules,
+      rules: rules.accountRules,
       form: {
         id: JSON.parse(this.$route.query.param).id,
         provinceId: JSON.parse(this.$route.query.param).provinceId,

@@ -1,14 +1,14 @@
 <template>
   <div class="update-child">
-    <el-form ref="form" :model="form" label-width="80px">
-      <el-row :gutter="20">
+    <el-form ref="form" :model="form" :rules="rules">
+      <el-row>
         <el-col :span="8">
-          <el-form-item label="收件人:">
+          <el-form-item label="收件人:" label-width="60px" prop="childName">
             <el-input v-model="form.childName" placeholder="请输入收件人"></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="8">
-          <el-form-item label="联系电话:">
+          <el-form-item label="联系电话:" label-width="70px" prop="childMobile">
             <el-input v-model="form.childMobile" placeholder="请收入联系电话" type="tel"></el-input>
           </el-form-item>
         </el-col>
@@ -70,6 +70,32 @@ export default {
       schoolList: [],
       gradeList: [],
       classList: [],
+      rules: {
+        childName: [
+          {required: true, message: '请输入收件人'},
+          {validator: (rule, value, callback) => {
+            let isNull = /^[ ]+$/
+            if (isNull.test(value)) {
+              callback(new Error('必填项不能全部为空格'))
+            } else {
+              callback()
+            }
+          }
+          }
+        ],
+        childMobile: [
+          {required: true, message: '请输入联系电话'},
+          {validator: (rule, value, callback) => {
+            let phone = /^(13[0-9]|14[579]|15[0-3,5-9]|16[6]|17[0135678]|18[0-9]|19[89])\d{8}$/
+            if (!phone.test(value)) {
+              callback(new Error('请输入正确手机号'))
+            } else {
+              callback()
+            }
+          }
+          }
+        ]
+      },
       form: {
         tradeId: this.$route.query.tradeId,
         childMobile: JSON.parse(this.$route.query.item).mobile,

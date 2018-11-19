@@ -21,9 +21,8 @@ Object.keys(custom).forEach(key => {
 })
 
 Vue.use(ElementUI)
-
 Vue.prototype.$axios = api
-
+Vue.prototype.Trim = custom.Trim
 Vue.config.productionTip = false
 
 // 获取router-list

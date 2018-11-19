@@ -68,6 +68,15 @@ let clsType = value => {
   }
 }
 
+let Trim = value => {
+  if (value !== '') {
+    // console.log(value.replace(/(^s*)|(s*$)/g, '').length)
+    return value.replace(/\s+/g, '')
+  } else {
+    return ''
+  }
+}
+
 export {
   dateFormat,
   timeFormat,
@@ -75,5 +84,6 @@ export {
   accountStatus,
   checkType,
   subType,
-  clsType
+  clsType,
+  Trim
 }
