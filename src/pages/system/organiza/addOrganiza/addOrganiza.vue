@@ -12,7 +12,7 @@
           </el-radio-group>
         </el-form-item>
         <el-form-item label="合同时间:" prop="contractTime">
-          <el-date-picker v-model="form.contractTime" type="date" placeholder="选择日期"></el-date-picker>
+          <el-date-picker v-model="form.contractTime" type="date" :picker-options="pickerOptions" placeholder="选择日期"></el-date-picker>
         </el-form-item>
         <el-form-item label="合同签署:" prop="signer">
           <el-input v-model="form.signer"></el-input>
@@ -39,6 +39,11 @@ export default {
   data () {
     return {
       rules: rules.organizeRules,
+      pickerOptions: {
+        disabledDate (time) {
+          return time.getTime() > Date.now() - 8.64e6
+        }
+      },
       form: {
         contractTime: '',
         linkman: '',

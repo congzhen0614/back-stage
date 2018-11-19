@@ -1,14 +1,14 @@
 <template>
   <div class="update-address">
-    <el-form ref="form" :model="form" label-width="80px">
+    <el-form ref="form" :model="form" label-width="80px" :rules="rules">
       <el-row :gutter="20">
         <el-col :span="7">
-          <el-form-item label="收件人:">
+          <el-form-item label="收件人:" prop="consigneeName">
             <el-input v-model="form.consigneeName" placeholder="请输入收件人"></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="7">
-          <el-form-item label="联系电话:">
+          <el-form-item label="联系电话:" prop="consigneeMobile">
             <el-input v-model="form.consigneeMobile" placeholder="请收入联系电话"></el-input>
           </el-form-item>
         </el-col>
@@ -51,6 +51,32 @@ export default {
       citiesList: [],
       regionsList: [],
       sendType: JSON.parse(this.$route.query.item).sendType,
+      rules: {
+        consigneeName: [
+          {required: true, message: '请输入收件人'},
+          {validator: (rule, value, callback) => {
+            let isNull = /^[ ]+$/
+            if (isNull.test(value)) {
+              callback(new Error('必填项不能全部为空格'))
+            } else {
+              callback()
+            }
+          }
+          }
+        ],
+        consigneeMobile: [
+          {required: true, message: '请输入联系电话'},
+          {validator: (rule, value, callback) => {
+            let phone = /^(13[0-9]|14[579]|15[0-3,5-9]|16[6]|17[0135678]|18[0-9]|19[89])\d{8}$/
+            if (!phone.test(value)) {
+              callback(new Error('请输入正确手机号'))
+            } else {
+              callback()
+            }
+          }
+          }
+        ]
+      },
       form: {
         cls: JSON.parse(this.$route.query.item).cls,
         tradeId: this.$route.query.tradeId,
