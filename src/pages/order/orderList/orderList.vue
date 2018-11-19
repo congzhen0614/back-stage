@@ -1,7 +1,7 @@
 <template>
   <div class="order-list">
     <el-header class="order-maga-header" style="height: auto">
-      <el-form ref="form" :model="search">
+      <el-form ref="form" :model="search" size="mini">
         <el-row>
           <el-col :span="6">
             <el-form-item label="订单号:" label-width="60px">
@@ -24,8 +24,8 @@
             </el-form-item>
           </el-col>
           <el-col :span="4">
-            <el-button size="mini" type="primary" plain @click="showAll = !showAll" style="margin-top: 7px">{{ showAll ? '收起' : '展开' }}</el-button>
-            <el-button size="mini" type="primary" plain @click="clickSearch" style="margin-top: 7px">检索</el-button>
+            <el-button size="mini" type="primary" plain @click="showAll = !showAll" style="margin-left: 10px">{{ showAll ? '收起' : '展开' }}</el-button>
+            <el-button size="mini" type="primary" plain @click="clickSearch">检索</el-button>
           </el-col>
         </el-row>
         <el-row v-if="showAll">
@@ -119,7 +119,7 @@
         </el-row>
       </el-form>
     </el-header>
-    <el-table border :data="tableData" style="width: 100%" :height="showAll ? showWindowHeight : hideWindowHeight">
+    <el-table border size="mini" :data="tableData" style="width: 100%" :height="showAll ? showWindowHeight : hideWindowHeight">
       <el-table-column type="selection" width="45" ></el-table-column>
       <el-table-column prop="no"         label="订单号"  width="200" ></el-table-column>
       <el-table-column prop="tradeDetailViewList" label="订单明细" min-width="200" >

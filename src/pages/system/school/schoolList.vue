@@ -1,15 +1,15 @@
 <template>
   <div class="system-school">
     <header class="school-header">
-      <el-form ref="form" :model="search">
+      <el-form ref="form" :model="search" size="mini">
         <el-row>
           <el-col :span="4">
-            <el-form-item label="学校名称:" label-width="60px">
+            <el-form-item label="学校名称:" label-width="70px">
               <el-input v-model="search.name" placeholder="请输入学校名称"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="10" class="school-region">
-            <el-form-item label="省/市/区:" label-width="60px">
+            <el-form-item label="省/市/区:" label-width="70px">
               <el-select v-model="search.provinceId" placeholder="请选择省">
                 <el-option :label="item.name" :value="item.id" v-for="item in provinceList" :key="item.id"></el-option>
               </el-select>
@@ -22,7 +22,7 @@
             </el-form-item>
           </el-col>
           <el-col :span="4">
-            <el-form-item label="年级阶段:" label-width="60px">
+            <el-form-item label="年级阶段:" label-width="70px">
               <el-select v-model="search.schoolLevel" placeholder="年级阶段">
                 <el-option label="幼儿园" :value="2"></el-option>
                 <el-option label="小学" :value="0"></el-option>
@@ -31,7 +31,7 @@
             </el-form-item>
           </el-col>
           <el-col :span="4">
-            <el-form-item label="商家用户:" label-width="60px">
+            <el-form-item label="商家用户:" label-width="70px">
               <el-select v-model="search.adminId" placeholder="商家用户">
                 <el-option :label="item.username" :value="item.id" v-for="item in accountList" :key="item.id"></el-option>
               </el-select>
@@ -44,7 +44,7 @@
       <el-button size="mini" type="primary" @click="onOrder" v-if="havePermission('school:ord')">排序提交</el-button>
       <el-button size="mini" type="primary" @click="dialogVisible = true" v-if="havePermission('school:batch')">导入学校</el-button>
     </header>
-    <el-table :data="schoolList" style="width: 100%" border :height="windowHeight" @selection-change="handleSelectionChange">
+    <el-table size="mini" :data="schoolList" style="width: 100%" border :height="windowHeight" @selection-change="handleSelectionChange">
       <el-table-column type="selection" width="45" ></el-table-column>
       <el-table-column prop="ord" label="排序" width="100" sortable >
         <template slot-scope="scope">

@@ -1,10 +1,10 @@
 <template>
   <div class="area-report">
     <header class="maga-report-header">
-      <el-form ref="form" :model="search">
+      <el-form ref="form" :model="search" size="mini">
         <el-row>
           <el-col :span="8">
-            <el-form-item label="省/市/区:" label-width="60px">
+            <el-form-item label="省/市/区:" label-width="70px">
               <el-select class="region-select" v-model="search.provinceId" placeholder="请选择省" style="width: 32%" :disabled="user.roleLevel !== 1">
                 <el-option label="全部" value=""></el-option>
                 <el-option :label="item.name" :value="item.id" v-for="item in provinceList" :key="item.id"></el-option>
@@ -42,7 +42,7 @@
             </el-form-item>
           </el-col>
           <el-col :span="3">
-            <el-form-item label="配送方式:" label-width="60px">
+            <el-form-item label="配送方式:" label-width="70px">
               <el-select v-model="search.sendType">
                 <el-option label="全部" value=""></el-option>
                 <el-option label="直送" :value="0"></el-option>
@@ -58,7 +58,7 @@
         </el-row>
       </el-form>
     </header>
-    <el-table :data="tableData" border :height="windowHeight">
+    <el-table size="mini" :data="tableData" border :height="windowHeight">
       <el-table-column prop="name"         label="杂志名称" ></el-table-column>
       <el-table-column prop="no"           label="订单号"   ></el-table-column>
       <el-table-column prop="adminName"    label="业务员"    width="100"></el-table-column>

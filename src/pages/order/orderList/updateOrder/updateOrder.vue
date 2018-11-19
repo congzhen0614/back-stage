@@ -2,7 +2,7 @@
   <div class="update-order">
     <header>
       <header class="update-order-heder">
-        <el-form ref="form" :model="form" label-width="80px">
+        <el-form ref="form" :model="form" label-width="80px" size="mini">
           <el-row :gutter="20">
             <el-col :span="5">
               <el-form-item label="商品名称:">
@@ -17,7 +17,7 @@
               </el-form-item>
             </el-col>
             <el-col :span="5">
-              <el-button type="primary" size="mini" style="margin-top: 6px" @click="onAddList">添加选中商品</el-button>
+              <el-button type="primary" size="mini" @click="onAddList">添加选中商品</el-button>
             </el-col>
           </el-row>
         </el-form>
@@ -25,7 +25,7 @@
     </header>
     <main style="padding: 0 20px">
       <template>
-        <el-table :data="tableData" border>
+        <el-table :data="tableData" border size="mini">
           <el-table-column prop="name" label="商品名称"></el-table-column>
           <el-table-column prop="fee" label="商品价格" width="100"></el-table-column>
           <el-table-column prop="quantity" label="数量" width="100"></el-table-column>
@@ -91,7 +91,6 @@ export default {
       let own = false
       if (this.form.quantity === '' || this.form.id === '') return
       this.itemList.forEach(item => {
-        console.log(item)
         if (item.id === this.form.id) {
           formItem = {
             name: item.name,
@@ -103,6 +102,7 @@ export default {
       })
       this.tableData.forEach(item => {
         if (item.id === this.form.id) {
+          item.quantity = this.form.quantity
           own = true
         }
       })

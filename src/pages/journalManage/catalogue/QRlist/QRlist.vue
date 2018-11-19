@@ -3,10 +3,10 @@
     <header class="header" style="height: auto">
       <el-row>
         <el-col :span="4">
-          <el-input v-model="search.title" placeholder="请输入名称"></el-input>
+          <el-input v-model="search.title" placeholder="请输入名称" size="mini"></el-input>
         </el-col>
         <el-col :span="4">
-          <el-button type="primary" size="mini" plain @click="clickSearch">检索</el-button>
+          <el-button type="primary" size="mini" plain @click="clickSearch" style="margin-left: 10px">检索</el-button>
         </el-col>
       </el-row>
       <el-row style="margin-top: 10px">
@@ -14,7 +14,7 @@
         <el-button type="primary" size="mini" @click="clickUpload" v-if="havePermission('itempack:download') ">批量下载</el-button>
       </el-row>
     </header>
-    <el-table border :data="tableList" :height="windowHeight" @selection-change="handleSelectionChange">
+    <el-table border size="mini" :data="tableList" :height="windowHeight" @selection-change="handleSelectionChange">
       <el-table-column type="selection" width="50" ></el-table-column>
       <el-table-column type="index" label="序号"  width="55" ></el-table-column>
       <el-table-column prop="title" label="名称" min-width="150"></el-table-column>

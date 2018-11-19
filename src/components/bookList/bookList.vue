@@ -1,6 +1,6 @@
 <template>
   <div class="bookList">
-    <el-form ref="form" :model="search">
+    <el-form ref="form" :model="search" size="mini">
       <el-row :gutter="20">
         <el-col :span="5">
           <el-form-item label="书名:" label-width="40px">
@@ -24,12 +24,12 @@
             </el-select>
           </el-form-item>
         </el-col>
-        <el-col :span="4" style="margin-top: 7px">
+        <el-col :span="4">
           <el-button size="mini" type="primary" plain @click="loadDate">检索</el-button>
         </el-col>
       </el-row>
     </el-form>
-    <el-form ref="form" :model="form" :rules="rules">
+    <el-form ref="form" :model="form" :rules="rules" size="mini">
       <el-row :gutter="20" class="book">
         <el-col :span="4">
           <el-form-item label="商品金额未满:" prop="postageSumBook" label-width="95px">
@@ -47,7 +47,7 @@
         </el-col>
       </el-row>
     </el-form>
-    <el-table border ref="multipleTable" tooltip-effect="dark" :data="tableList" :height="windowHeight" @select="handleSelection" @select-all="handleSelection">
+    <el-table size="mini" border ref="multipleTable" tooltip-effect="dark" :data="tableList" :height="windowHeight" @select="handleSelection" @select-all="handleSelection">
       <el-table-column type="selection" width="40" ></el-table-column>
       <el-table-column prop="ord" label="排序" width="100" sortable >
         <template slot-scope="scope">

@@ -1,6 +1,6 @@
 <template>
   <div class="journal-manage-add">
-    <el-form ref="ruleForm" :model="form" :rules="rules" label-width="200px">
+    <el-form ref="ruleForm" :model="form" :rules="rules" label-width="200px" size="mini">
       <el-form-item label="名称:" prop="name">
         <el-input v-model="form.name"></el-input>
       </el-form-item>

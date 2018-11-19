@@ -1,6 +1,6 @@
 <template>
   <div class="check-child">
-    <el-table :data="tableData" border>
+    <el-table :data="tableData" border size="mini">
       <el-table-column prop="name"         label="孩子姓名" ></el-table-column>
       <el-table-column prop="provinceName" label="省份"     ></el-table-column>
       <el-table-column prop="cityName"     label="城市"     ></el-table-column>

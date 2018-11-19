@@ -1,26 +1,10 @@
 <template>
   <div class="user-manage">
     <header class="user-manage-header">
-      <el-form ref="form" :model="search">
+      <el-form ref="form" :model="search" size="mini">
         <el-row>
-          <el-col :span="4">
-            <el-form-item label="账号:" label-width="40px">
-              <el-input v-model="search.name" placeholder="请输入账号"></el-input>
-            </el-form-item>
-          </el-col>
-          <el-col :span="4">
-            <el-form-item label="昵称:" label-width="40px">
-              <el-input v-model="search.nickName" placeholder="请输入昵称"></el-input>
-            </el-form-item>
-          </el-col>
-          <el-col :span="6">
-            <el-form-item label="注册时间:" label-width="60px">
-              <el-date-picker type="date" placeholder="开始日期" v-model="search.beginTime" style="width: 48%;"></el-date-picker>
-              <el-date-picker type="date" placeholder="结束日期" v-model="search.endTime" style="width: 48%;"></el-date-picker>
-            </el-form-item>
-          </el-col>
           <el-col :span="7">
-            <el-form-item label="省/市/区:" label-width="60px">
+            <el-form-item label="省/市/区:" label-width="70px">
               <el-select style="width: 32%" v-model="search.provinceId" placeholder="请选择省">
                 <el-option label="全部" value=""></el-option>
                 <el-option :label="item.name" :value="item.id" v-for="item in provinceList" :key="item.id"></el-option>
@@ -35,8 +19,24 @@
               </el-select>
             </el-form-item>
           </el-col>
+          <el-col :span="4">
+            <el-form-item label="账号:" label-width="40px">
+              <el-input v-model="search.name" placeholder="请输入账号"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="4">
+            <el-form-item label="昵称:" label-width="40px">
+              <el-input v-model="search.nickName" placeholder="请输入昵称"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="6">
+            <el-form-item label="注册时间:" label-width="70px">
+              <el-date-picker type="date" placeholder="开始日期" v-model="search.beginTime" style="width: 48%;"></el-date-picker>
+              <el-date-picker type="date" placeholder="结束日期" v-model="search.endTime" style="width: 48%;"></el-date-picker>
+            </el-form-item>
+          </el-col>
           <el-col :span="3">
-            <el-form-item label="用户状态:" label-width="60px">
+            <el-form-item label="用户状态:" label-width="70px">
               <el-select v-model="search.status" placeholder="请选择用户状态:" style="width: 100%">
                 <el-option label="全部"   value=""></el-option>
                 <el-option label="正常"   :value="0"></el-option>
@@ -48,7 +48,7 @@
         </el-row>
       </el-form>
     </header>
-    <el-table :data="tableData" border :height="windowHeight">
+    <el-table :data="tableData" border :height="windowHeight" size="mini">
       <el-table-column prop="name"         label="账号"       width="300">
         <template slot-scope="scope">
           <span>{{ scope.row.name || scope.row.otherAccount }}</span>

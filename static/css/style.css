@@ -142,65 +142,65 @@ input {
   font-size: 0.28rem;
 }
 
-.app .el-main {
-  padding: 0!important;
-}
-.app .el-input__inner {
-  padding: 0 10px;
-  font-size: 12px;
-  height: 30px;
-}
-.app .el-input--suffix .el-input__inner {
-  padding-right: 0px;
-}
-.app .el-form-item {
-  margin-bottom: 15px;
-}
+/*.app .el-main {*/
+  /*padding: 0!important;*/
+/*}*/
+/*.app .el-input__inner {*/
+  /*padding: 0 10px;*/
+  /*font-size: 12px;*/
+  /*height: 30px;*/
+/*}*/
+/*.app .el-input--suffix .el-input__inner {*/
+  /*padding-right: 0px;*/
+/*}*/
+/*.app .el-form-item {*/
+  /*margin-bottom: 15px;*/
+/*}*/
+/*.app .el-form-item__label {*/
+  /*padding: 0 5px 0 0;*/
+/*}*/
+/*.app .el-table {*/
+  /*font-size: 12px;*/
+/*}*/
+/*.app .el-table .cell {*/
+  /*padding: 0!important;*/
+/*}*/
+/*.app .el-table th {*/
+  /*padding: 5px;*/
+/*}*/
+/*.app .el-table td {*/
+  /*padding: 5px;*/
+/*}*/
+/*.app .el-pagination {*/
+  /*margin-top: 5px;*/
+/*}*/
+/*.app .el-pagination button,*/
+/*.app .el-pagination span:not([class*=suffix]) {*/
+  /*font-size: 12px;*/
+  /*line-height: 26px;*/
+/*}*/
+/*.app .el-button {*/
+  /*margin-left: 5px;*/
+/*}*/
+/*.app .el-pagination .el-input__inner {*/
+  /*height: 26px;*/
+/*}*/
+/*.app .el-pagination__sizes,*/
+/*.app .is-in-pagination {*/
+  /*margin-top: -2px;*/
+/*}*/
+/*.app .el-checkbox__label {*/
+  /*font-size: 12px;*/
+/*}*/
+/*.app .el-tabs--border-card >*/
+/*.el-tabs__content {*/
+  /*padding: 5px 15px;*/
+/*}*/
+/*.app .el-form-item__error {*/
+  /*padding-top: 0;*/
+/*}*/
 .app .el-form-item__label {
   font-size: 12px;
-}
-.app .el-form-item__label {
-  padding: 0 5px 0 0;
-}
-.app .el-table {
-  font-size: 12px;
-}
-.app .el-table .cell {
-  padding: 0!important;
-}
-.app .el-table th {
-  padding: 5px;
-}
-.app .el-table td {
-  padding: 5px;
-}
-.app .el-pagination {
-  margin-top: 5px;
-}
-.app .el-pagination button,
-.app .el-pagination span:not([class*=suffix]) {
-  font-size: 12px;
-  line-height: 26px;
-}
-.app .el-button {
-  margin-left: 5px;
-}
-.app .el-pagination .el-input__inner {
-  height: 26px;
-}
-.app .el-pagination__sizes,
-.app .is-in-pagination {
-  margin-top: -2px;
-}
-.app .el-checkbox__label {
-  font-size: 12px;
-}
-.app .el-tabs--border-card >
-.el-tabs__content {
-  padding: 5px 15px;
-}
-.app .el-form-item__error {
-  padding-top: 0;
 }
 .app .footer-button {
   position: fixed;

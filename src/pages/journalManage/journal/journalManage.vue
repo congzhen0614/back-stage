@@ -1,19 +1,19 @@
 <template>
   <div class="journal-Manage">
     <el-header class="journal-Manage-header" style="height: auto">
-      <el-form ref="form" :model="search">
+      <el-form ref="form" :model="search" size="mini">
         <el-row>
           <el-col :span="4">
             <el-form-item label="名称：" label-width="50px">
               <el-input v-model="search.name" placeholder="请输入名称筛选"></el-input>
             </el-form-item>
           </el-col>
-          <el-col :span="4">
+          <el-col :span="3">
             <el-form-item label="刊号:" label-width="50px">
               <el-input v-model="search.issn" placeholder="请输入刊号筛选"></el-input>
             </el-form-item>
           </el-col>
-          <el-col :span="4">
+          <el-col :span="5">
             <el-form-item label="类别:" label-width="40px">
               <el-select v-model="search.typeId" style="width: 50%; float: left; padding-right: 5px">
                 <el-option label="全部类别" :value="''"></el-option>
@@ -68,6 +68,7 @@
     <el-main>
       <el-table
         border
+        size="mini"
         :data="tableData"
         ref="multipleTable"
         style="width: 100%"

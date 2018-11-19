@@ -1,6 +1,6 @@
 <template>
   <div class="update-child">
-    <el-form ref="form" :model="form" :rules="rules" label-width="120px" style="width: 500px">
+    <el-form ref="form" :model="form" :rules="rules" label-width="120px" style="width: 500px" size="mini">
       <el-form-item label="姓名:" prop="name">
         <el-input v-model="form.name" placeholder="请输入姓名"></el-input>
       </el-form-item>

@@ -1,7 +1,7 @@
 <template>
   <div class="journal-Manage-catalogue">
     <el-header class="journal-Manage-header" style="height: auto">
-      <el-form ref="form" :model="search" label-width="70px">
+      <el-form ref="form" :model="search" label-width="70px" size="mini">
         <el-row>
           <el-col :span="6">
             <el-form-item label="名称:" label-width="40px">
@@ -27,7 +27,7 @@
             </el-form-item>
           </el-col>
           <el-col :span="6">
-            <el-form-item label="创建人:" label-width="50px">
+            <el-form-item label="创建人:" label-width="60px">
               <el-select v-model="search.createUser">
                 <el-option label="全部" :value="''"></el-option>
                 <el-option :label="item.username" :value="item.id" v-for="item in accountList" :key="item.id"></el-option>
@@ -51,6 +51,7 @@
     </el-header>
     <el-table
       border
+      size="mini"
       ref="multipleTable"
       :data="tableList"
       style="width: 100%"

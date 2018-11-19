@@ -1,7 +1,7 @@
 <template>
   <div class="order-info">
     <header class="order-info-heder">
-      <el-form ref="form" :model="form">
+      <el-form ref="form" :model="form" size="mini">
         <el-row>
           <el-col :span="8">
             <el-form-item label="订单号:" label-width="50px">
@@ -67,7 +67,7 @@
         <header class="table-title">
           <span>收货信息</span>
         </header>
-        <el-table :data="addressTable" border>
+        <el-table :data="addressTable" border size="mini">
           <el-table-column prop="sendType" label="配送方式" width="100" ></el-table-column>
           <el-table-column prop="addressStr" label="收件地址"></el-table-column>
           <el-table-column prop="name" label="收件人" width="120" ></el-table-column>
@@ -84,7 +84,7 @@
           <span>杂志</span>
           <span style="margin-left: 20px">杂志运费: {{ form.deliveryFeeMagazine }}元</span>
         </header>
-        <el-table :data="magaTable" border>
+        <el-table :data="magaTable" border size="mini">
           <el-table-column prop="name" label="商品名称" ></el-table-column>
           <el-table-column prop="fee" label="商品价格" width="100" ></el-table-column>
           <el-table-column prop="quantity" label="数量" width="100" ></el-table-column>
@@ -110,7 +110,7 @@
           <span>图书</span>
           <span style="margin-left: 20px">图书运费: {{ form.deliveryFeeBook }}元</span>
         </header>
-        <el-table :data="bookTable" border>
+        <el-table :data="bookTable" border size="mini">
           <el-table-column prop="name" label="商品名称" ></el-table-column>
           <el-table-column prop="fee" label="商品价格" width="100" ></el-table-column>
           <el-table-column prop="quantity" label="数量" width="100" ></el-table-column>
@@ -135,7 +135,7 @@
         <header class="table-title">
           <span>电子读物</span>
         </header>
-        <el-table :data="spypTable" border>
+        <el-table :data="spypTable" border size="mini">
           <el-table-column prop="name" label="商品名称" ></el-table-column>
           <el-table-column prop="fee" label="商品价格" width="100" ></el-table-column>
           <el-table-column prop="quantity" label="数量" width="100" ></el-table-column>

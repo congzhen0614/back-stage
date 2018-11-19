@@ -1,6 +1,6 @@
 <template>
   <div class="system-permission">
-    <el-table ref="multipleTable" :data="tableList" tooltip-effect="dark" border>
+    <el-table size="mini" ref="multipleTable" :data="tableList" tooltip-effect="dark" border>
       <el-table-column type="index" width="50" label="序号" ></el-table-column>
       <el-table-column prop="rolename" label="角色名称" ></el-table-column>
       <el-table-column prop="intro" label="角色描述" ></el-table-column>

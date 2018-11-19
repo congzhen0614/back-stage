@@ -1,6 +1,6 @@
 <template>
   <div class="magaList">
-    <el-form ref="form" :model="search">
+    <el-form ref="form" :model="search" size="mini">
       <el-row :gutter="20">
         <el-col :span="5">
           <el-form-item label="书名:" label-width="40px">
@@ -29,7 +29,7 @@
         </el-col>
       </el-row>
     </el-form>
-    <el-form ref="form" :model="form" :rules="rules">
+    <el-form ref="form" :model="form" :rules="rules" size="mini">
       <el-row class="maga">
         <el-col :span="4">
           <el-form-item label="配送方式:" style="margin-bottom: 0; height: 40px" prop="sendType" label-width="80px">
@@ -57,6 +57,7 @@
     </el-form>
     <el-table
       border
+      size="mini"
       ref="multipleTable"
       tooltip-effect="dark"
       :data="tableList"

@@ -1,6 +1,6 @@
 <template>
   <div class="system-serAge-update">
-    <el-form ref="form" :model="form" label-width="80px" :rules="rules">
+    <el-form ref="form" :model="form" label-width="80px" :rules="rules" size="mini">
       <el-form-item label="名称:" prop="name">
         <el-input v-model="form.name"></el-input>
       </el-form-item>

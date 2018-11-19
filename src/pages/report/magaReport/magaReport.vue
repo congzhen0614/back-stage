@@ -1,10 +1,10 @@
 <template>
   <div class="maga-report">
     <header class="maga-report-header">
-      <el-form ref="form" :model="search">
+      <el-form ref="form" :model="search" size="mini">
         <el-row>
           <el-col :span="10">
-            <el-form-item label="省/市/区:" label-width="60px">
+            <el-form-item label="省/市/区:" label-width="70px">
               <el-select class="region-select" v-model="search.provinceId" placeholder="请选择省" style="width: 32%" :disabled="user.roleLevel !== 1">
                 <el-option label="全部" value=""></el-option>
                 <el-option :label="item.name" :value="item.id" v-for="item in provinceList" :key="item.id"></el-option>
@@ -28,7 +28,7 @@
             </el-form-item>
           </el-col>
           <el-col :span="3">
-            <el-form-item label="销售员:" label-width="50px">
+            <el-form-item label="销售员:" label-width="60px">
               <el-select v-model="search.adminId" placeholder="请选择销售员">
                 <el-option label="全部" value=""></el-option>
                 <el-option :label="item.username" :value="item.id" v-for="item in accountList" :key="item.id"></el-option>
@@ -36,7 +36,7 @@
             </el-form-item>
           </el-col>
           <el-col :span="6">
-            <el-form-item label="订单时间:" label-width="60px">
+            <el-form-item label="订单时间:" label-width="70px">
               <el-date-picker type="date" placeholder="开始日期" v-model="search.startDate" style="width: 45%;"></el-date-picker>
               <el-date-picker type="date" placeholder="结束日期" v-model="search.endDate" style="width: 45%;"></el-date-picker>
             </el-form-item>
@@ -48,7 +48,7 @@
         </el-row>
       </el-form>
     </header>
-    <el-table :data="tableData" border :height="windowHeight">
+    <el-table size="mini" :data="tableData" border :height="windowHeight">
       <el-table-column prop="name"     label="商品名称" ></el-table-column>
       <el-table-column prop="quantity" label="数量"      width="200"></el-table-column>
       <el-table-column prop="fee"      label="单价"      width="200"></el-table-column>

@@ -3,15 +3,13 @@
     <header>
       <el-row>
         <el-col :span="4">
-          <el-input v-model="search.name" placeholder="请输入名称筛选"></el-input>
+          <el-input v-model="search.name" placeholder="请输入名称筛选" size="mini"></el-input>
         </el-col>
-        <el-col :span="8">
-          <el-button size="mini" type="primary" plain @click="clickSearch">检索</el-button>
-          <el-button size="mini" type="primary" @click="clickAdd" v-if="havePermission('age:saveOrUpdate')">添加</el-button>
-        </el-col>
+        <el-button size="mini" type="primary" plain @click="clickSearch" style="margin-left: 10px">检索</el-button>
+        <el-button size="mini" type="primary" @click="clickAdd" v-if="havePermission('age:saveOrUpdate')">添加</el-button>
       </el-row>
     </header>
-    <el-table :data="tableList" style="width: 100%" :height="windowHeight" border>
+    <el-table :data="tableList" style="width: 100%" :height="windowHeight" border size="mini">
       <el-table-column prop="ord" width="80"  label="排序"></el-table-column>
       <el-table-column prop="name" label="名称"></el-table-column>
       <el-table-column fixed="right" label="操作" width="150" >

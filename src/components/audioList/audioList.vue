@@ -1,18 +1,18 @@
 <template>
   <div class="audioList">
-    <el-form ref="form" :model="search">
-      <el-row :gutter="20">
+    <el-form ref="form" :model="search" size="mini">
+      <el-row>
         <el-col :span="5">
           <el-form-item label="包名称:" label-width="50px">
             <el-input v-model="search.name"></el-input>
           </el-form-item>
         </el-col>
-        <el-col :span="4" style="margin-top: 7px">
+        <el-col :span="4">
           <el-button size="mini" type="primary" plain @click="loadDate">检索</el-button>
         </el-col>
       </el-row>
     </el-form>
-    <el-table border ref="multipleTable" tooltip-effect="dark" :data="tableList" :height="windowHeight" @select="handleSelection" @select-all="handleSelection">
+    <el-table size="mini" border ref="multipleTable" tooltip-effect="dark" :data="tableList" :height="windowHeight" @select="handleSelection" @select-all="handleSelection">
       <el-table-column type="selection" width="40" ></el-table-column>
       <el-table-column prop="ord" type="index" label="排序" width="100" sortable >
         <template slot-scope="scope">

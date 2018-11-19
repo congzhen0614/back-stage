@@ -1,6 +1,6 @@
 <template>
   <div class="update-child">
-    <el-form ref="form" :model="form" :rules="rules">
+    <el-form ref="form" :model="form" :rules="rules" size="mini">
       <el-row>
         <el-col :span="8">
           <el-form-item label="收件人:" label-width="60px" prop="childName">
@@ -18,35 +18,49 @@
           <!--<el-select v-model="form.provinceId" placeholder="请选择省" disabled>-->
             <!--<el-option :label="item.name" :value="item.id" v-for="item in provincesList" :key="item.id"></el-option>-->
           <!--</el-select>-->
-          <el-input type="text" v-model="provinceName" disabled></el-input>
+          <el-form-item>
+            <el-input type="text" v-model="provinceName" disabled></el-input>
+          </el-form-item>
         </el-col>
         <el-col :span="3">
-          <el-select v-model="form.cityId" placeholder="请选择市">
-            <el-option :label="item.cityName" :value="item.cityId" v-for="item in citiesList" :key="item.cityId"></el-option>
-          </el-select>
+          <el-form-item>
+            <el-select v-model="form.cityId" placeholder="请选择市">
+              <el-option :label="item.cityName" :value="item.cityId" v-for="item in citiesList" :key="item.cityId"></el-option>
+            </el-select>
+          </el-form-item>
         </el-col>
         <el-col :span="3">
-          <el-select v-model="form.regionId" placeholder="请选择区">
-            <el-option :label="item.regionName" :value="item.regionId" v-for="item in regionsList" :key="item.regionId"></el-option>
-          </el-select>
+          <el-form-item>
+            <el-select v-model="form.regionId" placeholder="请选择区">
+              <el-option :label="item.regionName" :value="item.regionId" v-for="item in regionsList" :key="item.regionId"></el-option>
+            </el-select>
+          </el-form-item>
         </el-col>
         <el-col :span="3">
-          <el-select v-model="form.schoolId" placeholder="请选择学校" filterable>
-            <el-option :label="item.schoolName" :value="item.schoolId" v-for="item in schoolList" :key="item.schoolId"></el-option>
-          </el-select>
+          <el-form-item>
+            <el-select v-model="form.schoolId" placeholder="请选择学校" filterable>
+              <el-option :label="item.schoolName" :value="item.schoolId" v-for="item in schoolList" :key="item.schoolId"></el-option>
+            </el-select>
+          </el-form-item>
         </el-col>
         <el-col :span="3">
-          <el-select v-model="form.gradeId" placeholder="请选择年级">
-            <el-option :label="item.name" :value="item.id" v-for="item in gradeList" :key="item.id"></el-option>
-          </el-select>
+          <el-form-item>
+            <el-select v-model="form.gradeId" placeholder="请选择年级">
+              <el-option :label="item.name" :value="item.id" v-for="item in gradeList" :key="item.id"></el-option>
+            </el-select>
+          </el-form-item>
         </el-col>
         <el-col :span="3">
-          <el-select v-model="form.classId" placeholder="请选择班级">
-            <el-option :label="item.name" :value="item.id" v-for="item in classList" :key="item.id"></el-option>
-          </el-select>
+          <el-form-item>
+            <el-select v-model="form.classId" placeholder="请选择班级">
+              <el-option :label="item.name" :value="item.id" v-for="item in classList" :key="item.id"></el-option>
+            </el-select>
+          </el-form-item>
         </el-col>
         <el-col :span="3">
-          <el-input v-model="form.classNameDef" placeholder="请收入自定义班级名称"></el-input>
+          <el-form-item>
+            <el-input v-model="form.classNameDef" placeholder="请收入自定义班级名称"></el-input>
+          </el-form-item>
         </el-col>
       </el-row>
     </el-form>

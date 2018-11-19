@@ -1,7 +1,7 @@
 <template>
   <div class="system-account">
     <header class="header">
-      <el-form :model="search" label-width="60px">
+      <el-form :model="search" label-width="60px" size="mini">
         <el-row :gutter="10">
           <el-col :span="4">
             <el-form-item label="用户名" prop="name">
@@ -33,14 +33,14 @@
               </el-select>
             </el-form-item>
           </el-col>
-          <el-col :span="4" style="margin-top: 7px">
+          <el-col :span="4">
             <el-button size="mini" type="primary" @click="clickSearch" plain>检索</el-button>
             <el-button size="mini" type="primary" @click="clickAddnew" v-if="havePermission('account:add')">创建账号</el-button>
           </el-col>
         </el-row>
       </el-form>
     </header>
-    <el-table ref="multipleTable" :data="tableList" tooltip-effect="dark" style="width: 100%" :height="windowHeight" border>
+    <el-table size="mini" ref="multipleTable" :data="tableList" tooltip-effect="dark" style="width: 100%" :height="windowHeight" border>
       <el-table-column type="index" width="55" label="序号" ></el-table-column>
       <el-table-column prop="groupName"              label="所属组织"  min-width="150"></el-table-column>
       <el-table-column prop="username"               label="用户名"    width="200"></el-table-column>

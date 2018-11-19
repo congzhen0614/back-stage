@@ -1,7 +1,7 @@
 <template>
   <div class="journal-Manage-catalogue-add">
     <header class="header">
-      <el-form ref="form" :model="form" :rules="rules">
+      <el-form ref="form" :model="form" :rules="rules" size="mini">
         <el-row>
           <el-col :span="8">
             <el-form-item label="目录名称:" prop="title" label-width="70px">

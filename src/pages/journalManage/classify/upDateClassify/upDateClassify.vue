@@ -1,6 +1,6 @@
 <template>
   <div class="system-classify-update">
-    <el-form ref="form" :model="form" label-width="80px" :rules="rules">
+    <el-form ref="form" :model="form" label-width="80px" :rules="rules" size="mini">
       <el-form-item label="名称:">
         <el-input v-model="form.name" prop="name"></el-input>
       </el-form-item>

@@ -1,8 +1,8 @@
 <template>
   <div class="account-bind-school">
     <header class="header">
-      <el-form ref="form" :model="search" label-width="75px">
-        <el-row :gutter="20">
+      <el-form ref="form" :model="search" label-width="75px" size="mini">
+        <el-row>
           <el-col :span="6">
             <el-form-item label="省/市/区:" class="region">
               <el-select v-model="search.provinceId" disabled>
@@ -37,7 +37,7 @@
               <el-input v-model="search.username" disabled placeholder="请输入"></el-input>
             </el-form-item>
           </el-col>
-          <el-col :span="6" style="margin-top: 6px">
+          <el-col :span="6">
             <el-button size="mini" type="primary" plain @click="loadSchoolList">检索</el-button>
             <el-button size="mini" type="primary" @click="changeOrder" v-if="havePermission('school:ord')">排序</el-button>
             <el-button size="mini" type="primary" @click="clickIfShown(1)" v-if="havePermission('school:show')">显示</el-button>
@@ -47,7 +47,7 @@
         </el-row>
       </el-form>
     </header>
-    <el-table :data="schoolList" border :height="windowHeight" @selection-change="handleSelectionChange">
+    <el-table size="mini" :data="schoolList" border :height="windowHeight" @selection-change="handleSelectionChange">
       <el-table-column type="selection" width="55" ></el-table-column>
       <el-table-column prop="ord" label="排序" width="100" >
         <template slot-scope="scope">

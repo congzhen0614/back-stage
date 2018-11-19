@@ -1,7 +1,7 @@
 <template>
   <div class="system-organiza-add">
     <div class="system-account-add">
-      <el-form ref="form" :model="form" label-width="150px" :rules="rules">
+      <el-form ref="form" :model="form" label-width="150px" :rules="rules" size="mini">
         <el-form-item label="组织名称:" prop="name">
           <el-input v-model="form.name"></el-input>
         </el-form-item>

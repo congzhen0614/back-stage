@@ -1,26 +1,10 @@
 <template>
   <div class="child-manage">
     <header class="child-manage-header">
-      <el-form ref="form" :model="search">
+      <el-form ref="form" :model="search" size="mini">
         <el-row>
-          <el-col :span="4">
-            <el-form-item label="学生姓名:" label-width="60px">
-              <el-input v-model="search.name" placeholder="请输入账号"></el-input>
-            </el-form-item>
-          </el-col>
-          <el-col :span="4">
-            <el-form-item label="手机号:" label-width="50px">
-              <el-input v-model="search.mobile" placeholder="请输入手机号"></el-input>
-            </el-form-item>
-          </el-col>
-          <el-col :span="6">
-            <el-form-item label="添加时间:" label-width="60px">
-              <el-date-picker type="date" placeholder="开始日期" v-model="search.beginTime" style="width: 48%;"></el-date-picker>
-              <el-date-picker type="date" placeholder="结束日期" v-model="search.endTime" style="width: 48%;"></el-date-picker>
-            </el-form-item>
-          </el-col>
           <el-col :span="7">
-            <el-form-item label="省/市/区:" label-width="60px">
+            <el-form-item label="省/市/区:" label-width="70px">
               <el-select style="width: 32%" v-model="search.provinceId" placeholder="请选择省">
                 <el-option label="全部" value=""></el-option>
                 <el-option :label="item.name" :value="item.id" v-for="item in provinceList" :key="item.id"></el-option>
@@ -35,11 +19,27 @@
               </el-select>
             </el-form-item>
           </el-col>
+          <el-col :span="4">
+            <el-form-item label="学生姓名:" label-width="70px">
+              <el-input v-model="search.name" placeholder="请输入账号"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="4">
+            <el-form-item label="手机号:" label-width="60px">
+              <el-input v-model="search.mobile" placeholder="请输入手机号"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="6">
+            <el-form-item label="添加时间:" label-width="70px">
+              <el-date-picker type="date" placeholder="开始日期" v-model="search.beginTime" style="width: 48%;"></el-date-picker>
+              <el-date-picker type="date" placeholder="结束日期" v-model="search.endTime" style="width: 48%;"></el-date-picker>
+            </el-form-item>
+          </el-col>
           <el-button size="mini" type="primary" plain @click="clickSearch" style="margin-top: 7px">检索</el-button>
         </el-row>
       </el-form>
     </header>
-    <el-table :data="tableData" border :height="windowHeight">
+    <el-table size="mini" :data="tableData" border :height="windowHeight">
       <el-table-column prop="parentAccount" label="账号"     min-width="200"></el-table-column>
       <el-table-column prop="name"         label="孩子姓名"  width="100"></el-table-column>
       <el-table-column prop="sex"          label="性别"      width="100">
