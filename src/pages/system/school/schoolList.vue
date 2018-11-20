@@ -3,11 +3,6 @@
     <header class="school-header">
       <el-form ref="form" :model="search" size="mini">
         <el-row>
-          <el-col :span="4">
-            <el-form-item label="学校名称:" label-width="70px">
-              <el-input v-model="search.name" placeholder="请输入学校名称"></el-input>
-            </el-form-item>
-          </el-col>
           <el-col :span="10" class="school-region">
             <el-form-item label="省/市/区:" label-width="70px">
               <el-select v-model="search.provinceId" placeholder="请选择省">
@@ -19,6 +14,11 @@
               <el-select v-model="search.regionIds" placeholder="请选择区">
                 <el-option :label="item.name" :value="item.id" v-for="item in regionsList" :key="item.id"></el-option>
               </el-select>
+            </el-form-item>
+          </el-col>
+          <el-col :span="4">
+            <el-form-item label="学校名称:" label-width="70px">
+              <el-input v-model="search.name" placeholder="请输入学校名称"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="4">

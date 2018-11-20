@@ -37,8 +37,9 @@
           </el-col>
           <el-col :span="6">
             <el-form-item label="订单时间:" label-width="70px">
-              <el-date-picker type="date" placeholder="开始日期" v-model="search.startDate" style="width: 48%;"></el-date-picker>
-              <el-date-picker type="date" placeholder="结束日期" v-model="search.endDate" style="width: 48%;"></el-date-picker>
+              <!--<el-date-picker type="date" placeholder="开始日期" v-model="search.startDate" style="width: 48%;"></el-date-picker>-->
+              <!--<el-date-picker type="date" placeholder="结束日期" v-model="search.endDate" style="width: 48%;"></el-date-picker>-->
+              <el-date-picker style="width: 100%" v-model="search.selectDate" type="daterange" range-separator="-" start-placeholder="开始日期" end-placeholder="结束日期"></el-date-picker>
             </el-form-item>
           </el-col>
           <el-col :span="4">
@@ -83,8 +84,7 @@ export default {
         schoolId: '',
         adminId: '',
         upgrade: '',
-        startDate: '',
-        endDate: ''
+        selectDate: ['', '']
       }
     }
   },
@@ -119,8 +119,8 @@ export default {
         schoolId: this.search.schoolId,
         adminId: this.search.adminId,
         upgrade: this.search.upgrade,
-        startDate: dateFormat(this.search.startDate, 0),
-        endDate: dateFormat(this.search.endDate, 1)
+        startDate: dateFormat(this.search.selectDate[0], 0),
+        endDate: dateFormat(this.search.selectDate[1], 1)
       }
       return param
     }
@@ -288,6 +288,10 @@ export default {
         this.search.schoolId = ''
         this.schoolList = []
       }
+    },
+    selectDate (val) {
+      this.search.startDate = val[0]
+      this.search.endDate = val[1]
     }
   }
 }

@@ -13,14 +13,10 @@
               <el-input v-model="search.mobile" placeholder="请输入"></el-input>
             </el-form-item>
           </el-col>
-          <el-col :span="4">
+          <el-col :span="6">
             <el-form-item label="订单时间:" label-width="70px">
-              <el-date-picker style="width: 100%" v-model="search.startTime" type="date" placeholder="开始日期"></el-date-picker>
-            </el-form-item>
-          </el-col>
-          <el-col :span="3">
-            <el-form-item label="-" label-width="15px">
-              <el-date-picker style="width: 100%" v-model="search.endTime" type="date" placeholder="结束日期"></el-date-picker>
+              <!--<el-date-picker style="width: 100%" v-model="search.startTime" type="date" placeholder="开始日期"></el-date-picker>-->
+              <el-date-picker style="width: 100%" v-model="search.selectDate" type="daterange" range-separator="-" start-placeholder="开始日期" end-placeholder="结束日期"></el-date-picker>
             </el-form-item>
           </el-col>
           <el-col :span="4">
@@ -181,8 +177,7 @@ export default {
       search: {
         no: pages.no,
         mobile: pages.mobile,
-        startTime: pages.startTime,
-        endTime: pages.endTime,
+        selectDate: pages.selectDate,
         provinceId: pages.provinceId,
         cityId: pages.cityId,
         regionId: pages.regionId,
@@ -211,15 +206,20 @@ export default {
   },
   computed: {
     listParams () {
-      let startTime = ''
-      let endTime = ''
-      if (this.search.startTime) {
-        let date = new Date(this.search.startTime)
-        startTime = date.getFullYear() + '-' + (parseInt(date.getMonth()) + 1) + '-' + date.getDate() + ' 00:00:00'
-      }
-      if (this.search.endTime) {
-        let date = new Date(this.search.endTime)
-        endTime = date.getFullYear() + '-' + (parseInt(date.getMonth()) + 1) + '-' + date.getDate() + ' 23:59:59'
+      let dateFormat = (value, type) => {
+        let date = new Date(value)
+        let year = date.getFullYear()
+        let month = date.getMonth() + 1
+        let day = date.getDate()
+        if (value === '') {
+          return ''
+        } else {
+          if (type === 0) {
+            return year + '-' + month + '-' + day + ' 00:00:00'
+          } else {
+            return year + '-' + month + '-' + day + ' 23:59:59'
+          }
+        }
       }
       let Trim = str => {
         if (str !== '') {
@@ -243,8 +243,8 @@ export default {
         adminId: this.search.adminId,
         childName: Trim(this.search.childName),
         tradeStatus: this.search.tradeStatus,
-        startTime: startTime,
-        endTime: endTime,
+        startTime: dateFormat(this.search.selectDate[0]),
+        endTime: dateFormat(this.search.selectDate[1]),
         cls: this.search.cls
       }
       return param
@@ -254,8 +254,7 @@ export default {
     clickSearch () {
       pages.no = this.search.no
       pages.mobile = this.search.mobile
-      pages.startTime = this.search.startTime
-      pages.endTime = this.search.endTime
+      pages.selectDate = this.search.selectDate
       pages.provinceId = this.search.provinceId
       pages.cityId = this.search.cityId
       pages.regionId = this.search.regionId

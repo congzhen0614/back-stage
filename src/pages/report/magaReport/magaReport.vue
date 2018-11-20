@@ -37,8 +37,9 @@
           </el-col>
           <el-col :span="6">
             <el-form-item label="订单时间:" label-width="70px">
-              <el-date-picker type="date" placeholder="开始日期" v-model="search.startDate" style="width: 45%;"></el-date-picker>
-              <el-date-picker type="date" placeholder="结束日期" v-model="search.endDate" style="width: 45%;"></el-date-picker>
+              <!--<el-date-picker type="date" placeholder="开始日期" v-model="search.startDate" style="width: 45%;"></el-date-picker>-->
+              <!--<el-date-picker type="date" placeholder="结束日期" v-model="search.endDate" style="width: 45%;"></el-date-picker>-->
+              <el-date-picker style="width: 100%" v-model="search.selectDate" type="daterange" range-separator="-" start-placeholder="开始日期" end-placeholder="结束日期"></el-date-picker>
             </el-form-item>
           </el-col>
         </el-row>
@@ -87,8 +88,7 @@ export default {
         regionId: '',
         schoolId: '',
         adminId: '',
-        startDate: '',
-        endDate: ''
+        selectDate: ['', '']
       },
       pages: {
         total: 0,
@@ -120,8 +120,8 @@ export default {
         regionId: this.search.regionId,
         schoolId: this.search.schoolId,
         adminId: this.search.adminId,
-        startDate: dateFormat(this.search.startDate, 0),
-        endDate: dateFormat(this.search.endDate, 1),
+        startDate: dateFormat(this.search.selectDate[0], 0),
+        endDate: dateFormat(this.search.selectDate[1], 1),
         cls: 1
       }
       return param

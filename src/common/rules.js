@@ -4,9 +4,9 @@
  */
 let phone = (rule, value, callback) => {
   let phone = /^(13[0-9]|14[579]|15[0-3,5-9]|16[6]|17[0135678]|18[0-9]|19[89])\d{8}$/
-  let tel = /^((0\d{2,3}-\d{7,8})|(1[3584]\d{9}))$/
+  let tel = /^[0-9]{10,11}$/
   if (!phone.test(value) && !tel.test(value)) {
-    callback(new Error('请输入正确联系方式(固定电话:xxxx-xxxxxxx)'))
+    callback(new Error('请输入正确联系方式'))
   } else {
     callback()
   }

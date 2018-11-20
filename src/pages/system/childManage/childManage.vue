@@ -31,8 +31,9 @@
           </el-col>
           <el-col :span="6">
             <el-form-item label="添加时间:" label-width="70px">
-              <el-date-picker type="date" placeholder="开始日期" v-model="search.beginTime" style="width: 48%;"></el-date-picker>
-              <el-date-picker type="date" placeholder="结束日期" v-model="search.endTime" style="width: 48%;"></el-date-picker>
+              <!--<el-date-picker type="date" placeholder="开始日期" v-model="search.beginTime" style="width: 48%;"></el-date-picker>-->
+              <!--<el-date-picker type="date" placeholder="结束日期" v-model="search.endTime" style="width: 48%;"></el-date-picker>-->
+              <el-date-picker style="width: 100%" v-model="search.selectDate" type="daterange" range-separator="-" start-placeholder="开始日期" end-placeholder="结束日期"></el-date-picker>
             </el-form-item>
           </el-col>
           <el-button size="mini" type="primary" plain @click="clickSearch">检索</el-button>
@@ -98,8 +99,7 @@ export default {
       search: {
         name: pages.name,
         mobile: pages.mobile,
-        beginTime: pages.beginTime,
-        endTime: pages.endTime,
+        selectDate: pages.selectDate,
         provinceId: pages.provinceId,
         cityId: pages.cityId,
         regionId: pages.regionId
@@ -144,8 +144,8 @@ export default {
         pageSize: this.pages.pageSize,
         name: Trim(this.search.name),
         mobile: this.search.mobile,
-        beginTime: dateFormat(this.search.beginTime, 0),
-        endTime: dateFormat(this.search.endTime, 1),
+        beginTime: dateFormat(this.search.selectDate[0], 0),
+        endTime: dateFormat(this.search.selectDate[1], 1),
         provinceId: this.search.provinceId,
         cityId: this.search.cityId,
         regionId: this.search.regionId
@@ -157,8 +157,7 @@ export default {
     clickSearch () {
       pages.name = this.search.name
       pages.mobile = this.search.mobile
-      pages.beginTime = this.search.beginTime
-      pages.endTime = this.search.endTime
+      pages.selectDate = this.search.selectDate
       pages.provinceId = this.search.provinceId
       pages.cityId = this.search.cityId
       pages.regionId = this.search.regionId
