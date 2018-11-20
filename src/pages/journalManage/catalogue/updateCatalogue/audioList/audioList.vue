@@ -3,7 +3,7 @@
     <el-form ref="form" :model="search" size="mini">
       <el-row :gutter="20">
         <el-col :span="5">
-          <el-form-item label="包名称:" label-width="50px">
+          <el-form-item label="包名称:" label-width="60px">
             <el-input v-model="search.name"></el-input>
           </el-form-item>
         </el-col>

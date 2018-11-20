@@ -4,22 +4,22 @@
       <el-form ref="form" :model="form" :rules="rules" size="mini">
         <el-row>
           <el-col :span="8">
-            <el-form-item label="目录名称:" prop="title" label-width="70px">
+            <el-form-item label="目录名称:" prop="title" label-width="80px">
               <el-input v-model="form.title" placeholder="请输入目录名称"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="6">
-            <el-form-item label="联系人:" prop="linkman" label-width="60px">
+            <el-form-item label="联系人:" prop="linkman" label-width="70px">
               <el-input v-model="form.linkman" placeholder="请输入姓名"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="6">
-            <el-form-item label="联系电话:" prop="linkmobile" label-width="70px">
+            <el-form-item label="联系电话:" prop="linkmobile" label-width="80px">
               <el-input v-model="form.linkmobile" placeholder="请输入联系电话"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="4">
-            <el-form-item label="年级阶段:" prop="schoolLevel" label-width="70px">
+            <el-form-item label="年级阶段:" prop="schoolLevel" label-width="90px">
               <el-select v-model="form.schoolLevel" style="width: 100%">
                 <el-option label="幼儿园" value="2"></el-option>
                 <el-option label="小学" value="0"></el-option>
@@ -30,7 +30,7 @@
         </el-row>
         <el-row>
           <el-col :span="12">
-            <el-form-item label="提示语:" prop="tip" label-width="60px">
+            <el-form-item label="提示语:" prop="tip" label-width="70px">
               <el-input v-model="form.tip" placeholder="请输入提示语"></el-input>
             </el-form-item>
           </el-col>

@@ -4,51 +4,51 @@
       <el-form ref="form" :model="form" size="mini">
         <el-row>
           <el-col :span="8">
-            <el-form-item label="订单号:" label-width="50px">
+            <el-form-item label="订单号:" label-width="60px">
               <el-input v-model="form.no" placeholder="请输入" disabled></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="8">
-            <el-form-item label="订单状态:" label-width="60px">
+            <el-form-item label="订单状态:" label-width="70px">
               <el-input v-model="orderItem.tradeStatusName" placeholder="请输入" disabled></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="8">
-            <el-form-item label="业务员:" label-width="50px">
+            <el-form-item label="业务员:" label-width="60px">
               <el-input v-model="orderItem.adminName" placeholder="请输入" disabled></el-input>
             </el-form-item>
           </el-col>
         </el-row>
         <el-row>
           <el-col :span="8">
-            <el-form-item label="订单金额:" label-width="60px">
+            <el-form-item label="订单金额:" label-width="70px">
               <el-input v-model="form.receivables" placeholder="请输入" disabled></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="8">
-            <el-form-item label="实付金额:" label-width="60px">
+            <el-form-item label="实付金额:" label-width="70px">
               <el-input v-model="form.receipt" placeholder="请输入" disabled></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="8">
-            <el-form-item label="运费:" label-width="40px">
+            <el-form-item label="运费:" label-width="50px">
               <el-input v-model="form.deliveryFee" placeholder="请输入" disabled></el-input>
             </el-form-item>
           </el-col>
         </el-row>
         <el-row>
           <el-col :span="8">
-            <el-form-item label="商品数:" label-width="50px">
+            <el-form-item label="商品数:" label-width="60px">
               <el-input v-model="form.itemQuantity" placeholder="请输入" disabled></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="8">
-            <el-form-item label="下单人:" label-width="50px">
+            <el-form-item label="下单人:" label-width="60px">
               <el-input v-model="form.username" placeholder="请输入" disabled></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="8">
-            <el-form-item label="下单时间:" label-width="60px">
+            <el-form-item label="下单时间:" label-width="70px">
               <el-input v-model="form.createdAt" placeholder="请输入" disabled></el-input>
             </el-form-item>
           </el-col>

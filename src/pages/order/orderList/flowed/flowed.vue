@@ -1,6 +1,6 @@
 <template>
   <div class="order-flowed">
-    <el-table :data="tableData" border>
+    <el-table :data="tableData" border size="mini">
       <el-table-column prop="no" label="订单号"></el-table-column>
       <el-table-column prop="adminName" label="业务员"></el-table-column>
       <el-table-column prop="receivables " label="订单总额"></el-table-column>

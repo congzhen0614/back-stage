@@ -52,7 +52,7 @@
           <span>{{ scope.row.createdAt | timeFormat }}</span>
         </template>
       </el-table-column>
-      <el-table-column fixed="right"                 label="操作"     width="300">
+      <el-table-column fixed="right"                 label="操作"     width="310">
         <template slot-scope="scope">
           <el-button type="text" size="mini" @click="checkBind(scope.row)" v-if="havePermission('school:findByAdmin')">查看绑定学校</el-button>
           <el-button type="text" size="mini" @click="clickBind(scope.row)" v-if="havePermission('school:bind')">绑定学校</el-button>

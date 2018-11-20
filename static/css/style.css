@@ -142,9 +142,6 @@ input {
   font-size: 0.28rem;
 }
 
-/*.app .el-main {*/
-  /*padding: 0!important;*/
-/*}*/
 /*.app .el-input__inner {*/
   /*padding: 0 10px;*/
   /*font-size: 12px;*/
@@ -199,6 +196,9 @@ input {
 /*.app .el-form-item__error {*/
   /*padding-top: 0;*/
 /*}*/
+.app .el-main {
+  padding: 0!important;
+}
 .app .el-form-item__label {
   font-size: 12px;
 }
