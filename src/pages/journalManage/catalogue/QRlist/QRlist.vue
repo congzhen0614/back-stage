@@ -5,13 +5,11 @@
         <el-col :span="4">
           <el-input v-model="search.title" placeholder="请输入名称" size="mini"></el-input>
         </el-col>
-        <el-col :span="4">
+        <el-col :span="20">
           <el-button type="primary" size="mini" plain @click="clickSearch" style="margin-left: 10px">检索</el-button>
+          <el-button type="primary" size="mini" @click="clickDelete" v-if="havePermission('itempack:delqrcode')">批量删除</el-button>
+          <el-button type="primary" size="mini" @click="clickUpload" v-if="havePermission('itempack:download') ">批量下载</el-button>
         </el-col>
-      </el-row>
-      <el-row style="margin-top: 10px">
-        <el-button type="primary" size="mini" @click="clickDelete" v-if="havePermission('itempack:delqrcode')">批量删除</el-button>
-        <el-button type="primary" size="mini" @click="clickUpload" v-if="havePermission('itempack:download') ">批量下载</el-button>
       </el-row>
     </header>
     <el-table border size="mini" :data="tableList" :height="windowHeight" @selection-change="handleSelectionChange">
@@ -43,6 +41,7 @@
       </el-table-column>
     </el-table>
     <el-pagination
+      small
       @size-change="handleSizeChange"
       @current-change="handleCurrentChange"
       :current-page.sync="pages.pageNum"
@@ -61,7 +60,7 @@ export default {
   components: {},
   data () {
     return {
-      windowHeight: window.innerHeight - 173 + 'px',
+      windowHeight: window.innerHeight - 122 + 'px',
       tableList: [],
       selectIds: [],
       search: {

@@ -3,24 +3,24 @@
     <el-header class="journal-Manage-header" style="height: auto">
       <el-form ref="form" :model="search" size="mini">
         <el-row>
-          <el-col :span="4">
+          <el-col :span="3">
             <el-form-item label="名称：" label-width="50px">
-              <el-input v-model="search.name" placeholder="请输入名称筛选"></el-input>
+              <el-input v-model="search.name" placeholder="名称筛选"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="3">
-            <el-form-item label="刊号:" label-width="50px">
-              <el-input v-model="search.issn" placeholder="请输入刊号筛选"></el-input>
+            <el-form-item label="刊号:" label-width="45px">
+              <el-input v-model="search.issn" placeholder="刊号筛选"></el-input>
             </el-form-item>
           </el-col>
-          <el-col :span="5">
-            <el-form-item label="类别:" label-width="40px">
-              <el-select v-model="search.typeId" style="width: 50%; float: left; padding-right: 5px">
-                <el-option label="全部类别" :value="''"></el-option>
+          <el-col :span="6">
+            <el-form-item label="类别:" label-width="45px">
+              <el-select v-model="search.typeId" style="width: 50%;float: left">
+                <el-option label="全部" :value="''"></el-option>
                 <el-option :label="item.name" :value="item.id" v-for="item in typeList" :key="item.id"></el-option>
               </el-select>
-              <el-select v-model="search.ageId" style="width: 50%; float: left; padding-left: 5px">
-                <el-option label="全部年级" :value="''"></el-option>
+              <el-select v-model="search.ageId" style="width: 50%;float: left">
+                <el-option label="全部" :value="''"></el-option>
                 <el-option :label="item.name" :value="item.id" v-for="item in ageList" :key="item.id"></el-option>
               </el-select>
             </el-form-item>
@@ -115,6 +115,7 @@
       </el-table>
     </el-main>
     <el-pagination
+      small
       @size-change="handleSizeChange"
       @current-change="handleCurrentChange"
       :current-page.sync="pages.pageNum"
@@ -148,7 +149,7 @@ export default {
   components: {},
   data () {
     return {
-      windowHeight: window.innerHeight - 184 + 'px',
+      windowHeight: window.innerHeight - 170 + 'px',
       dialogVisible: false,
       authorization: JSON.parse(localStorage.getItem('user')).authorization,
       roleLevel: JSON.parse(localStorage.getItem('user')).roleLevel,

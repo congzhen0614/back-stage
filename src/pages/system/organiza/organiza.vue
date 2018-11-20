@@ -24,6 +24,7 @@
       </el-table>
     </el-main>
     <el-pagination
+      small
       @size-change="handleSizeChange"
       @current-change="handleCurrentChange"
       :current-page.sync="pages.pageNum"
@@ -41,7 +42,7 @@ export default {
   name: 'system-organiza',
   data () {
     return {
-      windowHeight: window.innerHeight - 128 + 'px',
+      windowHeight: window.innerHeight - 120 + 'px',
       tableList: [],
       pages: {
         total: 0,

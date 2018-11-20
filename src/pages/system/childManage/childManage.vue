@@ -35,7 +35,7 @@
               <el-date-picker type="date" placeholder="结束日期" v-model="search.endTime" style="width: 48%;"></el-date-picker>
             </el-form-item>
           </el-col>
-          <el-button size="mini" type="primary" plain @click="clickSearch" style="margin-top: 7px">检索</el-button>
+          <el-button size="mini" type="primary" plain @click="clickSearch">检索</el-button>
         </el-row>
       </el-form>
     </header>

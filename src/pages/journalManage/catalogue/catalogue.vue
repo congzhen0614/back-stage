@@ -95,6 +95,7 @@
       </el-table-column>
     </el-table>
     <el-pagination
+      small
       @size-change="handleSizeChange"
       @current-change="handleCurrentChange"
       :current-page.sync="pages.pageNum"
@@ -113,7 +114,7 @@ export default {
   components: {},
   data () {
     return {
-      windowHeight: window.innerHeight - 184 + 'px',
+      windowHeight: window.innerHeight - 170 + 'px',
       haveQr: false,
       options: [],
       seleteIds: [],

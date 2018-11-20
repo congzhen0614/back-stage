@@ -147,6 +147,7 @@
       </el-table-column>
     </el-table>
     <el-pagination
+      small
       :total="pages.total"
       :page-size.sync="pages.pageSize"
       :current-page.sync="pages.pageNum"
@@ -165,8 +166,8 @@ export default {
   components: {},
   data () {
     return {
-      showWindowHeight: window.innerHeight - 227 + 'px',
-      hideWindowHeight: window.innerHeight - 145 + 'px',
+      showWindowHeight: window.innerHeight - 207 + 'px',
+      hideWindowHeight: window.innerHeight - 125 + 'px',
       showAll: false,
       options: [],
       provinces: [],

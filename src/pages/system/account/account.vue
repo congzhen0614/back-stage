@@ -63,6 +63,7 @@
       </el-table-column>
     </el-table>
     <el-pagination
+      small
       @size-change="handleSizeChange"
       @current-change="handleCurrentChange"
       :current-page.sync="pages.pageNum"
@@ -82,7 +83,7 @@ export default {
   components: {},
   data () {
     return {
-      windowHeight: window.innerHeight - 139 + 'px',
+      windowHeight: window.innerHeight - 120 + 'px',
       roleLevel: JSON.parse(localStorage.getItem('user')).roleLevel,
       search: {
         name: pages.name,
