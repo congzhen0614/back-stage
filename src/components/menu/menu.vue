@@ -1,6 +1,10 @@
 <template>
   <div class="increase-menu">
-    <el-menu :default-active="nowRouter" :unique-opened="true" class="el-menu-vertical-demo" @select="selectMenu">
+    <el-radio-group v-model="isCollapse" size="mini">
+      <el-radio-button :label="false" v-if="isCollapse">展开</el-radio-button>
+      <el-radio-button :label="true" v-if="!isCollapse">收起</el-radio-button>
+    </el-radio-group>
+    <el-menu class="el-menu-vertical-demo" :default-active="nowRouter" :unique-opened="true" :collapse="isCollapse" @select="selectMenu">
       <el-menu-item index="/">首页</el-menu-item>
       <el-submenu index="1">
         <template slot="title">
@@ -34,15 +38,6 @@
           <i class="el-icon-document"></i>
           <span slot="title">订单管理</span>
         </template>
-        <!--<el-menu-item index="/magaOrder">-->
-          <!--<span slot="title">杂志订单</span>-->
-        <!--</el-menu-item>-->
-        <!--<el-menu-item index="/bookOrder">-->
-          <!--<span slot="title">图书订单</span>-->
-        <!--</el-menu-item>-->
-        <!--<el-menu-item index="/spypOrder">-->
-          <!--<span slot="title">电子包订单</span>-->
-        <!--</el-menu-item>-->
         <el-menu-item index="/orderList" v-if="havePermission('trade:list')">
           <span slot="title">用户订单</span>
         </el-menu-item>
@@ -52,12 +47,6 @@
           <i class="el-icon-document"></i>
           <span slot="title">报表管理</span>
         </template>
-        <!--<el-menu-item index="/onLineReport">-->
-          <!--<span slot="title">线上刊物征订汇总</span>-->
-        <!--</el-menu-item>-->
-        <!--<el-menu-item index="/offlineReport">-->
-          <!--<span slot="title">线下刊物征订汇总</span>-->
-        <!--</el-menu-item>-->
         <el-menu-item index="/schoolReport">
           <span slot="title">按学校汇总杂志订单</span>
         </el-menu-item>
@@ -92,48 +81,6 @@
           <span slot="title">学校管理</span>
         </el-menu-item>
       </el-submenu>
-      <!--<el-submenu index="6">-->
-        <!--<template slot="title">-->
-          <!--<i class="el-icon-setting"></i>-->
-          <!--<span slot="title">库存及物流</span>-->
-        <!--</template>-->
-        <!--<el-menu-item @click="noRouter" index="/">-->
-          <!--<span slot="title">库存管理</span>-->
-        <!--</el-menu-item>-->
-        <!--<el-menu-item @click="noRouter" index="/">-->
-          <!--<span slot="title">物流管理</span>-->
-        <!--</el-menu-item>-->
-      <!--</el-submenu>-->
-      <!--<el-submenu index="7">-->
-        <!--<template slot="title">-->
-          <!--<i class="el-icon-setting"></i>-->
-          <!--<span slot="title">财务管理</span>-->
-        <!--</template>-->
-        <!--<el-menu-item @click="noRouter" index="/">-->
-          <!--<span slot="title">线上征订结算</span>-->
-        <!--</el-menu-item>-->
-        <!--<el-menu-item @click="noRouter" index="/">-->
-          <!--<span slot="title">订单退款统计</span>-->
-        <!--</el-menu-item>-->
-        <!--<el-menu-item @click="noRouter" index="/">-->
-          <!--<span slot="title">发票申领统计</span>-->
-        <!--</el-menu-item>-->
-        <!--<el-menu-item @click="noRouter" index="/">-->
-          <!--<span slot="title">第三方支付对账</span>-->
-        <!--</el-menu-item>-->
-      <!--</el-submenu>-->
-      <!--<el-submenu index="8">-->
-        <!--<template slot="title">-->
-          <!--<i class="el-icon-setting"></i>-->
-          <!--<span slot="title">微校学院</span>-->
-        <!--</template>-->
-        <!--<el-menu-item @click="noRouter" index="/">-->
-          <!--<span slot="title">帮助中心</span>-->
-        <!--</el-menu-item>-->
-        <!--<el-menu-item @click="noRouter" index="/">-->
-          <!--<span slot="title">操作问答</span>-->
-        <!--</el-menu-item>-->
-      <!--</el-submenu>-->
     </el-menu>
   </div>
 </template>
@@ -143,6 +90,7 @@ export default {
   name: 'increase-menu',
   data () {
     return {
+      isCollapse: false,
       nowRouter: ''
     }
   },
@@ -163,4 +111,14 @@ export default {
 </script>
 
 <style>
+  .increase-menu .el-menu {
+    border-right: none;
+  }
+  .increase-menu .el-radio-button--mini {
+    margin: 6px;
+  }
+  .el-menu-vertical-demo:not(.el-menu--collapse) {
+    width: 200px;
+    min-height: 400px;
+  }
 </style>

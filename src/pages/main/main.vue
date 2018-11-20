@@ -1,7 +1,7 @@
 <template>
   <div class="increase-main">
     <el-container>
-      <el-aside style="width: 200px"><v-menu @routerPush="toPages"></v-menu></el-aside>
+      <v-menu @routerPush="toPages"></v-menu>
       <el-container>
         <el-header style="height: auto; padding: 10px">
           <div class="head-button">
