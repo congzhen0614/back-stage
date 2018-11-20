@@ -37,8 +37,6 @@
           </el-col>
           <el-col :span="6">
             <el-form-item label="订单时间:" label-width="70px">
-              <!--<el-date-picker type="date" placeholder="开始日期" v-model="search.startDate" style="width: 48%;"></el-date-picker>-->
-              <!--<el-date-picker type="date" placeholder="结束日期" v-model="search.endDate" style="width: 48%;"></el-date-picker>-->
               <el-date-picker style="width: 100%" v-model="search.selectDate" type="daterange" range-separator="-" start-placeholder="开始日期" end-placeholder="结束日期"></el-date-picker>
             </el-form-item>
           </el-col>

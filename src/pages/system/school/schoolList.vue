@@ -6,12 +6,15 @@
           <el-col :span="10" class="school-region">
             <el-form-item label="省/市/区:" label-width="70px">
               <el-select v-model="search.provinceId" placeholder="请选择省">
+                <el-option label="全部" value=""></el-option>
                 <el-option :label="item.name" :value="item.id" v-for="item in provinceList" :key="item.id"></el-option>
               </el-select>
               <el-select v-model="search.cityIds" placeholder="请选择市">
+                <el-option label="全部" value=""></el-option>
                 <el-option :label="item.name" :value="item.id" v-for="item in citiesList" :key="item.id"></el-option>
               </el-select>
               <el-select v-model="search.regionIds" placeholder="请选择区">
+                <el-option label="全部" value=""></el-option>
                 <el-option :label="item.name" :value="item.id" v-for="item in regionsList" :key="item.id"></el-option>
               </el-select>
             </el-form-item>

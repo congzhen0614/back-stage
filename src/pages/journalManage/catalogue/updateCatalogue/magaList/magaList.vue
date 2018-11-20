@@ -71,6 +71,17 @@
         </template>
       </el-table-column>
       <el-table-column prop="name" label="名称" ></el-table-column>
+      <el-table-column label="价格单位" width="100">
+        <template slot-scope="scope">
+          <span>{{ scope.row.feeUnitTypeName }}{{ scope.row.feeUnitNum }}{{ scope.row.feeUnitName }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column prop="giftName" label="礼品" ></el-table-column>
+      <el-table-column prop="createdAt" label="添加日期" width="150">
+        <template slot-scope="scope">
+          <span>{{ scope.row.createdAt | timeFormat }}</span>
+        </template>
+      </el-table-column>
       <el-table-column prop="typeName" label="类别"  width="200"></el-table-column>
       <el-table-column prop="ageName" label="适读年龄"  width="300"></el-table-column>
       <el-table-column prop="fee" label="价格"  width="100"></el-table-column>

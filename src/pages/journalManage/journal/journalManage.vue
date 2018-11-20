@@ -461,4 +461,7 @@ export default {
   .journal-Manage .el-upload .el-upload-dragger {
     width: 100%;
   }
+  .journal-Manage .el-table__body-wrapper .el-table__row {
+    height: 80px;
+  }
 </style>
