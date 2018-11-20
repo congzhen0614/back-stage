@@ -33,14 +33,7 @@
             <el-form-item label="注册时间:" label-width="70px">
               <!--<el-date-picker type="date" placeholder="开始日期" v-model="search.beginTime" style="width: 48%;"></el-date-picker>-->
               <!--<el-date-picker type="date" placeholder="结束日期" v-model="search.endTime" style="width: 48%;"></el-date-picker>-->
-              <el-date-picker
-                v-model="search.selectDate"
-                style="width: 100%"
-                type="daterange"
-                range-separator="-"
-                start-placeholder="开始日期"
-                end-placeholder="结束日期">
-              </el-date-picker>
+              <el-date-picker style="width: 100%" v-model="search.selectDate" type="daterange" range-separator="-" start-placeholder="开始日期" end-placeholder="结束日期"></el-date-picker>
             </el-form-item>
           </el-col>
           <el-col :span="3">
@@ -98,7 +91,7 @@ export default {
   components: {},
   data () {
     return {
-      windowHeight: window.innerHeight - 150 + 'px',
+      windowHeight: window.innerHeight - 170 + 'px',
       provinceList: [],
       citiesList: [],
       regionList: [],
@@ -287,6 +280,11 @@ export default {
         this.regionList = []
       } else {
         this.loadRegions()
+      }
+    },
+    'search.selectDate' (val) {
+      if (val === null) {
+        this.search.selectDate = ['', '']
       }
     }
   }

@@ -289,6 +289,11 @@ export default {
         this.schoolList = []
       }
     },
+    'search.selectDate' (val) {
+      if (val === null) {
+        this.search.selectDate = ['', '']
+      }
+    },
     selectDate (val) {
       this.search.startDate = val[0]
       this.search.endDate = val[1]

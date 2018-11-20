@@ -287,6 +287,11 @@ export default {
         this.search.schoolId = ''
         this.schoolList = []
       }
+    },
+    'search.selectDate' (val) {
+      if (val === null) {
+        this.search.selectDate = ['', '']
+      }
     }
   }
 }

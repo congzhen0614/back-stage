@@ -91,7 +91,7 @@ export default {
   components: {},
   data () {
     return {
-      windowHeight: window.innerHeight - 145 + 'px',
+      windowHeight: window.innerHeight - 135 + 'px',
       provinceList: [],
       citiesList: [],
       regionList: [],
@@ -277,6 +277,11 @@ export default {
         this.regionList = []
       } else {
         this.loadRegions()
+      }
+    },
+    'search.selectDate' (val) {
+      if (val === null) {
+        this.search.selectDate = ['', '']
       }
     }
   }

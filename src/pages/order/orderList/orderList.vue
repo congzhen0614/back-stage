@@ -162,8 +162,8 @@ export default {
   components: {},
   data () {
     return {
-      showWindowHeight: window.innerHeight - 207 + 'px',
-      hideWindowHeight: window.innerHeight - 125 + 'px',
+      showWindowHeight: window.innerHeight - 217 + 'px',
+      hideWindowHeight: window.innerHeight - 135 + 'px',
       showAll: false,
       options: [],
       provinces: [],
@@ -430,6 +430,11 @@ export default {
     'search.regionId' (val) {
       if (val === '') return
       this.loadSchoolList()
+    },
+    'search.selectDate' (val) {
+      if (val === null) {
+        this.search.selectDate = ['', '']
+      }
     }
   }
 }
@@ -445,7 +450,7 @@ export default {
     overflow: hidden;
     text-overflow: ellipsis;
   }
-  .order-list .el-form-item {
+  .order-list .el-form-item--mini.el-form-item {
     margin-bottom: 0px;
   }
 </style>
