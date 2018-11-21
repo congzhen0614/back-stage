@@ -5,15 +5,15 @@
         <el-row>
           <el-col :span="7">
             <el-form-item label="省/市/区:" label-width="70px">
-              <el-select style="width: 32%" v-model="search.provinceId" placeholder="请选择省">
+              <el-select style="width: 32%" v-model="search.provinceId" placeholder="请选择省" :disabled="user.roleLevel !== 1">
                 <el-option label="全部" value=""></el-option>
                 <el-option :label="item.name" :value="item.id" v-for="item in provinceList" :key="item.id"></el-option>
               </el-select>
-              <el-select style="width: 32%" v-model="search.cityId" placeholder="请选择市">
+              <el-select style="width: 32%" v-model="search.cityId" placeholder="请选择市" :disabled="citiesList.length === 1 && user.roleLevel !== 1">
                 <el-option label="全部" value=""></el-option>
                 <el-option :label="item.name" :value="item.id" v-for="item in citiesList" :key="item.id"></el-option>
               </el-select>
-              <el-select style="width: 32%" v-model="search.regionId" placeholder="请选择区">
+              <el-select style="width: 32%" v-model="search.regionId" placeholder="请选择区" :disabled="regionList.length === 1 && user.roleLevel !== 1">
                 <el-option label="全部" value=""></el-option>
                 <el-option :label="item.name" :value="item.id" v-for="item in regionList" :key="item.id"></el-option>
               </el-select>
@@ -92,6 +92,7 @@ export default {
   data () {
     return {
       windowHeight: window.innerHeight - 170 + 'px',
+      user: JSON.parse(localStorage.getItem('user')),
       provinceList: [],
       citiesList: [],
       regionList: [],
@@ -115,6 +116,9 @@ export default {
   created () {
     this.loadData()
     this.loadProvince()
+    if (this.user.roleLevel !== 1) {
+      this.loadAccountArea()
+    }
   },
   computed: {
     params () {
@@ -156,6 +160,32 @@ export default {
     }
   },
   methods: {
+    loadAccountArea () {
+      this.$axios.accountArea({id: this.user.id}).then(res => {
+        if (res.data.code === '0') {
+          this.search.provinceId = res.data.data.area.provinceId.toString()
+          if (res.data.data.area.cities.length === 1) {
+            this.search.cityId = res.data.data.area.cities[0].cityId
+            if (res.data.data.area.cities[0].regions.length === 1) {
+              this.search.regionId = res.data.data.area.cities[0].regions[0].regionId
+            }
+          }
+          res.data.data.area.cities.forEach(city => {
+            this.citiesList.push({
+              region: city.regions,
+              name: city.cityName,
+              id: city.cityId
+            })
+          })
+        } else {
+          this.$message.error(res.data.msg)
+        }
+      }, err => {
+        this.$message.error(err)
+      }).catch(err => {
+        this.$message.error(err)
+      })
+    },
     clickSearch () {
       pages.name = this.search.name
       pages.nickName = this.search.nickName
@@ -271,7 +301,9 @@ export default {
         this.search.cityId = ''
         this.citiesList = []
       } else {
-        this.loadCities()
+        if (this.user.roleLevel === 1) {
+          this.loadCities()
+        }
       }
     },
     'search.cityId' (val) {
@@ -279,7 +311,21 @@ export default {
         this.search.regionId = ''
         this.regionList = []
       } else {
-        this.loadRegions()
+        if (this.user.roleLevel === 1) {
+          this.loadRegions()
+        } else {
+          this.regionList = []
+          this.citiesList.forEach(item => {
+            if (item.id === val) {
+              item.region.forEach(region => {
+                this.regionList.push({
+                  name: region.regionName,
+                  id: region.regionId
+                })
+              })
+            }
+          })
+        }
       }
     },
     'search.selectDate' (val) {

@@ -9,11 +9,11 @@
                 <el-option label="全部" value=""></el-option>
                 <el-option :label="item.name" :value="item.id" v-for="item in provinceList" :key="item.id"></el-option>
               </el-select>
-              <el-select class="region-select" v-model="search.cityId" placeholder="请选择市" style="width: 32%">
+              <el-select class="region-select" v-model="search.cityId" placeholder="请选择市" style="width: 32%" :disabled="citiesList.length === 1 && user.roleLevel !== 1">
                 <el-option label="全部" value=""></el-option>
                 <el-option :label="item.name" :value="item.id" v-for="item in citiesList" :key="item.id"></el-option>
               </el-select>
-              <el-select class="region-select" v-model="search.regionId" placeholder="请选择区" style="width: 32%">
+              <el-select class="region-select" v-model="search.regionId" placeholder="请选择区" style="width: 32%" :disabled="regionList.length === 1 && user.roleLevel !== 1">
                 <el-option label="全部" value=""></el-option>
                 <el-option :label="item.name" :value="item.id" v-for="item in regionList" :key="item.id"></el-option>
               </el-select>
@@ -128,6 +128,12 @@ export default {
       this.$axios.accountArea({id: this.user.id}).then(res => {
         if (res.data.code === '0') {
           this.search.provinceId = res.data.data.area.provinceId.toString()
+          if (res.data.data.area.cities.length === 1) {
+            this.search.cityId = res.data.data.area.cities[0].cityId
+            if (res.data.data.area.cities[0].regions.length === 1) {
+              this.search.regionId = res.data.data.area.cities[0].regions[0].regionId
+            }
+          }
           res.data.data.area.cities.forEach(city => {
             this.citiesList.push({
               region: city.regions,

@@ -287,4 +287,7 @@ export default {
   .system-account .el-form-item {
     margin-bottom: 0px;
   }
+  .account .el-form-item--mini.el-form-item {
+    margin-bottom: 0;
+  }
 </style>

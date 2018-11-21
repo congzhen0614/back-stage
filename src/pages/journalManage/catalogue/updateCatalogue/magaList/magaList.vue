@@ -82,8 +82,8 @@
           <span>{{ scope.row.createdAt | timeFormat }}</span>
         </template>
       </el-table-column>
-      <el-table-column prop="typeName" label="类别"  width="200"></el-table-column>
-      <el-table-column prop="ageName" label="适读年龄"  width="300"></el-table-column>
+      <el-table-column prop="typeNames" label="类别"  width="200"></el-table-column>
+      <el-table-column prop="ageNames" label="适读年龄"  width="300"></el-table-column>
       <el-table-column prop="fee" label="价格"  width="100"></el-table-column>
     </el-table>
     <el-pagination
