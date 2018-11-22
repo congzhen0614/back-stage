@@ -45,7 +45,7 @@
           <el-button size="mini" type="primary" @click="onCheck(3)" v-if="havePermission('itempack:check')">审核不通过</el-button>
           <el-button size="mini" type="primary" @click="onCreate" v-if="havePermission('itempack:qrcode')" :class="{haveQr: haveQr}">批量生成</el-button>
           <el-button size="mini" type="primary" @click="onStar" v-if="havePermission('itempack:updatesub')">批量开启</el-button>
-          <el-button size="mini" type="primary" @click="onStop" v-if="havePermission('itempack:updatesub')">批量关闭</el-button>
+          <el-button size="mini" type="primary" @click="onStop(false)" v-if="havePermission('itempack:updatesub')">批量关闭</el-button>
         </div>
       </el-form>
     </el-header>
@@ -306,7 +306,7 @@ export default {
         })
       }
     },
-    onStop () {
+    onStop (isUpdate) {
       if (this.seleteIds.length === 0) {
         this.$message.warning('请选择书单')
       } else {
@@ -316,8 +316,10 @@ export default {
         }
         this.$axios.itempackUpdatesub(param).then(res => {
           if (res.data.code === '0') {
-            this.$message.success('操作成功!')
-            this.loadDate()
+            if (!isUpdate) {
+              this.$message.success('操作成功!')
+              this.loadDate()
+            }
           } else {
             this.$message.error(res.data.msg)
           }
@@ -337,13 +339,31 @@ export default {
       })
     },
     onUpdate (item) {
-      this.$router.push({
-        path: '/updateCatalogue',
-        query: {
-          item: JSON.stringify(item),
-          update: true
-        }
-      })
+      if (item.sub === 1) {
+        this.$confirm('修改表单需要关闭征订状态, 是否继续?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          this.seleteIds = [item.id]
+          this.onStop(true)
+          this.$router.push({
+            path: '/updateCatalogue',
+            query: {
+              item: JSON.stringify(item),
+              update: true
+            }
+          })
+        })
+      } else {
+        this.$router.push({
+          path: '/updateCatalogue',
+          query: {
+            item: JSON.stringify(item),
+            update: true
+          }
+        })
+      }
     },
     onDelete (item) {
       this.$confirm('此操作将永久删除该选项, 是否继续?', '提示', {

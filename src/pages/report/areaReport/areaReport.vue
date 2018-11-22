@@ -59,20 +59,21 @@
         </el-row>
       </el-form>
     </header>
+
     <el-table size="mini" :data="tableData" border :height="windowHeight">
-      <el-table-column prop="name"         label="杂志名称" ></el-table-column>
-      <el-table-column prop="no"           label="订单号"   ></el-table-column>
+      <el-table-column prop="name"         label="杂志名称"  ></el-table-column>
+      <el-table-column prop="no"           label="订单号"    width="200"></el-table-column>
       <el-table-column prop="adminName"    label="业务员"    width="100"></el-table-column>
       <el-table-column prop="quantity"     label="数量"      width="100"></el-table-column>
       <el-table-column prop="fee"          label="价格"      width="100"></el-table-column>
-      <el-table-column prop="provinceName" label="省份"     ></el-table-column>
-      <el-table-column prop="cityName"     label="城市"     ></el-table-column>
-      <el-table-column prop="regionName"   label="地区"     ></el-table-column>
-      <el-table-column prop="schoolName "  label="学校"      width="100"></el-table-column>
+      <el-table-column prop="provinceName" label="省份"      ></el-table-column>
+      <el-table-column prop="cityName"     label="城市"      ></el-table-column>
+      <el-table-column prop="regionName"   label="地区"      ></el-table-column>
+      <el-table-column prop="schoolName"   label="学校"      width="100"></el-table-column>
       <el-table-column prop="gradeName"    label="年级"      width="100"></el-table-column>
       <el-table-column prop="className"    label="班级"      width="100"></el-table-column>
       <el-table-column prop="childName"    label="学生"      width="100"></el-table-column>
-      <el-table-column prop="createdAt"    label="交易时间"  width="200"></el-table-column>
+      <el-table-column prop="createdAt"    label="交易时间"  width="150"></el-table-column>
       <el-table-column prop="tradeStatus"  label="订单状态"  width="100"></el-table-column>
     </el-table>
     <el-pagination
