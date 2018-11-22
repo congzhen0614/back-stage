@@ -402,7 +402,7 @@ export default {
     },
     onUpdate (item) {
       this.$router.push({
-        path: '/orderInfo',
+        path: '/orderInfoUpdate',
         query: {
           item: JSON.stringify(item),
           update: true

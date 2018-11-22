@@ -54,14 +54,14 @@
         </el-row>
         <el-row>
           <el-button size="mini" type="primary" plain @click="loadData" style="float: right">检索</el-button>
-          <el-button size="mini" type="primary" @click="areaReportExport" v-if="havePermission('report:areaexport')">导出地区对账EXCEL</el-button>
-          <el-button size="mini" type="primary" @click="areaReportExportByAdmin" v-if="havePermission('report:byadminexport')">导出业务员明细EXCEL</el-button>
+          <el-button size="mini" type="primary" @click="areaReportExport" v-if="havePermission('report:areaexport')">导出图书地区对账EXCEL</el-button>
+          <el-button size="mini" type="primary" @click="areaReportExportByAdmin" v-if="havePermission('report:byadminexport')">导出图书业务员明细EXCEL</el-button>
         </el-row>
       </el-form>
     </header>
 
     <el-table size="mini" :data="tableData" border :height="windowHeight">
-      <el-table-column prop="name"         label="杂志名称"  ></el-table-column>
+      <el-table-column prop="name"         label="杂志名称"  width="200"></el-table-column>
       <el-table-column prop="no"           label="订单号"    width="200"></el-table-column>
       <el-table-column prop="adminName"    label="业务员"    width="100"></el-table-column>
       <el-table-column prop="quantity"     label="数量"      width="100"></el-table-column>
@@ -69,10 +69,6 @@
       <el-table-column prop="provinceName" label="省份"      ></el-table-column>
       <el-table-column prop="cityName"     label="城市"      ></el-table-column>
       <el-table-column prop="regionName"   label="地区"      ></el-table-column>
-      <el-table-column prop="schoolName"   label="学校"      width="100"></el-table-column>
-      <el-table-column prop="gradeName"    label="年级"      width="100"></el-table-column>
-      <el-table-column prop="className"    label="班级"      width="100"></el-table-column>
-      <el-table-column prop="childName"    label="学生"      width="100"></el-table-column>
       <el-table-column prop="createdAt"    label="交易时间"  width="150"></el-table-column>
       <el-table-column prop="tradeStatus"  label="订单状态"  width="100"></el-table-column>
     </el-table>
@@ -144,7 +140,7 @@ export default {
         // sendType: this.search.sendType,
         startDate: dateFormat(this.search.selectDate[0], 0),
         endDate: dateFormat(this.search.selectDate[1], 1),
-        cls: 1
+        cls: 2
       }
       return param
     }
@@ -262,14 +258,22 @@ export default {
       })
     },
     areaReportExport () {
-      let param = qs.stringify(this.params)
-      let _url = '/qrzd/trade/report/area/export'
-      window.location.href = window.location.protocol + '//' + window.location.host + _url + '?' + param
+      if (this.search.provinceId === '' || this.search.cityId === '' || this.search.regionId === '') {
+        this.$message.warning('导出必选省/市/区')
+      } else {
+        let param = qs.stringify(this.params)
+        let _url = '/qrzd/trade/report/area/export'
+        window.location.href = window.location.protocol + '//' + window.location.host + _url + '?' + param
+      }
     },
     areaReportExportByAdmin () {
-      let param = qs.stringify(this.params)
-      let _url = '/qrzd/trade/report/area/export/byadmin'
-      window.location.href = window.location.protocol + '//' + window.location.host + _url + '?' + param
+      if (this.search.provinceId === '' || this.search.cityId === '' || this.search.regionId === '') {
+        this.$message.warning('导出必选省/市/区')
+      } else {
+        let param = qs.stringify(this.params)
+        let _url = '/qrzd/trade/report/area/export/byadmin'
+        window.location.href = window.location.protocol + '//' + window.location.host + _url + '?' + param
+      }
     },
     handleSizeChange (val) {
       this.pages.pageSize = val

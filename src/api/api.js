@@ -355,5 +355,8 @@ export default {
   itempackUpdatelist (params) {
     let param = qs.stringify(params)
     return axios.get(`/qrzd/itempack/updatelist?${param}`)
+  },
+  pictureDelete (params) {
+    return axios.post('/qrzd/magazine/qrzditem/picture/delete', params)
   }
 }

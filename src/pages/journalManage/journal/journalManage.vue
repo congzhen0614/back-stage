@@ -76,7 +76,7 @@
         :height="windowHeight"
         @selection-change="handleSelectionChange">
         <el-table-column type="selection" width="50" ></el-table-column>
-        <el-table-column prop="name"       label="名称"    sortable min-width="150"></el-table-column>
+        <el-table-column prop="name"       label="名称"    sortable min-width="150" show-overflow-tooltip></el-table-column>
         <el-table-column prop="issn"       label="刊号"             min-width="150"></el-table-column>
         <el-table-column                   label="封面图"  width="60">
           <template slot-scope="scope">
@@ -84,7 +84,7 @@
           </template>
         </el-table-column>
         <el-table-column prop="typeName"   label="类别"    width="100"></el-table-column>
-        <el-table-column prop="ageName"    label="年级"    min-width="250"></el-table-column>
+        <el-table-column prop="ageName"    label="年级"    min-width="250" show-overflow-tooltip></el-table-column>
         <el-table-column prop="fee"        label="价格"    width="100"  sortable></el-table-column>
         <el-table-column prop="feeUnitNum" label="单位"    width="100" >
           <template slot-scope="scope">
@@ -93,7 +93,7 @@
             <span>{{ scope.row.feeUnitName }}</span>
           </template>
         </el-table-column>
-        <el-table-column prop="giftName"   label="礼品"      min-width="250"></el-table-column>
+        <el-table-column prop="giftName"   label="礼品"      min-width="250" show-overflow-tooltip></el-table-column>
         <el-table-column prop="isSale"     label="是否上架"  width="100" >
           <template slot-scope="scope">
             <span v-if="scope.row.isSale === 1">是</span>
@@ -462,6 +462,9 @@ export default {
     width: 100%;
   }
   .journal-Manage .el-table__body-wrapper .el-table__row {
+    height: 80px;
+  }
+  .journal-Manage .el-table__fixed-body-wrapper .el-table__row {
     height: 80px;
   }
 </style>

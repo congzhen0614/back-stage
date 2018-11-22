@@ -6,6 +6,7 @@
         <el-button size="small" type="primary" @click="addImages('1')" v-if="havePermission('magazine:updatelogo')">添加封面图</el-button>
         <el-button size="small" type="primary" @click="addImages('2')" v-if="havePermission('magazine:giftlogo')">添加礼品图</el-button>
         <el-button size="small" type="primary" @click="addImages('3')" v-if="havePermission('itemimg:save')">添加内页图</el-button>
+        <el-button size="small" type="primary" @click="clickDelete" v-if="havePermission('itemimg:save')">批量删除</el-button>
       </div>
     </el-header>
     <el-main>
@@ -38,18 +39,17 @@ export default {
   data () {
     return {
       windowHeight: window.innerHeight - 250 + 'px',
+      selectData: [],
       tableData: [],
       info: this.$route.query
     }
   },
   created () {
-  },
-  mounted () {
     this.loadDate()
   },
-  computed: {},
   methods: {
     loadDate () {
+      this.tableData = []
       this.$axios.magazineItemImgst({itemId: this.info.id}).then(res => {
         if (res.data.code === '0') {
           this.tableData.push({
@@ -87,7 +87,7 @@ export default {
       this.loadDate()
     },
     handleSelectionChange (item) {
-      console.log(item)
+      this.selectData = item
     },
     addImages (type, id) {
       this.$router.push({
@@ -157,6 +157,37 @@ export default {
       } else {
         this.addImages('4', item.id)
       }
+    },
+    clickDelete () {
+      let params = {
+        hasCoverImg: 0,
+        hasGiftImg: 0,
+        id: this.$route.query.id,
+        ids: []
+      }
+      this.selectData.forEach(item => {
+        if (item.type === '封面图') {
+          params.hasCoverImg = 1
+        }
+        if (item.type === '礼品图') {
+          params.hasGiftImg = 1
+        }
+        if (item.type === '内页图') {
+          params.ids.push(item.id)
+        }
+      })
+      this.$axios.pictureDelete(params).then(res => {
+        if (res.data.code === '0') {
+          this.$message.success('操作成功')
+          this.loadDate()
+        } else {
+          this.$message.error(res.data.msg)
+        }
+      }, err => {
+        this.$message.error(err)
+      }).catch(err => {
+        this.$message.error(err)
+      })
     }
   },
   watch: {}

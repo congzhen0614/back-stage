@@ -50,8 +50,14 @@
         <el-menu-item index="/schoolReport">
           <span slot="title">按学校汇总杂志订单</span>
         </el-menu-item>
-        <el-menu-item index="/areaReport">
-          <span slot="title">地区对账</span>
+        <el-menu-item index="/magaAreaReport">
+          <span slot="title">杂志地区对账</span>
+        </el-menu-item>
+        <el-menu-item index="/bookAreaReport">
+          <span slot="title">图书地区对账</span>
+        </el-menu-item>
+        <el-menu-item index="/spypAreaReport">
+          <span slot="title">电子读物地区对账</span>
         </el-menu-item>
         <el-menu-item index="/magaReport">
           <span slot="title">杂志销售统计</span>
