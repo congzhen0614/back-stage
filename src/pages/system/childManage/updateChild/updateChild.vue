@@ -57,6 +57,7 @@ export default {
   components: {},
   data () {
     return {
+      user: JSON.parse(localStorage.getItem('user')),
       rules: {
         name: [
           {required: true, message: '请输入孩子姓名'},
@@ -90,6 +91,9 @@ export default {
     this.loadProvince()
     this.loadGradeList()
     this.loadClassList()
+    // if (this.user.roleLevel !== 1) {
+    //   this.loadAccountArea()
+    // }
   },
   mounted () {
     this.form = {
@@ -137,6 +141,25 @@ export default {
     }
   },
   methods: {
+    loadAccountArea () {
+      this.$axios.accountArea({id: this.user.id}).then(res => {
+        if (res.data.code === '0') {
+          res.data.data.area.cities.forEach(city => {
+            this.citiesList.push({
+              region: city.regions,
+              name: city.cityName,
+              id: city.cityId
+            })
+          })
+        } else {
+          this.$message.error(res.data.msg)
+        }
+      }, err => {
+        this.$message.error(err)
+      }).catch(err => {
+        this.$message.error(err)
+      })
+    },
     loadProvince () {
       this.$axios.province().then(res => {
         if (res.data.code === '0') {
@@ -238,26 +261,42 @@ export default {
   watch: {
     'form.provinceId' (val) {
       if (val === '') {
-        this.form.cityId = ''
+        this.search.cityId = ''
         this.citiesList = []
       } else {
         this.loadCities()
+        // if (this.user.roleLevel === 1) {
+        //   this.loadCities()
+        // }
       }
     },
     'form.cityId' (val) {
       if (val === '') {
-        this.form.regionId = ''
+        this.search.regionId = ''
         this.regionList = []
       } else {
         this.loadRegions()
+        // if (this.user.roleLevel === 1) {
+        //   this.loadRegions()
+        // } else {
+        //   this.regionList = []
+        //   this.citiesList.forEach(item => {
+        //     if (item.id === val) {
+        //       item.region.forEach(region => {
+        //         this.regionList.push({
+        //           name: region.regionName,
+        //           id: region.regionId
+        //         })
+        //       })
+        //     }
+        //   })
+        // }
       }
     },
-    'form.regionId' (val) {
-      if (val === '') {
-        this.schoolList = []
-      } else {
-        this.loadSchoolList()
-      }
+    'form.regionId' () {
+      this.search.schoolId = ''
+      this.schoolList = []
+      this.loadSchoolList()
     }
   }
 }
