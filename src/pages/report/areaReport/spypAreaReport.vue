@@ -45,15 +45,15 @@
       <el-table-column prop="createdAt"    label="交易时间"  width="150"></el-table-column>
       <el-table-column prop="tradeStatus"  label="订单状态"  width="100"></el-table-column>
     </el-table>
-    <el-pagination
-      @size-change="handleSizeChange"
-      @current-change="handleCurrentChange"
-      :current-page="pages.pageNum"
-      :page-size="pages.pageSize"
-      :page-sizes="[20, 50, 75, 100]"
-      layout="total, sizes, prev, pager, next, jumper"
-      :total="pages.total">
-    </el-pagination>
+    <!--<el-pagination-->
+      <!--@size-change="handleSizeChange"-->
+      <!--@current-change="handleCurrentChange"-->
+      <!--:current-page="pages.pageNum"-->
+      <!--:page-size="pages.pageSize"-->
+      <!--:page-sizes="[20, 50, 75, 100]"-->
+      <!--layout="total, sizes, prev, pager, next, jumper"-->
+      <!--:total="pages.total">-->
+    <!--</el-pagination>-->
   </div>
 </template>
 

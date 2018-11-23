@@ -21,7 +21,7 @@
           </el-col>
           <el-col :span="4">
             <el-form-item label="学校:" label-width="50px">
-              <el-select v-model="search.schoolId" placeholder="请选择学校">
+              <el-select v-model="search.schoolId" placeholder="请选择学校" :disabled="search.sendType === 1">
                 <el-option label="全部" value=""></el-option>
                 <el-option :label="item.schoolName" :value="item.schoolId" v-for="item in schoolList" :key="item.id"></el-option>
               </el-select>
@@ -44,7 +44,7 @@
           </el-col>
           <el-col :span="3">
             <el-form-item label="配送方式:" label-width="70px">
-              <el-select v-model="search.sendType">
+              <el-select v-model="search.sendType" :disabled="search.schoolId !== ''">
                 <el-option label="全部" value=""></el-option>
                 <el-option label="直送" :value="0"></el-option>
                 <el-option label="寄送" :value="1"></el-option>
@@ -69,7 +69,7 @@
       </el-form>
     </header>
     <el-table size="mini" :data="tableData" border :height="windowHeight">
-      <el-table-column prop="name"         label="杂志名称"  width="280"></el-table-column>
+      <el-table-column prop="name"         label="杂志名称"  width="200"></el-table-column>
       <el-table-column prop="no"           label="订单号"    width="200"></el-table-column>
       <el-table-column prop="adminName"    label="业务员"    width="100"></el-table-column>
       <el-table-column prop="quantity"     label="数量"      width="60"></el-table-column>
@@ -84,15 +84,15 @@
       <el-table-column prop="createdAt"    label="交易时间"  width="150"></el-table-column>
       <el-table-column prop="tradeStatus"  label="订单状态"  width="100"></el-table-column>
     </el-table>
-    <el-pagination
-      @size-change="handleSizeChange"
-      @current-change="handleCurrentChange"
-      :current-page="pages.pageNum"
-      :page-size="pages.pageSize"
-      :page-sizes="[20, 50, 75, 100]"
-      layout="total, sizes, prev, pager, next, jumper"
-      :total="pages.total">
-    </el-pagination>
+    <!--<el-pagination-->
+      <!--@size-change="handleSizeChange"-->
+      <!--@current-change="handleCurrentChange"-->
+      <!--:current-page="pages.pageNum"-->
+      <!--:page-size="pages.pageSize"-->
+      <!--:page-sizes="[20, 50, 75, 100]"-->
+      <!--layout="total, sizes, prev, pager, next, jumper"-->
+      <!--:total="pages.total">-->
+    <!--</el-pagination>-->
   </div>
 </template>
 
@@ -342,6 +342,16 @@ export default {
     'search.selectDate' (val) {
       if (val === null) {
         this.search.selectDate = ['', '']
+      }
+    },
+    'search.schoolId' (val) {
+      if (val !== '') {
+        this.search.sendType = 0
+      }
+    },
+    'search.sendType' (val) {
+      if (val === 1) {
+        this.search.schoolId = ''
       }
     }
   }

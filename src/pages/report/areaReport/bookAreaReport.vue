@@ -19,15 +19,15 @@
               </el-select>
             </el-form-item>
           </el-col>
+          <!--<el-col :span="4">-->
+            <!--<el-form-item label="学校:" label-width="50px">-->
+              <!--<el-select v-model="search.schoolId" placeholder="请选择学校">-->
+                <!--<el-option label="全部" value=""></el-option>-->
+                <!--<el-option :label="item.schoolName" :value="item.schoolId" v-for="item in schoolList" :key="item.id"></el-option>-->
+              <!--</el-select>-->
+            <!--</el-form-item>-->
+          <!--</el-col>-->
           <el-col :span="4">
-            <el-form-item label="学校:" label-width="50px">
-              <el-select v-model="search.schoolId" placeholder="请选择学校">
-                <el-option label="全部" value=""></el-option>
-                <el-option :label="item.schoolName" :value="item.schoolId" v-for="item in schoolList" :key="item.id"></el-option>
-              </el-select>
-            </el-form-item>
-          </el-col>
-          <el-col :span="3">
             <el-form-item label="销售员:" label-width="60px">
               <el-select v-model="search.adminId" placeholder="请选择销售员">
                 <el-option label="全部" value=""></el-option>
@@ -42,15 +42,15 @@
               <el-date-picker style="width: 100%" v-model="search.selectDate" type="daterange" range-separator="-" start-placeholder="开始日期" end-placeholder="结束日期"></el-date-picker>
             </el-form-item>
           </el-col>
-          <el-col :span="3">
-            <el-form-item label="配送方式:" label-width="70px">
-              <el-select v-model="search.sendType">
-                <el-option label="全部" value=""></el-option>
-                <el-option label="直送" :value="0"></el-option>
-                <el-option label="寄送" :value="1"></el-option>
-              </el-select>
-            </el-form-item>
-          </el-col>
+          <!--<el-col :span="3">-->
+            <!--<el-form-item label="配送方式:" label-width="70px">-->
+              <!--<el-select v-model="search.sendType">-->
+                <!--<el-option label="全部" value=""></el-option>-->
+                <!--<el-option label="直送" :value="0"></el-option>-->
+                <!--<el-option label="寄送" :value="1"></el-option>-->
+              <!--</el-select>-->
+            <!--</el-form-item>-->
+          <!--</el-col>-->
           <el-col :span="4">
             <el-form-item label="支付方式:" label-width="70px">
               <el-select v-model="search.payType" placeholder="请选择销售员">
@@ -81,15 +81,15 @@
       <el-table-column prop="createdAt"    label="交易时间"  width="150"></el-table-column>
       <el-table-column prop="tradeStatus"  label="订单状态"  width="100"></el-table-column>
     </el-table>
-    <el-pagination
-      @size-change="handleSizeChange"
-      @current-change="handleCurrentChange"
-      :current-page="pages.pageNum"
-      :page-size="pages.pageSize"
-      :page-sizes="[20, 50, 75, 100]"
-      layout="total, sizes, prev, pager, next, jumper"
-      :total="pages.total">
-    </el-pagination>
+    <!--<el-pagination-->
+      <!--@size-change="handleSizeChange"-->
+      <!--@current-change="handleCurrentChange"-->
+      <!--:current-page="pages.pageNum"-->
+      <!--:page-size="pages.pageSize"-->
+      <!--:page-sizes="[20, 50, 75, 100]"-->
+      <!--layout="total, sizes, prev, pager, next, jumper"-->
+      <!--:total="pages.total">-->
+    <!--</el-pagination>-->
   </div>
 </template>
 
@@ -112,7 +112,6 @@ export default {
         provinceId: '',
         cityId: '',
         regionId: '',
-        schoolId: '',
         adminId: '',
         payType: '',
         selectDate: ['', '']
@@ -145,10 +144,8 @@ export default {
         provinceId: this.search.provinceId,
         cityId: this.search.cityId,
         regionId: this.search.regionId,
-        schoolId: this.search.schoolId,
         adminId: this.search.adminId,
         payType: this.search.payType,
-        // sendType: this.search.sendType,
         startDate: dateFormat(this.search.selectDate[0], 0),
         endDate: dateFormat(this.search.selectDate[1], 1),
         cls: 2

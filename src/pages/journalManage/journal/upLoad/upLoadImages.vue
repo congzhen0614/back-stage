@@ -41,9 +41,9 @@ export default {
       }
     },
     beforeUpload (file) {
-      let k100 = 1024 * 100
+      let k100 = 1024 * 300
       if (file.size > k100) {
-        this.$message.warning('图片大小不能超出100kb')
+        this.$message.warning('图片大小不能超出300kb')
         return false
       }
     },

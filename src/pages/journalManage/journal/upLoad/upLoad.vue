@@ -103,7 +103,7 @@ export default {
       this.$axios.magazineItemImgSave(param).then(res => {
         if (res.data.code === '0') {
           this.$message.success('操作成功!')
-          this.$router.go(-1)
+          // this.$router.go(-1)
         } else {
           this.$message.error(res.data.msg)
         }
