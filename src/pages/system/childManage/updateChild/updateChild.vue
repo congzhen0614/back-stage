@@ -294,8 +294,8 @@ export default {
       }
     },
     'form.regionId' () {
-      this.search.schoolId = ''
-      this.schoolList = []
+      // this.form.schoolId = ''
+      // this.schoolList = []
       this.loadSchoolList()
     }
   }
