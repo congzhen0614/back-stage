@@ -19,7 +19,7 @@
               </el-select>
             </el-form-item>
           </el-col>
-          <el-col :span="3">
+          <el-col :span="4">
             <el-form-item label="学校:" label-width="50px">
               <el-select v-model="search.schoolId" placeholder="请选择学校">
                 <el-option label="全部" value=""></el-option>
@@ -48,6 +48,15 @@
                 <el-option label="全部" value=""></el-option>
                 <el-option label="直送" :value="0"></el-option>
                 <el-option label="寄送" :value="1"></el-option>
+              </el-select>
+            </el-form-item>
+          </el-col>
+          <el-col :span="4">
+            <el-form-item label="支付方式:" label-width="70px">
+              <el-select v-model="search.payType" placeholder="请选择销售员">
+                <el-option label="全部" value=""></el-option>
+                <el-option label="微信" value="1"></el-option>
+                <el-option label="支付宝" value="2"></el-option>
               </el-select>
             </el-form-item>
           </el-col>
@@ -91,7 +100,7 @@ export default {
   components: {},
   data () {
     return {
-      windowHeight: window.innerHeight - 200 + 'px',
+      windowHeight: window.innerHeight - 230 + 'px',
       user: JSON.parse(localStorage.getItem('user')),
       provinceList: [],
       citiesList: [],
@@ -105,6 +114,7 @@ export default {
         regionId: '',
         schoolId: '',
         adminId: '',
+        payType: '',
         selectDate: ['', '']
       },
       pages: {
@@ -137,6 +147,7 @@ export default {
         regionId: this.search.regionId,
         schoolId: this.search.schoolId,
         adminId: this.search.adminId,
+        payType: this.search.payType,
         // sendType: this.search.sendType,
         startDate: dateFormat(this.search.selectDate[0], 0),
         endDate: dateFormat(this.search.selectDate[1], 1),

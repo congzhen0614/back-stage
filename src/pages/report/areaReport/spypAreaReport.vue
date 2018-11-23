@@ -3,7 +3,16 @@
     <header class="maga-report-header">
       <el-form ref="form" :model="search" size="mini">
         <el-row>
-          <el-col :span="3">
+          <el-col :span="4">
+            <el-form-item label="支付方式:" label-width="70px">
+              <el-select v-model="search.payType" placeholder="请选择销售员">
+                <el-option label="全部" value=""></el-option>
+                <el-option label="微信" value="1"></el-option>
+                <el-option label="支付宝" value="2"></el-option>
+              </el-select>
+            </el-form-item>
+          </el-col>
+          <el-col :span="4">
             <el-form-item label="销售员:" label-width="60px">
               <el-select v-model="search.adminId" placeholder="请选择销售员">
                 <el-option label="全部" value=""></el-option>
@@ -55,11 +64,12 @@ export default {
   components: {},
   data () {
     return {
-      windowHeight: window.innerHeight - 200 + 'px',
+      windowHeight: window.innerHeight - 180 + 'px',
       user: JSON.parse(localStorage.getItem('user')),
       accountList: [],
       tableData: [],
       search: {
+        payType: '',
         adminId: '',
         selectDate: ['', '']
       },
@@ -88,6 +98,7 @@ export default {
         }
       }
       let param = {
+        payType: this.search.payType,
         adminId: this.search.adminId,
         startDate: dateFormat(this.search.selectDate[0], 0),
         endDate: dateFormat(this.search.selectDate[1], 1),

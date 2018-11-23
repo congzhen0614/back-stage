@@ -3,9 +3,8 @@
  * Author congzhen
  */
 let phone = (rule, value, callback) => {
-  let phone = /^(13[0-9]|14[579]|15[0-3,5-9]|16[6]|17[0135678]|18[0-9]|19[89])\d{8}$/
   let tel = /^[0-9]{10,11}$/
-  if (!phone.test(value) && !tel.test(value)) {
+  if (!tel.test(value)) {
     callback(new Error('请输入正确联系方式'))
   } else {
     callback()
@@ -13,7 +12,7 @@ let phone = (rule, value, callback) => {
 }
 
 let mPhone = (rule, value, callback) => {
-  let phone = /^(13[0-9]|14[579]|15[0-3,5-9]|16[6]|17[0135678]|18[0-9]|19[89])\d{8}$/
+  let phone = /^((13[0-9])|(14[5-9])|(15[0-3,5-9])|(16[6])|(17[0-8])|(18[0-9])|(19[8,9]))\\d{8}$/
   if (!phone.test(value)) {
     callback(new Error('请输入正确手机号'))
   } else {
@@ -150,7 +149,7 @@ let ManageCatalogue = {
   ],
   linkmobile: [
     {required: true, message: '请输入联系电话', trigger: 'blur'},
-    {validator: mPhone, trigger: 'blur'}
+    {validator: phone, trigger: 'blur'}
   ],
   tip: [
     {required: true, message: '请输入提示语', trigger: 'blur'},
