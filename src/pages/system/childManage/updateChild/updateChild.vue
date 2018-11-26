@@ -5,15 +5,15 @@
         <el-input v-model="form.name" placeholder="请输入姓名"></el-input>
       </el-form-item>
       <el-form-item label="省/市/区:" prop="regionId">
-        <el-select v-model="form.provinceId" placeholder="请选择省" style="width: 32%">
+        <el-select v-model="form.provinceId" placeholder="请选择省" style="width: 32%" :disabled="user.roleLevel !== 1">
           <el-option label="全部" value=""></el-option>
           <el-option :label="item.name" :value="item.id" v-for="item in provinceList" :key="item.id"></el-option>
         </el-select>
-        <el-select v-model="form.cityId" placeholder="请选择市" style="width: 32%">
+        <el-select v-model="form.cityId" placeholder="请选择市" style="width: 32%" :disabled="citiesList.length === 1 && user.roleLevel !== 1">
           <el-option label="全部" value=""></el-option>
           <el-option :label="item.name" :value="item.id" v-for="item in citiesList" :key="item.id"></el-option>
         </el-select>
-        <el-select v-model="form.regionId" placeholder="请选择区" style="width: 32%">
+        <el-select v-model="form.regionId" placeholder="请选择区" style="width: 32%" :disabled="regionList.length === 1 && user.roleLevel !== 1">
           <el-option label="全部" value=""></el-option>
           <el-option :label="item.name" :value="item.id" v-for="item in regionList" :key="item.id"></el-option>
         </el-select>
@@ -71,12 +71,12 @@ export default {
           },
           trigger: 'blur'}
         ],
-        provinceId: {required: true, message: '请输入省'},
-        cityId: {required: true, message: '请输入市'},
-        regionId: {required: true, message: '请输入省市区'},
-        enrollment: {required: true, message: '请选择入学年份'},
-        schoolId: {required: true, message: '请选择学校'},
-        gradeId: {required: true, message: '请选择年级'}
+        provinceId: {required: true, message: '请输入省', trigger: 'blur'},
+        cityId: {required: true, message: '请输入市', trigger: 'blur'},
+        regionId: {required: true, message: '请输入省市区', trigger: 'blur'},
+        enrollment: {required: true, message: '请选择入学年份', trigger: 'blur'},
+        schoolId: {required: true, message: '请选择学校', trigger: 'blur'},
+        gradeId: {required: true, message: '请选择年级', trigger: 'blur'}
       },
       provinceList: [],
       citiesList: [],
@@ -84,31 +84,35 @@ export default {
       schoolList: [],
       gradeList: [],
       classList: [],
-      form: {}
+      form: {
+        name: JSON.parse(this.$route.query.item).name, // 姓名
+        provinceId: '', // 省
+        cityId: '', // 市
+        regionId: '', // 区
+        schoolId: JSON.parse(this.$route.query.item).schoolId, // 学校id
+        gradeId: JSON.parse(this.$route.query.item).gradeId.toString(), // 年级id
+        classId: JSON.parse(this.$route.query.item).classId.toString(), // 班级id
+        className: JSON.parse(this.$route.query.item).className, // 自定义班级名称
+        enrollment: JSON.parse(this.$route.query.item).enrollment, // 入学年月
+        mobile: JSON.parse(this.$route.query.item).mobile, // 手机号
+        parent: JSON.parse(this.$route.query.item).parent, // 家长姓名
+        relation: JSON.parse(this.$route.query.item).relation // 关系
+      }
     }
   },
   created () {
     this.loadProvince()
     this.loadGradeList()
     this.loadClassList()
-    // if (this.user.roleLevel !== 1) {
-    //   this.loadAccountArea()
-    // }
+    if (this.user.roleLevel !== 1) {
+      this.loadAccountArea()
+    }
   },
   mounted () {
-    this.form = {
-      name: JSON.parse(this.$route.query.item).name, // 姓名
-      provinceId: JSON.parse(this.$route.query.item).provinceId.toString(), // 省
-      cityId: JSON.parse(this.$route.query.item).cityId.toString(), // 市
-      regionId: JSON.parse(this.$route.query.item).regionId.toString(), // 区
-      schoolId: JSON.parse(this.$route.query.item).schoolId, // 学校id
-      gradeId: JSON.parse(this.$route.query.item).gradeId.toString(), // 年级id
-      classId: JSON.parse(this.$route.query.item).classId.toString(), // 班级id
-      className: JSON.parse(this.$route.query.item).className, // 自定义班级名称
-      enrollment: JSON.parse(this.$route.query.item).enrollment, // 入学年月
-      mobile: JSON.parse(this.$route.query.item).mobile, // 手机号
-      parent: JSON.parse(this.$route.query.item).parent, // 家长姓名
-      relation: JSON.parse(this.$route.query.item).relation // 关系
+    this.form.provinceId = JSON.parse(this.$route.query.item).provinceId.toString()
+    if (this.user.roleLevel === 1) {
+      this.form.cityId = JSON.parse(this.$route.query.item).cityId.toString()
+      this.form.regionId = JSON.parse(this.$route.query.item).regionId.toString()
     }
   },
   computed: {
@@ -151,6 +155,8 @@ export default {
               id: city.cityId
             })
           })
+          this.form.cityId = JSON.parse(this.$route.query.item).cityId
+          this.form.regionId = JSON.parse(this.$route.query.item).regionId
         } else {
           this.$message.error(res.data.msg)
         }
@@ -260,42 +266,39 @@ export default {
   },
   watch: {
     'form.provinceId' (val) {
+      console.log(val)
       if (val === '') {
-        this.search.cityId = ''
+        this.form.cityId = ''
         this.citiesList = []
       } else {
-        this.loadCities()
-        // if (this.user.roleLevel === 1) {
-        //   this.loadCities()
-        // }
+        if (this.user.roleLevel === 1) {
+          this.loadCities()
+        }
       }
     },
     'form.cityId' (val) {
       if (val === '') {
-        this.search.regionId = ''
+        this.form.regionId = ''
         this.regionList = []
       } else {
-        this.loadRegions()
-        // if (this.user.roleLevel === 1) {
-        //   this.loadRegions()
-        // } else {
-        //   this.regionList = []
-        //   this.citiesList.forEach(item => {
-        //     if (item.id === val) {
-        //       item.region.forEach(region => {
-        //         this.regionList.push({
-        //           name: region.regionName,
-        //           id: region.regionId
-        //         })
-        //       })
-        //     }
-        //   })
-        // }
+        if (this.user.roleLevel === 1) {
+          this.loadRegions()
+        } else {
+          this.regionList = []
+          this.citiesList.forEach(item => {
+            if (item.id === val) {
+              item.region.forEach(region => {
+                this.regionList.push({
+                  name: region.regionName,
+                  id: region.regionId
+                })
+              })
+            }
+          })
+        }
       }
     },
     'form.regionId' () {
-      // this.form.schoolId = ''
-      // this.schoolList = []
       this.loadSchoolList()
     }
   }

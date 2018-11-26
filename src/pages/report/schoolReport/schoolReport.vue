@@ -216,7 +216,11 @@ export default {
       })
     },
     loadSchoolExport () {
-      if (this.search.adminId === '') {
+      if (this.search.provinceId === '' || this.search.cityId === '' || this.search.regionId === '') {
+        this.$message.warning('请选择省/市/区')
+      } else if (this.search.schoolId === '') {
+        this.$message.warning('请选择学校')
+      } else if (this.search.adminId === '') {
         this.$message.warning('请选择销售员')
       } else {
         let param = qs.stringify(this.params)
@@ -225,7 +229,11 @@ export default {
       }
     },
     loadExportDsd () {
-      if (this.search.adminId === '') {
+      if (this.search.provinceId === '' || this.search.cityId === '' || this.search.regionId === '') {
+        this.$message.warning('请选择省/市/区')
+      } else if (this.search.schoolId === '') {
+        this.$message.warning('请选择学校')
+      } else if (this.search.adminId === '') {
         this.$message.warning('请选择销售员')
       } else {
         let param = qs.stringify(this.params)
@@ -234,7 +242,11 @@ export default {
       }
     },
     loadExportDsdStudent () {
-      if (this.search.adminId === '') {
+      if (this.search.provinceId === '' || this.search.cityId === '' || this.search.regionId === '') {
+        this.$message.warning('请选择省/市/区')
+      } else if (this.search.schoolId === '') {
+        this.$message.warning('请选择学校')
+      } else if (this.search.adminId === '') {
         this.$message.warning('请选择销售员')
       } else {
         let param = qs.stringify(this.params)
@@ -243,7 +255,11 @@ export default {
       }
     },
     loadExportFsd () {
-      if (this.search.adminId === '') {
+      if (this.search.provinceId === '' || this.search.cityId === '' || this.search.regionId === '') {
+        this.$message.warning('请选择省/市/区')
+      } else if (this.search.schoolId === '') {
+        this.$message.warning('请选择学校')
+      } else if (this.search.adminId === '') {
         this.$message.warning('请选择销售员')
       } else {
         let param = qs.stringify(this.params)

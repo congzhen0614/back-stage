@@ -164,9 +164,9 @@ export default {
         if (res.data.code === '0') {
           this.search.provinceId = res.data.data.area.provinceId.toString()
           if (res.data.data.area.cities.length === 1) {
-            this.search.cityId = res.data.data.area.cities[0].cityId
+            this.search.cityIds = res.data.data.area.cities[0].cityId
             if (res.data.data.area.cities[0].regions.length === 1) {
-              this.search.regionId = res.data.data.area.cities[0].regions[0].regionId
+              this.search.regionIds = res.data.data.area.cities[0].regions[0].regionId
             }
           }
           res.data.data.area.cities.forEach(city => {
@@ -408,7 +408,7 @@ export default {
   watch: {
     'search.provinceId' (val) {
       if (val === '') {
-        this.search.cityId = ''
+        this.search.cityIds = ''
         this.citiesList = []
       } else {
         if (this.user.roleLevel === 1) {
@@ -416,9 +416,9 @@ export default {
         }
       }
     },
-    'search.cityId' (val) {
+    'search.cityIds' (val) {
       if (val === '') {
-        this.search.regionId = ''
+        this.search.regionIds = ''
         this.regionList = []
       } else {
         if (this.user.roleLevel === 1) {
@@ -428,7 +428,7 @@ export default {
           this.citiesList.forEach(item => {
             if (item.id === val) {
               item.region.forEach(region => {
-                this.regionList.push({
+                this.regionsList.push({
                   name: region.regionName,
                   id: region.regionId
                 })
