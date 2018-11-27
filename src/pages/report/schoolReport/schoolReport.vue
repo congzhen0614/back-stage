@@ -43,7 +43,6 @@
           <el-col :span="4">
             <el-form-item label="是否升年级:" label-width="80px">
               <el-select v-model="search.upgrade" placeholder="请选择销售员">
-                <el-option label="全部" value=""></el-option>
                 <el-option label="是" value="1"></el-option>
                 <el-option label="否" value="0"></el-option>
               </el-select>
@@ -81,7 +80,7 @@ export default {
         regionId: '',
         schoolId: '',
         adminId: '',
-        upgrade: '',
+        upgrade: '0',
         selectDate: ['', '']
       }
     }
