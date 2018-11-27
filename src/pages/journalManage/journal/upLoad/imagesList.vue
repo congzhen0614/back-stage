@@ -38,7 +38,7 @@ export default {
   components: {},
   data () {
     return {
-      windowHeight: window.innerHeight - 250 + 'px',
+      windowHeight: window.innerHeight - 170 + 'px',
       selectData: [],
       tableData: [],
       info: this.$route.query
@@ -212,5 +212,8 @@ export default {
   .images-list .journal-Manage-header {
     background-color: #F2F6FC;
     padding: 20px;
+  }
+  .images-list .el-table__body-wrapper {
+    overflow: auto;
   }
 </style>

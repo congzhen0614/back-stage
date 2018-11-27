@@ -112,7 +112,7 @@ export default {
           this.pages.pageNum = pages.pageNum
           this.pages.pageSize = pages.pageSize
         } else {
-          this.$message.error(res.data.data.msg)
+          this.$message.error(res.data.msg)
         }
       }, err => {
         this.$message.error(err)
@@ -151,7 +151,7 @@ export default {
               this.$message.success('删除成功!')
               this.loadDate()
             } else {
-              this.$message.error(res.data.data.msg)
+              this.$message.error(res.data.msg)
             }
           }, err => {
             this.$message.error(err)

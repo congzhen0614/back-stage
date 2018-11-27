@@ -57,7 +57,7 @@ export default {
           this.$message.success('添加成功!')
           this.$router.go(-1)
         } else {
-          this.$message.error(res.data.data.msg)
+          this.$message.error(res.data.msg)
         }
       }, err => {
         this.$message.error(err)

@@ -145,7 +145,7 @@ export default {
           this.total = res.data.data.total
           this.selectList()
         } else {
-          this.$message.error(res.data.data.msg)
+          this.$message.error(res.data.msg)
         }
       }, err => {
         this.$message.error(err)
@@ -181,7 +181,7 @@ export default {
         if (res.data.code === '0') {
           this.typeList = res.data.data
         } else {
-          this.$message.error(res.data.data.msg)
+          this.$message.error(res.data.msg)
         }
       }, err => {
         this.$message.error(err)

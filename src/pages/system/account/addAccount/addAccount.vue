@@ -110,7 +110,7 @@ export default {
           })
           this.loadRoleList()
         } else {
-          this.$message.error(res.data.data.msg)
+          this.$message.error(res.data.msg)
         }
       }, err => {
         this.$message.error(err)
@@ -123,7 +123,7 @@ export default {
         if (res.data.code === '0') {
           this.roles = res.data.data
         } else {
-          this.$message.error(res.data.data.msg)
+          this.$message.error(res.data.msg)
         }
       }, err => {
         this.$message.error(err)
@@ -140,7 +140,7 @@ export default {
         if (res.data.code === '0') {
           this.belongList = res.data.data
         } else {
-          this.$message.error(res.data.data.msg)
+          this.$message.error(res.data.msg)
         }
       }, err => {
         this.$message.error(err)
@@ -174,7 +174,7 @@ export default {
                 path: '/account'
               })
             } else {
-              this.$message.error(res.data.data.msg)
+              this.$message.error(res.data.msg)
             }
           }, err => {
             this.$message.error(err)

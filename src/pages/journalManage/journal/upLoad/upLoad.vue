@@ -4,10 +4,9 @@
       action="https://app.51weixiao.com/app-api/api/upload"
       list-type="picture-card"
       :multiple="multiple"
-      :limit="limit"
+      :on-preview="handlePictureCardPreview"
       :before-upload="beforeUpload"
-      :on-success="handleSuccess"
-      :on-preview="handlePictureCardPreview">
+      :on-success="handleSuccess">
       <i class="el-icon-plus"></i>
     </el-upload>
     <el-dialog :visible.sync="dialogVisible">
