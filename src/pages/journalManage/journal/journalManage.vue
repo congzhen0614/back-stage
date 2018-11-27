@@ -5,12 +5,12 @@
         <el-row>
           <el-col :span="3">
             <el-form-item label="名称：" label-width="50px">
-              <el-input v-model="search.name" placeholder="名称筛选"></el-input>
+              <el-input v-model="search.name" placeholder="名称筛选" @keyup.enter.native="clickSearch"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="3">
             <el-form-item label="刊号:" label-width="45px">
-              <el-input v-model="search.issn" placeholder="刊号筛选"></el-input>
+              <el-input v-model="search.issn" placeholder="刊号筛选" @keyup.enter.native="clickSearch"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="6">

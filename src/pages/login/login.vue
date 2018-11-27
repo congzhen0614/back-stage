@@ -8,11 +8,11 @@
         <span class="box-card-header">微校网商家服务平台</span>
         <div class="login-box">
           <span>账号</span>
-          <input type="text" placeholder="请输入账号" v-model="login.username"/>
+          <input type="text" placeholder="请输入账号" v-model="login.username" @keyup.enter="clickLogin"/>
         </div>
         <div class="login-box">
           <span>密码</span>
-          <input type="password" placeholder="请输入密码" v-model="login.password"/>
+          <input type="password" placeholder="请输入密码" v-model="login.password" @keyup.enter="clickLogin"/>
         </div>
         <span class="login-button" @click="clickLogin">登录</span>
       </el-card>
@@ -35,12 +35,6 @@ export default {
     }
   },
   mounted () {
-    // document.onkeydown = event => {
-    //   var e = event || window.event
-    //   if (e && e.keyCode === 13) {
-    //     this.clickLogin()
-    //   }
-    // }
   },
   methods: {
     clickLogin () {

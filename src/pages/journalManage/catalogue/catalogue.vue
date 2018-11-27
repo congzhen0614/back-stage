@@ -5,7 +5,7 @@
         <el-row>
           <el-col :span="6">
             <el-form-item label="名称:" label-width="40px">
-              <el-input v-model="search.title" placeholder="请输入"></el-input>
+              <el-input v-model="search.title" placeholder="请输入" @keyup.enter.native="clickSearch"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="6">

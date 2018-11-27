@@ -3,7 +3,7 @@
     <header>
       <el-row>
         <el-col :span="4">
-          <el-input v-model="search.name" placeholder="请输入名称筛选" size="mini"></el-input>
+          <el-input v-model="search.name" placeholder="请输入名称筛选" size="mini" @keyup.enter.native="clickSearch"></el-input>
         </el-col>
         <el-button size="mini" type="primary" plain @click="clickSearch" style="margin-left: 10px">检索</el-button>
         <el-button size="mini" type="primary" @click="clickAdd" v-if="havePermission('age:saveOrUpdate')">添加</el-button>

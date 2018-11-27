@@ -21,12 +21,12 @@
           </el-col>
           <el-col :span="4">
             <el-form-item label="账号:" label-width="40px">
-              <el-input v-model="search.name" placeholder="请输入账号"></el-input>
+              <el-input v-model="search.name" placeholder="请输入账号" @keyup.enter.native="clickSearch"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="4">
             <el-form-item label="昵称:" label-width="40px">
-              <el-input v-model="search.nickName" placeholder="请输入昵称"></el-input>
+              <el-input v-model="search.nickName" placeholder="请输入昵称" @keyup.enter.native="clickSearch"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="6">

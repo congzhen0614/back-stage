@@ -3,7 +3,7 @@
     <header class="header" style="height: auto">
       <el-row>
         <el-col :span="4">
-          <el-input v-model="search.title" placeholder="请输入名称" size="mini"></el-input>
+          <el-input v-model="search.title" placeholder="请输入名称" size="mini" @keyup.enter.native="clickSearch"></el-input>
         </el-col>
         <el-col :span="20">
           <el-button type="primary" size="mini" plain @click="clickSearch" style="margin-left: 10px">检索</el-button>
@@ -179,5 +179,8 @@ export default {
   .journal-Manage-catalogue-QRlist header {
     padding: 10px;
     background-color: #F2F6FC;
+  }
+  .journal-Manage-catalogue-QRlist .el-table__body-wrapper {
+    overflow: auto;
   }
 </style>

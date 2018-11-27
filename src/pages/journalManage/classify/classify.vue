@@ -3,7 +3,7 @@
     <header>
       <el-row>
         <el-col :span="4">
-          <el-input v-model="search.name" placeholder="请输入名称筛选" size="mini"></el-input>
+          <el-input v-model="search.name" placeholder="请输入名称筛选" size="mini" @keyup.enter.native="clickSearch"></el-input>
         </el-col>
         <el-col :span="8">
           <el-button size="mini" type="primary" plain @click="clickSearch" style="margin-left: 10px">检索</el-button>

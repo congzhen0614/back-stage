@@ -21,7 +21,7 @@
           </el-col>
           <el-col :span="4">
             <el-form-item label="学校名称:" label-width="70px">
-              <el-input v-model="search.name" placeholder="请输入学校名称"></el-input>
+              <el-input v-model="search.name" placeholder="请输入学校名称" @keyup.enter.native="clickSearch"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="4">

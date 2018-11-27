@@ -21,12 +21,12 @@
           </el-col>
           <el-col :span="4">
             <el-form-item label="学生姓名:" label-width="70px">
-              <el-input v-model="search.name" placeholder="请输入账号"></el-input>
+              <el-input v-model="search.name" placeholder="请输入账号" @keyup.enter.native="clickSearch"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="4">
             <el-form-item label="手机号:" label-width="60px">
-              <el-input v-model="search.mobile" placeholder="请输入手机号"></el-input>
+              <el-input v-model="search.mobile" placeholder="请输入手机号" @keyup.enter.native="clickSearch"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="6">
@@ -323,6 +323,11 @@ export default {
             }
           })
         }
+      }
+    },
+    'search.selectDate' (val) {
+      if (val === null) {
+        this.search.selectDate = ['', '']
       }
     }
   }

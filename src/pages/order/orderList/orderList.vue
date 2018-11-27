@@ -5,12 +5,12 @@
         <el-row>
           <el-col :span="6">
             <el-form-item label="订单号:" label-width="60px">
-              <el-input v-model="search.no" placeholder="请输入"></el-input>
+              <el-input v-model="search.no" placeholder="请输入" @keyup.enter.native="clickSearch"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="6">
             <el-form-item label="收货人电话:" label-width="90px">
-              <el-input v-model="search.mobile" placeholder="请输入"></el-input>
+              <el-input v-model="search.mobile" placeholder="请输入" @keyup.enter.native="clickSearch"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="6">
@@ -77,7 +77,7 @@
         <el-row v-if="showAll">
           <el-col :span="6">
             <el-form-item label="姓名:" label-width="50px">
-              <el-input v-model="search.childName" placeholder="请输入"></el-input>
+              <el-input v-model="search.childName" placeholder="请输入" @keyup.enter.native="clickSearch"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="6">
