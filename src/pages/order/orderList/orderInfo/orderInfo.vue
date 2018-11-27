@@ -55,7 +55,7 @@
         </el-row>
         <el-row>
           <el-col :span="24">
-            <el-form-item label="留言:" label-width="40px">
+            <el-form-item label="留言:" label-width="50px">
               <el-input v-model="form.userRemark" placeholder="请输入" disabled></el-input>
             </el-form-item>
           </el-col>
@@ -367,7 +367,6 @@ export default {
     background-color: #F2F6FC;
   }
   .table-main {
-    padding: 10px;
     padding-top: 0;
   }
   .table-title {
