@@ -83,6 +83,7 @@
         multiple
         :action="upLoadUrl"
         :headers="{Authorization: authorization}"
+        :show-file-list="false"
         :on-success="upLoadSuccess"
         :on-error="upLoadError"
         :before-upload="beforeAvatarUpload">
