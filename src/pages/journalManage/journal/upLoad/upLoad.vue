@@ -24,7 +24,8 @@ export default {
       limit: this.$route.query.type === '3' ? 5 : 1,
       multiple: this.$route.query.type === '3',
       dialogImageUrl: '',
-      dialogVisible: false
+      dialogVisible: false,
+      imagesLength: 0
     }
   },
   mounted () {},
@@ -34,6 +35,11 @@ export default {
       let k300 = 1024 * 300
       if (file.size > k300) {
         this.$message.warning('图片大小不能超出300kb')
+        return false
+      }
+      this.imagesLength += 1
+      if (this.imagesLength > 5) {
+        this.$message.warning('最多上传五张图片')
         return false
       }
     },
@@ -126,8 +132,7 @@ export default {
         this.$message.error(err)
       })
     }
-  },
-  watch: {}
+  }
 }
 </script>
 
@@ -138,5 +143,8 @@ export default {
   .journal-manage-upLoad .el-upload-list--picture-card .el-upload-list__item-thumbnail {
     width: auto;
     height: 100%;
+  }
+  .journal-manage-upLoad .el-upload-list--picture-card .el-upload-list__item-actions .el-upload-list__item-delete {
+    display: none;
   }
 </style>
