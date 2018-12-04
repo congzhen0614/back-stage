@@ -33,11 +33,11 @@
       <el-form-item label="年级/班级:" prop="gradeId">
         <el-select v-model="form.gradeId" placeholder="请选择年级" style="width: 49%">
           <el-option label="全部" value=""></el-option>
-          <el-option :label="item.name" :value="item.id" v-for="item in gradeList" :key="item.id"></el-option>
+          <el-option :label="item.name" :value="parseInt(item.id)" v-for="item in gradeList" :key="item.id"></el-option>
         </el-select>
         <el-select v-model="form.classId" placeholder="请选择班级" style="width: 49%">
           <el-option label="全部" value=""></el-option>
-          <el-option :label="item.name" :value="item.id" v-for="item in classList" :key="item.id"></el-option>
+          <el-option :label="item.name" :value="parseInt(item.id)" v-for="item in classList" :key="item.id"></el-option>
         </el-select>
       </el-form-item>
       <el-form-item label="自定义班级:">
@@ -90,8 +90,8 @@ export default {
         cityId: '', // 市
         regionId: '', // 区
         schoolId: JSON.parse(this.$route.query.item).schoolId, // 学校id
-        gradeId: JSON.parse(this.$route.query.item).gradeId.toString(), // 年级id
-        classId: JSON.parse(this.$route.query.item).classId.toString(), // 班级id
+        gradeId: JSON.parse(this.$route.query.item).gradeId, // 年级id
+        classId: JSON.parse(this.$route.query.item).classId, // 班级id
         className: JSON.parse(this.$route.query.item).className, // 自定义班级名称
         enrollment: JSON.parse(this.$route.query.item).enrollment, // 入学年月
         mobile: JSON.parse(this.$route.query.item).mobile, // 手机号
@@ -101,6 +101,7 @@ export default {
     }
   },
   created () {
+    console.log(JSON.parse(this.$route.query.item))
     this.loadProvince()
     this.loadGradeList()
     this.loadClassList()
@@ -266,7 +267,6 @@ export default {
   },
   watch: {
     'form.provinceId' (val) {
-      console.log(val)
       if (val === '') {
         this.form.cityId = ''
         this.citiesList = []
