@@ -158,9 +158,9 @@ export default {
   created () {
     this.loadAccount()
     this.loadProvince()
-    if (this.user.roleLevel !== 1) {
-      this.loadAccountArea()
-    }
+    // if (this.user.roleLevel !== 1) {
+    //   this.loadAccountArea()
+    // }
   },
   methods: {
     loadAccountArea () {
@@ -272,26 +272,32 @@ export default {
         this.$message.error('开始时间不能在结束时间之后!')
         return false
       }
-      if (this.search.provinceId === '' || this.search.cityId === '' || this.search.regionId === '') {
-        this.$message.warning('导出必选省/市/区')
-      } else {
-        let param = qs.stringify(this.params)
-        let _url = '/qrzd/trade/report/area/export'
-        window.location.href = window.location.protocol + '//' + window.location.host + _url + '?' + param
-      }
+      let param = qs.stringify(this.params)
+      let _url = '/qrzd/trade/report/area/export'
+      window.location.href = window.location.protocol + '//' + window.location.host + _url + '?' + param
+      // if (this.search.provinceId === '' || this.search.cityId === '' || this.search.regionId === '') {
+      //   this.$message.warning('导出必选省/市/区')
+      // } else {
+      //   let param = qs.stringify(this.params)
+      //   let _url = '/qrzd/trade/report/area/export'
+      //   window.location.href = window.location.protocol + '//' + window.location.host + _url + '?' + param
+      // }
     },
     areaReportExportByAdmin () {
       if (new Date(this.params.startDate).getTime() > new Date(this.params.endDate).getTime()) {
         this.$message.error('开始时间不能在结束时间之后!')
         return false
       }
-      if (this.search.provinceId === '' || this.search.cityId === '' || this.search.regionId === '') {
-        this.$message.warning('导出必选省/市/区')
-      } else {
-        let param = qs.stringify(this.params)
-        let _url = '/qrzd/trade/report/area/export/byadmin'
-        window.location.href = window.location.protocol + '//' + window.location.host + _url + '?' + param
-      }
+      let param = qs.stringify(this.params)
+      let _url = '/qrzd/trade/report/area/export/byadmin'
+      window.location.href = window.location.protocol + '//' + window.location.host + _url + '?' + param
+      // if (this.search.provinceId === '' || this.search.cityId === '' || this.search.regionId === '') {
+      //   this.$message.warning('导出必选省/市/区')
+      // } else {
+      //   let param = qs.stringify(this.params)
+      //   let _url = '/qrzd/trade/report/area/export/byadmin'
+      //   window.location.href = window.location.protocol + '//' + window.location.host + _url + '?' + param
+      // }
     },
     handleSizeChange (val) {
       this.pages.pageSize = val
@@ -308,9 +314,10 @@ export default {
         this.search.cityId = ''
         this.citiesList = []
       } else {
-        if (this.user.roleLevel === 1) {
-          this.loadCities()
-        }
+        this.loadCities()
+        // if (this.user.roleLevel === 1) {
+        //   this.loadCities()
+        // }
       }
     },
     'search.cityId' (val) {
@@ -318,21 +325,22 @@ export default {
         this.search.regionId = ''
         this.regionList = []
       } else {
-        if (this.user.roleLevel === 1) {
-          this.loadRegions()
-        } else {
-          this.regionList = []
-          this.citiesList.forEach(item => {
-            if (item.id === val) {
-              item.region.forEach(region => {
-                this.regionList.push({
-                  name: region.regionName,
-                  id: region.regionId
-                })
-              })
-            }
-          })
-        }
+        this.loadRegions()
+        // if (this.user.roleLevel === 1) {
+        //   this.loadRegions()
+        // } else {
+        //   this.regionList = []
+        //   this.citiesList.forEach(item => {
+        //     if (item.id === val) {
+        //       item.region.forEach(region => {
+        //         this.regionList.push({
+        //           name: region.regionName,
+        //           id: region.regionId
+        //         })
+        //       })
+        //     }
+        //   })
+        // }
       }
     },
     'search.regionId' (val) {
@@ -346,6 +354,16 @@ export default {
     'search.selectDate' (val) {
       if (val === null) {
         this.search.selectDate = ['', '']
+      }
+    },
+    'search.startDate' (val) {
+      if (val === null) {
+        this.search.selectDate = ''
+      }
+    },
+    'search.endDate' (val) {
+      if (val === null) {
+        this.search.endDate = ''
       }
     }
   }

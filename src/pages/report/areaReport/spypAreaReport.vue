@@ -171,6 +171,16 @@ export default {
       if (val === null) {
         this.search.selectDate = ['', '']
       }
+    },
+    'search.startDate' (val) {
+      if (val === null) {
+        this.search.selectDate = ''
+      }
+    },
+    'search.endDate' (val) {
+      if (val === null) {
+        this.search.endDate = ''
+      }
     }
   }
 }

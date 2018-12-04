@@ -328,9 +328,14 @@ export default {
         this.schoolList = []
       }
     },
-    'search.selectDate' (val) {
+    'search.startDate' (val) {
       if (val === null) {
-        this.search.selectDate = ['', '']
+        this.search.selectDate = ''
+      }
+    },
+    'search.endDate' (val) {
+      if (val === null) {
+        this.search.endDate = ''
       }
     },
     selectDate (val) {

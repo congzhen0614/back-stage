@@ -340,6 +340,17 @@ export default {
       if (val === null) {
         this.search.selectDate = ['', '']
       }
+    },
+    'search.startTime' (val) {
+      if (val === null) {
+        this.search.startTime = ''
+      }
+    },
+    'search.endTime' (val) {
+      console.log(val)
+      if (val === null) {
+        this.search.endTime = ''
+      }
     }
   }
 }

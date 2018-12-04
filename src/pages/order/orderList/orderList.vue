@@ -128,7 +128,7 @@
       <el-table-column prop="user"       label="下单人"   width="170" ></el-table-column>
       <el-table-column label="联系电话" width="150" >
         <template slot-scope="scope">
-          <p v-if="scope.row.childMobile || consigneeMobileMagazine">杂志：{{ scope.row.childMobile || consigneeMobileMagazine }}</p>
+          <p v-if="scope.row.childMobile || scope.row.consigneeMobileMagazine">杂志：{{ scope.row.childMobile || scope.row.consigneeMobileMagazine }}</p>
           <p v-if="scope.row.consigneeMobile">图书：{{ scope.row.consigneeMobile }}</p>
         </template>
       </el-table-column>
@@ -445,9 +445,15 @@ export default {
       if (val === '') return
       this.loadSchoolList()
     },
-    'search.selectDate' (val) {
+    'search.startTime' (val) {
       if (val === null) {
-        this.search.selectDate = ['', '']
+        this.search.startTime = ''
+      }
+    },
+    'search.endTime' (val) {
+      console.log(val)
+      if (val === null) {
+        this.search.endTime = ''
       }
     }
   }
