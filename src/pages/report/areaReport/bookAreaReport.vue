@@ -37,9 +37,9 @@
           </el-col>
           <el-col :span="6">
             <el-form-item label="订单时间:" label-width="70px">
-              <!--<el-date-picker type="date" placeholder="开始日期" v-model="search.startDate" style="width: 45%;"></el-date-picker>-->
-              <!--<el-date-picker type="date" placeholder="结束日期" v-model="search.endDate" style="width: 45%;"></el-date-picker>-->
-              <el-date-picker style="width: 100%" v-model="search.selectDate" type="daterange" range-separator="-" start-placeholder="开始日期" end-placeholder="结束日期"></el-date-picker>
+              <el-date-picker type="date" placeholder="开始日期" v-model="search.startDate" style="width: 45%;"></el-date-picker>
+              <el-date-picker type="date" placeholder="结束日期" v-model="search.endDate" style="width: 45%;"></el-date-picker>
+              <!--<el-date-picker style="width: 100%" v-model="search.selectDate" type="daterange" range-separator="-" start-placeholder="开始日期" end-placeholder="结束日期"></el-date-picker>-->
             </el-form-item>
           </el-col>
           <!--<el-col :span="3">-->
@@ -114,7 +114,9 @@ export default {
         regionId: '',
         adminId: '',
         payType: '',
-        selectDate: ['', '']
+        startDate: '',
+        endDate: ''
+        // selectDate: ['', '']
       },
       pages: {
         total: 0,
@@ -146,8 +148,8 @@ export default {
         regionId: this.search.regionId,
         adminId: this.search.adminId,
         payType: this.search.payType,
-        startDate: dateFormat(this.search.selectDate[0], 0),
-        endDate: dateFormat(this.search.selectDate[1], 1),
+        startDate: dateFormat(this.search.startDate, 0),
+        endDate: dateFormat(this.search.endDate, 1),
         cls: 2
       }
       return param
@@ -266,6 +268,10 @@ export default {
       })
     },
     areaReportExport () {
+      if (new Date(this.params.startDate).getTime() > new Date(this.params.endDate).getTime()) {
+        this.$message.error('开始时间不能在结束时间之后!')
+        return false
+      }
       if (this.search.provinceId === '' || this.search.cityId === '' || this.search.regionId === '') {
         this.$message.warning('导出必选省/市/区')
       } else {
@@ -275,6 +281,10 @@ export default {
       }
     },
     areaReportExportByAdmin () {
+      if (new Date(this.params.startDate).getTime() > new Date(this.params.endDate).getTime()) {
+        this.$message.error('开始时间不能在结束时间之后!')
+        return false
+      }
       if (this.search.provinceId === '' || this.search.cityId === '' || this.search.regionId === '') {
         this.$message.warning('导出必选省/市/区')
       } else {

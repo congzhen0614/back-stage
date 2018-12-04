@@ -31,9 +31,9 @@
           </el-col>
           <el-col :span="6">
             <el-form-item label="注册时间:" label-width="70px">
-              <!--<el-date-picker type="date" placeholder="开始日期" v-model="search.beginTime" style="width: 48%;"></el-date-picker>-->
-              <!--<el-date-picker type="date" placeholder="结束日期" v-model="search.endTime" style="width: 48%;"></el-date-picker>-->
-              <el-date-picker style="width: 100%" v-model="search.selectDate" type="daterange" range-separator="-" start-placeholder="开始日期" end-placeholder="结束日期"></el-date-picker>
+              <el-date-picker type="date" placeholder="开始日期" v-model="search.beginTime" style="width: 48%;"></el-date-picker>
+              <el-date-picker type="date" placeholder="结束日期" v-model="search.endTime" style="width: 48%;"></el-date-picker>
+              <!--<el-date-picker style="width: 100%" v-model="search.selectDate" type="daterange" range-separator="-" start-placeholder="开始日期" end-placeholder="结束日期"></el-date-picker>-->
             </el-form-item>
           </el-col>
           <el-col :span="3">
@@ -100,7 +100,9 @@ export default {
       search: {
         name: pages.name,
         nickName: pages.nickName,
-        selectDate: pages.selectDate,
+        beginTime: pages.beginTime,
+        endTime: pages.endTime,
+        // selectDate: pages.selectDate,
         provinceId: pages.provinceId,
         cityId: pages.cityId,
         regionId: pages.regionId,
@@ -149,8 +151,8 @@ export default {
         pageSize: this.pages.pageSize,
         name: Trim(this.search.name),
         nickName: Trim(this.search.nickName),
-        beginTime: dateFormat(this.search.selectDate[0], 0),
-        endTime: dateFormat(this.search.selectDate[1], 1),
+        beginTime: dateFormat(this.search.beginTime, 0),
+        endTime: dateFormat(this.search.endTime, 1),
         provinceId: this.search.provinceId,
         cityId: this.search.cityId,
         regionId: this.search.regionId,
@@ -187,14 +189,20 @@ export default {
       })
     },
     clickSearch () {
-      pages.name = this.search.name
-      pages.nickName = this.search.nickName
-      pages.selectDate = this.search.selectDate
-      pages.provinceId = this.search.provinceId
-      pages.cityId = this.search.cityId
-      pages.regionId = this.search.regionId
-      pages.status = this.search.status
-      this.loadData()
+      if (new Date(this.params.beginTime).getTime() > new Date(this.params.endTime).getTime()) {
+        this.$message.error('开始时间不能在结束时间之后!')
+      } else {
+        pages.name = this.search.name
+        pages.nickName = this.search.nickName
+        // pages.selectDate = this.search.selectDate
+        pages.beginTime = this.search.beginTime
+        pages.endTime = this.search.endTime
+        pages.provinceId = this.search.provinceId
+        pages.cityId = this.search.cityId
+        pages.regionId = this.search.regionId
+        pages.status = this.search.status
+        this.loadData()
+      }
     },
     loadData () {
       this.$axios.userList(this.params).then(res => {

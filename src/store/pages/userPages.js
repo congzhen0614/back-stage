@@ -4,7 +4,9 @@
 export default {
   name: '',
   nickName: '',
-  selectDate: ['', ''],
+  // selectDate: ['', ''],
+  beginTime: '',
+  endTime: '',
   provinceId: '',
   cityId: '',
   regionId: '',

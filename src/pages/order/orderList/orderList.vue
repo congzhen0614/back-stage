@@ -3,20 +3,26 @@
     <el-header class="order-maga-header" style="height: auto">
       <el-form ref="form" :model="search" size="mini">
         <el-row>
-          <el-col :span="6">
+          <el-col :span="5">
             <el-form-item label="订单号:" label-width="60px">
               <el-input v-model="search.no" placeholder="请输入" @keyup.enter.native="clickSearch"></el-input>
             </el-form-item>
           </el-col>
-          <el-col :span="6">
+          <el-col :span="4">
+            <el-form-item label="姓名:" label-width="50px">
+              <el-input v-model="search.childName" placeholder="请输入" @keyup.enter.native="clickSearch"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="5">
             <el-form-item label="收货人电话:" label-width="90px">
               <el-input v-model="search.mobile" placeholder="请输入" @keyup.enter.native="clickSearch"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="6">
             <el-form-item label="订单时间:" label-width="70px">
-              <!--<el-date-picker style="width: 100%" v-model="search.startTime" type="date" placeholder="开始日期"></el-date-picker>-->
-              <el-date-picker style="width: 100%" v-model="search.selectDate" type="daterange" range-separator="-" start-placeholder="开始日期" end-placeholder="结束日期"></el-date-picker>
+              <el-date-picker type="date" placeholder="开始日期" v-model="search.startTime" style="width: 48%;"></el-date-picker>
+              <el-date-picker type="date" placeholder="结束日期" v-model="search.endTime" style="width: 48%;"></el-date-picker>
+              <!--<el-date-picker style="width: 100%" v-model="search.selectDate" type="daterange" range-separator="-" start-placeholder="开始日期" end-placeholder="结束日期"></el-date-picker>-->
             </el-form-item>
           </el-col>
           <el-col :span="4">
@@ -75,11 +81,6 @@
           </el-col>
         </el-row>
         <el-row v-if="showAll">
-          <el-col :span="6">
-            <el-form-item label="姓名:" label-width="50px">
-              <el-input v-model="search.childName" placeholder="请输入" @keyup.enter.native="clickSearch"></el-input>
-            </el-form-item>
-          </el-col>
           <el-col :span="6">
             <el-form-item label="订单状态:" label-width="80px">
               <el-select v-model="search.tradeStatus" placeholder="请选择" style="width: 100%">
@@ -177,7 +178,9 @@ export default {
       search: {
         no: pages.no,
         mobile: pages.mobile,
-        selectDate: pages.selectDate,
+        startTime: pages.startTime,
+        endTime: pages.endTime,
+        // selectDate: pages.selectDate,
         provinceId: pages.provinceId,
         cityId: pages.cityId,
         regionId: pages.regionId,
@@ -243,8 +246,8 @@ export default {
         adminId: this.search.adminId,
         childName: Trim(this.search.childName),
         tradeStatus: this.search.tradeStatus,
-        startTime: dateFormat(this.search.selectDate[0]),
-        endTime: dateFormat(this.search.selectDate[1]),
+        startTime: dateFormat(this.search.startTime, 0),
+        endTime: dateFormat(this.search.endTime, 1),
         cls: this.search.cls
       }
       return param
@@ -252,21 +255,27 @@ export default {
   },
   methods: {
     clickSearch () {
-      pages.no = this.search.no
-      pages.mobile = this.search.mobile
-      pages.selectDate = this.search.selectDate
-      pages.provinceId = this.search.provinceId
-      pages.cityId = this.search.cityId
-      pages.regionId = this.search.regionId
-      pages.schoolId = this.search.schoolId
-      pages.gradeId = this.search.gradeId
-      pages.classId = this.search.classId
-      pages.childName = this.search.childName
-      pages.tradeStatus = this.search.tradeStatus
-      pages.sendType = this.search.sendType
-      pages.cls = this.search.cls
-      pages.adminId = this.search.adminId
-      this.loadData()
+      if (new Date(this.search.startTime).getTime() > new Date(this.search.endTime).getTime()) {
+        this.$message.error('开始时间不能在结束时间之后!')
+      } else {
+        pages.no = this.search.no
+        pages.mobile = this.search.mobile
+        pages.startTime = this.search.startTime
+        pages.endTime = this.search.endTime
+        // pages.selectDate = this.search.selectDate
+        pages.provinceId = this.search.provinceId
+        pages.cityId = this.search.cityId
+        pages.regionId = this.search.regionId
+        pages.schoolId = this.search.schoolId
+        pages.gradeId = this.search.gradeId
+        pages.classId = this.search.classId
+        pages.childName = this.search.childName
+        pages.tradeStatus = this.search.tradeStatus
+        pages.sendType = this.search.sendType
+        pages.cls = this.search.cls
+        pages.adminId = this.search.adminId
+        this.loadData()
+      }
     },
     loadData () {
       this.$axios.tradeList(this.listParams).then(res => {

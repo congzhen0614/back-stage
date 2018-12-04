@@ -4,7 +4,9 @@
 export default {
   no: '',
   mobile: '',
-  selectDate: ['', ''],
+  startTime: '',
+  endTime: '',
+  // selectDate: ['', ''],
   provinceId: '',
   cityId: '',
   regionId: '',

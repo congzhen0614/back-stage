@@ -331,17 +331,28 @@ export default {
       })
     },
     onRefund (item) {
-      this.$axios.tradeRefund({refund: true, tradeDetailId: item.id}).then(res => {
-        if (res.data.code === '0') {
-          this.$message.success('操作成功')
-          this.loadTradeDetail()
-        } else {
-          this.$message.error(res.data.msg)
-        }
-      }, err => {
-        this.$message.error(err)
-      }).catch(err => {
-        this.$message.error(err)
+      this.$confirm('确认修改将无法修改订单状态, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        this.$axios.tradeRefund({refund: true, tradeDetailId: item.id}).then(res => {
+          if (res.data.code === '0') {
+            this.$message.success('操作成功')
+            this.loadTradeDetail()
+          } else {
+            this.$message.error(res.data.msg)
+          }
+        }, err => {
+          this.$message.error(err)
+        }).catch(err => {
+          this.$message.error(err)
+        })
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '已取消'
+        })
       })
     },
     onListUpdate (item) {
