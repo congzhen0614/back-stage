@@ -3,7 +3,7 @@
     <el-container>
       <v-menu @routerPush="toPages"></v-menu>
       <el-container>
-        <el-header style="height: auto; padding: 10px">
+        <el-header style="min-height: 28px; height: auto; padding: 0; background-color: #f2f6fc;margin-bottom: 3px">
           <div class="head-button">
             <el-row>
               <span class="head-username">{{ username }}</span>
@@ -11,11 +11,17 @@
               <span style="cursor: pointer" @click="clickLogout">退出</span>
             </el-row>
           </div>
-          <el-breadcrumb separator="/">
-            <el-breadcrumb-item style="font-size: 12px" :to="{ path: item.path }" v-for="(item, index) in routeList" :key="index">{{ item.name }}</el-breadcrumb-item>
-          </el-breadcrumb>
+          <ul class="el-tab-nav">
+            <li :class="{navAct: item.path === thisPathStr}" v-for="(item, index) in routeList" :key="index" @click="toPages(item.path)">
+              <span>{{ item.name }}</span>
+              <i class="el-icon-close" @click.stop="clickClose(item.path)" v-if="index > 0"></i>
+            </li>
+          </ul>
+          <!--<el-breadcrumb separator="/">-->
+            <!--<el-breadcrumb-item style="font-size: 12px" :to="{ path: item.path }" v-for="(item, index) in routeList" :key="index">{{ item.name }}</el-breadcrumb-item>-->
+          <!--</el-breadcrumb>-->
         </el-header>
-        <el-main class="main-background" v-if="routeList.length === 1" :style="style">
+        <el-main class="main-background" v-if="thisPathStr === '/'" :style="style">
           <h2>微校网商家服务平台欢迎您,</h2>
           <h1>{{ username }}</h1>
         </el-main>
@@ -40,29 +46,41 @@ export default {
   },
   data () {
     return {
+      username: localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')).realname : '',
       windowHeight: window.innerHeight - 40 + 'px',
       style: {
         backgroundImage: 'url(' + require('../../assets/index-backgroud.jpg') + ')',
         height: window.innerHeight - 40 + 'px'
       },
       routeList: [],
-      username: localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')).realname : ''
+      thisPathStr: ''
     }
   },
   created () {
+    this.routeList = this.$route.meta.routeList
+    let href = window.location.href
+    let index = href.lastIndexOf('/')
+    this.thisPathStr = '/' + href.substring(index + 1, href.length)
     if (!localStorage.getItem('user')) {
       this.$router.push({
         path: '/login'
       })
     }
   },
-  mounted () {
-    this.routeList = this.$route.meta.routeList
-  },
   methods: {
     toPages (path) {
       this.$router.push({
         path: path
+      })
+    },
+    clickClose (path) {
+      this.routeList.forEach((item, index) => {
+        if (item.path === path) {
+          this.routeList.splice(index, 1)
+          this.$router.push({
+            path: this.routeList[index - 1].path
+          })
+        }
       })
     },
     clickLogout () {
@@ -83,6 +101,9 @@ export default {
   },
   watch: {
     '$route' () {
+      let href = window.location.href
+      let index = href.lastIndexOf('/')
+      this.thisPathStr = '/' + href.substring(index + 1, href.length)
       this.routeList = this.$route.meta.routeList
     }
   }
@@ -125,5 +146,36 @@ export default {
   }
   .head-username {
     margin-right: 20px;
+  }
+  .el-tab-nav {
+    height: 28px;
+    display: flex;
+    flex-wrap: wrap;
+    overflow: auto;
+  }
+  .el-tab-nav li {
+    height: 28px;
+    line-height: 27px;
+    cursor: pointer;
+    color: #909399;
+    padding: 0 10px;
+    border-radius: 5px 5px 0 0;
+  }
+  .el-tab-nav li i {
+    font-size: 12px;
+    display: inline-block;
+    vertical-align: middle;
+  }
+  .el-tab-nav li span {
+    font-size: 12px;
+    display: inline-block;
+    vertical-align: middle;
+  }
+  .el-tab-nav .navAct {
+    background-color: #FFFFFF;
+    color: #409eff;
+  }
+  .el-tab-nav li:hover {
+    color: #409eff;
   }
 </style>

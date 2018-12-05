@@ -121,7 +121,7 @@
       <el-table-column prop="no"         label="订单号"  width="200" ></el-table-column>
       <el-table-column prop="tradeDetailViewList" label="订单明细" min-width="200" >
         <template slot-scope="scope">
-          <p class="detail-list" v-for="item in scope.row.tradeDetailViewList" :key="item.id">{{item.name}} (杂志类型:{{item.clsName}},数量:{{item.quantity}})</p>
+          <p class="detail-list" v-for="item in scope.row.tradeDetailViewList" :key="item.id">{{item.name}} (类型:{{item.clsName}},数量:{{item.quantity}})</p>
         </template>
       </el-table-column>
       <el-table-column prop="receivables"   label="订单总额" width="100" ></el-table-column>

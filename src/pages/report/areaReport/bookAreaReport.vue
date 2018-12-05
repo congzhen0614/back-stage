@@ -72,7 +72,7 @@
     <el-table size="mini" :data="tableData" border :height="windowHeight">
       <el-table-column prop="adminName"    label="业务员"    width="100"></el-table-column>
       <el-table-column prop="no"           label="订单号"    width="200"></el-table-column>
-      <el-table-column prop="name"         label="杂志名称"  width="200"></el-table-column>
+      <el-table-column prop="name"         label="图书名称"  width="200"></el-table-column>
       <el-table-column prop="quantity"     label="数量"      width="100"></el-table-column>
       <el-table-column prop="fee"          label="价格"      width="100"></el-table-column>
       <el-table-column prop="provinceName" label="省份"      ></el-table-column>

@@ -55,7 +55,7 @@ export default {
       formItem: JSON.parse(this.$route.query.form),
       form: {
         id: '',
-        quantity: ''
+        quantity: 1
       },
       tableData: [],
       itemList: []

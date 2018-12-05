@@ -35,9 +35,7 @@ router.beforeEach((to, from, next) => {
       break
     }
   }
-  if (index !== -1) {
-    routeList.splice(index + 1, routeList.length - index - 1)
-  } else if (to.name !== '登录') {
+  if (index === -1 && to.name !== '登录') {
     routeList.push({name: to.name, path: to.fullPath})
   }
   to.meta.routeList = routeList

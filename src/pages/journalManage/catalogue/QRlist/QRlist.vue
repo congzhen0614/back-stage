@@ -20,7 +20,13 @@
       <el-table-column prop="remark" label="备注"  width="250"></el-table-column>
       <el-table-column prop="qrimg" label="二维码"  width="80">
         <template slot-scope="scope">
-          <img :src="scope.row.qrimg" width="100%"/>
+          <!--<img :src="scope.row.qrimg" width="100%"/>-->
+          <el-popover trigger="hover" placement="top">
+            <img :src="scope.row.qrimg" width="100%"/>
+            <div slot="reference" class="name-wrapper">
+              <img :src="scope.row.qrimg" width="100%"/>
+            </div>
+          </el-popover>
         </template>
       </el-table-column>
       <el-table-column prop="createUserName" label="创建者账号"  width="100"></el-table-column>
