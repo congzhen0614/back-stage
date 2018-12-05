@@ -38,6 +38,7 @@
 </template>
 
 <script>
+import { clearRouter } from '@/common/clearRouter.js'
 import menu from '@/components/menu/menu.vue'
 export default {
   name: 'App',
@@ -74,6 +75,7 @@ export default {
       })
     },
     clickClose (path) {
+      clearRouter(path)
       this.routeList.forEach((item, index) => {
         if (item.path === path) {
           this.routeList.splice(index, 1)
