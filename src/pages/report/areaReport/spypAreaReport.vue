@@ -37,11 +37,12 @@
     </header>
 
     <el-table size="mini" :data="tableData" border :height="windowHeight">
-      <el-table-column prop="name"         label="电子读物名称"  ></el-table-column>
-      <el-table-column prop="no"           label="订单号"    width="200"></el-table-column>
       <el-table-column prop="adminName"    label="业务员"    width="100"></el-table-column>
+      <el-table-column prop="no"           label="订单号"    width="200"></el-table-column>
+      <el-table-column prop="name"         label="电子读物名称"  ></el-table-column>
       <el-table-column prop="quantity"     label="数量"      width="100"></el-table-column>
       <el-table-column prop="fee"          label="价格"      width="100"></el-table-column>
+      <el-table-column prop="no"           label="订单号"    width="200"></el-table-column>
       <el-table-column prop="createdAt"    label="交易时间"  width="150"></el-table-column>
       <el-table-column prop="tradeStatus"  label="订单状态"  width="100"></el-table-column>
     </el-table>

@@ -69,9 +69,9 @@
       </el-form>
     </header>
     <el-table size="mini" :data="tableData" border :height="windowHeight">
-      <el-table-column prop="name"         label="杂志名称"  width="200"></el-table-column>
-      <el-table-column prop="no"           label="订单号"    width="200"></el-table-column>
       <el-table-column prop="adminName"    label="业务员"    width="100"></el-table-column>
+      <el-table-column prop="no"           label="订单号"    width="200"></el-table-column>
+      <el-table-column prop="name"         label="杂志名称"  width="200"></el-table-column>
       <el-table-column prop="quantity"     label="数量"      width="60"></el-table-column>
       <el-table-column prop="fee"          label="价格"      width="60"></el-table-column>
       <el-table-column prop="provinceName" label="省份"      ></el-table-column>
@@ -199,6 +199,12 @@ export default {
       this.$axios.areaReportList(this.params).then(res => {
         if (res.data.code === '0') {
           this.tableData = res.data.data.list
+          this.tableData.push({
+            name: '合计',
+            no: res.data.data.totalNo,
+            fee: res.data.data.allTotalFee,
+            quantity: res.data.data.allTotalQuantity
+          })
         } else {
           this.$message.error(res.data.msg)
         }
