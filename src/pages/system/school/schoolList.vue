@@ -96,7 +96,7 @@
 </template>
 
 <script>
-import pages from '@/store/pages/childPages.js'
+import pages from '@/store/pages/schoolPages.js'
 export default {
   name: 'system-school',
   data () {
@@ -113,21 +113,24 @@ export default {
       schoolList: [],
       selectIds: [],
       search: {
-        name: pages.name,
-        provinceId: pages.provinceId,
-        cityIds: pages.cityIds,
-        regionIds: pages.regionIds,
-        schoolLevel: pages.schoolLevel,
-        adminId: pages.adminId
+        name: pages.pages.name || '',
+        provinceId: '',
+        cityIds: '',
+        regionIds: '',
+        schoolLevel: pages.pages.schoolLevel || '',
+        adminId: pages.pages.adminId || ''
       },
       pages: {
         total: 0,
-        pageNum: pages.pageNum,
-        pageSize: pages.pageSize
+        pageNum: pages.pages.pageNum || 1,
+        pageSize: pages.pages.pageSize || 20
       }
     }
   },
   created () {
+    this.search.provinceId = pages.pages.provinceId || ''
+    this.search.cityIds = pages.pages.cityIds || ''
+    this.search.regionIds = pages.pages.regionIds || ''
     this.loadProvince()
     this.loadAccountList()
     this.loadSchoolList()
@@ -187,12 +190,12 @@ export default {
       })
     },
     clickSearch () {
-      pages.name = this.search.name
-      pages.provinceId = this.search.provinceId
-      pages.cityIds = this.search.cityIds
-      pages.regionIds = this.search.regionIds
-      pages.schoolLevel = this.search.schoolLevel
-      pages.adminId = this.search.adminId
+      pages.pages.name = this.search.name
+      pages.pages.provinceId = this.search.provinceId
+      pages.pages.cityIds = this.search.cityIds
+      pages.pages.regionIds = this.search.regionIds
+      pages.pages.schoolLevel = this.search.schoolLevel
+      pages.pages.adminId = this.search.adminId
       this.loadSchoolList()
     },
     Trim (str) {
@@ -266,8 +269,8 @@ export default {
         if (res.data.code === '0') {
           this.schoolList = res.data.data.list
           this.pages.total = res.data.data.total
-          this.pages.pageNum = pages.pageNum
-          this.pages.pageSize = pages.pageSize
+          this.pages.pageNum = res.data.data.pageNum
+          this.pages.pageSize = res.data.data.pageSize
         } else {
           this.$message.error(res.data.msg)
         }
@@ -279,12 +282,12 @@ export default {
     },
     handleSizeChange (val) {
       this.pages.pageSize = val
-      pages.pageSize = val
+      pages.pages.pageSize = val
       this.loadSchoolList()
     },
     handleCurrentChange (val) {
       this.pages.pageNum = val
-      pages.pageNum = val
+      pages.pages.pageNum = val
       this.loadSchoolList()
     },
     handleSelectionChange (val) {
@@ -408,35 +411,29 @@ export default {
   },
   watch: {
     'search.provinceId' (val) {
-      if (val === '') {
-        this.search.cityIds = ''
-        this.citiesList = []
-      } else {
-        if (this.user.roleLevel === 1) {
-          this.loadCities()
-        }
+      this.search.cityIds = ''
+      this.citiesList = []
+      if (this.user.roleLevel === 1) {
+        this.loadCities()
       }
     },
     'search.cityIds' (val) {
-      if (val === '') {
-        this.search.regionIds = ''
-        this.regionList = []
+      this.search.regionIds = ''
+      this.regionList = []
+      if (this.user.roleLevel === 1) {
+        this.loadRegions()
       } else {
-        if (this.user.roleLevel === 1) {
-          this.loadRegions()
-        } else {
-          this.regionList = []
-          this.citiesList.forEach(item => {
-            if (item.id === val) {
-              item.region.forEach(region => {
-                this.regionsList.push({
-                  name: region.regionName,
-                  id: region.regionId
-                })
+        this.regionList = []
+        this.citiesList.forEach(item => {
+          if (item.id === val) {
+            item.region.forEach(region => {
+              this.regionsList.push({
+                name: region.regionName,
+                id: region.regionId
               })
-            }
-          })
-        }
+            })
+          }
+        })
       }
     }
   }

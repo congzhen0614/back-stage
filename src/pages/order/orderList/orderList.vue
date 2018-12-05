@@ -39,11 +39,11 @@
               </el-select>
               <el-select v-model="search.cityId" placeholder="请选择市" @change="selectCity" style="width: 32%">
                 <el-option label="全部" value=""></el-option>
-                <el-option v-for="item in cities" :key="item.id" :label="item.name" :value="item.id"></el-option>
+                <el-option v-for="item in cities" :key="item.id" :label="item.name" :value="parseInt(item.id)"></el-option>
               </el-select>
               <el-select v-model="search.regionId" placeholder="请选择区" style="width: 32%">
                 <el-option label="全部" value=""></el-option>
-                <el-option v-for="item in regions" :key="item.id" :label="item.name" :value="item.id"></el-option>
+                <el-option v-for="item in regions" :key="item.id" :label="item.name" :value="parseInt(item.id)"></el-option>
               </el-select>
             </el-form-item>
           </el-col>
@@ -170,7 +170,7 @@ export default {
     return {
       showWindowHeight: window.innerHeight - 217 + 'px',
       hideWindowHeight: window.innerHeight - 135 + 'px',
-      showAll: false,
+      showAll: pages.pages.showAll || false,
       options: [],
       provinces: [],
       cities: [],
@@ -181,31 +181,34 @@ export default {
       tableData: [],
       accountList: [],
       search: {
-        no: pages.no,
-        mobile: pages.mobile,
-        startTime: pages.startTime,
-        endTime: pages.endTime,
+        no: pages.pages.no || '',
+        mobile: pages.pages.mobile || '',
+        startTime: pages.pages.startTime || '',
+        endTime: pages.pages.endTime || '',
         // selectDate: pages.selectDate,
-        provinceId: pages.provinceId,
-        cityId: pages.cityId,
-        regionId: pages.regionId,
-        schoolId: pages.schoolId,
-        gradeId: pages.gradeId,
-        classId: pages.classId,
-        childName: pages.childName,
-        tradeStatus: pages.tradeStatus,
-        sendType: pages.sendType,
-        cls: pages.cls,
-        adminId: pages.adminId
+        provinceId: '',
+        cityId: '',
+        regionId: '',
+        schoolId: pages.pages.schoolId || '',
+        gradeId: pages.pages.gradeId || '',
+        classId: pages.pages.classId || '',
+        childName: pages.pages.childName || '',
+        tradeStatus: pages.pages.tradeStatus || '',
+        sendType: pages.pages.sendType || '',
+        cls: pages.pages.cls || '',
+        adminId: pages.pages.adminId || ''
       },
       pages: {
         total: 0,
-        pageNum: pages.pageNum,
-        pageSize: pages.pageSize
+        pageNum: pages.pages.pageNum || 1,
+        pageSize: pages.pages.pageSize || 20
       }
     }
   },
-  mounted () {
+  created () {
+    this.search.provinceId = pages.pages.provinceId || ''
+    this.search.cityId = pages.pages.cityId || ''
+    this.search.regionId = pages.pages.regionId || ''
     this.loadData()
     this.loadGradeList()
     this.loadClassList()
@@ -263,22 +266,22 @@ export default {
       if (new Date(this.search.startTime).getTime() > new Date(this.search.endTime).getTime()) {
         this.$message.error('开始时间不能在结束时间之后!')
       } else {
-        pages.no = this.search.no
-        pages.mobile = this.search.mobile
-        pages.startTime = this.search.startTime
-        pages.endTime = this.search.endTime
+        pages.pages.no = this.search.no
+        pages.pages.mobile = this.search.mobile
+        pages.pages.startTime = this.search.startTime
+        pages.pages.endTime = this.search.endTime
         // pages.selectDate = this.search.selectDate
-        pages.provinceId = this.search.provinceId
-        pages.cityId = this.search.cityId
-        pages.regionId = this.search.regionId
-        pages.schoolId = this.search.schoolId
-        pages.gradeId = this.search.gradeId
-        pages.classId = this.search.classId
-        pages.childName = this.search.childName
-        pages.tradeStatus = this.search.tradeStatus
-        pages.sendType = this.search.sendType
-        pages.cls = this.search.cls
-        pages.adminId = this.search.adminId
+        pages.pages.provinceId = this.search.provinceId
+        pages.pages.cityId = this.search.cityId
+        pages.pages.regionId = this.search.regionId
+        pages.pages.schoolId = this.search.schoolId
+        pages.pages.gradeId = this.search.gradeId
+        pages.pages.classId = this.search.classId
+        pages.pages.childName = this.search.childName
+        pages.pages.tradeStatus = this.search.tradeStatus
+        pages.pages.sendType = this.search.sendType
+        pages.pages.cls = this.search.cls
+        pages.pages.adminId = this.search.adminId
         this.loadData()
       }
     },
@@ -287,8 +290,8 @@ export default {
         if (res.data.code === '0') {
           this.tableData = res.data.data.list
           this.pages.total = res.data.data.total
-          this.pages.pageNum = pages.pageNum
-          this.pages.pageSize = pages.pageSize
+          this.pages.pageNum = res.data.data.pageNum
+          this.pages.pageSize = res.data.data.pageSize
         } else {
           this.$message.error(res.data.msg)
         }
@@ -397,12 +400,12 @@ export default {
     },
     handleCurrentChange (val) {
       this.pages.pageNum = val
-      pages.pageNum = val
+      pages.pages.pageNum = val
       this.loadData()
     },
     handleSizeChange (val) {
       this.pages.pageSize = val
-      pages.pageSize = val
+      pages.pages.pageSize = val
       this.loadData()
     },
     onChecke (item) {
@@ -455,6 +458,9 @@ export default {
       if (val === null) {
         this.search.endTime = ''
       }
+    },
+    showAll (val) {
+      pages.pages.showAll = val
     }
   }
 }

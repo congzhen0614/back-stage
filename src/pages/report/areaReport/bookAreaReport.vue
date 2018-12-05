@@ -311,45 +311,20 @@ export default {
   },
   watch: {
     'search.provinceId' (val) {
-      if (val === '') {
-        this.search.cityId = ''
-        this.citiesList = []
-      } else {
-        this.loadCities()
-        // if (this.user.roleLevel === 1) {
-        //   this.loadCities()
-        // }
-      }
+      this.search.cityId = ''
+      this.citiesList = []
+      this.loadCities()
     },
     'search.cityId' (val) {
-      if (val === '') {
-        this.search.regionId = ''
-        this.regionList = []
-      } else {
-        this.loadRegions()
-        // if (this.user.roleLevel === 1) {
-        //   this.loadRegions()
-        // } else {
-        //   this.regionList = []
-        //   this.citiesList.forEach(item => {
-        //     if (item.id === val) {
-        //       item.region.forEach(region => {
-        //         this.regionList.push({
-        //           name: region.regionName,
-        //           id: region.regionId
-        //         })
-        //       })
-        //     }
-        //   })
-        // }
-      }
+      this.search.regionId = ''
+      this.regionList = []
+      this.loadRegions()
     },
     'search.regionId' (val) {
+      this.search.schoolId = ''
+      this.schoolList = []
       if (val !== '') {
         this.loadSchool()
-      } else {
-        this.search.schoolId = ''
-        this.schoolList = []
       }
     },
     'search.selectDate' (val) {

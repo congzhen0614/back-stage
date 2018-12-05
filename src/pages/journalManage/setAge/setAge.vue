@@ -43,12 +43,12 @@ export default {
       tableList: [],
       options: [],
       search: {
-        name: pages.name
+        name: pages.pages.name || ''
       },
       pages: {
         total: 0,
-        pageNum: pages.pageNum,
-        pageSize: pages.pageSize
+        pageNum: pages.pages.pageNum || 1,
+        pageSize: pages.pages.pageSize || 20
       }
     }
   },
@@ -77,7 +77,7 @@ export default {
   },
   methods: {
     clickSearch () {
-      pages.name = this.search.name
+      pages.pages.name = this.search.name
       this.loadDate()
     },
     loadDate () {
@@ -85,8 +85,8 @@ export default {
         if (res.data.code) {
           this.tableList = res.data.data.list
           this.pages.total = res.data.data.total
-          this.pages.pageNum = pages.pageNum
-          this.pages.pageSize = pages.pageSize
+          this.pages.pageNum = res.data.data.pageNum
+          this.pages.pageSize = res.data.data.pageSize
         } else {
           this.$message.error(res.data.msg)
         }
@@ -98,12 +98,12 @@ export default {
     },
     handleCurrentChange (val) {
       this.pages.pageNum = val
-      pages.pageNum = val
+      pages.pages.pageNum = val
       this.loadDate()
     },
     handleSizeChange (val) {
       this.pages.pageSize = val
-      pages.pageSize = val
+      pages.pages.pageSize = val
       this.loadDate()
     },
     clickUpdate (item) {

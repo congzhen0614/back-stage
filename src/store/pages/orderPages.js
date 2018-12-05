@@ -2,22 +2,7 @@
  * Created by cz on 2018/11/09.
  */
 export default {
-  no: '',
-  mobile: '',
-  startTime: '',
-  endTime: '',
-  // selectDate: ['', ''],
-  provinceId: '',
-  cityId: '',
-  regionId: '',
-  schoolId: '',
-  gradeId: '',
-  classId: '',
-  childName: '',
-  tradeStatus: '',
-  sendType: '',
-  cls: '',
-  adminId: '',
+  pages: {},
   pageNum: 1,
   pageSize: 20
 }

@@ -122,15 +122,15 @@ export default {
       accountList: [],
       tableList: [],
       search: {
-        sub: pages.sub,
-        has: pages.has,
-        title: pages.title,
-        createUser: pages.createUser
+        sub: pages.pages.sub || '',
+        has: pages.pages.has || '',
+        title: pages.pages.title || '',
+        createUser: pages.pages.createUser || ''
       },
       pages: {
         total: 0,
-        pageNum: pages.pageNum,
-        pageSize: pages.pageSize
+        pageNum: pages.pages.pageNum || 1,
+        pageSize: pages.pages.pageSize || 20
       }
     }
   },
@@ -160,10 +160,10 @@ export default {
   },
   methods: {
     clickSearch () {
-      pages.sub = this.search.sub
-      pages.has = this.search.has
-      pages.title = this.search.title
-      pages.createUser = this.search.createUser
+      pages.pages.sub = this.search.sub
+      pages.pages.has = this.search.has
+      pages.pages.title = this.search.title
+      pages.pages.createUser = this.search.createUser
       this.loadDate()
     },
     loadAdmingroupList () {
@@ -198,12 +198,12 @@ export default {
     },
     handleCurrentChange (val) {
       this.pages.pageNum = val
-      pages.pageNum = val
+      pages.pages.pageNum = val
       this.loadDate()
     },
     handleSizeChange (val) {
       this.pages.pageSize = val
-      pages.pageSize = val
+      pages.pages.pageSize = val
       this.loadDate()
     },
     loadDate () {
@@ -211,8 +211,8 @@ export default {
         if (res.data.code === '0') {
           this.tableList = res.data.data.list
           this.pages.total = res.data.data.total
-          this.pages.pageNum = pages.pageNum
-          this.pages.pageSize = pages.pageSize
+          this.pages.pageNum = res.data.data.pageNum
+          this.pages.pageSize = res.data.data.pageSize
         } else {
           this.$message.error(res.data.msg)
         }

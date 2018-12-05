@@ -159,20 +159,20 @@ export default {
       groupList: [],
       accountList: [],
       search: {
-        name: pages.name,
-        issn: pages.issn,
-        ageId: pages.ageId,
-        typeId: pages.typeId,
-        isSale: pages.isSale,
-        createUser: pages.createUser
+        name: pages.pages.name || '',
+        issn: pages.pages.issn || '',
+        ageId: pages.pages.ageId || '',
+        typeId: pages.pages.typeId || '',
+        isSale: pages.pages.isSale || '',
+        createUser: pages.pages.createUser || ''
       },
       tableData: [],
       selectIds: [],
       upLoadUrl: this.$axios.magazineBatch(),
       pages: {
         total: 0,
-        pageNum: pages.pageNum,
-        pageSize: pages.pageSize
+        pageNum: pages.pages.pageNum || 1,
+        pageSize: pages.pages.pageSize || 20
       }
     }
   },
@@ -206,12 +206,12 @@ export default {
   },
   methods: {
     clickSearch () {
-      pages.name = this.search.name
-      pages.issn = this.search.issn
-      pages.ageId = this.search.ageId
-      pages.typeId = this.search.typeId
-      pages.isSale = this.search.isSale
-      pages.createUser = this.search.createUser
+      pages.pages.name = this.search.name
+      pages.pages.issn = this.search.issn
+      pages.pages.ageId = this.search.ageId
+      pages.pages.typeId = this.search.typeId
+      pages.pages.isSale = this.search.isSale
+      pages.pages.createUser = this.search.createUser
       this.loadDate()
     },
     loadItemageList () {
@@ -272,8 +272,8 @@ export default {
         if (res.data.code === '0') {
           this.tableData = res.data.data.list
           this.pages.total = res.data.data.total
-          this.pages.pageNum = pages.pageNum
-          this.pages.pageSize = pages.pageSize
+          this.pages.pageNum = res.data.data.pageNum
+          this.pages.pageSize = res.data.data.pageSize
         } else {
           this.$message.error(res.data.msg)
         }
@@ -285,14 +285,15 @@ export default {
     },
     // 选择每页条数
     handleSizeChange (val) {
-      pages.pageSize = val
+      pages.pages.pageSize = val
       this.pages.pageSize = val
       this.loadDate()
     },
     // 选择第几页
     handleCurrentChange (val) {
-      pages.pageNum = val
+      pages.pages.pageNum = val
       this.pages.pageNum = val
+      console.log()
       this.loadDate()
     },
     // 选择的项目

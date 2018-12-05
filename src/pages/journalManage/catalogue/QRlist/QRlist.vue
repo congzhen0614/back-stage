@@ -70,12 +70,12 @@ export default {
       tableList: [],
       selectIds: [],
       search: {
-        title: pages.title
+        title: pages.pages.title || ''
       },
       pages: {
         total: 0,
-        pageNum: pages.pageNum,
-        pageSize: pages.pageSize
+        pageNum: pages.pages.pageNum || 1,
+        pageSize: pages.pages.pageSize || 20
       }
     }
   },
@@ -102,7 +102,7 @@ export default {
   },
   methods: {
     clickSearch () {
-      pages.title = this.search.title
+      pages.pages.title = this.search.title
       this.loadDate()
     },
     handleSelectionChange (val) {
@@ -115,8 +115,8 @@ export default {
         if (res.data.code === '0') {
           this.tableList = res.data.data.list
           this.pages.total = res.data.data.total
-          this.pages.pageNum = pages.pageNum
-          this.pages.pageSize = pages.pageSize
+          this.pages.pageNum = res.data.data.pageNum
+          this.pages.pageSize = res.data.data.pageSize
         } else {
           this.$message.error(res.data.msg)
         }
@@ -128,12 +128,12 @@ export default {
     },
     handleCurrentChange (val) {
       this.pages.pageNum = val
-      pages.pageNum = val
+      pages.pages.pageNum = val
       this.loadDate()
     },
     handleSizeChange (val) {
       this.pages.pageSize = val
-      pages.pageSize = val
+      pages.pages.pageSize = val
       this.loadDate()
     },
     clickUpload () {

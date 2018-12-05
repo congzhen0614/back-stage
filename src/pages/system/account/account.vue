@@ -86,23 +86,22 @@ export default {
       windowHeight: window.innerHeight - 120 + 'px',
       roleLevel: JSON.parse(localStorage.getItem('user')).roleLevel,
       search: {
-        name: pages.name,
-        groupId: pages.groupId,
-        roleLevel: pages.roleLevel,
-        adminAccountStatus: pages.adminAccountStatus
+        name: pages.pages.name || '',
+        groupId: pages.pages.groupId || '',
+        roleLevel: pages.pages.roleLevel || '',
+        adminAccountStatus: pages.pages.adminAccountStatus || ''
       },
       options: [],
       tableList: [],
       groupList: [],
       pages: {
         total: 0,
-        pageNum: pages.pageNum,
-        pageSize: pages.pageSize
+        pageNum: pages.pages.pageNum || 1,
+        pageSize: pages.pages.pageSize || 20
       }
     }
   },
   created () {
-    console.log(pages.pageNum)
     this.loadData()
     this.loadAdmingroupList()
   },
@@ -160,18 +159,18 @@ export default {
   },
   methods: {
     clickSearch () {
-      pages.name = this.search.name
-      pages.groupId = this.search.groupId
-      pages.roleLevel = this.search.roleLevel
-      pages.adminAccountStatus = this.search.adminAccountStatus
+      pages.pages.name = this.search.name
+      pages.pages.groupId = this.search.groupId
+      pages.pages.roleLevel = this.search.roleLevel
+      pages.pages.adminAccountStatus = this.search.adminAccountStatus
       this.loadData()
     },
     loadData () {
       this.$axios.accountList(this.params).then(res => {
         this.tableList = res.data.data.list
         this.pages.total = res.data.data.total
-        this.pages.pageNum = pages.pageNum
-        this.pages.pageSize = pages.pageSize
+        this.pages.pageNum = res.data.data.pageNum
+        this.pages.pageSize = res.data.data.pageSize
       }, err => {
         this.$message.error(err)
       }).catch(err => {
@@ -193,12 +192,12 @@ export default {
     },
     handleCurrentChange (size) {
       this.pages.pageNum = size
-      pages.pageNum = size
+      pages.pages.pageNum = size
       this.loadData()
     },
     handleSizeChange (size) {
       this.pages.pageSize = size
-      pages.pageSize = size
+      pages.pages.pageSize = size
       this.loadData()
     },
     clickAddnew () {

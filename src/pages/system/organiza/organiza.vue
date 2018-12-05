@@ -56,8 +56,8 @@ export default {
       tableList: [],
       pages: {
         total: 0,
-        pageNum: pages.pageNum,
-        pageSize: pages.pageSize
+        pageNum: pages.pages.pageNum || 1,
+        pageSize: pages.pages.pageSize || 20
       },
       deleParams: {
         code: '',
@@ -72,8 +72,6 @@ export default {
     }
   },
   created () {
-  },
-  mounted () {
     this.loadData()
   },
   computed: {
@@ -91,8 +89,8 @@ export default {
         if (res.data.code === '0') {
           this.tableList = res.data.data.list
           this.pages.total = res.data.data.total
-          this.pages.pageNum = pages.pageNum
-          this.pages.pageSize = pages.pageSize
+          this.pages.pageNum = res.data.data.pageNum
+          this.pages.pageSize = res.data.data.pageSize
         } else {
           this.$message.error(res.data.msg)
         }
@@ -104,12 +102,12 @@ export default {
     },
     handleCurrentChange (size) {
       this.pages.pageNum = size
-      pages.pageNum = size
+      pages.pages.pageNum = size
       this.loadData()
     },
     handleSizeChange (size) {
       this.pages.pageSize = size
-      pages.pageSize = size
+      pages.pages.pageSize = size
       this.loadData()
     },
     clickAddnew () {

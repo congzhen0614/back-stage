@@ -11,11 +11,11 @@
               </el-select>
               <el-select style="width: 32%" v-model="search.cityId" placeholder="请选择市" :disabled="citiesList.length === 1 && user.roleLevel !== 1">
                 <el-option label="全部" value=""></el-option>
-                <el-option :label="item.name" :value="item.id" v-for="item in citiesList" :key="item.id"></el-option>
+                <el-option :label="item.name" :value="parseInt(item.id)" v-for="item in citiesList" :key="item.id"></el-option>
               </el-select>
               <el-select style="width: 32%" v-model="search.regionId" placeholder="请选择区" :disabled="regionList.length === 1 && user.roleLevel !== 1">
                 <el-option label="全部" value=""></el-option>
-                <el-option :label="item.name" :value="item.id" v-for="item in regionList" :key="item.id"></el-option>
+                <el-option :label="item.name" :value="parseInt(item.id)" v-for="item in regionList" :key="item.id"></el-option>
               </el-select>
             </el-form-item>
           </el-col>
@@ -98,24 +98,27 @@ export default {
       regionList: [],
       tableData: [],
       search: {
-        name: pages.name,
-        nickName: pages.nickName,
-        beginTime: pages.beginTime,
-        endTime: pages.endTime,
+        name: pages.pages.name || '',
+        nickName: pages.pages.nickName || '',
+        beginTime: pages.pages.beginTime || '',
+        endTime: pages.pages.endTime || '',
         // selectDate: pages.selectDate,
-        provinceId: pages.provinceId,
-        cityId: pages.cityId,
-        regionId: pages.regionId,
-        status: pages.status
+        provinceId: '',
+        cityId: '',
+        regionId: '',
+        status: pages.pages.status || ''
       },
       pages: {
         total: 0,
-        pageNum: pages.pageNum,
-        pageSize: pages.pageSize
+        pageNum: pages.pages.pageNum || 1,
+        pageSize: pages.pages.pageSize || 20
       }
     }
   },
   created () {
+    this.search.provinceId = pages.pages.provinceId || ''
+    this.search.cityId = pages.pages.cityId || ''
+    this.search.regionId = pages.pages.regionId || ''
     this.loadData()
     this.loadProvince()
     if (this.user.roleLevel !== 1) {
@@ -192,15 +195,15 @@ export default {
       if (new Date(this.params.beginTime).getTime() > new Date(this.params.endTime).getTime()) {
         this.$message.error('开始时间不能在结束时间之后!')
       } else {
-        pages.name = this.search.name
-        pages.nickName = this.search.nickName
+        pages.pages.name = this.search.name
+        pages.pages.nickName = this.search.nickName
         // pages.selectDate = this.search.selectDate
-        pages.beginTime = this.search.beginTime
-        pages.endTime = this.search.endTime
-        pages.provinceId = this.search.provinceId
-        pages.cityId = this.search.cityId
-        pages.regionId = this.search.regionId
-        pages.status = this.search.status
+        pages.pages.beginTime = this.search.beginTime
+        pages.pages.endTime = this.search.endTime
+        pages.pages.provinceId = this.search.provinceId
+        pages.pages.cityId = this.search.cityId
+        pages.pages.regionId = this.search.regionId
+        pages.pages.status = this.search.status
         this.loadData()
       }
     },
@@ -286,12 +289,12 @@ export default {
     },
     handleSizeChange (val) {
       this.pages.pageSize = val
-      pages.pageSize = val
+      pages.pages.pageSize = val
       this.loadData()
     },
     handleCurrentChange (val) {
       this.pages.pageNum = val
-      pages.pageNum = val
+      pages.pages.pageNum = val
       this.loadData()
     },
     cheakChild (item) {
@@ -305,35 +308,29 @@ export default {
   },
   watch: {
     'search.provinceId' (val) {
-      if (val === '') {
-        this.search.cityId = ''
-        this.citiesList = []
-      } else {
-        if (this.user.roleLevel === 1) {
-          this.loadCities()
-        }
+      this.search.cityId = ''
+      this.citiesList = []
+      if (this.user.roleLevel === 1) {
+        this.loadCities()
       }
     },
     'search.cityId' (val) {
-      if (val === '') {
-        this.search.regionId = ''
-        this.regionList = []
+      this.search.regionId = ''
+      this.regionList = []
+      if (this.user.roleLevel === 1) {
+        this.loadRegions()
       } else {
-        if (this.user.roleLevel === 1) {
-          this.loadRegions()
-        } else {
-          this.regionList = []
-          this.citiesList.forEach(item => {
-            if (item.id === val) {
-              item.region.forEach(region => {
-                this.regionList.push({
-                  name: region.regionName,
-                  id: region.regionId
-                })
+        this.regionList = []
+        this.citiesList.forEach(item => {
+          if (item.id === val) {
+            item.region.forEach(region => {
+              this.regionList.push({
+                name: region.regionName,
+                id: region.regionId
               })
-            }
-          })
-        }
+            })
+          }
+        })
       }
     },
     'search.selectDate' (val) {
