@@ -13,7 +13,7 @@
             </el-col>
             <el-col :span="5">
               <el-form-item label="数量:">
-                <el-input v-model="form.quantity" placeholder="请输入数量" type="number"></el-input>
+                <el-input v-model="form.quantity" placeholder="请输入数量" type="number" min="1"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="5">
@@ -72,6 +72,11 @@ export default {
       quantity: this.orderItem.quantity
     })
   },
+  computed: {
+    oldFee () {
+      return this.orderItem.fee * this.orderItem.quantity
+    }
+  },
   methods: {
     tradeItemPackList () {
       this.$axios.tradeItemPackList({cls: this.orderItem.cls, itemPackId: this.formItem.qrzdItemPackId}).then(res => {
@@ -110,7 +115,7 @@ export default {
         this.tableData.push(formItem)
         this.form = {
           id: '',
-          quantity: ''
+          quantity: 1
         }
       }
     },
@@ -121,8 +126,10 @@ export default {
       this.$router.go(-1)
     },
     onSubmit () {
+      let totalFee = 0
       let qrzdTradeDetailUpdateViews = []
       this.tableData.forEach(item => {
+        totalFee += item.fee * item.quantity
         qrzdTradeDetailUpdateViews.push({
           id: item.id,
           quantity: parseInt(item.quantity)
@@ -133,6 +140,10 @@ export default {
         qrzdTradeDetailUpdateViews: qrzdTradeDetailUpdateViews,
         tradeDetailId: this.orderItem.id,
         tradeId: this.$route.query.tradeId
+      }
+      if (totalFee > this.oldFee) {
+        this.$message.error('修改价格不能大于原价')
+        return false
       }
       this.$axios.detailUpdate(param).then(res => {
         if (res.data.code === '0') {

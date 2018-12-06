@@ -80,7 +80,7 @@ export default {
         linkmobile: '',
         postage: '',
         postageSum: '',
-        schoolLevel: '',
+        schoolLevel: '0',
         sendType: 0
       },
       tableList: [],
