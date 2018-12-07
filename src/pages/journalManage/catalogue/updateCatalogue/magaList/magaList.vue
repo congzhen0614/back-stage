@@ -164,7 +164,9 @@ export default {
             item.ord = 9999
           }
         })
-        this.handleSelection(historyData)
+        if (historyData.length > 0) {
+          this.handleSelection(historyData)
+        }
         if (this.historyData[this.search.pageNum] !== undefined) {
           this.tableList.forEach(list => {
             this.historyData[this.search.pageNum].forEach(select => {
