@@ -5,15 +5,15 @@
         <el-row>
           <el-col :span="8">
             <el-form-item label="省/市/区:" label-width="70px">
-              <el-select class="region-select" v-model="search.provinceId" placeholder="请选择省" style="width: 32%" :disabled="user.roleLevel !== 1">
+              <el-select class="region-select" v-model="search.provinceId" placeholder="请选择省" style="width: 32%">
                 <el-option label="全部" value=""></el-option>
                 <el-option :label="item.name" :value="item.id" v-for="item in provinceList" :key="item.id"></el-option>
               </el-select>
-              <el-select class="region-select" v-model="search.cityId" placeholder="请选择市" style="width: 32%" :disabled="citiesList.length === 1 && user.roleLevel !== 1">
+              <el-select class="region-select" v-model="search.cityId" placeholder="请选择市" style="width: 32%">
                 <el-option label="全部" value=""></el-option>
                 <el-option :label="item.name" :value="item.id" v-for="item in citiesList" :key="item.id"></el-option>
               </el-select>
-              <el-select class="region-select" v-model="search.regionId" placeholder="请选择区" style="width: 32%" :disabled="regionList.length === 1 && user.roleLevel !== 1">
+              <el-select class="region-select" v-model="search.regionId" placeholder="请选择区" style="width: 32%">
                 <el-option label="全部" value=""></el-option>
                 <el-option :label="item.name" :value="item.id" v-for="item in regionList" :key="item.id"></el-option>
               </el-select>
@@ -70,8 +70,8 @@
     </header>
 
     <el-table size="mini" :data="tableData" border :height="windowHeight">
-      <el-table-column prop="adminName"    label="业务员"    width="100"></el-table-column>
       <el-table-column prop="no"           label="订单号"    width="200"></el-table-column>
+      <el-table-column prop="adminName"    label="业务员"    width="100"></el-table-column>
       <el-table-column prop="name"         label="图书名称"  width="200"></el-table-column>
       <el-table-column prop="quantity"     label="数量"      width="100"></el-table-column>
       <el-table-column prop="fee"          label="价格"      width="100"></el-table-column>
@@ -194,6 +194,12 @@ export default {
       this.$axios.areaReportList(this.params).then(res => {
         if (res.data.code === '0') {
           this.tableData = res.data.data.list
+          this.tableData.push({
+            adminName: '合计',
+            no: res.data.data.totalNo,
+            fee: res.data.data.allTotalFee,
+            quantity: res.data.data.allTotalQuantity
+          })
         } else {
           this.$message.error(res.data.msg)
         }

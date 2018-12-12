@@ -407,23 +407,28 @@ export default {
     },
     loadTemplate () {
       window.location.href = location.protocol + '//' + window.location.host + '/zdadmin/static/file/学校批量导入模板.xls'
+    },
+    provinceChange () {
+      this.search.cityId = ''
+      this.citiesList = []
+      this.search.regionId = ''
+      this.regionList = []
+    },
+    cityChange () {
+      this.search.regionId = ''
+      this.regionList = []
     }
   },
   watch: {
-    'search.provinceId' (val) {
-      this.search.cityIds = ''
-      this.citiesList = []
+    'search.provinceId' () {
       if (this.user.roleLevel === 1) {
         this.loadCities()
       }
     },
     'search.cityIds' (val) {
-      this.search.regionIds = ''
-      this.regionList = []
       if (this.user.roleLevel === 1) {
         this.loadRegions()
       } else {
-        this.regionList = []
         this.citiesList.forEach(item => {
           if (item.id === val) {
             item.region.forEach(region => {

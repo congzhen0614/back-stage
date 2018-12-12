@@ -4,12 +4,12 @@
       <el-form :model="search" label-width="60px" size="mini">
         <el-row :gutter="10">
           <el-col :span="4">
-            <el-form-item label="用户名" prop="name">
+            <el-form-item label="用户名" prop="name" style="margin-bottom: 0">
               <el-input v-model="search.name" placeholder="请输入用户名筛选" @keyup.enter.native="clickSearch"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="4" v-if="roleLevel === 1">
-            <el-form-item label="所属组织" prop="name">
+            <el-form-item label="所属组织" prop="name" style="margin-bottom: 0">
               <el-select v-model="search.groupId" placeholder="请选择所属组织">
                 <el-option label="全部" value=""></el-option>
                 <el-option :label="item.name" :value="item.id" v-for="item in groupList" :key="item.id"></el-option>
@@ -17,7 +17,7 @@
             </el-form-item>
           </el-col>
           <el-col :span="4" v-if="roleLevel !== 2 && roleLevel !== 5">
-            <el-form-item label="账号角色" prop="name">
+            <el-form-item label="账号角色" prop="name" style="margin-bottom: 0">
               <el-select v-model="search.roleLevel" placeholder="请选择账号角色">
                 <el-option label="全部" value=""></el-option>
                 <el-option :label="item.name" :value="item.id" v-for="item in roleList" :key="item.id"></el-option>
@@ -25,7 +25,7 @@
             </el-form-item>
           </el-col>
           <el-col :span="4">
-            <el-form-item label="账号状态" prop="name">
+            <el-form-item label="账号状态" prop="name" style="margin-bottom: 0">
               <el-select v-model="search.adminAccountStatus" placeholder="请选择账号状态">
                 <el-option label="全部" value=""></el-option>
                 <el-option label="正常" value="1"></el-option>

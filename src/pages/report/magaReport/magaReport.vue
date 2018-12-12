@@ -167,6 +167,11 @@ export default {
       this.$axios.magaReportList(this.params).then(res => {
         if (res.data.code === '0') {
           this.tableData = res.data.data.list
+          this.tableData.push({
+            name: '合计',
+            quantity: res.data.data.allTotalQuantity,
+            totalFee: res.data.data.allTotalFee
+          })
         } else {
           this.$message.error(res.data.msg)
         }
@@ -260,17 +265,17 @@ export default {
     }
   },
   watch: {
-    'search.provinceId' (val) {
-      this.search.cityId = ''
-      this.citiesList = []
+    'search.provinceId' () {
       if (this.user.roleLevel === 1) {
+        this.search.cityId = ''
+        this.citiesList = []
         this.loadCities()
       }
     },
     'search.cityId' (val) {
-      this.search.regionId = ''
-      this.regionList = []
       if (this.user.roleLevel === 1) {
+        this.search.regionId = ''
+        this.regionList = []
         this.loadRegions()
       } else {
         this.regionList = []

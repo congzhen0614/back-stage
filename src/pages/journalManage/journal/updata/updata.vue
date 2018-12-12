@@ -19,7 +19,7 @@
       <el-form-item label="产品类别(年级):" prop="ageId">
         <el-checkbox :indeterminate="isIndeterminateAge" v-model="checkAllAge" @change="handleCheckAllAge">全选</el-checkbox>
         <el-checkbox-group v-model="form.ageId">
-          <el-checkbox :label="item.id" v-for="item in ageList" :key="item.id">{{ item.name }}</el-checkbox>
+          <el-checkbox :label="item.id" v-for="(item, index) in ageList" :key="item.id" @click.native="onSelectClick(index)" @change="onSelectChange">{{ item.name }}</el-checkbox>
         </el-checkbox-group>
       </el-form-item>
       <el-form-item label="价格:" prop="fee">
@@ -29,9 +29,9 @@
         <el-row :gutter="10">
           <el-col :span="7">
             <el-select v-model="form.feeUnitType">
-              <el-option label="半年" :value="0"></el-option>
-              <el-option label="全年" :value="1"></el-option>
-              <el-option label="其他" :value="2"></el-option>
+              <el-option label="半年" value="0"></el-option>
+              <el-option label="全年" value="1"></el-option>
+              <el-option label="其他" value="2"></el-option>
             </el-select>
           </el-col>
           <el-col :span="7">
@@ -39,8 +39,9 @@
           </el-col>
           <el-col :span="7">
             <el-select v-model="form.feeUnit">
-              <el-option label="册" :value="1"></el-option>
-              <el-option label="期" :value="2"></el-option>
+              <el-option label="册" value="1"></el-option>
+              <el-option label="期" value="2"></el-option>
+              <el-option label="套" value="3"></el-option>
             </el-select>
           </el-col>
         </el-row>
@@ -108,6 +109,52 @@ export default {
     this.loadItemtypeList()
   },
   methods: {
+    onSelectClick (index) {
+      const event = window.event
+      const that = this
+      let indexArr = []
+      if (event.shiftKey) {
+        if (event.target.type === 'checkbox') {
+          setTimeout(() => {
+            indexArr = that.form.ageId.map(item => {
+              let objIndex = ''
+              that.ageList.forEach((obj, index) => {
+                if (obj.id === item) {
+                  objIndex = index
+                }
+              })
+              return objIndex
+            })
+            let indexMin = Math.min(...indexArr)
+            let indexMax = 0
+            if (that.form.ageId.length > 0) {
+              indexMax = index
+            } else {
+              indexMax = Math.max(...indexArr)
+            }
+            that.form.ageId = []
+            for (var i = indexMin; i <= indexMax; i++) {
+              let selected = false
+              that.form.ageId.forEach(item => {
+                if (item === that.ageList[i].id) {
+                  selected = true
+                }
+              })
+              if (!selected) {
+                that.form.ageId.push(that.ageList[i].id)
+              }
+            }
+          }, 10)
+        }
+      }
+    },
+    onSelectChange (val) {
+      this.form.ageId.forEach((item, index) => {
+        if (item === val) {
+          this.form.ageId.splice(index, 1)
+        }
+      })
+    },
     content (val) {
       this.form.content = val
     },

@@ -5,11 +5,11 @@
         <el-row>
           <el-col :span="7">
             <el-form-item label="省/市/区:" label-width="70px">
-              <el-select style="width: 32%" v-model="search.provinceId" placeholder="请选择省" :disabled="user.roleLevel !== 1">
+              <el-select style="width: 32%" v-model="search.provinceId" placeholder="请选择省" :disabled="user.roleLevel !== 1" @change="provinceChange">
                 <el-option label="全部" value=""></el-option>
                 <el-option :label="item.name" :value="item.id" v-for="item in provinceList" :key="item.id"></el-option>
               </el-select>
-              <el-select style="width: 32%" v-model="search.cityId" placeholder="请选择市" :disabled="citiesList.length === 1 && user.roleLevel !== 1">
+              <el-select style="width: 32%" v-model="search.cityId" placeholder="请选择市" :disabled="citiesList.length === 1 && user.roleLevel !== 1" @change="cityChange">
                 <el-option label="全部" value=""></el-option>
                 <el-option :label="item.name" :value="parseInt(item.id)" v-for="item in citiesList" :key="item.id"></el-option>
               </el-select>
@@ -300,23 +300,28 @@ export default {
           message: '已取消删除'
         })
       })
+    },
+    provinceChange () {
+      this.search.cityId = ''
+      this.citiesList = []
+      this.search.regionId = ''
+      this.regionList = []
+    },
+    cityChange () {
+      this.search.regionId = ''
+      this.regionList = []
     }
   },
   watch: {
-    'search.provinceId' (val) {
-      this.search.cityId = ''
-      this.citiesList = []
+    'search.provinceId' () {
       if (this.user.roleLevel === 1) {
         this.loadCities()
       }
     },
     'search.cityId' (val) {
-      this.search.regionId = ''
-      this.regionList = []
       if (this.user.roleLevel === 1) {
         this.loadRegions()
       } else {
-        this.regionList = []
         this.citiesList.forEach(item => {
           if (item.id === val) {
             item.region.forEach(region => {

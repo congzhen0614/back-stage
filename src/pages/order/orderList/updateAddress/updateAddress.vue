@@ -1,42 +1,28 @@
 <template>
-  <div class="update-address">
-    <el-form ref="form" :model="form" label-width="80px" :rules="rules">
-      <el-row :gutter="20">
-        <el-col :span="7">
-          <el-form-item label="收件人:" prop="consigneeName">
-            <el-input v-model="form.consigneeName" placeholder="请输入收件人"></el-input>
-          </el-form-item>
-        </el-col>
-        <el-col :span="7">
-          <el-form-item label="联系电话:" prop="consigneeMobile">
-            <el-input v-model="form.consigneeMobile" placeholder="请收入联系电话"></el-input>
-          </el-form-item>
-        </el-col>
-      </el-row>
-      <el-row>
-        <el-col :span="3">
-          <el-select v-model="form.addressProvinceId" placeholder="请选择省">
-            <el-option :label="item.name" :value="item.id" v-for="item in provincesList" :key="item.id"></el-option>
-          </el-select>
-        </el-col>
-        <el-col :span="3">
-          <el-select v-model="form.addressCityId" placeholder="请选择市">
-            <el-option :label="item.name" :value="item.id" v-for="item in citiesList" :key="item.id"></el-option>
-          </el-select>
-        </el-col>
-        <el-col :span="3">
-          <el-select v-model="form.addressRegionId" placeholder="请选择区">
-            <el-option :label="item.name" :value="item.id" v-for="item in regionsList" :key="item.id"></el-option>
-          </el-select>
-        </el-col>
-        <el-col :span="5">
-          <el-input v-model="form.address" placeholder="请输入详细地址"></el-input>
-        </el-col>
-      </el-row>
-      <el-row style="margin-top: 20px">
-        <el-button size="mini" @click="onSubmit" type="primary">保存提交</el-button>
-        <el-button size="mini" @click="onCancel">取消</el-button>
-      </el-row>
+  <div class="update-address" style="width: 600px">
+    <el-form ref="form" :model="form" label-width="80px" :rules="rules" size="mini">
+      <el-form-item label="收件人:" prop="consigneeName">
+        <el-input v-model="form.consigneeName" placeholder="请输入收件人"></el-input>
+      </el-form-item>
+      <el-form-item label="联系电话:" prop="consigneeMobile">
+        <el-input v-model="form.consigneeMobile" placeholder="请收入联系电话"></el-input>
+      </el-form-item>
+      <el-form-item label="省/市/区:" prop="addressRegionId">
+        <el-select v-model="form.addressProvinceId" placeholder="请选择省" style="width: 32.5%">
+          <el-option :label="item.name" :value="item.id" v-for="item in provincesList" :key="item.id"></el-option>
+        </el-select>
+        <el-select v-model="form.addressCityId" placeholder="请选择市" style="width: 32.5%">
+          <el-option :label="item.name" :value="item.id" v-for="item in citiesList" :key="item.id"></el-option>
+        </el-select>
+        <el-select v-model="form.addressRegionId" placeholder="请选择区" style="width: 32.5%">
+          <el-option :label="item.name" :value="item.id" v-for="item in regionsList" :key="item.id"></el-option>
+        </el-select>
+      </el-form-item>
+      <el-form-item label="详细地址:" prop="address">
+        <el-input v-model="form.address" placeholder="请输入详细地址"></el-input>
+      </el-form-item>
+      <el-button size="mini" @click="onSubmit" type="primary">保存提交</el-button>
+      <el-button size="mini" @click="onCancel">取消</el-button>
     </el-form>
   </div>
 </template>

@@ -289,16 +289,16 @@ export default {
   },
   watch: {
     'search.provinceId' () {
-      this.search.cityId = ''
-      this.citiesList = []
       if (this.user.roleLevel === 1) {
+        this.search.cityId = ''
+        this.citiesList = []
         this.loadCities()
       }
     },
     'search.cityId' (val) {
-      this.search.regionId = ''
-      this.regionList = []
       if (this.user.roleLevel === 1) {
+        this.search.regionId = ''
+        this.regionList = []
         this.loadRegions()
       } else {
         this.regionList = []
