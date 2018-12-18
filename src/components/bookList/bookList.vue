@@ -189,6 +189,7 @@ export default {
   },
   watch: {
     'form.postageSumBook' (val) {
+      if (val < 0) this.form.postageSumBook = 0
       this.$emit('bookDate', {
         postageBook: this.form.postageBook,
         postageSumBook: val,
@@ -196,6 +197,7 @@ export default {
       })
     },
     'form.postageBook' (val) {
+      if (val < 0) this.form.postageBook = 0
       this.$emit('bookDate', {
         postageBook: val,
         postageSumBook: this.form.postageSumBook,

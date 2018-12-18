@@ -33,7 +33,7 @@
       <el-row class="maga">
         <el-col :span="4">
           <el-form-item label="配送方式:" style="margin-bottom: 0; height: 40px" prop="sendType" label-width="80px">
-            <el-select v-model="form.sendType">
+            <el-select v-model="form.sendType" :disabled="!form.changeable">
               <el-option label="直送" :value="0"></el-option>
               <el-option label="寄送" :value="1"></el-option>
             </el-select>
@@ -71,6 +71,9 @@
         </template>
       </el-table-column>
       <el-table-column prop="name" label="名称" ></el-table-column>
+      <el-table-column prop="typeNames" label="类别"  width="200"></el-table-column>
+      <el-table-column prop="ageNames" label="适读年龄"  width="300"></el-table-column>
+      <el-table-column prop="fee" label="价格"  width="100"></el-table-column>
       <el-table-column label="价格单位" width="100">
         <template slot-scope="scope">
           <span>{{ scope.row.feeUnitTypeName }}{{ scope.row.feeUnitNum }}{{ scope.row.feeUnitName }}</span>
@@ -82,9 +85,6 @@
           <span>{{ scope.row.createdAt | timeFormat }}</span>
         </template>
       </el-table-column>
-      <el-table-column prop="typeNames" label="类别"  width="200"></el-table-column>
-      <el-table-column prop="ageNames" label="适读年龄"  width="300"></el-table-column>
-      <el-table-column prop="fee" label="价格"  width="100"></el-table-column>
     </el-table>
     <el-pagination
       @size-change="handleSizeChange"
@@ -103,14 +103,14 @@ export default {
   name: 'magaList',
   data () {
     return {
+      windowHeight: window.innerHeight - 410 + 'px',
+      preselected: [],
+      pageNum: 1,
       rules: {
         sendType: {required: true, message: '请选择配送方式', trigger: 'blur'},
         postageSum: {required: true, message: '请输入未满金额', trigger: 'blur'},
         postage: {required: true, message: '请输入运费', trigger: 'blur'}
       },
-      windowHeight: window.innerHeight - 410 + 'px',
-      preselected: [],
-      pageNum: 1,
       search: {
         id: this.id,
         cls: 1,
@@ -120,6 +120,7 @@ export default {
         pageSize: 20
       },
       form: {
+        changeable: this.changeable,
         sendType: this.sendType ? this.sendType : 0,
         postage: this.postage,
         postageSum: this.postageSum
@@ -224,6 +225,7 @@ export default {
   },
   watch: {
     'form.postageSum' (val) {
+      if (val < 0) this.form.postageSum = 0
       this.$emit('mageDate', {
         postage: this.form.postage,
         postageSum: val,
@@ -233,6 +235,7 @@ export default {
       })
     },
     'form.postage' (val) {
+      if (val < 0) this.form.postage = 0
       this.$emit('mageDate', {
         postage: val,
         postageSum: this.form.postageSum,

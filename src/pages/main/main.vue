@@ -17,9 +17,6 @@
               <i class="el-icon-close" @click.stop="clickClose(item.path)" v-if="index > 0"></i>
             </li>
           </ul>
-          <!--<el-breadcrumb separator="/">-->
-            <!--<el-breadcrumb-item style="font-size: 12px" :to="{ path: item.path }" v-for="(item, index) in routeList" :key="index">{{ item.name }}</el-breadcrumb-item>-->
-          <!--</el-breadcrumb>-->
         </el-header>
         <el-main class="main-background" v-if="thisPathStr === '/'" :style="style">
           <h2>微校网商家服务平台欢迎您,</h2>
@@ -31,7 +28,6 @@
           </keep-alive>
           <router-view v-if="!$route.meta.keepAlive"></router-view>
         </el-main>
-        <!--<el-footer></el-footer>-->
       </el-container>
     </el-container>
   </div>

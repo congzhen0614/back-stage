@@ -43,7 +43,7 @@
       </el-form>
       <el-tabs type="border-card">
         <el-tab-pane label="杂志">
-          <el-magaList @mageDate="mageDate" :postage="form.postage" :postageSum="form.postageSum" :sendType="form.sendType" :id="form.id"></el-magaList>
+          <el-magaList @mageDate="mageDate" :postage="form.postage" :postageSum="form.postageSum" :sendType="form.sendType" :changeable="form.changeable" :id="form.id"></el-magaList>
         </el-tab-pane>
         <el-tab-pane label="图书">
           <el-bookList @bookDate="bookDate" :postageBook="form.postageBook" :postageSumBook="form.postageSumBook" :id="form.id"></el-bookList>
@@ -84,6 +84,7 @@ export default {
       form: {
         id: JSON.parse(this.$route.query.item).id,
         items: [],
+        changeable: JSON.parse(this.$route.query.item).changeable,
         linkman: JSON.parse(this.$route.query.item).linkman,
         linkmobile: JSON.parse(this.$route.query.item).linkmobile,
         postage: JSON.parse(this.$route.query.item).postage,

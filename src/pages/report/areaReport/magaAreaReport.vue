@@ -200,8 +200,8 @@ export default {
         if (res.data.code === '0') {
           this.tableData = res.data.data.list
           this.tableData.push({
-            adminName: '合计',
-            no: res.data.data.totalNo,
+            // adminName: '合计',
+            no: '合计',
             fee: res.data.data.allTotalFee,
             quantity: res.data.data.allTotalQuantity
           })

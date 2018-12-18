@@ -33,6 +33,10 @@ export default {
   methods: {
     beforeUpload (file) {
       let k300 = 1024 * 300
+      if (file.type.indexOf('image/') === -1) {
+        this.$message.warning('上传格式内容不正确')
+        return false
+      }
       if (file.size > k300) {
         this.$message.warning('图片大小不能超出300kb')
         return false

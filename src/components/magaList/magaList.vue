@@ -71,6 +71,9 @@
         </template>
       </el-table-column>
       <el-table-column prop="name" label="名称" ></el-table-column>
+      <el-table-column prop="typeName" label="类别"  width="200"></el-table-column>
+      <el-table-column prop="ageName" label="适读年龄"  width="300"></el-table-column>
+      <el-table-column prop="fee" label="价格"  width="100"></el-table-column>
       <el-table-column label="价格单位" width="100">
         <template slot-scope="scope">
           <span>{{ scope.row.feeUnitTypeName }}{{ scope.row.feeUnitNum }}{{ scope.row.feeUnitName }}</span>
@@ -82,9 +85,6 @@
           <span>{{ scope.row.createdAt | timeFormat }}</span>
         </template>
       </el-table-column>
-      <el-table-column prop="typeName" label="类别"  width="200"></el-table-column>
-      <el-table-column prop="ageName" label="适读年龄"  width="300"></el-table-column>
-      <el-table-column prop="fee" label="价格"  width="100"></el-table-column>
     </el-table>
     <el-pagination
       size="mini"
@@ -208,6 +208,7 @@ export default {
   },
   watch: {
     'form.postageSum' (val) {
+      if (val < 0) this.form.postageSum = 0
       this.$emit('mageDate', {
         postage: this.form.postage,
         postageSum: val,
@@ -217,6 +218,7 @@ export default {
       })
     },
     'form.postage' (val) {
+      if (val < 0) this.form.postage = 0
       this.$emit('mageDate', {
         postage: val,
         postageSum: this.form.postageSum,
