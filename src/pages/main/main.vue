@@ -16,6 +16,8 @@
               <span>{{ item.name }}</span>
               <i class="el-icon-close" @click.stop="clickClose(item.path)" v-if="index > 0"></i>
             </li>
+            <li @click="onClickOther" v-if="routeList.length > 1">关闭其他</li>
+            <li @click="onClickAll" v-if="routeList.length > 1">关闭全部</li>
           </ul>
         </el-header>
         <el-main class="main-background" v-if="thisPathStr === '/'" :style="style">
@@ -65,6 +67,20 @@ export default {
     }
   },
   methods: {
+    onClickOther () {
+      let router = {}
+      this.$route.meta.routeList.forEach(item => {
+        if (item.path === this.thisPathStr) {
+          router = item
+        }
+      })
+      this.$route.meta.routeList.length = 1
+      this.$route.meta.routeList.push(router)
+    },
+    onClickAll () {
+      this.$route.meta.routeList.length = 1
+      this.$router.push({path: '/'})
+    },
     toPages (path) {
       this.$router.push({
         path: path
@@ -98,7 +114,7 @@ export default {
     }
   },
   watch: {
-    '$route' () {
+    '$route' (val) {
       let href = window.location.href
       let index = href.lastIndexOf('/')
       this.thisPathStr = '/' + href.substring(index + 1, href.length)

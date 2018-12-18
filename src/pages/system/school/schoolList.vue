@@ -54,10 +54,10 @@
           <el-input size="small" v-model="scope.row.ord" @change="ordChange(scope.row)"></el-input>
         </template>
       </el-table-column>
-      <el-table-column prop="name"         label="学校名称" ></el-table-column>
       <el-table-column prop="provinceName" label="省份"     ></el-table-column>
       <el-table-column prop="cityName"     label="城市"     ></el-table-column>
       <el-table-column prop="regionName"   label="地区"     ></el-table-column>
+      <el-table-column prop="name"         label="学校名称" ></el-table-column>
       <el-table-column prop="address"      label="详细地址" ></el-table-column>
       <el-table-column fixed="right" label="操作"  width="200">
         <template slot-scope="scope">

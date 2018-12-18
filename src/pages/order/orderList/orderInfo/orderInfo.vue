@@ -72,7 +72,7 @@
           <el-table-column prop="addressStr" label="收件地址"></el-table-column>
           <el-table-column prop="name" label="收件人" width="120" ></el-table-column>
           <el-table-column prop="mobile" label="联系电话" width="200" ></el-table-column>
-          <el-table-column label="操作" width="120" v-if="update" >
+          <el-table-column label="操作" width="120" v-if="update != 'false'" >
             <template slot-scope="scope">
               <el-button @click="onAddressUpdate(scope.row)" type="text" size="mini">修改</el-button>
             </template>
@@ -94,7 +94,7 @@
               <span>{{ scope.row.refundStatus === 0 ? scope.row.tradeStatusName : scope.row.refundStatusName }}</span>
             </template>
           </el-table-column>
-          <el-table-column label="操作" width="260" v-if="update" >
+          <el-table-column label="操作" width="260" v-if="update != 'false'" >
             <template slot-scope="scope">
               <el-button @click="onApplyRefund(scope.row)" type="text" size="mini" v-if="scope.row.refundStatus === 0 && havePermission('trade:refundapply')">申请退款</el-button>
               <el-button @click="onCancelRefund(scope.row)" type="text" size="mini" v-if="scope.row.refundStatus === 1 && havePermission('trade:refundcancel')">取消退款</el-button>
@@ -122,7 +122,7 @@
           </el-table-column>
           <el-table-column prop="refundReason" label="申请退款原因" width="120" ></el-table-column>
           <el-table-column prop="refundImgs" label="申请退款图片" width="150" ></el-table-column>
-          <el-table-column label="操作" width="200" v-if="update" >
+          <el-table-column label="操作" width="200" v-if="update != 'false'" >
             <template slot-scope="scope">
               <el-button @click="onRepulseRefund(scope.row)" type="text" size="mini" v-if="scope.row.refundStatus === 1 && havePermission('trade:refunded')">拒绝退款</el-button>
               <el-button @click="onRefund(scope.row)" type="text" size="mini" v-if="scope.row.refundStatus === 1 && havePermission('trade:refunded')">同意退款</el-button>
