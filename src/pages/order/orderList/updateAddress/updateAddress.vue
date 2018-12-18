@@ -1,13 +1,13 @@
 <template>
   <div class="update-address" style="width: 600px">
-    <el-form ref="form" :model="form" label-width="80px" :rules="rules" size="mini">
-      <el-form-item label="收件人:" prop="consigneeName">
+    <el-form ref="form" :model="form" label-width="80px" size="mini">
+      <el-form-item label="收件人:">
         <el-input v-model="form.consigneeName" placeholder="请输入收件人"></el-input>
       </el-form-item>
-      <el-form-item label="联系电话:" prop="consigneeMobile">
+      <el-form-item label="联系电话:">
         <el-input v-model="form.consigneeMobile" placeholder="请收入联系电话"></el-input>
       </el-form-item>
-      <el-form-item label="省/市/区:" prop="addressRegionId">
+      <el-form-item label="省/市/区:">
         <el-select v-model="form.addressProvinceId" placeholder="请选择省" style="width: 32.5%">
           <el-option :label="item.name" :value="item.id" v-for="item in provincesList" :key="item.id"></el-option>
         </el-select>
@@ -18,7 +18,7 @@
           <el-option :label="item.name" :value="item.id" v-for="item in regionsList" :key="item.id"></el-option>
         </el-select>
       </el-form-item>
-      <el-form-item label="详细地址:" prop="address">
+      <el-form-item label="详细地址:">
         <el-input v-model="form.address" placeholder="请输入详细地址"></el-input>
       </el-form-item>
       <el-button size="mini" @click="onSubmit" type="primary">保存提交</el-button>
@@ -37,32 +37,6 @@ export default {
       citiesList: [],
       regionsList: [],
       sendType: JSON.parse(this.$route.query.item).sendType,
-      rules: {
-        consigneeName: [
-          {required: true, message: '请输入收件人'},
-          {validator: (rule, value, callback) => {
-            let isNull = /^[ ]+$/
-            if (isNull.test(value)) {
-              callback(new Error('必填项不能全部为空格'))
-            } else {
-              callback()
-            }
-          }
-          }
-        ],
-        consigneeMobile: [
-          {required: true, message: '请输入联系电话'},
-          {validator: (rule, value, callback) => {
-            let phone = /^(13[0-9]|14[579]|15[0-3,5-9]|16[6]|17[0135678]|18[0-9]|19[89])\d{8}$/
-            if (!phone.test(value)) {
-              callback(new Error('请输入正确手机号'))
-            } else {
-              callback()
-            }
-          }
-          }
-        ]
-      },
       form: {
         cls: JSON.parse(this.$route.query.item).cls,
         tradeId: this.$route.query.tradeId,
@@ -140,18 +114,28 @@ export default {
       this.$router.go(-1)
     },
     onSubmit () {
-      this.$axios.addressHomeUpdate(this.form).then(res => {
-        if (res.data.code === '0') {
-          this.$message.success('操作成功')
-          this.$router.go(-1)
-        } else {
-          this.$message.error(res.data.msg)
-        }
-      }, err => {
-        this.$message.error(err)
-      }).catch(err => {
-        this.$message.error(err)
-      })
+      if (this.form.consigneeName === '') {
+        this.$message.warning('收件人不能为空')
+      } else if (this.form.consigneeMobile === '') {
+        this.$message.warning('联系电话不能为空')
+      } else if (this.form.addressProvinceId === '' || this.form.addressCityId === '' || this.form.addressRegionId === '') {
+        this.$message.warning('省、市、区不能为空')
+      } else if (this.form.address === '') {
+        this.$message.warning('详细地址不能为空')
+      } else {
+        this.$axios.addressHomeUpdate(this.form).then(res => {
+          if (res.data.code === '0') {
+            this.$message.success('操作成功')
+            this.$router.go(-1)
+          } else {
+            this.$message.error(res.data.msg)
+          }
+        }, err => {
+          this.$message.error(err)
+        }).catch(err => {
+          this.$message.error(err)
+        })
+      }
     }
   },
   watch: {

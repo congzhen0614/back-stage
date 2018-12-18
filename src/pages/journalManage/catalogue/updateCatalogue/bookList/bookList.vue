@@ -33,14 +33,14 @@
       <el-row :gutter="20" class="book">
         <el-col :span="6">
           <el-form-item label="商品金额未满:" prop="postageSumBook" label-width="105px">
-            <el-input v-model="form.postageSumBook" type="number">
+            <el-input v-model="form.postageSumBook" type="number" min="0">
               <template slot="append">元</template>
             </el-input>
           </el-form-item>
         </el-col>
         <el-col :span="6">
           <el-form-item label="将收取运费:" prop="postageBook" label-width="90px">
-            <el-input v-model="form.postageBook" type="number">
+            <el-input v-model="form.postageBook" type="number" min="0">
               <template slot="append">元</template>
             </el-input>
           </el-form-item>
@@ -55,8 +55,8 @@
         </template>
       </el-table-column>
       <el-table-column prop="name" label="名称" ></el-table-column>
-      <el-table-column prop="typeName" label="类别"  width="200"></el-table-column>
-      <el-table-column prop="ageName" label="适读年龄"  width="200"></el-table-column>
+      <el-table-column prop="typeNames" label="类别"  width="200"></el-table-column>
+      <el-table-column prop="ageNames" label="适读年龄"  width="200"></el-table-column>
       <el-table-column prop="fee" label="价格"  width="100"></el-table-column>
     </el-table>
     <el-pagination

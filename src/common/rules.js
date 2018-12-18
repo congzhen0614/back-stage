@@ -30,14 +30,14 @@ let letterNumber = (rule, value, callback) => {
   }
 }
 
-let ISSN = (rule, value, callback) => {
-  let username = /^[0-9a-zA-Z_-]{1,}$/
-  if (!username.test(value)) {
-    callback(new Error('请输入正确刊号'))
-  } else {
-    callback()
-  }
-}
+// let ISSN = (rule, value, callback) => {
+//   let username = /^[0-9a-zA-Z_-]{1,}$/
+//   if (!username.test(value)) {
+//     callback(new Error('请输入正确刊号'))
+//   } else {
+//     callback()
+//   }
+// }
 
 let isNull = (rule, value, callback) => {
   let isNull = /^[ ]+$/
@@ -55,8 +55,8 @@ let magazineRules = {
     {validator: isNull, trigger: 'blur'}
   ],
   issn: [
-    {required: true, message: '请输入杂志刊号', trigger: 'blur'},
-    {validator: ISSN, trigger: 'blur'}
+    {required: true, message: '请输入杂志刊号', trigger: 'blur'} // ,
+    // {validator: ISSN, trigger: 'blur'}
   ],
   typeId: [{required: true, message: '请输入选择产品类别', trigger: 'blur'}],
   ageId: [{required: true, message: '请输入选择适读年龄', trigger: 'blur'}],

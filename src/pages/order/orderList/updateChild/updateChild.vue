@@ -29,12 +29,14 @@
         </el-select>
       </el-form-item>
       <el-form-item label="班级:">
-        <el-select v-model="form.classId" placeholder="请选择班级" style="width: 100%">
+        <el-select v-model="form.classId" placeholder="请选择班级" style="width: 50%" :disabled="radio === '2'">
           <el-option :label="item.name" :value="parseInt(item.id)" v-for="item in classList" :key="item.id"></el-option>
         </el-select>
+        <el-radio v-model="radio" label="1">选填</el-radio>
       </el-form-item>
       <el-form-item label="自定义班级:">
-        <el-input v-model="form.classNameDef" placeholder="请收入自定义班级名称"></el-input>
+        <el-input v-model="form.classNameDef" placeholder="请输入自定义班级名称" style="width: 50%" :disabled="radio === '1'"></el-input>
+        <el-radio v-model="radio" label="2">自定义</el-radio>
       </el-form-item>
       <el-button size="mini" @click="onSubmit" type="primary">保存提交</el-button>
       <el-button size="mini" @click="onCancel">取消</el-button>
@@ -55,6 +57,7 @@ export default {
       schoolList: [],
       gradeList: [],
       classList: [],
+      radio: '1',
       rules: {
         childName: [
           {required: true, message: '请输入收件人', trigger: 'blur'},
@@ -239,6 +242,10 @@ export default {
       if (val !== '') {
         this.loadSchoolList()
       }
+    },
+    radio () {
+      this.form.classId = ''
+      this.form.classNameDef = ''
     }
   }
 }

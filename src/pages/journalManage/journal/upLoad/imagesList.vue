@@ -159,46 +159,50 @@ export default {
       }
     },
     clickDelete () {
-      this.$confirm('此操作将删除该选项, 是否继续?', '提示', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning'
-      }).then(() => {
-        let params = {
-          hasCoverImg: 0,
-          hasGiftImg: 0,
-          id: this.$route.query.id,
-          ids: []
-        }
-        this.selectData.forEach(item => {
-          if (item.type === '封面图') {
-            params.hasCoverImg = 1
+      if (this.selectData.length === 0) {
+        this.$message.warning('请选择图片')
+      } else {
+        this.$confirm('此操作将删除该选项, 是否继续?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          let params = {
+            hasCoverImg: 0,
+            hasGiftImg: 0,
+            id: this.$route.query.id,
+            ids: []
           }
-          if (item.type === '礼品图') {
-            params.hasGiftImg = 1
-          }
-          if (item.type === '内页图') {
-            params.ids.push(item.id)
-          }
+          this.selectData.forEach(item => {
+            if (item.type === '封面图') {
+              params.hasCoverImg = 1
+            }
+            if (item.type === '礼品图') {
+              params.hasGiftImg = 1
+            }
+            if (item.type === '内页图') {
+              params.ids.push(item.id)
+            }
+          })
+          this.$axios.pictureDelete(params).then(res => {
+            if (res.data.code === '0') {
+              this.$message.success('操作成功')
+              this.loadDate()
+            } else {
+              this.$message.error(res.data.msg)
+            }
+          }, err => {
+            this.$message.error(err)
+          }).catch(err => {
+            this.$message.error(err)
+          })
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: '已取消删除'
+          })
         })
-        this.$axios.pictureDelete(params).then(res => {
-          if (res.data.code === '0') {
-            this.$message.success('操作成功')
-            this.loadDate()
-          } else {
-            this.$message.error(res.data.msg)
-          }
-        }, err => {
-          this.$message.error(err)
-        }).catch(err => {
-          this.$message.error(err)
-        })
-      }).catch(() => {
-        this.$message({
-          type: 'info',
-          message: '已取消删除'
-        })
-      })
+      }
     }
   },
   watch: {}

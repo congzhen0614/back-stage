@@ -36,7 +36,7 @@
             </el-form-item>
           </el-col>
           <el-col :span="6">
-            <el-form-item label="邮费:">
+            <el-form-item label="运费:">
               <el-input v-model="form.deliveryFee" placeholder="请输入" disabled></el-input>
             </el-form-item>
           </el-col>

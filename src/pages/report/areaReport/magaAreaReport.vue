@@ -117,10 +117,10 @@ export default {
         regionId: '',
         schoolId: '',
         adminId: '',
+        sendType: '',
         payType: '',
         startDate: '',
         endDate: ''
-        // selectDate: ['', '']
       },
       pages: {
         total: 0,
@@ -153,7 +153,7 @@ export default {
         schoolId: this.search.schoolId,
         adminId: this.search.adminId,
         payType: this.search.payType,
-        // sendType: this.search.sendType,
+        sendType: this.search.sendType,
         startDate: dateFormat(this.search.startDate, 0),
         endDate: dateFormat(this.search.endDate, 1),
         cls: 1

@@ -206,14 +206,16 @@ export default {
     }
   },
   created () {
-    this.search.provinceId = pages.pages.provinceId || ''
-    this.search.cityId = pages.pages.cityId || ''
-    this.search.regionId = pages.pages.regionId || ''
     this.loadData()
     this.loadGradeList()
     this.loadClassList()
     this.loadProvinceList()
     this.loadAdminList()
+  },
+  mounted () {
+    this.search.provinceId = pages.pages.provinceId || ''
+    this.search.cityId = pages.pages.cityId || ''
+    this.search.regionId = pages.pages.regionId || ''
   },
   computed: {
     listParams () {
@@ -444,6 +446,12 @@ export default {
     }
   },
   watch: {
+    'search.provinceId' (val) {
+      this.loadcitiesList(val)
+    },
+    'search.cityId' (val) {
+      this.loadregionsList(val)
+    },
     'search.regionId' (val) {
       if (val === '') return
       this.loadSchoolList()
