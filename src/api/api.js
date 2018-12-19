@@ -330,6 +330,10 @@ export default {
     let param = qs.stringify(params)
     return axios.get(`/qrzd/trade/report/area/list?${param}`)
   },
+  areaBookReportList (params) {
+    let param = qs.stringify(params)
+    return axios.get(`/qrzd/trade/report/area/list/book?${param}`)
+  },
   // 用户管理
   userList (params) {
     let param = qs.stringify(params)

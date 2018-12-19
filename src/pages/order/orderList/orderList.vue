@@ -205,17 +205,15 @@ export default {
       }
     }
   },
-  created () {
+  mounted () {
+    this.search.provinceId = pages.pages.provinceId || ''
+    this.search.cityId = pages.pages.cityId || ''
+    this.search.regionId = pages.pages.regionId || ''
     this.loadData()
     this.loadGradeList()
     this.loadClassList()
     this.loadProvinceList()
     this.loadAdminList()
-  },
-  mounted () {
-    this.search.provinceId = pages.pages.provinceId || ''
-    this.search.cityId = pages.pages.cityId || ''
-    this.search.regionId = pages.pages.regionId || ''
   },
   computed: {
     listParams () {
@@ -415,7 +413,7 @@ export default {
         path: '/orderInfo',
         query: {
           item: JSON.stringify(item),
-          update: false
+          update: 'false'
         }
       })
     },

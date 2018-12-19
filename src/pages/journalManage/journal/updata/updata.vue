@@ -38,7 +38,7 @@
             <el-input v-model="form.feeUnitNum" type="number"></el-input>
           </el-col>
           <el-col :span="7">
-            <el-select v-model="form.feeUnit">
+            <el-select v-model="form.feeUnit" placeholder="请选择单位">
               <el-option label="册" :value="1"></el-option>
               <el-option label="期" :value="2"></el-option>
               <el-option label="套" :value="3"></el-option>
@@ -175,9 +175,9 @@ export default {
         typeId: typeId,
         ageId: ageId,
         fee: this.$route.query.fee,
-        feeUnitType: parseInt(this.$route.query.feeUnitType),
+        feeUnitType: parseInt(this.$route.query.feeUnitType) || '',
         feeUnitNum: this.$route.query.feeUnitNum,
-        feeUnit: parseInt(this.$route.query.feeUnit),
+        feeUnit: parseInt(this.$route.query.feeUnit) || '',
         press: this.$route.query.press,
         pubdate: this.$route.query.pubdate,
         content: this.$route.query.content,
@@ -220,6 +220,10 @@ export default {
       })
     },
     onSubmit () {
+      if (this.form.feeUnit === '' || this.form.feeUnitType === '') {
+        this.$message.warning('请选择价格单位')
+        return false
+      }
       this.$refs.ruleForm.validate(valid => {
         if (valid) {
           let ageId = this.form.ageId

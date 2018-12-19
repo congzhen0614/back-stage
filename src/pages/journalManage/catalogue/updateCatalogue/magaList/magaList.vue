@@ -3,25 +3,22 @@
     <el-form ref="form" :model="search" size="mini">
       <el-row :gutter="20">
         <el-col :span="5">
-          <el-form-item label="书名:" label-width="40px">
+          <el-form-item label="杂志名称:" label-width="70px">
             <el-input v-model="search.name"></el-input>
           </el-form-item>
         </el-col>
-        <!--<el-col :span="3">-->
-          <!--<el-form-item label="是否上架:" label-width="60px">-->
-            <!--<el-select v-model="search.isSale">-->
-              <!--<el-option label="全部" :value="''"></el-option>-->
-              <!--<el-option label="是" :value="1"></el-option>-->
-              <!--<el-option label="否" :value="0"></el-option>-->
-            <!--</el-select>-->
-          <!--</el-form-item>-->
-        <!--</el-col>-->
-        <el-col :span="3">
+        <el-col :span="4">
           <el-form-item label="类别:" label-width="40px">
             <el-select v-model="search.typeId">
               <el-option label="全部" :value="''"></el-option>
               <el-option :label="item.name" :value="item.id" v-for="item in typeList" :key="item.id"></el-option>
             </el-select>
+          </el-form-item>
+        </el-col>
+        <el-col :span="8">
+          <el-form-item label="创建时间:" label-width="70px">
+            <el-date-picker v-model="search.startTime" type="date" placeholder="开始日期" style="width: 46%"></el-date-picker>
+            <el-date-picker v-model="search.endTime" type="date" placeholder="结束日期" style="width: 46%"></el-date-picker>
           </el-form-item>
         </el-col>
         <el-col :span="4" style="margin-top: 7px">
@@ -114,8 +111,11 @@ export default {
       search: {
         id: this.id,
         cls: 1,
+        name: '',
         typeId: '',
         isSale: 1,
+        endTime: '',
+        startTime: '',
         pageNum: 1,
         pageSize: 20
       },
@@ -138,21 +138,56 @@ export default {
     this.loadDate()
     this.loadItemtypeList()
   },
+  computed: {
+    listParams () {
+      let dateFormat = (value, type) => {
+        let date = new Date(value)
+        let year = date.getFullYear()
+        let month = date.getMonth() + 1
+        let day = date.getDate()
+        if (value === '') {
+          return ''
+        } else {
+          if (type === 0) {
+            return year + '-' + month + '-' + day + ' 00:00:00'
+          } else {
+            return year + '-' + month + '-' + day + ' 23:59:59'
+          }
+        }
+      }
+      let param = {
+        id: this.search.id,
+        cls: this.search.cls,
+        name: this.search.name,
+        typeId: this.search.typeId,
+        isSale: this.search.isSale,
+        endTime: dateFormat(this.search.endTime, 0),
+        startTime: dateFormat(this.search.startTime, 0),
+        pageNum: this.search.pageNum,
+        pageSize: this.search.pageSize
+      }
+      return param
+    }
+  },
   methods: {
     loadDate () {
-      this.$axios.itempackUpdatelist(this.search).then(res => {
-        if (res.data.code === '0') {
-          this.tableList = res.data.data.list
-          this.total = res.data.data.total
-          this.selectList()
-        } else {
-          this.$message.error(res.data.msg)
-        }
-      }, err => {
-        this.$message.error(err)
-      }).catch(err => {
-        this.$message.error(err)
-      })
+      if (new Date(this.search.startTime).getTime() > new Date(this.search.endTime).getTime()) {
+        this.$message.error('开始时间不能大于结束时间')
+      } else {
+        this.$axios.itempackUpdatelist(this.listParams).then(res => {
+          if (res.data.code === '0') {
+            this.tableList = res.data.data.list
+            this.total = res.data.data.total
+            this.selectList()
+          } else {
+            this.$message.error(res.data.msg)
+          }
+        }, err => {
+          this.$message.error(err)
+        }).catch(err => {
+          this.$message.error(err)
+        })
+      }
     },
     selectList () {
       this.$nextTick(() => {

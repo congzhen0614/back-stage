@@ -21,7 +21,7 @@
       <el-table-column prop="qrimg" label="二维码"  width="80">
         <template slot-scope="scope">
           <!--<img :src="scope.row.qrimg" width="100%"/>-->
-          <el-popover trigger="hover" placement="top">
+          <el-popover trigger="hover" placement="left">
             <img :src="scope.row.qrimg" width="100%"/>
             <div slot="reference" class="name-wrapper">
               <img :src="scope.row.qrimg" width="100%"/>

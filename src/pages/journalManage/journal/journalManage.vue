@@ -408,6 +408,10 @@ export default {
         this.dialogVisible = false
         this.loadDate()
       } else {
+        if (typeof res.msg === 'string') {
+          this.$message.error(res.msg)
+          return false
+        }
         let str = ''
         res.data.forEach(item => {
           str += '第' + item.id + '行'
