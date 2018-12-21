@@ -130,8 +130,7 @@ export default {
         adminId: this.search.adminId,
         payType: this.search.payType,
         startDate: dateFormat(this.search.startDate, 0),
-        endDate: dateFormat(this.search.endDate, 1),
-        cls: 2
+        endDate: dateFormat(this.search.endDate, 1)
       }
       return param
     }
@@ -314,7 +313,7 @@ export default {
         return false
       }
       let param = qs.stringify(this.params)
-      let _url = '/qrzd/trade/report/area/export'
+      let _url = '/qrzd/trade/report/area/export/book'
       window.location.href = window.location.protocol + '//' + window.location.host + _url + '?' + param
     },
     areaReportExportByAdmin () {
@@ -323,7 +322,7 @@ export default {
         return false
       }
       let param = qs.stringify(this.params)
-      let _url = '/qrzd/trade/report/area/export/byadmin'
+      let _url = '/qrzd/trade/report/area/export/byadmin/book'
       window.location.href = window.location.protocol + '//' + window.location.host + _url + '?' + param
     },
     handleSizeChange (val) {
@@ -336,12 +335,12 @@ export default {
     }
   },
   watch: {
-    'search.provinceId' (val) {
+    'search.provinceId' () {
       this.search.cityId = ''
       this.citiesList = []
       this.loadCities()
     },
-    'search.cityId' (val) {
+    'search.cityId' () {
       this.search.regionId = ''
       this.regionList = []
       this.loadRegions()

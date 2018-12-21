@@ -33,6 +33,7 @@
             <el-select v-model="form.sendType" :disabled="!form.changeable">
               <el-option label="直送" :value="0"></el-option>
               <el-option label="寄送" :value="1"></el-option>
+              <el-option label="寄送(含学校)" :value="2"></el-option>
             </el-select>
           </el-form-item>
         </el-col>
