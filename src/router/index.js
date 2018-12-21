@@ -280,7 +280,7 @@ export default new Router({
       component: updateChildManage
     }, {
       path: '/freeBookReport',
-      name: '赠书报表',
+      name: '图书赠送统计报表导出',
       component: freeBookReport
     }]
   }]

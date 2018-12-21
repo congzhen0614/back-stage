@@ -63,7 +63,7 @@
           <span slot="title">杂志销售统计</span>
         </el-menu-item>
         <el-menu-item index="/freeBookReport">
-          <span slot="title">赠书报表</span>
+          <span slot="title">图书赠送统计报表导出</span>
         </el-menu-item>
       </el-submenu>
       <el-submenu index="5">

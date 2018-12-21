@@ -1,7 +1,7 @@
 <template>
   <div class="free-book-report">
     <header>
-      <el-button size="mini" type="primary">导出</el-button>
+      <el-button size="mini" type="primary" @click="onExport">福建地区图书赠送统计报表导出</el-button>
     </header>
   </div>
 </template>
@@ -18,7 +18,12 @@ export default {
   mounted () {
   },
   computed: {},
-  methods: {},
+  methods: {
+    onExport () {
+      let _url = '/qrzd/fujian/trade/report/export'
+      window.location.href = window.location.protocol + '//' + window.location.host + _url
+    }
+  },
   watch: {}
 }
 </script>
