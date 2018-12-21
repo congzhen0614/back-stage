@@ -175,9 +175,9 @@ export default {
         typeId: typeId,
         ageId: ageId,
         fee: this.$route.query.fee,
-        feeUnitType: parseInt(this.$route.query.feeUnitType) || '',
+        feeUnitType: this.$route.query.feeUnitType == null ? '' : parseInt(this.$route.query.feeUnitType),
         feeUnitNum: this.$route.query.feeUnitNum,
-        feeUnit: parseInt(this.$route.query.feeUnit) || '',
+        feeUnit: this.$route.query.feeUnit == null ? '' : parseInt(this.$route.query.feeUnit),
         press: this.$route.query.press,
         pubdate: this.$route.query.pubdate,
         content: this.$route.query.content,
@@ -185,7 +185,6 @@ export default {
         giftName: this.$route.query.giftName,
         isSale: this.$route.query.isSaleName === '已上架' ? 1 : 0
       }
-      console.log(this.form)
     },
     loadItemageList () {
       this.$axios.itemageListCandidate().then(res => {

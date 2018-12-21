@@ -51,11 +51,11 @@
       </el-form>
     </header>
     <el-table size="mini" :data="tableData" border :height="windowHeight" :span-method="arraySpanMethod">
-      <el-table-column prop="no"           label="订单号"    width="200"></el-table-column>
-      <el-table-column prop="adminName"    label="业务员"    width="100"></el-table-column>
-      <el-table-column                     label="明细"  width="200">
-        <el-table-column prop="issn" label="刊号"></el-table-column>
-        <el-table-column prop="name" label="书名"></el-table-column>
+      <el-table-column prop="no"           label="订单号"     width="200"></el-table-column>
+      <el-table-column prop="adminName"    label="业务员"     width="100"></el-table-column>
+      <el-table-column                     label="明细"       width="200">
+        <el-table-column prop="issn" label="刊号"             width="100"></el-table-column>
+        <el-table-column prop="name" label="书名"             width="170"></el-table-column>
         <el-table-column prop="quantity" label="数量"></el-table-column>
         <el-table-column prop="originalFee" label="原价"></el-table-column>
         <el-table-column prop="fee" label="售价"></el-table-column>
@@ -178,9 +178,11 @@ export default {
       })
     },
     loadData () {
+      this.spanArr = []
+      this.tableData = []
       this.$axios.areaBookReportList(this.params).then(res => {
         if (res.data.code === '0') {
-          res.data.data.forEach(item => {
+          res.data.data.list.forEach(item => {
             let length = item.list.length
             item.list.forEach(list => {
               this.tableData.push({
@@ -207,6 +209,13 @@ export default {
               })
             })
           })
+          this.tableData.push({
+            deliveryFeeBook: res.data.data.totalDeliveryFee,
+            mayang: res.data.data.totalmayang,
+            fee: res.data.data.totaltFee,
+            no: '合计'
+          })
+          console.log(this.tableData)
           this.getSpanArr(this.tableData)
         } else {
           this.$message.error(res.data.msg)

@@ -161,7 +161,7 @@ export default {
         name: this.search.name,
         typeId: this.search.typeId,
         isSale: this.search.isSale,
-        endTime: dateFormat(this.search.endTime, 0),
+        endTime: dateFormat(this.search.endTime, 1),
         startTime: dateFormat(this.search.startTime, 0),
         pageNum: this.search.pageNum,
         pageSize: this.search.pageSize
@@ -287,6 +287,16 @@ export default {
         sendType: val,
         items: this.selectIds
       })
+    },
+    'search.startTime' (val) {
+      if (val === null) {
+        this.search.startTime = ''
+      }
+    },
+    'search.endTime' (val) {
+      if (val === null) {
+        this.search.endTime = ''
+      }
     },
     selectIds (val) {
       this.$emit('mageDate', {
