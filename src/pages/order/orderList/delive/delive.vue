@@ -16,9 +16,12 @@
         <el-col :span="5">
           <el-input v-model="logisticCodeMagazine" placeholder="请输入杂志发货单号" :disabled="form.sendType === 0" size="mini"></el-input>
         </el-col>
-        <el-col :span="4">
-          <el-radio v-model="form.sendType" :label="0" size="mini" :disabled="sendType === 1">直送</el-radio>
-          <el-radio v-model="form.sendType" :label="1" size="mini" :disabled="sendType === 0">寄送</el-radio>
+        <el-col :span="4" v-if="!form.logisticCodeMagazine && !form.shipperCodeMagazine && !form.logisticCode && !form.shipperCode">
+          <el-radio v-model="form.sendType" :label="0" size="mini">直送</el-radio>
+          <el-radio v-model="form.sendType" :label="1" size="mini">寄送</el-radio>
+        </el-col>
+        <el-col :span="4" v-if="form.logisticCodeMagazine || form.shipperCodeMagazin|| form.logisticCode || form.shipperCode">
+          <p style="height: 26px; line-height: 26px">{{ form.sendType === 0 ? '直送' : '寄送' }}</p>e
         </el-col>
       </el-row>
       <el-row :gutter="20" v-if="deliverType === 0 || deliverType === 2">
@@ -54,7 +57,6 @@ export default {
       hasSubmit: '',
       shipperCodeMagazine: '',
       logisticCodeMagazine: '',
-      sendType: '',
       form: {
         sendType: 0, // 0发到学校,1发到家里
         shipperCode: '', // 图书承运方
@@ -72,10 +74,9 @@ export default {
     loadTradeDelive () {
       this.$axios.tradeDelive(this.$route.query.id).then(res => {
         if (res.data.code === '0') {
-          this.sendType = res.data.data.sendType
           this.hasSubmit = res.data.data.hasSubmit
           this.deliverType = res.data.data.deliverType
-          this.form.sendType = res.data.data.sendType
+          this.form.sendType = res.data.data.sendType === 2 ? 1 : res.data.data.sendType
           this.form.shipperCode = res.data.data.shipperCode
           this.form.logisticCode = res.data.data.logisticCode
           this.shipperCodeMagazine = res.data.data.shipperCodeMagazine
