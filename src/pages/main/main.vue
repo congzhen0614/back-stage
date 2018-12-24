@@ -157,6 +157,9 @@ export default {
   }
   .head-button {
     float: right;
+    height: 28px;
+    line-height: 22px;
+    margin-right: 10px;
   }
   .head-username {
     margin-right: 20px;
