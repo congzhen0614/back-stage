@@ -50,13 +50,13 @@
             <el-table-column prop="name" label="名称" ></el-table-column>
             <el-table-column prop="typeNames" label="类别" ></el-table-column>
             <el-table-column prop="ageNames" label="适读年龄" ></el-table-column>
+            <el-table-column prop="fee" label="价格" width="120" ></el-table-column>
             <el-table-column label="价格单位" >
               <template slot-scope="scope">
                 <span>{{ scope.row.feeUnitType }}{{ scope.row.feeUnitNum }}{{ scope.row.feeUnit }}</span>
               </template>
             </el-table-column>
             <el-table-column prop="giftName" label="礼品" ></el-table-column>
-            <el-table-column prop="fee" label="价格" width="120" ></el-table-column>
           </el-table>
         </el-tab-pane>
         <el-tab-pane label="图书" v-if="bookIds.length > 0">

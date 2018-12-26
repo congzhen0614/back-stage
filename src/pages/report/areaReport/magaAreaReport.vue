@@ -48,6 +48,7 @@
                 <el-option label="全部" value=""></el-option>
                 <el-option label="直送" :value="0"></el-option>
                 <el-option label="寄送" :value="1"></el-option>
+                <el-option label="寄送(含学校)" :value="2"></el-option>
               </el-select>
             </el-form-item>
           </el-col>
@@ -69,21 +70,26 @@
       </el-form>
     </header>
     <el-table size="mini" :data="tableData" border :height="windowHeight">
-      <el-table-column prop="no"                  label="订单号"    width="200"></el-table-column>
-      <el-table-column prop="adminName"           label="业务员"    width="100"></el-table-column>
-      <el-table-column prop="name"                label="杂志名称"  width="200"></el-table-column>
-      <el-table-column prop="quantity"            label="数量"      width="60"></el-table-column>
-      <el-table-column prop="deliveryFeeMagazine" label="运费"      width="60"></el-table-column>
-      <el-table-column prop="fee"                 label="价格"      width="60"></el-table-column>
-      <el-table-column prop="provinceName"        label="省份"      ></el-table-column>
-      <el-table-column prop="cityName"            label="城市"      ></el-table-column>
-      <el-table-column prop="regionName"          label="地区"      ></el-table-column>
-      <el-table-column prop="schoolName"          label="学校"      width="180"></el-table-column>
-      <el-table-column prop="gradeName"           label="年级"      width="80"></el-table-column>
-      <el-table-column prop="className"           label="班级"      width="80"></el-table-column>
-      <el-table-column prop="childName"           label="学生"      width="80"></el-table-column>
-      <el-table-column prop="createdAt"           label="交易时间"  width="150"></el-table-column>
-      <el-table-column prop="tradeStatus"         label="订单状态"  width="100"></el-table-column>
+      <el-table-column prop="adminName"           label="业务员"  ></el-table-column>
+      <el-table-column prop="name"                label="杂志名称"></el-table-column>
+      <el-table-column prop="quantity"            label="数量"    ></el-table-column>
+      <el-table-column prop="fee"                 label="价格"    ></el-table-column>
+      <el-table-column prop=""                    label="码洋"    ></el-table-column>
+      <el-table-column prop="deliveryFeeMagazine" label="运费"    ></el-table-column>
+      <el-table-column prop="provinceName"        label="省份"    ></el-table-column>
+      <el-table-column prop="cityName"            label="城市"    ></el-table-column>
+      <el-table-column prop="regionName"          label="地区"    ></el-table-column>
+      <el-table-column prop="schoolName"          label="学校"    ></el-table-column>
+      <el-table-column prop="gradeName"           label="年级"    ></el-table-column>
+      <el-table-column prop="className"           label="班级"    ></el-table-column>
+      <el-table-column prop="childName"           label="孩子姓名"      ></el-table-column>
+      <el-table-column prop="address"             label="地址"          ></el-table-column>
+      <el-table-column prop=""                    label="收件人姓名"    ></el-table-column>
+      <el-table-column prop=""                    label="收件人手机号"  ></el-table-column>
+      <el-table-column prop="no"                  label="订单号"        ></el-table-column>
+      <el-table-column prop="createdAt"           label="创建时间" ></el-table-column>
+      <el-table-column prop="tradeStatus"         label="订单状态" ></el-table-column>
+      <el-table-column prop=""                    label="支付方式" ></el-table-column>
     </el-table>
     <!--<el-pagination-->
       <!--@size-change="handleSizeChange"-->

@@ -62,7 +62,7 @@
         <el-menu-item index="/magaReport">
           <span slot="title">杂志销售统计</span>
         </el-menu-item>
-        <el-menu-item index="/freeBookReport">
+        <el-menu-item index="/freeBookReport" v-if="roleLevel === 1 || roleLevel === 2">
           <span slot="title">图书赠送统计报表导出</span>
         </el-menu-item>
       </el-submenu>
@@ -99,11 +99,13 @@ export default {
   name: 'increase-menu',
   data () {
     return {
+      roleLevel: JSON.parse(localStorage.getItem('user')).roleLevel,
       isCollapse: false,
       nowRouter: ''
     }
   },
   mounted () {
+    console.log()
     this.getRouter()
   },
   methods: {

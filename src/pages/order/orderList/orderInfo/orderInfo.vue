@@ -228,7 +228,7 @@ export default {
           name: item.consigneeName
         })
       }
-      if (item.addressMagazine !== null && this.orderItem.sendType === 1) {
+      if (item.addressMagazine !== null && this.orderItem.sendType !== 0) {
         this.addressTable.push({
           cls: 1,
           sendType: '杂志寄送',

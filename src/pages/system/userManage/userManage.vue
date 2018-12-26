@@ -50,7 +50,7 @@
       </el-form>
     </header>
     <el-table :data="tableData" border :height="windowHeight" size="mini">
-      <el-table-column prop="name"         label="账号"       width="300">
+      <el-table-column prop="name"         label="账号"       >
         <template slot-scope="scope">
           <span>{{ scope.row.name || scope.row.otherAccount }}</span>
         </template>

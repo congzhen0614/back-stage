@@ -51,24 +51,27 @@
       </el-form>
     </header>
     <el-table size="mini" :data="tableData" border :height="windowHeight" :span-method="arraySpanMethod">
-      <el-table-column prop="no"           label="订单号"     width="200"></el-table-column>
-      <el-table-column prop="adminName"    label="业务员"     width="100"></el-table-column>
-      <el-table-column                     label="明细"       width="200">
-        <el-table-column prop="issn" label="刊号"             width="100"></el-table-column>
-        <el-table-column prop="name" label="书名"             width="170"></el-table-column>
-        <el-table-column prop="quantity" label="数量"></el-table-column>
-        <el-table-column prop="originalFee" label="原价"></el-table-column>
-        <el-table-column prop="fee" label="售价"></el-table-column>
-        <el-table-column prop="mayang" label="码洋"></el-table-column>
-        <el-table-column prop="tradeStatus" label="订单状态"></el-table-column>
-      </el-table-column>
-      <el-table-column prop="deliveryFeeBook" label="运费"></el-table-column>
-      <el-table-column prop="provinceName" label="省份"      ></el-table-column>
-      <el-table-column prop="cityName"     label="城市"      ></el-table-column>
-      <el-table-column prop="regionName"   label="地区"      ></el-table-column>
-      <el-table-column prop="address"      label="地址"      width="200"></el-table-column>
-      <el-table-column prop="createdAt"    label="交易时间"  width="150"></el-table-column>
-      <el-table-column prop="tradeStatus"  label="订单状态"  width="100"></el-table-column>
+      <el-table-column prop="adminName"       label="业务员"      ></el-table-column>
+      <el-table-column prop="no"              label="订单号"      ></el-table-column>
+      <el-table-column prop="name"            label="书名"        ></el-table-column>
+      <el-table-column prop="quantity"        label="数量"        ></el-table-column>
+      <el-table-column prop="fee"             label="售价"        ></el-table-column>
+      <el-table-column prop="deliveryFeeBook" label="运费"        ></el-table-column>
+      <el-table-column prop="mayang"          label="订单金额"    ></el-table-column>
+      <el-table-column prop=""                label="积分优惠"    ></el-table-column>
+      <el-table-column prop=""                label="折扣优惠"    ></el-table-column>
+      <el-table-column prop=""                label="卡券优惠"    ></el-table-column>
+      <el-table-column prop=""                label="满减优惠"    ></el-table-column>
+      <el-table-column prop=""                label="实付金额"    ></el-table-column>
+      <el-table-column prop="provinceName"    label="省份"        ></el-table-column>
+      <el-table-column prop="cityName"        label="城市"        ></el-table-column>
+      <el-table-column prop="regionName"      label="地区"        ></el-table-column>
+      <el-table-column prop="address"         label="地址"        ></el-table-column>
+      <el-table-column prop=""                label="收件人姓名"  ></el-table-column>
+      <el-table-column prop=""                label="收件人手机号"></el-table-column>
+      <el-table-column prop="createdAt"       label="创建时间"    ></el-table-column>
+      <el-table-column prop="tradeStatus"     label="订单状态"    ></el-table-column>
+      <el-table-column prop=""                label="支付方式"    ></el-table-column>
     </el-table>
   </div>
 </template>
@@ -141,7 +144,7 @@ export default {
   },
   methods: {
     arraySpanMethod ({row, column, rowIndex, columnIndex}) {
-      if (columnIndex < 2 || columnIndex > 8) {
+      if (columnIndex < 2 || columnIndex > 4) {
         const _row = this.spanArr[rowIndex]
         const _col = _row > 0 ? 1 : 0
         return {
@@ -212,7 +215,7 @@ export default {
             deliveryFeeBook: res.data.data.totalDeliveryFee,
             mayang: res.data.data.totalmayang,
             fee: res.data.data.totaltFee,
-            no: '合计'
+            no: '码洋'
           })
           console.log(this.tableData)
           this.getSpanArr(this.tableData)

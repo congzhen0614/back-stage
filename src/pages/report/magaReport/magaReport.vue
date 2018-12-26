@@ -50,7 +50,7 @@
       </el-form>
     </header>
     <el-table size="mini" :data="tableData" border :height="windowHeight">
-      <el-table-column prop="name"     label="商品名称" ></el-table-column>
+      <el-table-column prop="name"     label="杂志名称"  ></el-table-column>
       <el-table-column prop="quantity" label="数量"      width="200"></el-table-column>
       <el-table-column prop="fee"      label="单价"      width="200"></el-table-column>
       <el-table-column prop="totalFee" label="总价"      width="200"></el-table-column>

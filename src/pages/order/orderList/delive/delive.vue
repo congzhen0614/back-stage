@@ -4,13 +4,13 @@
       <el-row :gutter="20" v-if="deliverType === 0 || deliverType === 1">
         <el-col :span="3">
           <el-select v-model="shipperCodeMagazine" placeholder="请选择杂志承运方" :disabled="form.sendType === 0" size="mini">
-            <el-option value="YTO" label="圆通快递"></el-option>
-            <el-option value="YD" label="韵达快递"></el-option>
-            <el-option value="HHTT" label="天天快递"></el-option>
-            <el-option value="EMS" label="EMS"></el-option>
-            <el-option value="STO" label="申通快递"></el-option>
-            <el-option value="ZTO" label="中通速递"></el-option>
-            <el-option value="SF" label="顺丰速递"></el-option>
+            <el-option value="yt" label="圆通快递"></el-option>
+            <el-option value="yd" label="韵达快递"></el-option>
+            <el-option value="tt" label="天天快递"></el-option>
+            <el-option value="ems" label="EMS"></el-option>
+            <el-option value="sto" label="申通快递"></el-option>
+            <el-option value="zto" label="中通速递"></el-option>
+            <el-option value="sf" label="顺丰速递"></el-option>
           </el-select>
         </el-col>
         <el-col :span="5">
@@ -27,13 +27,13 @@
       <el-row :gutter="20" v-if="deliverType === 0 || deliverType === 2">
         <el-col :span="3">
           <el-select v-model="form.shipperCode" placeholder="请选择图书承运方" size="mini">
-            <el-option value="YTO" label="圆通快递"></el-option>
-            <el-option value="YD" label="韵达快递"></el-option>
-            <el-option value="HHTT" label="天天快递"></el-option>
-            <el-option value="EMS" label="EMS"></el-option>
-            <el-option value="STO" label="申通快递"></el-option>
-            <el-option value="ZTO" label="中通速递"></el-option>
-            <el-option value="SF" label="顺丰速递"></el-option>
+            <el-option value="yt" label="圆通快递"></el-option>
+            <el-option value="yd" label="韵达快递"></el-option>
+            <el-option value="tt" label="天天快递"></el-option>
+            <el-option value="ems" label="EMS"></el-option>
+            <el-option value="sto" label="申通快递"></el-option>
+            <el-option value="zto" label="中通速递"></el-option>
+            <el-option value="sf" label="顺丰速递"></el-option>
           </el-select>
         </el-col>
         <el-col :span="5">
