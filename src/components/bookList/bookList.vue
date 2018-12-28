@@ -25,7 +25,7 @@
           </el-form-item>
         </el-col>
         <el-col :span="4">
-          <el-button size="mini" type="primary" plain @click="loadDate">检索</el-button>
+          <el-button size="mini" type="primary" plain @click="onSearch">检索</el-button>
         </el-col>
       </el-row>
     </el-form>
@@ -82,6 +82,7 @@ export default {
       },
       windowHeight: window.innerHeight - 410 + 'px',
       search: {
+        name: '',
         typeId: '',
         isSale: 1,
         pageNum: 1,
@@ -96,7 +97,8 @@ export default {
       typeList: [],
       tableList: [],
       selectIds: [],
-      historyData: []
+      historyData: [],
+      searchFlag: false
     }
   },
   mounted () {
@@ -104,13 +106,38 @@ export default {
     this.loadItemtypeList()
   },
   methods: {
+    onSearch () {
+      this.searchFlag = false
+      let name = this.search.name
+      let typeId = this.search.typeId
+      if (name !== '' || typeId !== '') {
+        this.searchFlag = true
+      }
+      this.loadDate()
+    },
     handleSelection (val) {
-      this.historyData[this.search.pageNum] = val
+      if (this.searchFlag) {
+        if (this.historyData[0] === undefined) {
+          this.historyData[0] = val
+        } else {
+          let hadFlag = false
+          this.historyData[0].forEach(item => {
+            val.forEach(obj => {
+              if (item.id === obj.id) {
+                hadFlag = true
+              }
+            })
+          })
+          if (!hadFlag) this.historyData[0].push(...val)
+        }
+      } else {
+        this.historyData[this.search.pageNum] = val
+      }
       this.selectIds = []
       this.historyData.forEach(list => {
         list.forEach(select => {
           this.selectIds.push({
-            cls: 2,
+            cls: 1,
             itemId: select.id,
             ord: parseInt(select.ord)
           })
@@ -132,12 +159,14 @@ export default {
           this.total = res.data.data.total
           this.tableList.forEach(item => { item.ord = 9999 })
           this.$nextTick(() => {
-            if (this.historyData[this.search.pageNum] !== undefined) {
+            if (this.historyData[this.search.pageNum] !== undefined || this.historyData[0] !== undefined) {
               this.tableList.forEach(list => {
-                this.historyData[this.search.pageNum].forEach(select => {
-                  if (list.id === select.id) {
-                    this.$refs.multipleTable.toggleRowSelection(list, true)
-                  }
+                this.historyData.forEach(obj => {
+                  obj.forEach(select => {
+                    if (list.id === select.id) {
+                      this.$refs.multipleTable.toggleRowSelection(list, true)
+                    }
+                  })
                 })
               })
             }

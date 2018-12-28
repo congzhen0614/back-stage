@@ -25,7 +25,7 @@
           </el-form-item>
         </el-col>
         <el-col :span="4" style="margin-top: 7px">
-          <el-button size="mini" type="primary" plain @click="loadDate">检索</el-button>
+          <el-button size="mini" type="primary" plain @click="onSearch">检索</el-button>
         </el-col>
       </el-row>
     </el-form>
@@ -98,7 +98,8 @@ export default {
       typeList: [],
       tableList: [],
       selectIds: [],
-      historyData: []
+      historyData: [],
+      searchFlag: false
     }
   },
   props: ['postageBook', 'postageSumBook', 'id'],
@@ -107,6 +108,17 @@ export default {
     this.loadItemtypeList()
   },
   methods: {
+    onSearch () {
+      this.searchFlag = false
+      let name = this.search.name
+      let typeId = this.search.typeId
+      let endTime = this.search.endTime
+      let startTime = this.search.startTime
+      if (name !== '' || typeId !== '' || endTime !== '' || startTime !== '') {
+        this.searchFlag = true
+      }
+      this.loadDate()
+    },
     loadDate () {
       this.$axios.itempackUpdatelist(this.search).then(res => {
         if (res.data.code === '0') {
@@ -136,12 +148,14 @@ export default {
         if (historyData.length > 0) {
           this.handleSelection(historyData)
         }
-        if (this.historyData[this.search.pageNum] !== undefined) {
+        if (this.historyData[this.search.pageNum] !== undefined || this.historyData[0] !== undefined) {
           this.tableList.forEach(list => {
-            this.historyData[this.search.pageNum].forEach(select => {
-              if (list.id === select.id) {
-                this.$refs.multipleTable.toggleRowSelection(list, true)
-              }
+            this.historyData.forEach(obj => {
+              obj.forEach(select => {
+                if (list.id === select.id) {
+                  this.$refs.multipleTable.toggleRowSelection(list, true)
+                }
+              })
             })
           })
         }
@@ -174,7 +188,23 @@ export default {
       })
     },
     handleSelection (val) {
-      this.historyData[this.search.pageNum] = val
+      if (this.searchFlag) {
+        if (this.historyData[0] === undefined) {
+          this.historyData[0] = val
+        } else {
+          let hadFlag = false
+          this.historyData[0].forEach(item => {
+            val.forEach(obj => {
+              if (item.id === obj.id) {
+                hadFlag = true
+              }
+            })
+          })
+          if (!hadFlag) this.historyData[0].push(...val)
+        }
+      } else {
+        this.historyData[this.search.pageNum] = val
+      }
       this.selectIds = []
       this.historyData.forEach(list => {
         list.forEach(select => {

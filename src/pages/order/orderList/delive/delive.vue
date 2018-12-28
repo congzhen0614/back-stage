@@ -21,7 +21,7 @@
           <el-radio v-model="form.sendType" :label="1" size="mini">寄送</el-radio>
         </el-col>
         <el-col :span="4" v-if="form.logisticCodeMagazine || form.shipperCodeMagazin|| form.logisticCode || form.shipperCode">
-          <p style="height: 26px; line-height: 26px">{{ form.sendType === 0 ? '直送' : '寄送' }}</p>e
+          <p style="height: 26px; line-height: 26px">{{ form.sendType === 0 ? '直送' : '寄送' }}</p>
         </el-col>
       </el-row>
       <el-row :gutter="20" v-if="deliverType === 0 || deliverType === 2">
