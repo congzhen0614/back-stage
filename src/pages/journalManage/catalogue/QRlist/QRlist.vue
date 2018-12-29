@@ -94,8 +94,7 @@ export default {
       let param = {
         pageNum: this.pages.pageNum,
         pageSize: this.pages.pageSize,
-        title: Trim(this.search.title),
-        has: 1
+        title: Trim(this.search.title)
       }
       return param
     }
@@ -111,7 +110,7 @@ export default {
       this.selectIds = ids
     },
     loadDate () {
-      this.$axios.itempackList(this.loadParams).then(res => {
+      this.$axios.itempackQrList(this.loadParams).then(res => {
         if (res.data.code === '0') {
           this.tableList = res.data.data.list
           this.pages.total = res.data.data.total

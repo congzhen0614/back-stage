@@ -331,10 +331,11 @@ export default {
       }
     },
     onChecke (item) {
+      console.log(item.id)
       this.$router.push({
         path: '/checkCatalogue',
         query: {
-          item: JSON.stringify(item)
+          itemId: item.id
         }
       })
     },

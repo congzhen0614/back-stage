@@ -362,5 +362,16 @@ export default {
   },
   pictureDelete (params) {
     return axios.post('/qrzd/magazine/qrzditem/picture/delete', params)
+  },
+  schoolExportCheck (params) {
+    let param = qs.stringify(params)
+    return axios.get(`/qrzd/trade/report/school/export/check?${param}`)
+  },
+  itempackQrList (params) {
+    let param = qs.stringify(params)
+    return axios.get(`/qrzd/itempack/qr/list?${param}`)
+  },
+  itempackDetail (id) {
+    return axios.get(`/qrzd/itempack/detail/${id}`)
   }
 }

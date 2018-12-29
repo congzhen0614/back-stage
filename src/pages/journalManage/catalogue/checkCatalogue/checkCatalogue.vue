@@ -90,28 +90,44 @@ export default {
   name: 'check-catalogue',
   data () {
     return {
-      magaIds: JSON.parse(this.$route.query.item).magazineIds,
-      bookIds: JSON.parse(this.$route.query.item).bookIds,
-      spypIds: JSON.parse(this.$route.query.item).videoIds,
+      magaIds: [],
+      bookIds: [],
+      spypIds: [],
       form: {
-        id: JSON.parse(this.$route.query.item).id,
+        id: this.$route.query.itemId,
         items: [],
-        linkman: JSON.parse(this.$route.query.item).linkman,
-        linkmobile: JSON.parse(this.$route.query.item).linkmobile,
-        postage: JSON.parse(this.$route.query.item).postage,
-        postageBook: JSON.parse(this.$route.query.item).postageBook,
-        postageSum: JSON.parse(this.$route.query.item).postageSum,
-        postageSumBook: JSON.parse(this.$route.query.item).postageSumBook,
-        remark: JSON.parse(this.$route.query.item).remark,
-        schoolLevel: parseInt(JSON.parse(this.$route.query.item).schoolLevel),
-        sendType: parseInt(JSON.parse(this.$route.query.item).sendType),
-        tip: JSON.parse(this.$route.query.item).tip,
-        title: JSON.parse(this.$route.query.item).title
+        linkman: '',
+        linkmobile: '',
+        postage: '',
+        postageBook: '',
+        postageSum: '',
+        postageSumBook: '',
+        remark: '',
+        schoolLevel: '',
+        sendType: '',
+        tip: '',
+        title: ''
       }
     }
   },
-  mounted () {
-    console.log(this.bookIds.length)
+  created () {
+    this.loadItempackDetail()
+  },
+  methods: {
+    loadItempackDetail () {
+      this.$axios.itempackDetail(this.$route.query.itemId).then(res => {
+        if (res.data.code === '0') {
+          this.magaIds = res.data.data.magazineIds
+          this.bookIds = res.data.data.bookIds
+          this.spypIds = res.data.data.videoIds
+          this.form = res.data.data
+        } else {
+          this.$message.error(res.data.msg)
+        }
+      }, err => {
+        this.$message.error(err)
+      })
+    }
   }
 }
 </script>

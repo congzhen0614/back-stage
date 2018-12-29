@@ -52,10 +52,10 @@
           </el-col>
         </el-row>
         <el-row>
-          <el-button size="mini" type="primary" @click="loadSchoolExport" v-if="havePermission('report:schoolexport')">导出Excel</el-button>
-          <el-button size="mini" type="primary" @click="loadExportDsd" v-if="havePermission('report:schoolmagazineexport')">导出订书单按杂志Excel</el-button>
-          <el-button size="mini" type="primary" @click="loadExportDsdStudent" v-if="havePermission('report:schoolstudentexport')">导出订书单按学生Excel</el-button>
-          <el-button size="mini" type="primary" @click="loadExportFsd" v-if="havePermission('report:schoolfsdexport')">导出发书单Excel</el-button>
+          <el-button size="mini" type="primary" @click="schoolExportCheck(1)" v-if="havePermission('report:schoolexport')">导出Excel</el-button>
+          <el-button size="mini" type="primary" @click="schoolExportCheck(2)" v-if="havePermission('report:schoolmagazineexport')">导出订书单按杂志Excel</el-button>
+          <el-button size="mini" type="primary" @click="schoolExportCheck(3)" v-if="havePermission('report:schoolstudentexport')">导出订书单按学生Excel</el-button>
+          <el-button size="mini" type="primary" @click="schoolExportCheck(4)" v-if="havePermission('report:schoolfsdexport')">导出发书单Excel</el-button>
         </el-row>
       </el-form>
     </header>
@@ -217,6 +217,46 @@ export default {
       }).catch(err => {
         this.$message.error(err)
       })
+    },
+    schoolExportCheck (index) {
+      if (new Date(this.params.startDate).getTime() > new Date(this.params.endDate).getTime()) {
+        this.$message.error('开始时间不能在结束时间之后!')
+        return false
+      }
+      if (this.search.provinceId === '' || this.search.cityId === '' || this.search.regionId === '') {
+        this.$message.warning('请选择省/市/区')
+      } else if (this.search.schoolId === '') {
+        this.$message.warning('请选择学校')
+      } else if (this.search.adminId === '') {
+        this.$message.warning('请选择销售员')
+      } else {
+        this.$axios.schoolExportCheck(this.params).then(res => {
+          if (res.data.code === '0') {
+            if (res.data.data.has) {
+              switch (index) {
+                case 1:
+                  this.loadSchoolExport()
+                  break
+                case 2:
+                  this.loadExportDsd()
+                  break
+                case 3:
+                  this.loadExportDsdStudent()
+                  break
+                case 4:
+                  this.loadExportFsd()
+                  break
+              }
+            } else {
+              this.$message.warning('暂无数据')
+            }
+          } else {
+            this.$message.error(res.data.msg)
+          }
+        }, err => {
+          this.$message.warning(err)
+        })
+      }
     },
     loadSchoolExport () {
       if (new Date(this.params.startDate).getTime() > new Date(this.params.endDate).getTime()) {
