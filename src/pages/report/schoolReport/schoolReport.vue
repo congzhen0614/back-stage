@@ -21,7 +21,7 @@
           </el-col>
           <el-col :span="3">
             <el-form-item label="学校:" label-width="40px">
-              <el-select v-model="search.schoolId" placeholder="请选择学校">
+              <el-select v-model="search.schoolId" filterable placeholder="请选择学校">
                 <el-option label="全部" value=""></el-option>
                 <el-option :label="item.schoolName" :value="item.schoolId" v-for="item in schoolList" :key="item.id"></el-option>
               </el-select>
@@ -56,6 +56,7 @@
           <el-button size="mini" type="primary" @click="schoolExportCheck(2)" v-if="havePermission('report:schoolmagazineexport')">导出订书单按杂志Excel</el-button>
           <el-button size="mini" type="primary" @click="schoolExportCheck(3)" v-if="havePermission('report:schoolstudentexport')">导出订书单按学生Excel</el-button>
           <el-button size="mini" type="primary" @click="schoolExportCheck(4)" v-if="havePermission('report:schoolfsdexport')">导出发书单Excel</el-button>
+          <el-button size="mini" type="primary" @click="schoolExportAllbyadmin()" v-if="havePermission('report:schoolfsdexport')">导出销售员Excel</el-button>
         </el-row>
       </el-form>
     </header>
@@ -324,6 +325,19 @@ export default {
         let param = qs.stringify(this.params)
         let _url = '/qrzd/trade/report/school/export/fsd'
         window.location.href = window.location.protocol + '//' + window.location.host + _url + '?' + param
+      }
+    },
+    schoolExportAllbyadmin () {
+      if (this.search.adminId === '') {
+        this.$message.warning('请选择销售员')
+      } else {
+        if (new Date(this.params.startDate).getTime() > new Date(this.params.endDate).getTime()) {
+          this.$message.error('开始时间不能在结束时间之后!')
+        } else {
+          let param = qs.stringify(this.params)
+          let _url = '/qrzd/trade/report/school/export/allbyadmin'
+          window.location.href = window.location.protocol + '//' + window.location.host + _url + '?' + param
+        }
       }
     }
   },

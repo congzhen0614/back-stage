@@ -58,20 +58,20 @@
       <el-table-column prop="fee"             label="售价"        ></el-table-column>
       <el-table-column prop="deliveryFeeBook" label="运费"        ></el-table-column>
       <el-table-column prop="mayang"          label="订单金额"    ></el-table-column>
-      <el-table-column prop=""                label="积分优惠"    ></el-table-column>
-      <el-table-column prop=""                label="折扣优惠"    ></el-table-column>
-      <el-table-column prop=""                label="卡券优惠"    ></el-table-column>
-      <el-table-column prop=""                label="满减优惠"    ></el-table-column>
-      <el-table-column prop=""                label="实付金额"    ></el-table-column>
+      <el-table-column prop="jifen"           label="积分优惠"    ></el-table-column>
+      <el-table-column prop="zhekou"          label="折扣优惠"    ></el-table-column>
+      <el-table-column prop="kaquan"          label="卡券优惠"    ></el-table-column>
+      <el-table-column prop="manjian"         label="满减优惠"    ></el-table-column>
+      <el-table-column prop="shifu"           label="实付金额"    ></el-table-column>
       <el-table-column prop="provinceName"    label="省份"        ></el-table-column>
       <el-table-column prop="cityName"        label="城市"        ></el-table-column>
       <el-table-column prop="regionName"      label="地区"        ></el-table-column>
       <el-table-column prop="address"         label="地址"        ></el-table-column>
-      <el-table-column prop=""                label="收件人姓名"  ></el-table-column>
-      <el-table-column prop=""                label="收件人手机号"></el-table-column>
+      <el-table-column prop="consigneeMobile" label="收件人姓名"  ></el-table-column>
+      <el-table-column prop="consigneeName"   label="收件人手机号"></el-table-column>
       <el-table-column prop="createdAt"       label="创建时间"    ></el-table-column>
       <el-table-column prop="tradeStatus"     label="订单状态"    ></el-table-column>
-      <el-table-column prop=""                label="支付方式"    ></el-table-column>
+      <el-table-column prop="payWay"          label="支付方式"    ></el-table-column>
     </el-table>
   </div>
 </template>

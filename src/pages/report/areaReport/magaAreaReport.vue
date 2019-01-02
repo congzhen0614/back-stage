@@ -74,7 +74,7 @@
       <el-table-column prop="name"                label="杂志名称"></el-table-column>
       <el-table-column prop="quantity"            label="数量"    ></el-table-column>
       <el-table-column prop="fee"                 label="价格"    ></el-table-column>
-      <el-table-column prop=""                    label="码洋"    ></el-table-column>
+      <el-table-column prop="totalprice"          label="码洋"    ></el-table-column>
       <el-table-column prop="deliveryFeeMagazine" label="运费"    ></el-table-column>
       <el-table-column prop="provinceName"        label="省份"    ></el-table-column>
       <el-table-column prop="cityName"            label="城市"    ></el-table-column>
@@ -84,12 +84,12 @@
       <el-table-column prop="className"           label="班级"    ></el-table-column>
       <el-table-column prop="childName"           label="孩子姓名"      ></el-table-column>
       <el-table-column prop="address"             label="地址"          ></el-table-column>
-      <el-table-column prop=""                    label="收件人姓名"    ></el-table-column>
-      <el-table-column prop=""                    label="收件人手机号"  ></el-table-column>
+      <el-table-column prop="consigneeName"       label="收件人姓名"    ></el-table-column>
+      <el-table-column prop="consigneeMobile"     label="收件人手机号"  ></el-table-column>
       <el-table-column prop="no"                  label="订单号"        ></el-table-column>
       <el-table-column prop="createdAt"           label="创建时间" ></el-table-column>
       <el-table-column prop="tradeStatus"         label="订单状态" ></el-table-column>
-      <el-table-column prop=""                    label="支付方式" ></el-table-column>
+      <el-table-column prop="payway"              label="支付方式" ></el-table-column>
     </el-table>
     <!--<el-pagination-->
       <!--@size-change="handleSizeChange"-->
@@ -287,6 +287,10 @@ export default {
       })
     },
     areaReportExport () {
+      if (this.params.startDate === '' && this.params.endDate === '') {
+        this.$message.error('时间范围不能为空!')
+        return false
+      }
       if (new Date(this.params.startDate).getTime() > new Date(this.params.endDate).getTime()) {
         this.$message.error('开始时间不能在结束时间之后!')
         return false
@@ -303,6 +307,10 @@ export default {
       // }
     },
     areaReportExportByAdmin () {
+      if (this.params.startDate === '' && this.params.endDate === '') {
+        this.$message.error('时间范围不能为空!')
+        return false
+      }
       if (new Date(this.params.startDate).getTime() > new Date(this.params.endDate).getTime()) {
         this.$message.error('开始时间不能在结束时间之后!')
         return false
