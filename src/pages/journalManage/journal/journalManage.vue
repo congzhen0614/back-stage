@@ -75,16 +75,16 @@
         tooltip-effect="dark"
         :height="windowHeight"
         @selection-change="handleSelectionChange">
-        <el-table-column type="selection" width="50" ></el-table-column>
+        <el-table-column type="selection" width="35" ></el-table-column>
         <el-table-column prop="name"       label="名称"    sortable min-width="150" show-overflow-tooltip></el-table-column>
-        <el-table-column prop="issn"       label="刊号"             min-width="150"></el-table-column>
-        <el-table-column                   label="封面图"  width="60">
+        <el-table-column prop="issn"       label="刊号"             width="100"></el-table-column>
+        <el-table-column                   label="封面图"  width="80">
           <template slot-scope="scope">
             <img :src="scope.row.logo" width="100%">
           </template>
         </el-table-column>
         <el-table-column prop="typeName"   label="类别"    width="100"></el-table-column>
-        <el-table-column prop="ageName"    label="年级"    min-width="250" show-overflow-tooltip></el-table-column>
+        <el-table-column prop="ageName"    label="年级"    width="150" show-overflow-tooltip></el-table-column>
         <el-table-column prop="fee"        label="价格"    width="100"  sortable></el-table-column>
         <el-table-column prop="feeUnitNum" label="单位"    width="100" >
           <template slot-scope="scope">
@@ -93,14 +93,14 @@
             <span>{{ scope.row.feeUnitName }}</span>
           </template>
         </el-table-column>
-        <el-table-column prop="giftName"   label="礼品"      min-width="250" show-overflow-tooltip></el-table-column>
-        <el-table-column prop="isSale"     label="是否上架"  width="100" >
+        <el-table-column prop="giftName"   label="礼品"      min-width="200" show-overflow-tooltip></el-table-column>
+        <el-table-column prop="isSale"     label="是否上架"  width="70" >
           <template slot-scope="scope">
             <span v-if="scope.row.isSale === 1">是</span>
             <span v-if="scope.row.isSale === 0">否</span>
           </template>
         </el-table-column>
-        <el-table-column prop="createdAt"  label="创建日期"  width="200" sortable>
+        <el-table-column prop="createdAt"  label="创建日期"  width="150" sortable>
           <template slot-scope="scope">
             <span>{{ scope.row.createdAt | timeFormat }}</span>
           </template>

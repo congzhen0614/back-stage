@@ -13,14 +13,13 @@
       </el-row>
     </header>
     <el-table border size="mini" :data="tableList" :height="windowHeight" @selection-change="handleSelectionChange">
-      <el-table-column type="selection" width="50" ></el-table-column>
+      <el-table-column type="selection" width="35" ></el-table-column>
       <el-table-column type="index" label="序号"  width="55" ></el-table-column>
       <el-table-column prop="title" label="名称" min-width="200"></el-table-column>
-      <el-table-column prop="qrurl" label="URL地址" min-width="350"></el-table-column>
-      <el-table-column prop="remark" label="备注"  width="250"></el-table-column>
+      <el-table-column prop="qrurl" label="URL地址" min-width="200" show-overflow-tooltip></el-table-column>
+      <el-table-column prop="remark" label="备注"  width="200" show-overflow-tooltip></el-table-column>
       <el-table-column prop="qrimg" label="二维码"  width="80">
         <template slot-scope="scope">
-          <!--<img :src="scope.row.qrimg" width="100%"/>-->
           <el-popover trigger="hover" placement="left">
             <img :src="scope.row.qrimg" width="100%"/>
             <div slot="reference" class="name-wrapper">

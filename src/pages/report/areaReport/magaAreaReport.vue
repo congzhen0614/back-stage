@@ -386,7 +386,7 @@ export default {
     },
     'search.startDate' (val) {
       if (val === null) {
-        this.search.selectDate = ''
+        this.search.startDate = ''
       }
     },
     'search.endDate' (val) {

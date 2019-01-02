@@ -118,14 +118,14 @@
       </el-form>
     </el-header>
     <el-table border size="mini" :data="tableData" style="width: 100%" :height="showAll ? showWindowHeight : hideWindowHeight">
-      <el-table-column type="selection" width="45" ></el-table-column>
-      <el-table-column prop="no"         label="订单号"  width="200" ></el-table-column>
+      <el-table-column type="selection" width="35" ></el-table-column>
+      <el-table-column prop="no"         label="订单号"  width="170" ></el-table-column>
       <el-table-column prop="tradeDetailViewList" label="订单明细" min-width="200" >
         <template slot-scope="scope">
           <p class="detail-list" v-for="item in scope.row.tradeDetailViewList" :key="item.id">{{item.name}} (类型:{{item.clsName}},数量:{{item.quantity}})</p>
         </template>
       </el-table-column>
-      <el-table-column prop="receivables"   label="订单总额" width="100" ></el-table-column>
+      <el-table-column prop="receivables"   label="订单总额" width="80" ></el-table-column>
       <el-table-column prop="user"       label="下单人"   width="170" ></el-table-column>
       <el-table-column label="联系电话" width="150" >
         <template slot-scope="scope">
@@ -133,13 +133,13 @@
           <p v-if="scope.row.consigneeMobile">图书：{{ scope.row.consigneeMobile }}</p>
         </template>
       </el-table-column>
-      <el-table-column prop="createdAt"  label="下单时间" width="200" >
+      <el-table-column prop="createdAt"  label="下单时间" width="150" >
         <template slot-scope="scope">
           <span>{{ scope.row.createdAt | timeFormat }}</span>
         </template>
       </el-table-column>
-      <el-table-column prop="tradeStatusName" label="订单状态" width="120" ></el-table-column>
-      <el-table-column prop="adminName"  label="业务员"   width="120" ></el-table-column>
+      <el-table-column prop="tradeStatusName" label="订单状态" width="80" ></el-table-column>
+      <el-table-column prop="adminName"  label="业务员"   width="100" ></el-table-column>
       <el-table-column fixed="right" label="操作" width="200px" >
         <template slot-scope="scope">
           <el-button @click="onChecke(scope.row)" type="text" size="mini" v-if="havePermission('trade:list')">查看</el-button>
