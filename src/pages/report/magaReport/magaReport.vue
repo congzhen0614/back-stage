@@ -168,7 +168,7 @@ export default {
         if (res.data.code === '0') {
           this.tableData = res.data.data.list
           this.tableData.push({
-            name: '合计',
+            name: '码洋',
             quantity: res.data.data.allTotalQuantity,
             totalFee: res.data.data.allTotalFee
           })

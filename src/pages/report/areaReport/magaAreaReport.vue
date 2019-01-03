@@ -89,7 +89,7 @@
       <el-table-column prop="no"                  label="订单号"        ></el-table-column>
       <el-table-column prop="createdAt"           label="创建时间" ></el-table-column>
       <el-table-column prop="tradeStatus"         label="订单状态" ></el-table-column>
-      <el-table-column prop="payway"              label="支付方式" ></el-table-column>
+      <el-table-column prop="payway"              label="支付方式" v-if="user.roleLevel === 1 || user.roleLevel === 2"></el-table-column>
     </el-table>
     <!--<el-pagination-->
       <!--@size-change="handleSizeChange"-->
@@ -207,8 +207,8 @@ export default {
         if (res.data.code === '0') {
           this.tableData = res.data.data.list
           this.tableData.push({
-            // adminName: '合计',
-            no: '合计',
+            no: res.data.data.totalNo,
+            adminName: '合计',
             fee: res.data.data.allTotalFee,
             quantity: res.data.data.allTotalQuantity
           })

@@ -268,7 +268,7 @@ export default {
       }
     },
     onAddressUpdate (item) {
-      if (item.cls === 1 && item.sendType === '杂志直送') {
+      if (item.cls === 1) {
         this.$router.push({
           path: '/updateChild',
           query: {

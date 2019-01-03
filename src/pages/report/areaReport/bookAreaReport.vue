@@ -71,7 +71,7 @@
       <el-table-column prop="consigneeName"   label="收件人手机号"></el-table-column>
       <el-table-column prop="createdAt"       label="创建时间"    ></el-table-column>
       <el-table-column prop="tradeStatus"     label="订单状态"    ></el-table-column>
-      <el-table-column prop="payWay"          label="支付方式"    ></el-table-column>
+      <el-table-column prop="payWay"          label="支付方式"    v-if="user.roleLevel === 1 || user.roleLevel === 2"></el-table-column>
     </el-table>
   </div>
 </template>
@@ -214,8 +214,9 @@ export default {
           this.tableData.push({
             deliveryFeeBook: res.data.data.totalDeliveryFee,
             mayang: res.data.data.totalmayang,
-            fee: res.data.data.totaltFee,
-            no: '码洋'
+            // fee: res.data.data.totaltFee,
+            no: res.data.data.totalNo,
+            adminName: '合计'
           })
           console.log(this.tableData)
           this.getSpanArr(this.tableData)

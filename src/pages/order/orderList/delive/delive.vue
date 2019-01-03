@@ -105,17 +105,9 @@ export default {
     }
   },
   watch: {
-    'form.sendType' (val) {
-      let shipperCodeMagazine, logisticCodeMagazine
-      if (val === 0) {
-        shipperCodeMagazine = this.form.shipperCodeMagazine
-        logisticCodeMagazine = this.form.logisticCodeMagazine
-        this.form.shipperCodeMagazine = ''
-        this.form.logisticCodeMagazine = ''
-      } else {
-        this.form.shipperCodeMagazine = shipperCodeMagazine
-        this.form.logisticCodeMagazine = logisticCodeMagazine
-      }
+    'form.sendType' () {
+      this.shipperCodeMagazine = ''
+      this.logisticCodeMagazine = ''
     }
   }
 }

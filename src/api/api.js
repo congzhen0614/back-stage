@@ -373,5 +373,9 @@ export default {
   },
   itempackDetail (id) {
     return axios.get(`/qrzd/itempack/detail/${id}`)
+  },
+  allbyadminCheck (params) {
+    let param = qs.stringify(params)
+    return axios.get(`/qrzd/trade/report/school/export/allbyadmin/check?${param}`)
   }
 }

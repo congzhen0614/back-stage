@@ -334,9 +334,21 @@ export default {
         if (new Date(this.params.startDate).getTime() > new Date(this.params.endDate).getTime()) {
           this.$message.error('开始时间不能在结束时间之后!')
         } else {
-          let param = qs.stringify(this.params)
-          let _url = '/qrzd/trade/report/school/export/allbyadmin'
-          window.location.href = window.location.protocol + '//' + window.location.host + _url + '?' + param
+          this.$axios.allbyadminCheck(this.params).then(res => {
+            if (res.data.code === '0') {
+              if (res.data.data.has) {
+                let param = qs.stringify(this.params)
+                let _url = '/qrzd/trade/report/school/export/allbyadmin'
+                window.location.href = window.location.protocol + '//' + window.location.host + _url + '?' + param
+              } else {
+                this.$message.warning('暂无数据')
+              }
+            } else {
+              this.$message.error(res.data.msg)
+            }
+          }, err => {
+            this.$message.error(err)
+          })
         }
       }
     }
