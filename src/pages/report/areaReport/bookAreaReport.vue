@@ -57,7 +57,7 @@
       <el-table-column prop="quantity"        label="数量"        ></el-table-column>
       <el-table-column prop="fee"             label="售价"        ></el-table-column>
       <el-table-column prop="deliveryFeeBook" label="运费"        ></el-table-column>
-      <el-table-column prop="mayang"          label="订单金额"    ></el-table-column>
+      <el-table-column prop="tfee"            label="订单金额"    ></el-table-column>
       <el-table-column prop="jifen"           label="积分优惠"    ></el-table-column>
       <el-table-column prop="zhekou"          label="折扣优惠"    ></el-table-column>
       <el-table-column prop="kaquan"          label="卡券优惠"    ></el-table-column>
@@ -67,8 +67,8 @@
       <el-table-column prop="cityName"        label="城市"        ></el-table-column>
       <el-table-column prop="regionName"      label="地区"        ></el-table-column>
       <el-table-column prop="address"         label="地址"        ></el-table-column>
-      <el-table-column prop="consigneeMobile" label="收件人姓名"  ></el-table-column>
-      <el-table-column prop="consigneeName"   label="收件人手机号"></el-table-column>
+      <el-table-column prop="consigneeName"   label="收件人姓名"  ></el-table-column>
+      <el-table-column prop="consigneeMobile" label="收件人手机号"></el-table-column>
       <el-table-column prop="createdAt"       label="创建时间"    ></el-table-column>
       <el-table-column prop="tradeStatus"     label="订单状态"    ></el-table-column>
       <el-table-column prop="payWay"          label="支付方式"    v-if="user.roleLevel === 1 || user.roleLevel === 2"></el-table-column>
@@ -219,9 +219,10 @@ export default {
           })
           this.tableData.push({
             deliveryFeeBook: res.data.data.totalDeliveryFee,
+            quantity: res.data.data.totalQuantity,
             mayang: res.data.data.totalmayang,
             shifu: res.data.data.totalShifu,
-            // fee: res.data.data.totaltFee,
+            tfee: res.data.data.totaltFee,
             no: res.data.data.totalNo,
             adminName: '合计'
           })
