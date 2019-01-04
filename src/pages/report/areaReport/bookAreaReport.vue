@@ -198,6 +198,12 @@ export default {
                 no: item.no,
                 provinceName: item.provinceName,
                 regionName: item.regionName,
+                shifu: item.shifu,
+                manjian: item.manjian,
+                kaquan: item.kaquan,
+                zhekou: item.zhekou,
+                jifen: item.jifen,
+                payWay: item.payWay,
                 tfee: item.tfee,
                 fee: list.fee,
                 issn: list.issn,
@@ -214,6 +220,7 @@ export default {
           this.tableData.push({
             deliveryFeeBook: res.data.data.totalDeliveryFee,
             mayang: res.data.data.totalmayang,
+            shifu: res.data.data.totalShifu,
             // fee: res.data.data.totaltFee,
             no: res.data.data.totalNo,
             adminName: '合计'

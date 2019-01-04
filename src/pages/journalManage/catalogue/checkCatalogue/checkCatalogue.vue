@@ -57,6 +57,11 @@
               </template>
             </el-table-column>
             <el-table-column prop="giftName" label="礼品" ></el-table-column>
+            <el-table-column label="添加时间" >
+              <template slot-scope="scope">
+                <span>{{ scope.row.createdAt | timeFormat }}</span>
+              </template>
+            </el-table-column>
           </el-table>
         </el-tab-pane>
         <el-tab-pane label="图书" v-if="bookIds.length > 0">

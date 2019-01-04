@@ -207,10 +207,12 @@ export default {
         if (res.data.code === '0') {
           this.tableData = res.data.data.list
           this.tableData.push({
-            no: res.data.data.totalNo,
             adminName: '合计',
+            no: res.data.data.totalNo,
             fee: res.data.data.allTotalFee,
-            quantity: res.data.data.allTotalQuantity
+            totalprice: res.data.data.allTotalPrice,
+            quantity: res.data.data.allTotalQuantity,
+            deliveryFeeMagazine: res.data.data.postage
           })
         } else {
           this.$message.error(res.data.msg)
